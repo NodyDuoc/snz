@@ -6,7 +6,7 @@ import { HomeComponent } from './component/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'menu',
     pathMatch: 'full'
   },
   {
