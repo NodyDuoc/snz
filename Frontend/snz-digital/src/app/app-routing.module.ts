@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './component/login/login.component';
+import { HomeComponent } from './component/home/home.component';
 
 const routes: Routes = [
   {
@@ -13,8 +15,12 @@ const routes: Routes = [
   },
   {
     path: 'menu',
-    loadChildren: () => import('./component/menu/menu.module').then( m => m.MenuPageModule)
-  }
+    component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
 ];
 
 @NgModule({
