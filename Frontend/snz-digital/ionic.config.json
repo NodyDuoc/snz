@@ -1,0 +1,7 @@
+{
+  "name": "snz-digital",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
