@@ -9,7 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { RegistroModule } from './Componet/registro.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { register } from 'swiper/element/bundle';
+register();
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
