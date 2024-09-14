@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { RegistroComponent } from './Componet/registro/registro.component';
 import { LoginComponent } from './Componet/login/login.component';
+import { InicioComponent } from './Componet/inicio/inicio.component';
 import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
@@ -19,12 +20,16 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
+    path:'inicio',
+    component:InicioComponent
+  },
+  {
     path:'editar-usuario',
     component:EditarUsuarioComponent
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
 ];

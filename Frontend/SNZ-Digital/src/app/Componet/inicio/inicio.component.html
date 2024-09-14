@@ -1,0 +1,68 @@
+<ion-header style="background-color: purple;">
+  <ion-toolbar >
+    <!-- Menú botón a la izquierda -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <!-- Logo a la izquierda -->
+    <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
+
+    <!-- Barra de búsqueda -->
+    <ion-searchbar style="flex: 1;"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- Grid para productos centrados -->
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <!-- Producto 1 -->
+      <ion-col size="auto">
+        <div class="product-card">
+          <div class="product-image">
+            <ion-img src="assets/icon/favicon.png"></ion-img>
+          </div>
+          <h2>Producto 1</h2>
+          <p>$100</p>
+        </div>
+      </ion-col>
+
+      <!-- Producto 2 -->
+      <ion-col size="auto">
+        <div class="product-card">
+          <div class="product-image">
+            <ion-img src="assets/icon/favicon.png"></ion-img>
+          </div>
+          <h2>Producto 2</h2>
+          <p>$150</p>
+        </div>
+      </ion-col>
+
+      <!-- Producto 3 -->
+      <ion-col size="auto">
+        <div class="product-card">
+          <div class="product-image">
+            <ion-img src="assets/icon/favicon.png"></ion-img>
+          </div>
+          <h2>Producto 3</h2>
+          <p>$200</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Segunda fila con más productos -->
+    <ion-row class="ion-justify-content-center">
+      <!-- Producto 4 -->
+      <ion-col size="auto">
+        <div class="product-card">
+          <div class="product-image">
+            <ion-img src="assets/icon/favicon.png"></ion-img>
+          </div>
+          <h2>Producto 4</h2>
+          <p>$250</p>
+        </div>
+      </ion-col>
+      <!-- Puedes agregar más productos -->
+    </ion-row>
+  </ion-grid>
+</ion-content>
