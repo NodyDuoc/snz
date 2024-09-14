@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { RegistroComponent } from './Componet/registro/registro.component';
 import { LoginComponent } from './Componet/login/login.component';
+import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,10 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent
-
-
+  },
+  {
+    path:'editar-usuario',
+    component:EditarUsuarioComponent
   },
   {
     path: '',
