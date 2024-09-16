@@ -43,7 +43,7 @@ const routes: Routes = [
     path:'categoria',
     component:CategoriaComponent
   },{
-    path:'editar-Clave',
+    path:'editar-clave',
     component:EditarClaveComponent
   },{
     path:'perfil',
