@@ -1,3 +1,43 @@
-<p>
-  perfil works!
-</p>
+<ion-header style="background-color: purple;">
+  <ion-toolbar>
+    <!-- Menú botón a la izquierda -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <!-- Logo a la izquierda -->
+    <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
+
+    <!-- Barra de búsqueda -->
+    <ion-searchbar style="flex: 1;"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Contenedor de información del usuario centrada -->
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
+      <ion-col size="auto">
+        <div class="user-info-card" style="text-align: center;">
+          <h2>Nombre del Usuario</h2>
+          <p>Email: usuariogmail.com</p>
+          <p>Teléfono: +123456789</p>
+          <p>Dirección: Calle Falsa 123</p>
+
+          <!-- Botones de acciones -->
+          <ion-button expand="block" color="primary" style="margin-top: 20px;" routerLink="/editar-usuario">
+            Cambiar datos del usuario
+          </ion-button>
+
+          <ion-button expand="block" color="primary" routerLink="/editar-clave">
+            Cambiar contraseña
+          </ion-button>
+
+          <ion-button expand="block" color="primary">
+            Gestionar direcciones
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -11,15 +11,16 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { EditarClaveComponent } from './editar-clave/editar-clave.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProductoComponent } from './producto/producto.component';
+import { DireccionComponent } from './direccion/direccion.component';
 
 @NgModule({
-  declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent],
+  declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent],
   imports: [
     CommonModule,
     IonicModule, // Importa IonicModule
     FormsModule, // Importa FormsModule
     ReactiveFormsModule // Importa ReactiveFormsModule
   ],
-  exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent]  // Exportar si deseas usarlo fuera de este módulo
+  exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent]  // Exportar si deseas usarlo fuera de este módulo
 })
 export class RegistroModule { }

@@ -8,6 +8,8 @@ import { CategoriaComponent } from './Componet/categoria/categoria.component';
 import { EditarClaveComponent } from './Componet/editar-clave/editar-clave.component';
 import { PerfilComponent } from './Componet/perfil/perfil.component';
 import { ProductoComponent } from './Componet/producto/producto.component';
+import { DireccionComponent } from './Componet/direccion/direccion.component';
+
 
 
 
@@ -51,6 +53,9 @@ const routes: Routes = [
   },{
     path:'producto',
     component:ProductoComponent
+  },{
+    path:'direccion',
+    component:DireccionComponent
   },
   {
     path: '',
