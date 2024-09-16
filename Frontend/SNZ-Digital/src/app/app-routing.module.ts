@@ -3,6 +3,15 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { RegistroComponent } from './Componet/registro/registro.component';
 import { LoginComponent } from './Componet/login/login.component';
 import { InicioComponent } from './Componet/inicio/inicio.component';
+import { CatalogoComponent } from './Componet/catalogo/catalogo.component';
+import { CategoriaComponent } from './Componet/categoria/categoria.component';
+import { EditarClaveComponent } from './Componet/editar-clave/editar-clave.component';
+import { PerfilComponent } from './Componet/perfil/perfil.component';
+import { ProductoComponent } from './Componet/producto/producto.component';
+
+
+
+
 import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
@@ -26,6 +35,22 @@ const routes: Routes = [
   {
     path:'editar-usuario',
     component:EditarUsuarioComponent
+  },
+  {
+    path:'catalogo',
+    component:CatalogoComponent
+  },{
+    path:'categoria',
+    component:CategoriaComponent
+  },{
+    path:'editar-Clave',
+    component:EditarClaveComponent
+  },{
+    path:'perfil',
+    component:PerfilComponent
+  },{
+    path:'producto',
+    component:ProductoComponent
   },
   {
     path: '',
