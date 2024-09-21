@@ -1,5 +1,5 @@
-<ion-header style="background-color: purple;">
-  <ion-toolbar >
+<ion-header class="header-custom">
+  <ion-toolbar>
     <!-- Menú botón a la izquierda -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,61 +8,115 @@
     <!-- Logo a la izquierda -->
     <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
 
-    <!-- Barra de búsqueda -->
-    <ion-searchbar style="flex: 1;"></ion-searchbar>
+    <!-- Barra de búsqueda en el centro -->
+    <ion-searchbar class="searchbar-custom"></ion-searchbar>
+
+    <!-- Botón de iniciar sesión a la derecha -->
+    <ion-buttons slot="end">
+      <ion-button color="primary" routerLink="/login">Iniciar sesión</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <!-- Grid para productos centrados -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <!-- Producto 1 -->
-      <ion-col size="auto">
-        <div class="product-card">
-          <div class="product-image">
-            <ion-img src="assets/icon/favicon.png"></ion-img>
-          </div>
-          <h2>Producto 1</h2>
-          <p>$100</p>
-        </div>
-      </ion-col>
 
-      <!-- Producto 2 -->
-      <ion-col size="auto">
-        <div class="product-card">
-          <div class="product-image">
-            <ion-img src="assets/icon/favicon.png"></ion-img>
-          </div>
-          <h2>Producto 2</h2>
-          <p>$150</p>
-        </div>
-      </ion-col>
+  <!-- Categorías pequeñas -->
+  <div class="category-list">
+    <ion-list class="ion-padding-horizontal">
+      <ion-item>Computación</ion-item>
+      <ion-item>Celulares</ion-item>
+      <ion-item>Accesorios</ion-item>
+      <ion-item>Audio</ion-item>
+      <ion-item>Electrónica</ion-item>
+    </ion-list>
+  </div>
 
-      <!-- Producto 3 -->
-      <ion-col size="auto">
-        <div class="product-card">
-          <div class="product-image">
-            <ion-img src="assets/icon/favicon.png"></ion-img>
-          </div>
-          <h2>Producto 3</h2>
-          <p>$200</p>
-        </div>
-      </ion-col>
-    </ion-row>
+  <!-- Carrusel de productos destacados -->
+  <ion-slides class="featured-carousel" pager="true" autoplay="true" loop="true">
+    <ion-slide>
+      <img src="assets/img/producto_destacado_1.jpg" alt="Producto Destacado 1">
+      <h2>Producto Destacado 1</h2>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/producto_destacado_2.jpg" alt="Producto Destacado 2">
+      <h2>Producto Destacado 2</h2>
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/img/producto_destacado_3.jpg" alt="Producto Destacado 3">
+      <h2>Producto Destacado 3</h2>
+    </ion-slide>
+  </ion-slides>
 
-    <!-- Segunda fila con más productos -->
-    <ion-row class="ion-justify-content-center">
-      <!-- Producto 4 -->
-      <ion-col size="auto">
-        <div class="product-card">
-          <div class="product-image">
-            <ion-img src="assets/icon/favicon.png"></ion-img>
-          </div>
-          <h2>Producto 4</h2>
-          <p>$250</p>
-        </div>
-      </ion-col>
-      <!-- Puedes agregar más productos -->
-    </ion-row>
-  </ion-grid>
+  <!-- Sección de productos de una categoría -->
+  <div class="category-section">
+    <h2>Categoría: Electrónica</h2>
+
+    <!-- Fila deslizable de productos -->
+    <ion-scroll scroll-x="true" class="product-row">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="auto">
+            <ion-card>
+              <ion-img src="assets/img/producto1.jpg"></ion-img>
+              <ion-card-header>
+                <ion-card-title>Producto 1</ion-card-title>
+                <p>$100</p>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-card>
+              <ion-img src="assets/img/producto2.jpg"></ion-img>
+              <ion-card-header>
+                <ion-card-title>Producto 2</ion-card-title>
+                <p>$150</p>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-card>
+              <ion-img src="assets/img/producto3.jpg"></ion-img>
+              <ion-card-header>
+                <ion-card-title>Producto 3</ion-card-title>
+                <p>$200</p>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-card>
+              <ion-img src="assets/img/producto4.jpg"></ion-img>
+              <ion-card-header>
+                <ion-card-title>Producto 4</ion-card-title>
+                <p>$250</p>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-scroll>
+  </div>
+
+  <!-- Footer -->
+  <ion-footer class="ion-padding">
+    <ion-toolbar>
+      <ion-title>Contacto</ion-title>
+      <p>Email: contacto&#64;tienda.com</p>
+      <p>Teléfono: +123 456 7890</p>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-title>Redes Sociales</ion-title>
+      <ion-buttons slot="start">
+        <ion-button href="https://facebook.com" color="primary">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-button>
+        <ion-button href="https://instagram.com" color="primary">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </ion-button>
+        <ion-button href="https://twitter.com" color="primary">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>

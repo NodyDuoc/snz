@@ -1,4 +1,4 @@
-<ion-header style="background-color: purple;">
+<ion-header class="header-custom">
   <ion-toolbar>
     <!-- Menú botón a la izquierda -->
     <ion-buttons slot="start">
@@ -9,7 +9,7 @@
     <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
 
     <!-- Barra de búsqueda -->
-    <ion-searchbar style="flex: 1;"></ion-searchbar>
+    <ion-searchbar class="search-bar"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -17,23 +17,24 @@
   <!-- Contenedor de información del usuario centrada -->
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
-      <ion-col size="auto">
-        <div class="user-info-card" style="text-align: center;">
-          <h2>Nombre del Usuario</h2>
-          <p>Email: usuariogmail.com</p>
-          <p>Teléfono: +123456789</p>
-          <p>Dirección: Calle Falsa 123</p>
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div class="user-info-card">
+          <h2 class="user-name">Nombre del Usuario</h2>
+          <p class="user-detail">Email: usuario&#64;gmail.com</p>
+
+          <p class="user-detail">Teléfono: +123456789</p>
+          <p class="user-detail">Dirección: Calle Falsa 123</p>
 
           <!-- Botones de acciones -->
-          <ion-button expand="block" color="primary" style="margin-top: 20px;" routerLink="/editar-usuario">
+          <ion-button expand="block" color="primary" class="action-button" routerLink="/editar-usuario">
             Cambiar datos del usuario
           </ion-button>
 
-          <ion-button expand="block" color="primary" routerLink="/editar-clave">
+          <ion-button expand="block" color="primary" class="action-button" routerLink="/editar-clave">
             Cambiar contraseña
           </ion-button>
 
-          <ion-button expand="block" color="primary">
+          <ion-button expand="block" color="primary" class="action-button">
             Gestionar direcciones
           </ion-button>
         </div>

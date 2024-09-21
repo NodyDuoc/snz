@@ -9,11 +9,6 @@ import { EditarClaveComponent } from './Componet/editar-clave/editar-clave.compo
 import { PerfilComponent } from './Componet/perfil/perfil.component';
 import { ProductoComponent } from './Componet/producto/producto.component';
 import { DireccionComponent } from './Componet/direccion/direccion.component';
-
-
-
-
-
 import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
 
 const routes: Routes = [

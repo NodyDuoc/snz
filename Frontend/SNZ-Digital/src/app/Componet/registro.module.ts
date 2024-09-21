@@ -12,6 +12,8 @@ import { EditarClaveComponent } from './editar-clave/editar-clave.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProductoComponent } from './producto/producto.component';
 import { DireccionComponent } from './direccion/direccion.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // Para soportar componentes no conocidos
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent],
@@ -19,8 +21,10 @@ import { DireccionComponent } from './direccion/direccion.component';
     CommonModule,
     IonicModule, // Importa IonicModule
     FormsModule, // Importa FormsModule
+    AppRoutingModule,
     ReactiveFormsModule // Importa ReactiveFormsModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent]  // Exportar si deseas usarlo fuera de este módulo
 })
 export class RegistroModule { }
