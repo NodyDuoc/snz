@@ -3,6 +3,15 @@ $secondary-color: #f4f4f4;
 $card-bg-color: #fff;
 $text-color: #333;
 
+.hover-item {
+  transition: background-color 0.2s ease; /* Transición suave */
+}
+
+.hover-item:hover {
+  background-color: $primary-color; /* Color celeste */
+}
+
+
 .header-custom {
   background-color: $primary-color;
   color: white;

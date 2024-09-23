@@ -11,4 +11,11 @@ export class CategoriaComponent  implements OnInit {
 
   ngOnInit() {}
 
+    // Función para hacer scroll suave a la sección con el id proporcionado
+    scrollToSection(sectionId: string) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
 }
