@@ -22,14 +22,29 @@
 
   <!-- Categorías pequeñas -->
   <div class="category-list">
-    <ion-list class="ion-padding-horizontal">
-      <ion-item>Computación</ion-item>
-      <ion-item>Celulares</ion-item>
-      <ion-item>Accesorios</ion-item>
-      <ion-item>Audio</ion-item>
-      <ion-item>Electrónica</ion-item>
-    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto" class="hover-item">
+          <ion-item>Computación</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item">
+          <ion-item>Celulares</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item">
+          <ion-item>Accesorios</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item">
+          <ion-item>Audio</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-electronica')">
+          <ion-item>Electrónica</ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
+  
+
+  
 
   <!-- Carrusel de productos destacados -->
   <ion-slides class="featured-carousel" pager="true" autoplay="true" loop="true">
@@ -49,7 +64,7 @@
 
   <!-- Sección de productos de una categoría -->
   <div class="category-section">
-    <h2>Categoría: Electrónica</h2>
+    <h2 id="categoria-electronica">Categoría: Electrónica</h2>
 
     <!-- Fila deslizable de productos -->
     <ion-scroll scroll-x="true" class="product-row">
