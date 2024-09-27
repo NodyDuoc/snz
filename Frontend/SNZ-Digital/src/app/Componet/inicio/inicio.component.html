@@ -46,21 +46,38 @@
 
   
 
-  <!-- Carrusel de productos destacados -->
-  <ion-slides class="featured-carousel" pager="true" autoplay="true" loop="true">
-    <ion-slide>
-      <img src="assets/img/producto_destacado_1.jpg" alt="Producto Destacado 1">
-      <h2>Producto Destacado 1</h2>
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/producto_destacado_2.jpg" alt="Producto Destacado 2">
-      <h2>Producto Destacado 2</h2>
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/producto_destacado_3.jpg" alt="Producto Destacado 3">
-      <h2>Producto Destacado 3</h2>
-    </ion-slide>
-  </ion-slides>
+ <!-- Sección de productos destacados en una fila -->
+<ion-grid>
+  <ion-row>
+    <ion-col size="auto">
+      <ion-card>
+        <img class="destacado" src="assets/img/producto_destacado_1.jpg" alt="Producto Destacado 1">
+        <ion-card-header>
+          <ion-card-title>Producto Destacado 1</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-card>
+        <img class="destacado" src="assets/img/producto_destacado_2.jpg" alt="Producto Destacado 2">
+        <ion-card-header>
+          <ion-card-title>Producto Destacado 2</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-card>
+        <img class="destacado" src="assets/img/producto_destacado_3.jpg" alt="Producto Destacado 3">
+        <ion-card-header>
+          <ion-card-title>Producto Destacado 3</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
 
   <!-- Sección de productos de una categoría -->
   <div class="category-section">
