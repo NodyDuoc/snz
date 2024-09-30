@@ -11,6 +11,11 @@ $text-color: #333;
   background-color: $primary-color; /* Color celeste */
 }
 
+.destacado {
+  max-width: 100%;    /* Asegura que las imágenes no excedan el tamaño del contenedor */
+  max-height: 250px;  /* Limita la altura para mantenerlas en la misma fila */
+  object-fit: contain; /* Mantiene las proporciones de las imágenes */
+}
 
 .header-custom {
   background-color: $primary-color;

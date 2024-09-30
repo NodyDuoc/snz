@@ -20,348 +20,91 @@
 
 <ion-content>
 
-  <!-- Categorías pequeñas -->
-  <div class="category-list">
+  <!-- Botón de volver a la categoría -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-start">
+        <ion-button color="medium" routerLink="/categoria">Volver a la categoría</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Sección del producto -->
+  <div class="product-section">
     <ion-grid>
       <ion-row>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-computacion')">
-          <ion-item>Computación</ion-item>
+        <!-- Columna de la tarjeta del producto -->
+        <ion-col size="8">
+          <ion-card>
+            <img src="assets\img\producto_destacado_1.jpg" alt="Producto Específico">
+            <ion-card-header>
+              <ion-card-title>Nombre del Producto</ion-card-title>
+              <p>$Precio del Producto</p>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Descripción detallada del producto. Aquí puedes describir las características, especificaciones técnicas, y beneficios.</p>
+            </ion-card-content>
+          </ion-card>
         </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-celulares')">
-          <ion-item>Celulares</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-accesorios')">
-          <ion-item>Accesorios</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-audio')">
-          <ion-item>Audio</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-electronica')">
-          <ion-item>Electrónica</ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-  
 
-  
-
-  <!-- Carrusel de productos destacados -->
-  <ion-slides class="featured-carousel" pager="true" autoplay="true" loop="true">
-    <ion-slide>
-      <img src="assets/img/producto_destacado_1.jpg" alt="Producto Destacado 1">
-      <h2>Producto Destacado 1</h2>
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/producto_destacado_2.jpg" alt="Producto Destacado 2">
-      <h2>Producto Destacado 2</h2>
-    </ion-slide>
-    <ion-slide>
-      <img src="assets/img/producto_destacado_3.jpg" alt="Producto Destacado 3">
-      <h2>Producto Destacado 3</h2>
-    </ion-slide>
-  </ion-slides>
-
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-computacion">Categoría: Computación</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    
-
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
+        <!-- Columna del precio y botones -->
+        <ion-col size="4">
+          <div class="price-buttons-section">
             <ion-card>
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
               <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
+                <ion-card-title>Precio: $Precio del Producto</ion-card-title>
               </ion-card-header>
             </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
 
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-celulares">Categoría: Celulares</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
+            <!-- Botones de agregar al carrito y comprar directamente -->
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <ion-button color="success" expand="block">Agregar al carrito</ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <ion-button color="primary" expand="block">Comprar ahora</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
-
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
+    <!-- Sección de comentarios -->
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <h2 id="categoria-accesorios">Categoría: Accesorios</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
+        <ion-col size="12">
+          <h3>Comentarios</h3>
+          <ion-list>
+            <!-- Comentario 1 -->
+            <ion-item>
+              <ion-label>
+                <h2>Usuario 1</h2>
+                <p>Este producto es excelente, me encanta la calidad.</p>
+              </ion-label>
+            </ion-item>
+
+            <!-- Comentario 2 -->
+            <ion-item>
+              <ion-label>
+                <h2>Usuario 2</h2>
+                <p>Buena relación calidad/precio.</p>
+              </ion-label>
+            </ion-item>
+
+            <!-- Campo para añadir un nuevo comentario -->
+            <ion-item>
+              <ion-input placeholder="Agregar un comentario..."></ion-input>
+              <ion-button color="primary">Enviar</ion-button>
+            </ion-item>
+          </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
-
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-audio">Categoría: Audio</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
-
-
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-electronica">Categoría: Electrónica</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card>
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
   </div>
 
   <!-- Footer -->
