@@ -10,7 +10,8 @@ import { PerfilComponent } from './Componet/perfil/perfil.component';
 import { ProductoComponent } from './Componet/producto/producto.component';
 import { DireccionComponent } from './Componet/direccion/direccion.component';
 import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
-
+import { CarritoComponent } from './Componet/carrito/carrito.component';
+import { PedidosComponent } from './Componet/pedidos/pedidos.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -51,6 +52,12 @@ const routes: Routes = [
   },{
     path:'direccion',
     component:DireccionComponent
+  },{
+    path:'carrito',
+    component:CarritoComponent
+  },{
+    path:'pedido',
+    component:PedidosComponent
   },
   {
     path: '',

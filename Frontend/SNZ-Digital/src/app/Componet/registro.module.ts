@@ -14,9 +14,11 @@ import { ProductoComponent } from './producto/producto.component';
 import { DireccionComponent } from './direccion/direccion.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // Para soportar componentes no conocidos
 import { AppRoutingModule } from '../app-routing.module';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 @NgModule({
-  declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent],
+  declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent,PedidosComponent,CarritoComponent],
   imports: [
     CommonModule,
     IonicModule, // Importa IonicModule
@@ -25,6 +27,6 @@ import { AppRoutingModule } from '../app-routing.module';
     ReactiveFormsModule // Importa ReactiveFormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent]  // Exportar si deseas usarlo fuera de este módulo
+  exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent,PedidosComponent,CarritoComponent]  // Exportar si deseas usarlo fuera de este módulo
 })
 export class RegistroModule { }
