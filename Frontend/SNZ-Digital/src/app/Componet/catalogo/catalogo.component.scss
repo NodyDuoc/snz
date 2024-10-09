@@ -101,14 +101,122 @@ $text-color: #333;
   }
 }
 
-.footer {
-  background-color: $secondary-color;
-  padding: 20px;
-  text-align: center;
-  color: $text-color;
+ion-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que ocupe la altura total de la ventana */
+}
 
-  p {
-    margin: 5px 0;
-    font-size: 14px;
-  }
+ion-footer {
+  margin-top: auto; /* Empuja el footer al final */
+}
+
+
+
+
+//SLIDE
+.promotion-slider {
+  width: 100%;
+  height: auto;
+}
+
+.promotion-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.promotion-left {
+  width: 40%;
+}
+
+.promotion-left h1 {
+  color: #ff0066;
+  font-size: 2rem;
+}
+
+.promotion-left h2 {
+  font-size: 2.5rem;
+  color: #00aaff;
+}
+
+.promotion-left h3 {
+  font-size: 2rem;
+  color: #ff3366;
+}
+
+.discount {
+  color: #ff3366;
+}
+
+.installments {
+  color: #7a00ff;
+  font-weight: bold;
+}
+
+.promotion-right {
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.product {
+  text-align: center;
+  width: 45%;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.discount-badge {
+  background-color: #ff3366;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.price {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.normal-price {
+  font-size: 1.2rem;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.btn-primary {
+  background-color: #7a00ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.btn-primary:hover {
+  background-color: #5a00cc;
+}
+
+.swiper-button-next,.swiper-button-prev {
+  position: absolute;
+  top: var(--swiper-navigation-top-offset,25%);
+  width: calc(var(--swiper-navigation-size)/ 44 * 27);
+  height: var(--swiper-navigation-size);
+  margin-top: calc(0px - (var(--swiper-navigation-size)/ 2));
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swiper-navigation-color,var(--swiper-theme-color))
 }
