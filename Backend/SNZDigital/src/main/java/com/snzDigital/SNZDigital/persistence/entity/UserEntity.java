@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Builder
 @Entity
-@Table(name = "users")
+@Table(name = "usuario")
 public class UserEntity {
     @Id
     @SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQ", allocationSize = 1)
