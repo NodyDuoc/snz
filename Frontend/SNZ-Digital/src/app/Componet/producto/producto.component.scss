@@ -120,6 +120,15 @@ $text-color: #333;
   margin: 0 5px; /* Espaciado entre iconos */
 }
 
+/* Estilo para las imágenes dentro de los ion-card de productos */
+.product-section ion-card img {
+  width: 100%;            /* Ocupa el ancho completo del contenedor */
+  height: 200px;          /* Ajusta la altura fija según tus necesidades */
+  object-fit: contain;      
+  border-radius: 10px;    /* Opcional: añade bordes redondeados */
+}
+
+
 ion-footer ion-toolbar {
   display: flex;
   justify-content: space-around; /* Distribuye las secciones uniformemente */
