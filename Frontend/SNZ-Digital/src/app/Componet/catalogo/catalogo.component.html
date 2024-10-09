@@ -157,26 +157,32 @@
   
 
   <!-- Footer -->
-<ion-footer class="ion-padding">
-  <ion-toolbar>
-    <ion-title>Contacto</ion-title>
-    <p>Email: contacto&#64;tienda.com</p>
-    <p>Teléfono: +123 456 7890</p>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-title>Redes Sociales</ion-title>
-    <ion-buttons slot="start">
-      <ion-button href="https://facebook.com" color="primary">
-        <ion-icon name="logo-facebook"></ion-icon>
-      </ion-button>
-      <ion-button href="https://instagram.com" color="primary">
-        <ion-icon name="logo-instagram"></ion-icon>
-      </ion-button>
-      <ion-button href="https://twitter.com" color="primary">
-        <ion-icon name="logo-twitter"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+  <ion-footer class="footer">
+    <ion-toolbar>
+      <!-- Sección de Contacto -->
+      <div class="footer-section">
+        <ion-title>Contacto</ion-title>
+        <p>Email: contacto&#64;tienda.com</p>
+        <p>Teléfono: +123 456 7890</p>
+      </div>
+      
+      <!-- Sección de Redes Sociales -->
+      <div class="footer-section social-media">
+        <ion-title>Redes Sociales</ion-title>
+        <ion-buttons>
+          <ion-button href="https://facebook.com" color="primary">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button href="https://instagram.com" color="primary">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </ion-button>
+          <ion-button href="https://twitter.com" color="primary">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+  
 
 </ion-content>
