@@ -36,20 +36,37 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .cors(Customizer.withDefaults()) // Activar CORS en Spring Security
-                .csrf(AbstractHttpConfigurer::disable) // Desactivar CSRF si es necesario                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(AbstractHttpConfigurer::disable) // Desactivar CSRF si es necesario
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     // Permitir acceso público al endpoint de inicio de sesión
                     http.requestMatchers(HttpMethod.POST, "/api/users/log-in").permitAll();
-                    // Permitir acceso público al endpoint de registro de usuarios (si existe)
+                    // Permitir acceso público al endpoint de registro de usuarios
                     http.requestMatchers(HttpMethod.POST, "/api/users/create").permitAll();
+
+                    // Endpoints de usuarios
                     http.requestMatchers(HttpMethod.PUT, "/api/users/update/**").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.PUT, "/api/users/deactivate/**").hasAnyRole("ADMINISTRADOR");
-                    http.requestMatchers(HttpMethod.GET, "/api/users/find/**").hasAnyRole("ADMINISTRADOR","EJECUTIVO");
-                    http.requestMatchers(HttpMethod.GET, "/api/users/findById/{id}").hasAnyRole("ADMINISTRADOR","EJECUTIVO");
+                    http.requestMatchers(HttpMethod.GET, "/api/users/find/**").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.GET, "/api/users/findById/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
                     http.requestMatchers(HttpMethod.GET, "/api/users/getAll").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.GET, "/api/users/userAllPaginado").hasAnyRole("ADMINISTRADOR");
 
-                    http.anyRequest().authenticated();
+                    // Endpoints de categorías
+                    http.requestMatchers(HttpMethod.GET, "/api/categorias/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/categorias/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/categorias/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/categorias/update/**").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/categorias/delete/**").hasAnyRole("ADMINISTRADOR");
+
+                    // Endpoints de productos
+                    http.requestMatchers(HttpMethod.GET, "/api/productos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/productos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/productos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/productos/update/**").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/productos/delete/**").hasAnyRole("ADMINISTRADOR");
+
+                    http.anyRequest().authenticated(); // Requiere autenticación para cualquier otra solicitud
                 })
                 .addFilterBefore(new JwtValidation(jwtUtils), BasicAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
