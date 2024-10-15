@@ -1,0 +1,2 @@
+cd C:\Repositorios\snz\frontend\SNZ-digital
+ionic serve

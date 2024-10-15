@@ -66,12 +66,20 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/productos/update/**").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.DELETE, "/api/productos/delete/**").hasAnyRole("ADMINISTRADOR");
 
+                    // Endpoints de direcciones
+                    http.requestMatchers(HttpMethod.GET, "/api/direcciones/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/direcciones/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/direcciones/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/direcciones/update/**").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/direcciones/delete/**").hasAnyRole("ADMINISTRADOR");
+
                     http.anyRequest().authenticated(); // Requiere autenticación para cualquier otra solicitud
                 })
                 .addFilterBefore(new JwtValidation(jwtUtils), BasicAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
