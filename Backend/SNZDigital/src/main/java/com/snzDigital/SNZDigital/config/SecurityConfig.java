@@ -43,7 +43,7 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/users/log-in").permitAll();
                     // Permitir acceso público al endpoint de registro de usuarios
                     http.requestMatchers(HttpMethod.POST, "/api/users/create").permitAll();
-
+                    // Imagenes de productos
                     http.requestMatchers(HttpMethod.GET, "/api/imagenes-productos/getall").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/imagenes-productos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
                     http.requestMatchers(HttpMethod.POST, "/api/imagenes-productos/create").hasAnyRole("ADMINISTRADOR");
