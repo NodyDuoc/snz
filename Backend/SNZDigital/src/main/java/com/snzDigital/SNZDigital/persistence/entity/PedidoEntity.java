@@ -7,24 +7,28 @@ import jakarta.persistence.*;
 public class PedidoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
-    @SequenceGenerator(name = "pedido_seq", sequenceName = "PEDIDO_SEQ", allocationSize = 1)
-    @Column(name = "PEDIDO_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ped_seq")
+    @SequenceGenerator(name = "ped_seq", sequenceName = "PED_SEQ", allocationSize = 1)
+    @Column(name = "PEDIDOID")
     private Long pedidoId;
 
-    @Column(name = "USER_ID", nullable = false)
-    private Long userId; // Relación con usuario
+    @Column(name = "USUARIOS_USERID", nullable = false)
+    private Long usuariosUserId;
 
-    @Column(name = "PRODUCT_ID", nullable = false)
-    private Long productId; // Relación con producto
+    @Column(name = "PRODUCTO_PRODUCTID", nullable = false)
+    private Long productoProductId;
 
-    @Column(name = "CANTIDAD", nullable = false)
-    private Integer cantidad;
+    @Column(name = "COMUNA", length = 40)
+    private String comuna;
 
-    @Column(name = "TOTAL", nullable = false)
-    private Double total;
+    @Column(name = "DIRECCION", length = 40)
+    private String direccion;
+
+    @Column(name = "DETALLE", length = 40)
+    private String detalle;
 
     // Getters y Setters
+
     public Long getPedidoId() {
         return pedidoId;
     }
@@ -33,35 +37,43 @@ public class PedidoEntity {
         this.pedidoId = pedidoId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getUsuariosUserId() {
+        return usuariosUserId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsuariosUserId(Long usuariosUserId) {
+        this.usuariosUserId = usuariosUserId;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getProductoProductId() {
+        return productoProductId;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductoProductId(Long productoProductId) {
+        this.productoProductId = productoProductId;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public String getComuna() {
+        return comuna;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
     }
 
-    public Double getTotal() {
-        return total;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 }

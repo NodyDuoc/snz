@@ -19,17 +19,20 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @GetMapping("/getall")
-    public ResponseEntity<PedidoResponse> getAllPedidos() {
+    public ResponseEntity<List<PedidoEntity>> getAllPedidos() {
         List<PedidoEntity> pedidos = pedidoService.getAllPedidos();
-        return ResponseEntity.ok(new PedidoResponse("Pedidos obtenidos con éxito", HttpStatus.OK.value(), pedidos));
+        return ResponseEntity.ok(pedidos);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<PedidoResponse> getPedidoById(@PathVariable Long id) {
         Optional<PedidoEntity> pedido = pedidoService.getPedidoById(id);
-        return pedido.map(p -> ResponseEntity.ok(new PedidoResponse("Pedido encontrado", HttpStatus.OK.value(), p)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new PedidoResponse("Pedido no encontrado", HttpStatus.NOT_FOUND.value(), null)));
+        if (pedido.isPresent()) {
+            return ResponseEntity.ok(new PedidoResponse("Pedido encontrado", HttpStatus.OK.value(), pedido.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new PedidoResponse("Pedido no encontrado", HttpStatus.NOT_FOUND.value(), null));
+        }
     }
 
     @PostMapping("/create")

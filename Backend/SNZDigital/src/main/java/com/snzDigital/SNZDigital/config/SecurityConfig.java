@@ -44,6 +44,12 @@ public class SecurityConfig {
                     // Permitir acceso público al endpoint de registro de usuarios
                     http.requestMatchers(HttpMethod.POST, "/api/users/create").permitAll();
 
+                    http.requestMatchers(HttpMethod.GET, "/api/imagenes-productos/getall").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/imagenes-productos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/imagenes-productos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/imagenes-productos/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/imagenes-productos/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
                     // Endpoints de usuarios
                     http.requestMatchers(HttpMethod.PUT, "/api/users/update/{id}").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.PUT, "/api/users/deactivate/{id}").hasAnyRole("ADMINISTRADOR");

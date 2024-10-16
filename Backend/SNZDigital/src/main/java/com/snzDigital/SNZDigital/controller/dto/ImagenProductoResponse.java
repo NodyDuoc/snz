@@ -1,12 +1,12 @@
 package com.snzDigital.SNZDigital.controller.dto;
 
-public class PedidoResponse {
+public class ImagenProductoResponse {
 
     private String message;
     private int statusCode;
     private Object data;
 
-    public PedidoResponse(String message, int statusCode, Object data) {
+    public ImagenProductoResponse(String message, int statusCode, Object data) {
         this.message = message;
         this.statusCode = statusCode;
         this.data = data;
