@@ -79,6 +79,14 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/productos/update/{id}").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.DELETE, "/api/productos/delete/{id}").hasAnyRole("ADMINISTRADOR");
 
+                    // Endpoints de valoraciones
+                    http.requestMatchers(HttpMethod.GET, "/api/valoraciones/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/valoraciones/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/valoraciones/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/valoraciones/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/valoraciones/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
+
                     // Endpoints de pedidos
                     http.requestMatchers(HttpMethod.GET, "/api/pedidos/getall").permitAll(); // Permitir acceso público
                     http.requestMatchers(HttpMethod.GET, "/api/pedidos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
