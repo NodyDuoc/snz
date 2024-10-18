@@ -58,6 +58,13 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/api/users/getAll").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.GET, "/api/users/userAllPaginado").hasAnyRole("ADMINISTRADOR");
 
+                    // Endpoints de detalle de pedidos
+                    http.requestMatchers(HttpMethod.GET, "/api/detalle-pedidos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/detalle-pedidos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/detalle-pedidos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/detalle-pedidos/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/detalle-pedidos/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
                     // Endpoints de direcciones
                     http.requestMatchers(HttpMethod.GET, "/api/direcciones/getall").permitAll(); // Permitir acceso público
                     http.requestMatchers(HttpMethod.GET, "/api/direcciones/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
