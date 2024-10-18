@@ -93,6 +93,20 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/valoraciones/update/{id}").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.DELETE, "/api/valoraciones/delete/{id}").hasAnyRole("ADMINISTRADOR");
 
+                    // Endpoints de carritos
+                    http.requestMatchers(HttpMethod.GET, "/api/carritos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/carritos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/carritos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/carritos/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/carritos/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
+                    // Endpoints de detalle de carritos
+                    http.requestMatchers(HttpMethod.GET, "/api/detallecarritos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/detallecarritos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/detallecarritos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/detallecarritos/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/detallecarritos/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
 
                     // Endpoints de pedidos
                     http.requestMatchers(HttpMethod.GET, "/api/pedidos/getall").permitAll(); // Permitir acceso público
