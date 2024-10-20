@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class ProductoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "producto_seq")
-    @SequenceGenerator(name = "producto_seq", sequenceName = "PRODUCTO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROD_SEQ")
+    @SequenceGenerator(name = "PROD_SEQ", sequenceName = "PROD_SEQ", allocationSize = 1)
     @Column(name = "PRODUCTID")
     private Long productId;
 
