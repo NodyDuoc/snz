@@ -1,26 +1,21 @@
 <ion-header class="header-custom">
   <ion-toolbar>
-    <!-- Menú botón a la izquierda -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <!-- Logo a la izquierda -->
     <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
 
-    <!-- Barra de búsqueda en el centro -->
     <ion-searchbar class="searchbar-custom" placeholder="Buscar"></ion-searchbar>
 
-    <!-- Botón de iniciar sesión a la derecha -->
     <ion-buttons slot="end">
       <ion-button color="primary" routerLink="/login">Iniciar sesión</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="selectedProducto">
 
-  <!-- Botón de volver a la categoría -->
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-start">
@@ -29,34 +24,30 @@
     </ion-row>
   </ion-grid>
 
-  <!-- Sección del producto -->
   <div class="product-section">
     <ion-grid>
       <ion-row>
-        <!-- Columna de la tarjeta del producto -->
         <ion-col size="8">
           <ion-card>
-            <img src="assets\img\producto_destacado_1.jpg" alt="Producto Específico">
+            <img [src]="selectedProducto.imagen || 'assets/img/default-product.jpg'" alt="{{ selectedProducto.productName }}">
             <ion-card-header>
-              <ion-card-title>Nombre del Producto</ion-card-title>
-              <p>$Precio del Producto</p>
+              <ion-card-title>{{ selectedProducto.productName }}</ion-card-title>
+              <p>\${{ selectedProducto.precio }}</p>
             </ion-card-header>
             <ion-card-content>
-              <p>Descripción detallada del producto. Aquí puedes describir las características, especificaciones técnicas, y beneficios.</p>
+              <p>{{ selectedProducto.descripcion || 'Descripción no disponible' }}</p>
             </ion-card-content>
           </ion-card>
         </ion-col>
 
-        <!-- Columna del precio y botones -->
         <ion-col size="4">
           <div class="price-buttons-section">
             <ion-card>
               <ion-card-header>
-                <ion-card-title>Precio: $Precio del Producto</ion-card-title>
+                <ion-card-title>Precio: \${{ selectedProducto.precio }}</ion-card-title>
               </ion-card-header>
             </ion-card>
 
-            <!-- Botones de agregar al carrito y comprar directamente -->
             <ion-grid>
               <ion-row>
                 <ion-col size="12" class="ion-text-center">
@@ -74,29 +65,11 @@
       </ion-row>
     </ion-grid>
 
-    <!-- Sección de comentarios -->
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <h3>Comentarios</h3>
           <ion-list>
-            <!-- Comentario 1 -->
-            <ion-item>
-              <ion-label>
-                <h2>Usuario 1</h2>
-                <p>Este producto es excelente, me encanta la calidad.</p>
-              </ion-label>
-            </ion-item>
-
-            <!-- Comentario 2 -->
-            <ion-item>
-              <ion-label>
-                <h2>Usuario 2</h2>
-                <p>Buena relación calidad/precio.</p>
-              </ion-label>
-            </ion-item>
-
-            <!-- Campo para añadir un nuevo comentario -->
             <ion-item>
               <ion-input placeholder="Agregar un comentario..."></ion-input>
               <ion-button color="primary">Enviar</ion-button>
@@ -107,32 +80,29 @@
     </ion-grid>
   </div>
 
-    <!-- Footer -->
-    <ion-footer class="footer">
-      <ion-toolbar>
-        <!-- Sección de Contacto -->
-        <div class="footer-section">
-          <ion-title>Contacto</ion-title>
-          <p>Email: contacto&#64;tienda.com</p>
-          <p>Teléfono: +123 456 7890</p>
-        </div>
-        
-        <!-- Sección de Redes Sociales -->
-        <div class="footer-section social-media">
-          <ion-title>Redes Sociales</ion-title>
-          <ion-buttons>
-            <ion-button href="https://facebook.com" color="primary">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </ion-button>
-            <ion-button href="https://instagram.com" color="primary">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </ion-button>
-            <ion-button href="https://twitter.com" color="primary">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </div>
-      </ion-toolbar>
-    </ion-footer>
+  <ion-footer class="footer">
+    <ion-toolbar>
+      <div class="footer-section">
+        <ion-title>Contacto</ion-title>
+        <p>Email: contacto&#64;tienda.com</p>
+        <p>Teléfono: +123 456 7890</p>
+      </div>
+
+      <div class="footer-section social-media">
+        <ion-title>Redes Sociales</ion-title>
+        <ion-buttons>
+          <ion-button href="https://facebook.com" color="primary">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button href="https://instagram.com" color="primary">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </ion-button>
+          <ion-button href="https://twitter.com" color="primary">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
 
 </ion-content>
