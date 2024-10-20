@@ -107,6 +107,20 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/detallecarritos/update/{id}").hasAnyRole("ADMINISTRADOR");
                     http.requestMatchers(HttpMethod.DELETE, "/api/detallecarritos/delete/{id}").hasAnyRole("ADMINISTRADOR");
 
+                    // Endpoints de movimientos de kardex
+                    http.requestMatchers(HttpMethod.GET, "/api/movimientos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/movimientos/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/movimientos/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/movimientos/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/movimientos/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
+                    // Endpoints de kardex
+                    http.requestMatchers(HttpMethod.GET, "/api/kardex/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/kardex/get/{id}").hasAnyRole("ADMINISTRADOR", "EJECUTIVO");
+                    http.requestMatchers(HttpMethod.POST, "/api/kardex/create").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.PUT, "/api/kardex/update/{id}").hasAnyRole("ADMINISTRADOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/api/kardex/delete/{id}").hasAnyRole("ADMINISTRADOR");
+
 
                     // Endpoints de pedidos
                     http.requestMatchers(HttpMethod.GET, "/api/pedidos/getall").permitAll(); // Permitir acceso público
