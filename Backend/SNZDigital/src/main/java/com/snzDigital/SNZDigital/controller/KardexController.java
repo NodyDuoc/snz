@@ -20,8 +20,8 @@ public class KardexController {
 
     @GetMapping("/getall")
     public ResponseEntity<List<KardexEntity>> getAllKardex() {
-        List<KardexEntity> kardex = kardexService.getAllKardex();
-        return ResponseEntity.ok(kardex);
+        List<KardexEntity> kardexList = kardexService.getAllKardex();
+        return ResponseEntity.ok(kardexList);
     }
 
     @GetMapping("/get/{id}")

@@ -1,6 +1,8 @@
 package com.snzDigital.SNZDigital.persistence.entity;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -21,27 +23,25 @@ public class KardexEntity {
     private String hora;
 
     @Column(name = "ENTRADA")
-    private Integer entrada;
+    private BigDecimal entrada;
 
     @Column(name = "SALIDA")
-    private Integer salida;
+    private BigDecimal salida;
 
     @Column(name = "SALDO")
-    private Integer saldo;
+    private BigDecimal saldo;
 
-    @Column(name = "PRECIOUNITARIO")
-    private Double precioUnitario;
+    @Column(name = "PRECIOUNITARIO", precision = 10, scale = 2)
+    private BigDecimal precioUnitario;
 
-    @Column(name = "PRECIOACTUALIZADO")
-    private Double precioActualizado;
+    @Column(name = "PRECIOACTUALIZADO", precision = 10, scale = 2)
+    private BigDecimal precioActualizado;
 
-    @ManyToOne
-    @JoinColumn(name = "MOVIMIENTO_KAR_MOVID", nullable = false)
-    private MovimientoKarEntity movimientoKar;
+    @Column(name = "MOVIMIENTO_KAR_MOVID")
+    private Integer movimientoKarMovId;
 
-    @ManyToOne
-    @JoinColumn(name = "PRODUCTO_PRODUCTID", nullable = false)
-    private ProductoEntity producto;
+    @Column(name = "PRODUCTO_PRODUCTID")
+    private Integer productoProductId;
 
     // Getters and Setters
     public Integer getKardexId() {
@@ -68,59 +68,59 @@ public class KardexEntity {
         this.hora = hora;
     }
 
-    public Integer getEntrada() {
+    public BigDecimal getEntrada() {
         return entrada;
     }
 
-    public void setEntrada(Integer entrada) {
+    public void setEntrada(BigDecimal entrada) {
         this.entrada = entrada;
     }
 
-    public Integer getSalida() {
+    public BigDecimal getSalida() {
         return salida;
     }
 
-    public void setSalida(Integer salida) {
+    public void setSalida(BigDecimal salida) {
         this.salida = salida;
     }
 
-    public Integer getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Integer saldo) {
+    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
 
-    public Double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
-    public Double getPrecioActualizado() {
+    public BigDecimal getPrecioActualizado() {
         return precioActualizado;
     }
 
-    public void setPrecioActualizado(Double precioActualizado) {
+    public void setPrecioActualizado(BigDecimal precioActualizado) {
         this.precioActualizado = precioActualizado;
     }
 
-    public MovimientoKarEntity getMovimientoKar() {
-        return movimientoKar;
+    public Integer getMovimientoKarMovId() {
+        return movimientoKarMovId;
     }
 
-    public void setMovimientoKar(MovimientoKarEntity movimientoKar) {
-        this.movimientoKar = movimientoKar;
+    public void setMovimientoKarMovId(Integer movimientoKarMovId) {
+        this.movimientoKarMovId = movimientoKarMovId;
     }
 
-    public ProductoEntity getProducto() {
-        return producto;
+    public Integer getProductoProductId() {
+        return productoProductId;
     }
 
-    public void setProducto(ProductoEntity producto) {
-        this.producto = producto;
+    public void setProductoProductId(Integer productoProductId) {
+        this.productoProductId = productoProductId;
     }
 }
