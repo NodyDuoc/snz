@@ -18,22 +18,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- Contenedor de información del usuario centrada -->
+<ion-content class="profile-content">
   <div *ngIf="user; else loading">
-    <h2>Perfil del user</h2>
-    
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <!-- No mostrar la contraseña -->
-    <p><strong>Nombre:</strong> {{ user.firstName }}</p>
-    <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
-    <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
-    <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
-    <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+    <ion-card class="profile-card">
+      <ion-card-header>
+        <ion-card-title class="profile-title">Perfil del Usuario</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Nombre:</strong> {{ user.firstName }}</p>
+        <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
+        <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
+        <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
+        <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+      </ion-card-content>
+    </ion-card>
   </div>
   
   <ng-template #loading>
-    <p>Cargando datos del usuario...</p>
+    <p class="loading-text">Cargando datos del usuario...</p>
   </ng-template>
-  
 </ion-content>

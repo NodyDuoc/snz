@@ -1,16 +1,7 @@
 $primary-color: #3880ff;
-$secondary-color: #f4f4f4;
 $card-bg-color: #fff;
 $text-color: #333;
-
-.hover-item {
-  transition: background-color 0.2s ease; /* Transición suave */
-}
-
-.hover-item:hover {
-  background-color: $primary-color; /* Color celeste */
-}
-
+$loading-color: #666;
 
 .header-custom {
   background-color: $primary-color;
@@ -30,85 +21,46 @@ $text-color: #333;
   }
 }
 
-.user-detail {
-  text-align: right;
-  font-size: 16px;
-  color: $text-color;
-}
-
-.featured-carousel {
-  width: 100%;
-  height: 200px; // Ajusta según sea necesario
-
-  ion-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    ion-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover; // Para mantener la relación de aspecto
-    }
-  }
-}
-
-
-.product-card {
-  background-color: $card-bg-color;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  ion-card-header {
-    background-color: $primary-color;
-    color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-
-  .product-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-
-    ion-img {
-      max-height: 150px;
-      object-fit: contain;
-    }
-  }
-
-  .product-price {
-    font-size: 18px;
-    font-weight: bold;
-    color: $primary-color;
-    text-align: center;
-    margin: 10px 0;
-  }
-}
-
-.product-row {
+.profile-content {
   display: flex;
-  overflow-x: auto;
-
-  ion-card {
-    margin: 0 5px;
-  }
-}
-
-.footer {
-  background-color: $secondary-color;
+  justify-content: center;  // Centra horizontalmente
+  align-items: center;      // Centra verticalmente
+  flex-direction: column;
+  height: 100%;             // Asegúrate de que ocupa el 100% de la altura disponible
   padding: 20px;
-  text-align: center;
-  color: $text-color;
 
-  p {
-    margin: 5px 0;
-    font-size: 14px;
+  .profile-card {
+    background-color: $card-bg-color;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; // Máxima anchura para que no sea demasiado grande
+    margin: 20px 0;
+
+    ion-card-header {
+      background-color: $primary-color;
+      color: white;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      text-align: center;
+
+      .profile-title {
+        font-size: 1.5rem; // Aumentar tamaño de fuente para el título
+      }
+    }
+
+    ion-card-content {
+      p {
+        font-size: 1rem;
+        color: $text-color;
+        margin: 10px 0; // Espaciado uniforme entre los párrafos
+      }
+    }
+  }
+
+  .loading-text {
+    color: $loading-color;
+    font-size: 1.2rem; // Aumentar tamaño de fuente para el texto de carga
+    text-align: center;
   }
 }
