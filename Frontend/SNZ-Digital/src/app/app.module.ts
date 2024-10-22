@@ -9,8 +9,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegistroModule } from './Componet/registro.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { FormsModule } from '@angular/forms';
 import { register } from 'swiper/element/bundle';
+import { AuthInterceptorService } from 'src/interceptors/auth-interceptor.service';
 register();
 @NgModule({
   declarations: [AppComponent],
@@ -19,8 +22,11 @@ register();
     HttpClientModule,
     FormsModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } // Registro del interceptor
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {} 

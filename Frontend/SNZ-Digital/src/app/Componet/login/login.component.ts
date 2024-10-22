@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/Service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
 
   email: string = '';
   password: string = '';
@@ -17,7 +17,7 @@ export class LoginComponent  implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private toastController: ToastController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   login() {
     // Verificar si se han proporcionado correo electrónico y contraseña
@@ -32,25 +32,21 @@ export class LoginComponent  implements OnInit {
       (response) => {
         // Manejar la respuesta del servicio (por ejemplo, guardar el token)
         const token = response.jwt;  // Accede al token usando 'response.jwt'
+        const userId = response.userId; // Asegúrate de que esta propiedad exista en tu respuesta
+
         if (token) {
           localStorage.setItem('token', token);
-          
+          localStorage.setItem('userId', `${userId}`); // Usando template literals para convertirlo a string
+
           this.isLoggedIn = this.authService.isAuthenticated();
-    
+
           if (this.isLoggedIn) {
-            const userRole = this.authService.getRoleFromToken();
-            
-            if (userRole === 'ADMINISTRADOR') {
-              this.presentToast('Usuario administrador logeado exitosamente');
-              this.router.navigate(['/admin']); // Redirige a la vista de administrador
-            } else if (userRole === 'EJECUTIVO') {
-              this.presentToast('Usuario ejecutivo logeado exitosamente');
-              this.router.navigate(['/ejecutivo']); // Redirige a la vista de ejecutivo
-            } else {
-              this.presentToast('Rol no reconocido. Acceso denegado.');
-            }
-    
-            window.location.reload();
+              const userRole = this.authService.getRoleFromToken();
+              console.log('Respuesta del inicio de sesión:', response);
+
+              this.router.navigate(['/home']).then(() => {
+                window.location.reload(); // Recarga la página para asegurar que el token se guarda y se usa correctamente
+              });
           }
         } else {
           console.error("Token no recibido.");
@@ -65,7 +61,7 @@ export class LoginComponent  implements OnInit {
         }
       }
     );
-    
+
   }
 
   async presentToast(message: string) {

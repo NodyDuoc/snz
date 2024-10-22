@@ -20,30 +20,20 @@
 
 <ion-content>
   <!-- Contenedor de información del usuario centrada -->
-  <ion-grid>
-    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
-      <ion-col size="12" size-md="6" size-lg="4">
-        <div class="user-info-card">
-          <h2 class="user-name">Nombre del Usuario</h2>
-          <p class="user-detail">Email: usuario&#64;gmail.com</p>
-
-          <p class="user-detail">Teléfono: +123456789</p>
-          <p class="user-detail">Dirección: Calle Falsa 123</p>
-
-          <!-- Botones de acciones -->
-          <ion-button expand="block" color="primary" class="action-button" routerLink="/editar-usuario">
-            Cambiar datos del usuario
-          </ion-button>
-
-          <ion-button expand="block" color="primary" class="action-button" routerLink="/editar-clave">
-            Cambiar contraseña
-          </ion-button>
-
-          <ion-button expand="block" color="primary" class="action-button">
-            Gestionar direcciones
-          </ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div *ngIf="user; else loading">
+    <h2>Perfil del user</h2>
+    
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <!-- No mostrar la contraseña -->
+    <p><strong>Nombre:</strong> {{ user.firstName }}</p>
+    <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
+    <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
+    <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
+    <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+  </div>
+  
+  <ng-template #loading>
+    <p>Cargando datos del usuario...</p>
+  </ng-template>
+  
 </ion-content>

@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
+    <ion-img class="logo" src="assets/img/logo.png" slot="start"></ion-img>
 
     <ion-searchbar class="searchbar-custom" placeholder="Buscar"></ion-searchbar>
 
@@ -14,95 +14,71 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="selectedProducto">
+<ion-content>
+  <div class="header-title">
+    <ion-title class="main-title">¡Bienvenido a Nuestra Tienda!</ion-title>
+    <p class="sub-title">Explora nuestros productos y ofertas exclusivas</p>
+  </div>
 
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-start">
-        <ion-button color="medium" routerLink="/categoria">Volver a la categoría</ion-button>
-      </ion-col>
+        <ion-button 
+        expand="full" 
+        fill="solid" 
+        routerLink="/categoria" 
+        class="custom-button">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      Volver a la categoría
+    </ion-button>
+    
+          </ion-col>
     </ion-row>
   </ion-grid>
 
   <div class="product-section">
     <ion-grid>
       <ion-row>
-        <ion-col size="8">
+        <ion-col size="3" *ngFor="let producto of productos">
           <ion-card>
-            <img [src]="selectedProducto.imagen || 'assets/img/default-product.jpg'" alt="{{ selectedProducto.productName }}">
+            <div *ngIf="producto.imagen">
+              <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+            </div>
             <ion-card-header>
-              <ion-card-title>{{ selectedProducto.productName }}</ion-card-title>
-              <p>\${{ selectedProducto.precio }}</p>
+              <ion-card-title>{{ producto.productName }}</ion-card-title>
+              <p>${{ producto.precio?.toFixed(2) }}</p>
             </ion-card-header>
             <ion-card-content>
-              <p>{{ selectedProducto.descripcion || 'Descripción no disponible' }}</p>
+              <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
+              <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</ion-button>
+              <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar ahora</ion-button>
             </ion-card-content>
           </ion-card>
-        </ion-col>
-
-        <ion-col size="4">
-          <div class="price-buttons-section">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>Precio: \${{ selectedProducto.precio }}</ion-card-title>
-              </ion-card-header>
-            </ion-card>
-
-            <ion-grid>
-              <ion-row>
-                <ion-col size="12" class="ion-text-center">
-                  <ion-button color="success" expand="block">Agregar al carrito</ion-button>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="ion-text-center">
-                  <ion-button color="primary" expand="block">Comprar ahora</ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12">
-          <h3>Comentarios</h3>
-          <ion-list>
-            <ion-item>
-              <ion-input placeholder="Agregar un comentario..."></ion-input>
-              <ion-button color="primary">Enviar</ion-button>
-            </ion-item>
-          </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
   <ion-footer class="footer">
-    <ion-toolbar>
-      <div class="footer-section">
-        <ion-title>Contacto</ion-title>
-        <p>Email: contacto&#64;tienda.com</p>
-        <p>Teléfono: +123 456 7890</p>
-      </div>
+    <div class="footer-section">
+      <ion-title>Contacto</ion-title>
+      <p>Email: contacto&#64;tienda.com</p>
+      <p>Teléfono: +123 456 7890</p>
+    </div>
 
-      <div class="footer-section social-media">
-        <ion-title>Redes Sociales</ion-title>
-        <ion-buttons>
-          <ion-button href="https://facebook.com" color="primary">
-            <ion-icon name="logo-facebook"></ion-icon>
-          </ion-button>
-          <ion-button href="https://instagram.com" color="primary">
-            <ion-icon name="logo-instagram"></ion-icon>
-          </ion-button>
-          <ion-button href="https://twitter.com" color="primary">
-            <ion-icon name="logo-twitter"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-    </ion-toolbar>
+    <div class="footer-section social-media">
+      <ion-title>Redes Sociales</ion-title>
+      <ion-buttons>
+        <ion-button href="https://facebook.com" color="light">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-button>
+        <ion-button href="https://instagram.com" color="light">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </ion-button>
+        <ion-button href="https://twitter.com" color="light">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
   </ion-footer>
-
 </ion-content>

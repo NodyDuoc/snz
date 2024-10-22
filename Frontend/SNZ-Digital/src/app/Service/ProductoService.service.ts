@@ -12,7 +12,14 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
     constructor(private http: HttpClient) { }
   
     getAllProductos(): Observable<Producto[]> {
-      return this.http.get<Producto[]>(`${this.baseUrl}/getall`);
+      return this.http.get<{ message: string; statusCode: number; data: Producto[] }>(`${this.baseUrl}/getall`).pipe(
+        map(response => response.data),  // Mapea para devolver solo la propiedad 'data'
+        catchError((error) => {
+          console.error('Error al obtener productos', error);
+          return throwError(error);
+        })
+      );
     }
+    
 
 }
