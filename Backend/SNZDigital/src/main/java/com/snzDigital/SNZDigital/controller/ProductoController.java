@@ -34,6 +34,11 @@ public class ProductoController {
                         .body(new ProductoResponse("Producto no encontrado", HttpStatus.NOT_FOUND.value(), null)));
     }
 
+    @GetMapping("/categoria/{categoriaCatId}")
+    public List<ProductoEntity> getProductosByCategoria(@PathVariable Long categoriaCatId) {
+        return productoService.getProductosByCategoria(categoriaCatId);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ProductoResponse> createProducto(
             @RequestParam("productName") String productName,

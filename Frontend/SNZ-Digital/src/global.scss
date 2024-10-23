@@ -31,3 +31,11 @@
   --ion-color-scheme: light;
 }
 
+:root {
+  --main-font: 'Poppins', sans-serif !important; /* Define la fuente principal */
+}
+
+ion-app, ion-content, ion-toolbar, ion-title, p, ion-item {
+  font-family: var(--main-font); /* Aplica la fuente a todos los elementos */
+}
+

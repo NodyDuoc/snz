@@ -1,87 +1,78 @@
 <ion-app>
-  <!-- Panel dividido con el menú en modo 'overlay' y contenido principal -->
-  <ion-split-pane contentId="main-content">
-    <!-- Menú lateral con estilo personalizado -->
-    <ion-menu contentId="main-content" type="overlay" style="--side-max-width: 14%;">
+  <!-- Configurar el Split Pane para que no se muestre automáticamente en pantallas grandes -->
+  <ion-split-pane contentId="main-content" when="false">
+    <!-- Menú lateral -->
+    <ion-menu side="start" contentId="main-content" >
       <ion-header>
-        <ion-toolbar>
-          <ion-title>Menú</ion-title>
+        <ion-toolbar routerLink="/inicio" class="menu">
+          <ion-title>S.N.Z Digital</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <ion-content>
-        <!-- Ítems del menú -->
-        <ion-item routerLink="/inicio">
-          <ion-icon slot="start" name="home"></ion-icon> 
-          Inicio
-        </ion-item>
+        <!-- Lista de opciones del menú -->
+        <ion-list>
+          <ion-item *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active-item">
+            <ion-icon slot="start" name="log-in"></ion-icon>
+            Login
+          </ion-item>
 
-        <ion-item routerLink="/registro-usuario">
-          <ion-icon slot="start" name="pencil"></ion-icon>
-          Crear cuenta
-        </ion-item>
+          <ion-item routerLink="/producto" routerLinkActive="active-item">
+            <ion-icon slot="start" name="pricetags"></ion-icon>
+            Productos
+          </ion-item>
 
-        <ion-item routerLink="/login">
-          <ion-icon slot="start" name="log-in"></ion-icon>
-          Login
-        </ion-item>
+          <ion-item routerLink="/sobre" routerLinkActive="active-item">
+            <ion-icon slot="start" name="information-circle"></ion-icon>
+            Sobre S.N.Z Digital
+          </ion-item>
 
-        <ion-item routerLink="/perfil">
-          <ion-icon slot="start" name="people"></ion-icon>
-          Perfil
-        </ion-item>
+          <ion-item routerLink="/catalogo" routerLinkActive="active-item">
+            <ion-icon slot="start" name="albums"></ion-icon>
+            Catálogo
+          </ion-item>
 
-        <ion-item routerLink="/direccion">
-          <ion-icon slot="start" name="location"></ion-icon>
-          Dirección
-        </ion-item>
+          <ion-item routerLink="/terminos" routerLinkActive="active-item">
+            <ion-icon slot="start" name="document-text"></ion-icon>
+            Términos y Condiciones
+          </ion-item>
 
-        <ion-item routerLink="/editar-usuario">
-          <ion-icon slot="start" name="create"></ion-icon>
-          Editar Usuario
-        </ion-item>
+          <ion-item routerLink="/contactanos" routerLinkActive="active-item">
+            <ion-icon slot="start" name="mail"></ion-icon>
+            Contáctanos
+          </ion-item>
 
-        <ion-item routerLink="/editar-clave">
-          <ion-icon slot="start" name="key"></ion-icon>
-          Editar Contraseña
-        </ion-item>
+          <!-- Sección de Cuenta para administrador -->
+          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR' || userRole === 'ROLE_EJECUTIVO')">
+            <ion-list-header>
+              Cuenta
+            </ion-list-header>
 
-        <ion-item routerLink="/catalogo">
-          <ion-icon slot="start" name="albums"></ion-icon>
-          Catálogo
-        </ion-item>
+            <ion-item routerLink="/perfil" routerLinkActive="active-item">
+              <ion-icon slot="start" name="person-circle"></ion-icon>
+              Perfil
+            </ion-item>
 
-        <ion-item routerLink="/categoria">
-          <ion-icon slot="start" name="list"></ion-icon>
-          Categoría
-        </ion-item>
+            <ion-item (click)="logout()"  routerLinkActive="active-item">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              Cerrar Sesión
+            </ion-item>
+          </div>
 
-        <ion-item routerLink="/producto">
-          <ion-icon slot="start" name="cube"></ion-icon>
-          Producto
-        </ion-item>
+        </ion-list>
 
-        <!-- Opción visible solo para administradores -->
-        <ion-item *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR')" 
-                  routerLink="/historial-cotizaciones-ejecutivo" 
-                  routerLinkActive="active-item">
-          <ion-icon slot="start" name="document-text"></ion-icon>
-          Ver Productos
-        </ion-item>
-
-        <!-- Espaciador para empujar el botón de cerrar sesión hacia abajo -->
-        <ion-item class="spacer"></ion-item>
-
-        <!-- Opción de cerrar sesión visible solo cuando el usuario está logueado -->
-        <ion-item *ngIf="isLoggedIn" (click)="logout()" class="logout-item">
-          <ion-icon slot="start" name="log-out"></ion-icon>
-          Cerrar Sesión
-        </ion-item>
-        
+        <!-- Información de contacto al final -->
+        <div class="contact-info">
+          <p><ion-icon name="mail-outline"></ion-icon> contacto&#64;snzdigital.cl</p>
+          <p><ion-icon name="call-outline"></ion-icon> +56 2 552553433</p>
+          <p><ion-icon name="call-outline"></ion-icon> +56 9 51512595</p>
+          <p><ion-icon name="location-outline"></ion-icon> Diego de Meza 5026, San Joaquin, Santiago, Chile</p>
+          <p>Oficina SOLO RETIRO: (No sala de venta)</p>
+          <p><ion-icon name="time-outline"></ion-icon> Lunes a Viernes 10:00 a 18:00 y Sábados 11:00 a 15:00</p>
+        </div>
       </ion-content>
     </ion-menu>
 
-    <!-- Contenido principal -->
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

@@ -21,5 +21,8 @@ import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
       );
     }
     
+    getProductosByCategoria(categoriaId: number): Observable<Producto[]> {
+      return this.http.get<Producto[]>(`${this.baseUrl}/categoria/${categoriaId}`);
+  }
 
 }

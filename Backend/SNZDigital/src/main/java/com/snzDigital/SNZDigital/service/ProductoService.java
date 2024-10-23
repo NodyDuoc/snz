@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService {
@@ -27,6 +28,10 @@ public class ProductoService {
         return productoRepository.findById(id);
     }
 
+    // Método para obtener productos por categoría
+    public List<ProductoEntity> getProductosByCategoria(Long categoriaCatId) {
+        return productoRepository.findByCategoriaCatId(categoriaCatId);
+    }
 
     public ProductoResponse createProducto(String productName, String descripcion, Double precio, Long categoriaCatId, MultipartFile imagen) {
         ProductoEntity producto = new ProductoEntity();

@@ -1,5 +1,11 @@
+ion-app {
+  font-family: 'Poppins', sans-serif !important; /* Aplica la fuente Poppins */
+}
+
 ion-menu {
-  --background: #f5f5f5; /* Blanco suave para el fondo */
+  font-family: var(--main-font);
+  --width: 400px; /* Establece el ancho del menú */
+  --background: #f8f9fa; /* Fondo claro para el menú */
   --color: #333333; /* Texto en un tono oscuro para mejor visibilidad */
   --ion-background-color: #f5f5f5; /* Fondo general del menú */
   --ion-text-color: #333333; /* Color del texto dentro del menú */
@@ -10,25 +16,45 @@ ion-menu {
   }
 
   ion-item {
-    --background-hover: #ff6347; /* Rojo tomate en hover */
-    --color: #333333; /* Color del texto oscuro para visibilidad */
+    --color: #333333; /* Texto oscuro para visibilidad */
+    --background: transparent; /* Fondo transparente por defecto */
+    --background-hover: rgba(75, 0, 130, 0.1); /* Fondo morado suave y difuminado en hover */
     
-    /* Ajustes adicionales para visibilidad */
     ion-icon {
       color: #4b0082; /* Íconos en morado oscuro */
     }
-    
-    &:hover {
-      background-color: #ff6347; /* Fondo rojo al pasar el cursor */
-      color: white; /* Texto en blanco al hacer hover */
-    }
-  }
 
-  .logout-item {
-    margin-top: auto; /* Asegura que el botón de Cerrar Sesión esté al final del menú */
+    /* Estilos para el hover en los ion-items */
+    &:hover {
+      --background: rgba(75, 0, 130, 0.1) !important; /* Morado claro y sutil al pasar el cursor */
+      --color: #333333 !important; /* Mantén el color del texto oscuro al hacer hover */
+    }
   }
 
   .spacer {
     flex-grow: 1; /* Empuja los ítems hacia arriba dejando el logout al fondo */
   }
 }
+
+.logout-item {
+  /* Aplicar los mismos estilos para el item de Cerrar Sesión */
+  ion-item {
+    --background-hover: rgba(75, 0, 130, 0.1); /* Fondo morado suave en hover */
+    --color: #333333; /* Texto oscuro por defecto */
+    
+    &:hover {
+      --background: rgba(75, 0, 130, 0.1) !important; /* Fondo morado suave y difuminado en hover */
+      --color: #333333 !important; /* Mantén el color del texto oscuro al hacer hover */
+    }
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Asegura que el contenido de contacto se alinee al fondo */
+  padding: 10px;
+  font-size: 14px;
+  color: #555;
+}
+

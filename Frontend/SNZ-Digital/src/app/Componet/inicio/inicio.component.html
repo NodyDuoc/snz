@@ -1,258 +1,202 @@
-<ion-header class="header-custom">
-  <ion-toolbar>
-    <!-- Menú botón a la izquierda -->
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<ion-content [fullscreen]="true">
+  <header class="header">
+  
+    <!-- Main Header -->
+    <div class="main-header">
+      <div class="container">
+          <!-- Logo -->
+          <div class="logo">
+            <a [routerLink]="['/']">
+              <ion-img src="assets/img/logo.png" alt="ItaliaSPA Logo" class="logo-img"></ion-img>
+            </a>
+          </div>
+    
+        <!-- Menu Button -->
+        <div class="menu-button">
+          <ion-buttons slot="start">
+            <ion-menu-button>
+              <div class="menu-button-content">
+                <i class="fas fa-bars"></i>
+                <span>Menu</span>
+              </div>
+            </ion-menu-button>
+          </ion-buttons>
+        </div>
+    
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input type="text" placeholder="Busque productos aquí..." [(ngModel)]="searchQuery">
+          <button (click)="search()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+    
+        <!-- Cart -->
+        <div class="cart">
+          <a href="/carrito" class="cart-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-text">${{cartTotal}}</span>
+            <span class="cart-count">{{cartItemCount}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+  
+    <!-- Navigation -->
+    <nav class="navigation">
+      <div class="container">
+        <button class="products-btn">
+          <i class="fas fa-bars"></i>
+          Categorías
+        </button>
 
-    <!-- Logo a la izquierda -->
-    <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
-
-    <!-- Barra de búsqueda en el centro -->
-    <ion-searchbar class="searchbar-custom" placeholder="Buscar"></ion-searchbar>
-
-    <!-- Botón de iniciar sesión a la derecha -->
-    <ion-buttons slot="end">
-      <ion-button color="primary" routerLink="/login">Iniciar sesión</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-  <!-- Categorías pequeñas -->
-  <div class="category-list">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-computacion')">
-          <ion-item>Computación</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-celulares')">
-          <ion-item>Celulares</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-accesorios')">
-          <ion-item>Accesorios</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-audio')">
-          <ion-item>Audio</ion-item>
-        </ion-col>
-        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-electronica')">
-          <ion-item>Electrónica</ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+        <ul class="nav-links">
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Nuevos Productos</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+          <li><a href="#">Sobre SN.Z Digital</a></li>
+        </ul>
+  
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
   
   <!-- Sección de productos destacados en una fila -->
+
+  <div class="carousel-container">
+    <!-- Main Carousel -->
+    <div class="main-carousel">
+      <button class="nav-button prev" (click)="prevSlide()">❮</button>
+      <div class="carousel-slide" [ngClass]="{'fade': transitioning}">
+        <img [src]="images[currentIndex].url" [alt]="images[currentIndex].title">
+        <div class="slide-info">
+          <h2>{{ images[currentIndex].title }}</h2>
+          <p>{{ images[currentIndex].description }}</p>
+        </div>
+      </div>
+      <button class="nav-button next" (click)="nextSlide()">❯</button>
+    </div>
+  
+  </div>
+
+  <!-- Sección de productos de una categoría -->
+
+<!-- src/app/components/categorias/categorias.component.html -->
+
+<div class="container-card">
+  <ion-toolbar>
+    <ion-title>Categorías de Productos</ion-title>
+</ion-toolbar>
+
+<div class="product-section">
   <ion-grid>
     <ion-row>
-      <ion-col size="auto">
-        <ion-card routerLink="/producto">
-          <img class="destacado" src="assets/img/producto_destacado_1.jpg" alt="Producto Destacado 1">
-          <ion-card-header>
-            <ion-card-title>Producto Destacado 1</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-
-      <ion-col size="auto">
-        <ion-card routerLink="/producto">
-          <img class="destacado" src="assets/img/producto_destacado_2.jpg" alt="Producto Destacado 2">
-          <ion-card-header>
-            <ion-card-title>Producto Destacado 2</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-
-      <ion-col size="auto">
-        <ion-card routerLink="/producto">
-          <img class="destacado" src="assets/img/producto_destacado_3.jpg" alt="Producto Destacado 3">
-          <ion-card-header>
-            <ion-card-title>Producto Destacado 3</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
+      <div *ngFor="let categoria of categorias">
+        <!-- Título de la categoría -->
+        <h2>{{ categoria.catName }}</h2>
+        
+        <!-- Fila de productos por categoría -->
+        <ion-row>
+          <ion-col size="2" *ngFor="let producto of productosPorCategoria[categoria.catId]">
+            <ion-card class="product-card">
+              <div *ngIf="producto.imagen">
+                <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+              </div>
+              <ion-card-header>
+                <ion-card-title>{{ producto.productName }}</ion-card-title>
+                <p class="product-price">${{ producto.precio?.toFixed(2) }}</p>
+              </ion-card-header>
+              <ion-card-content>
+                <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
+                <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</ion-button>
+                <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar ahora</ion-button>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row> <!-- Fin de la fila de productos -->
+      </div>
     </ion-row>
   </ion-grid>
+</div>
 
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-computacion">Categoría: Computación</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
+</div>
+  
+  
 
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-celulares">Categoría: Celulares</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
 
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
 
-  <!-- Sección de productos de una categoría -->
-  <div class="category-section">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h2 id="categoria-accesorios">Categoría: Accesorios</h2>
-        </ion-col>
-        <ion-col>
-          <ion-buttons>
-            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h2 class="company-name">S.N.Z Digital</h2>
+          <p class="company-description">
+            Innovadores en la venta y distribución de productos tecnológicos de última generación en Chile.
+          </p>
+        </div>
+  
+        <div class="footer-section">
+          <h3 class="section-title">Enlaces Rápidos</h3>
+          <ul class="quick-links">
+            <li><a routerLink="/inicio">Inicio</a></li>
+            <li><a routerLink="/productos">Productos</a></li>
+            <li><a routerLink="/contacto">Contacto</a></li>
+          </ul>
+        </div>
+  
+        <div class="footer-section">
+          <h3 class="section-title">Contacto</h3>
+          <ul class="contact-info">
+            <li>Santiago, Chile</li>
+            <li>+56 2 9876 5432</li>
+            <li>contacto&#64;snzdigital.cl</li>
+          </ul>
+        </div>
+  
+        <div class="footer-section">
+          <h3 class="section-title">Síguenos</h3>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">
+              <i class="fab fa-instagram fa-lg"></i>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <i class="fab fa-twitter fa-lg"></i>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <i class="fab fa-facebook fa-lg"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <i class="fab fa-linkedin fa-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="footer-bottom">
+        <p class="copyright">
+          © {{currentYear}} S.N.Z Digital. Todos los derechos reservados.
+        </p>
+        <div class="legal-links">
+          <a routerLink="/privacidad">Política de Privacidad</a>
+          <a routerLink="/terminos">Términos y Condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
 
-    <!-- Fila deslizable de productos -->
-    <ion-scroll scroll-x="true" class="product-row">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto1.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 1</ion-card-title>
-                <p>$100</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto2.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 2</ion-card-title>
-                <p>$150</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto3.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 3</ion-card-title>
-                <p>$200</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-card routerLink="/producto">
-              <ion-img src="assets/img/producto4.jpg"></ion-img>
-              <ion-card-header>
-                <ion-card-title>Producto 4</ion-card-title>
-                <p>$250</p>
-              </ion-card-header>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-scroll>
-  </div>
 
 </ion-content>

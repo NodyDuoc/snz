@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Table(name = "producto")
 @Data
@@ -34,6 +33,48 @@ public class ProductoEntity {
     @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;
 
+    // Getters y Setters
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Long getCategoriaCatId() {
+        return categoriaCatId;
+    }
+
+    public void setCategoriaCatId(Long categoriaCatId) {
+        this.categoriaCatId = categoriaCatId;
+    }
+
     public byte[] getImagen() {
         return imagen;
     }
@@ -41,5 +82,4 @@ public class ProductoEntity {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
-
 }
