@@ -15,18 +15,24 @@ import { FormsModule } from '@angular/forms';
 import { register } from 'swiper/element/bundle';
 import { AuthInterceptorService } from 'src/interceptors/auth-interceptor.service';
 register();
+
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-    RegistroModule,
-    HttpClientModule,
-    FormsModule,
+  declarations: [
+    AppComponent, // Mantén el componente principal
+  ],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    RegistroModule, // Asegúrate de que este módulo contenga el EditarUsuarioComponent
+    HttpClientModule, // Para habilitar HttpClient
+    FormsModule, // Para habilitar formularios reactivos
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } // Registro del interceptor
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Para componentes personalizados
+  bootstrap: [AppComponent], // Componente raíz de la aplicación
 })
-export class AppModule {} 
+export class AppModule {}

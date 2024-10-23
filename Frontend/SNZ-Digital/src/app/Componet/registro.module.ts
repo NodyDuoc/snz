@@ -18,15 +18,41 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { CarritoComponent } from './carrito/carrito.component';
 
 @NgModule({
-  declarations: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent,PedidosComponent,CarritoComponent],
+  declarations: [
+    RegistroComponent,
+    LoginComponent,
+    EditarUsuarioComponent,
+    InicioComponent,
+    CatalogoComponent,
+    CategoriaComponent,
+    EditarClaveComponent,
+    PerfilComponent,
+    ProductoComponent,
+    DireccionComponent,
+    PedidosComponent,
+    CarritoComponent
+  ],
   imports: [
     CommonModule,
-    IonicModule, // Importa IonicModule
-    FormsModule, // Importa FormsModule
-    AppRoutingModule,
-    ReactiveFormsModule // Importa ReactiveFormsModule
+    IonicModule, // Importa IonicModule para Ionic
+    FormsModule, // Importa FormsModule para formularios
+    ReactiveFormsModule, // Importa ReactiveFormsModule para formularios reactivos
+    AppRoutingModule // Importa AppRoutingModule para el enrutamiento
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [RegistroComponent, LoginComponent,EditarUsuarioComponent,InicioComponent,CatalogoComponent,CategoriaComponent,EditarClaveComponent,PerfilComponent,ProductoComponent,DireccionComponent,PedidosComponent,CarritoComponent]  // Exportar si deseas usarlo fuera de este módulo
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Para permitir componentes no estándar
+  exports: [
+    RegistroComponent,
+    LoginComponent,
+    EditarUsuarioComponent,
+    InicioComponent,
+    CatalogoComponent,
+    CategoriaComponent,
+    EditarClaveComponent,
+    PerfilComponent,
+    ProductoComponent,
+    DireccionComponent,
+    PedidosComponent,
+    CarritoComponent // Exportar todos los componentes necesarios
+  ]
 })
 export class RegistroModule { }
