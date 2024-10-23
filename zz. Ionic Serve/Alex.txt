@@ -1,2 +1,14 @@
 cd C:\Repositorios\snz\frontend\SNZ-digital
 ionic serve
+
+
+cd frontend\SNZ-digital
+
+
+
+
+
+
+usuario@example.com
+passwordSeguro123
+

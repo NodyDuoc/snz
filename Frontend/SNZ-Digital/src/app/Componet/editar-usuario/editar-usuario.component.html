@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()" class="form"> <!-- Asegúrate de que se llame a onSubmit -->
+  <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()" class="form"> <!-- Asegúrate de que se llame a onSubmit -->
     <ion-card>
       <ion-card-header>
         <ion-card-title>Información del Cliente</ion-card-title>
@@ -44,6 +44,6 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-button expand="full" type="submit">Actualizar Cliente</ion-button>
+    <ion-button type="submit" expand="full" [disabled]="!usuarioForm.valid">Guardar Cambios</ion-button>
   </form>
 </ion-content>
