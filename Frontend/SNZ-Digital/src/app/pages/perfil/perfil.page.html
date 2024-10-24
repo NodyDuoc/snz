@@ -1,13 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+
+  <app-header></app-header> 
+  
+  <app-carrusel></app-carrusel>
+  
+  <div class="container-card" >
+    <!--  <ion-toolbar class="category-title">
+       <ion-title>Categorías de Productos</ion-title>
+   </ion-toolbar>-->
+   
+   <div class="product-section">
+     <ion-grid>
+       <ion-row>
+         <div *ngFor="let categoria of categorias">
+           <!-- Título de la categoría -->
+           <h2 class="category-title">{{ categoria.catName }}</h2>
+   
+           
+           <!-- Fila de productos por categoría -->
+           <ion-row>
+             <ion-col size="2" *ngFor="let producto of productosPorCategoria[categoria.catId]">
+               <ion-card class="product-card">
+                 <div *ngIf="producto.imagen">
+                   <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+                 </div>
+                 <ion-card-header>
+                   <ion-card-title>{{ producto.productName }}</ion-card-title>
+                   <p class="product-price">${{ producto.precio?.toFixed(2) }}</p>
+                 </ion-card-header>
+                 <ion-card-content>
+                   <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
+                   <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</ion-button>
+                   <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar ahora</ion-button>
+                 </ion-card-content>
+               </ion-card>
+             </ion-col>
+           </ion-row> <!-- Fin de la fila de productos -->
+         </div>
+       </ion-row>
+     </ion-grid>
+   </div>
+   
+   </div>
+  
+  <app-footer></app-footer>
+  </ion-content>
+  

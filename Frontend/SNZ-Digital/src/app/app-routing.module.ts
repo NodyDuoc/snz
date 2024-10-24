@@ -68,7 +68,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/index/index.module').then( m => m.IndexPageModule)
   },
   {
-    path: 'perfil',
+    path: 'perfiluno',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
