@@ -34,10 +34,10 @@ const routes: Routes = [
     component:EditarUsuarioComponent
   },
   {
-    path:'catalogo',
+    path:'catalogo-no',
     component:CatalogoComponent
   },{
-    path:'categoria',
+    path:'categoria-no',
     component:CategoriaComponent
   },{
     path:'editar-clave',
@@ -49,13 +49,13 @@ const routes: Routes = [
     path:'producto-no',
     component:ProductoComponent
   },{
-    path:'direccion',
+    path:'direccion-no',
     component:DireccionComponent
   },{
-    path:'carrito',
+    path:'carrito-no',
     component:CarritoComponent
   },{
-    path:'pedido',
+    path:'pedido-no',
     component:PedidosComponent
   },
   {
@@ -80,12 +80,38 @@ const routes: Routes = [
     loadChildren: () => import('./pages/productos/productos.module').then( m => m.ProductosPageModule)
   },
   {
-    path: 'categoria12',
+    path: 'categoria',
     loadChildren: () => import('./pages/categoria/categoria.module').then( m => m.CategoriaPageModule)
-  },  {
+  },
+  {
     path: 'plantilla',
     loadChildren: () => import('./pages/plantilla/plantilla.module').then( m => m.PlantillaPageModule)
   },
+  {
+    path: 'catalogo',
+    loadChildren: () => import('./pages/catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+  },
+  {
+    path: 'editar-perfil',
+    loadChildren: () => import('./pages/editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
+  },
+  {
+    path: 'informacion',
+    loadChildren: () => import('./pages/informacion/informacion.module').then( m => m.InformacionPageModule)
+  },
+  {
+    path: 'direccion',
+    loadChildren: () => import('./pages/direccion/direccion.module').then( m => m.DireccionPageModule)
+  },
+  {
+    path: 'carrito',
+    loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
+  },
+  {
+    path: 'pedido',
+    loadChildren: () => import('./pages/pedido/pedido.module').then( m => m.PedidoPageModule)
+  },
+
 
 
 
