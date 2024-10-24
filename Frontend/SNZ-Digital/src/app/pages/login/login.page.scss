@@ -1,0 +1,120 @@
+.category-title {
+    background-color: #dadada; /* Color de fondo */
+    text-align: center; /* Centrar el texto */
+    padding: 20px; /* Espaciado alrededor del texto */
+    margin: 0; /* Eliminar margen por defecto */
+  }
+  
+
+  .container-card {
+    width: 100%;
+    padding-right: 300px;
+    padding-left: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .product-section {
+    h2 {
+      margin: 16px 0; // Espacio alrededor del título de la categoría
+      font-size: 1.5rem; // Tamaño del texto del título
+      color: #333; // Color del texto
+    }
+  
+    .product-card {
+      margin-bottom: 16px; // Espacio entre tarjetas de productos
+      max-width: 200px; // Ancho máximo de la tarjeta
+      margin: auto; // Centra las tarjetas en la columna
+  
+      .image-preview {
+        width: 100%; // Ajusta el ancho al 100% del contenedor
+        height: 250px; // Ajusta la altura a 250px (o el tamaño que desees)
+        object-fit: cover; // Mantiene la proporción de la imagen
+      }
+    }
+  
+    .product-price {
+      font-weight: bold; // Hace que el precio sea más destacado
+      color: #000000; // Color verde para el precio
+    }
+  
+    .custom-button {
+      background-color: #3498db; // Color del botón "Comprar ahora"
+      color: white; // Color del texto en el botón
+    }
+  
+    .custom-button12 {
+      background-color: #e74c3c; // Color del botón "Agregar al carrito"
+      color: white; // Color del texto en el botón
+    }
+  }
+
+
+  /* Botón de login */
+ion-button {
+    --background: #3498db; /* Azul */
+    --background-activated: #2980b9; /* Azul más oscuro */
+    --background-focused: #2980b9;
+    --background-hover: #2980b9;
+    --color: #ffffff; /* Blanco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.login-content {
+    --background: #f0f8ff; /* Azul claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura completa de la vista */
+    padding: 0;
+    margin: auto;
+}
+.contenido {
+    background: #ffffff; /* Blanco */
+    padding: 20px;
+    border: 1px solid #2c3e50;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: auto;
+    max-width: 400px;
+    text-align: center;    
+    margin: 4rem auto;
+    
+    
+}
+
+/* Título del login */
+.titulo {
+    color: #2c3e50; /* Azul oscuro */
+    margin-bottom: 20px;
+}
+
+/* Elementos del formulario */
+.input-item {
+    margin-bottom: 15px;
+    --ion-item-background:#ffffff;
+    border: 1px solid #2c3e50;
+    border-radius: 8px;
+}
+
+.input-label {
+    color: #2c3e50; /* Azul oscuro */
+}
+
+.input-field {
+    color: #2c3e50; /* Azul oscuro */
+}
+
+/* Contenedor de botones */
+.button-container {
+    margin-top: 20px;
+}
+
+/* Enlace de olvido de contraseña */
+.link {
+    color: #2980b9; /* Azul más oscuro */
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+}

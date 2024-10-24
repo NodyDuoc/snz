@@ -22,7 +22,7 @@ const routes: Routes = [
     component:RegistroComponent
   },
   {
-    path:'login',
+    path:'login-np',
     component:LoginComponent
   },
   {
