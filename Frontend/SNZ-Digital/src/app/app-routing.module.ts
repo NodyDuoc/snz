@@ -46,7 +46,7 @@ const routes: Routes = [
     path:'perfil-no',
     component:PerfilComponent
   },{
-    path:'producto',
+    path:'producto-no',
     component:ProductoComponent
   },{
     path:'direccion',
