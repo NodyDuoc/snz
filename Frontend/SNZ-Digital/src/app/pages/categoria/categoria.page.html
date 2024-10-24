@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+
+  <app-header></app-header>
+
+  <app-carrusel></app-carrusel>
+
+  <!-- Título de la categoría y botón para regresar -->
+  <div class="category-header">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto">
+          <h2>Categoría: Categoria</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Sección de productos de la categoría seleccionada -->
+  <div class="category-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto_destacado_1.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 1</ion-card-title>
+              <p>$100</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto_destacado_2.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 2</ion-card-title>
+              <p>$150</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto_destacado_1.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 3</ion-card-title>
+              <p>$200</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Fila deslizable de productos -->
+ 
+
+  <app-footer></app-footer>
+</ion-content>

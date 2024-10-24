@@ -79,6 +79,15 @@ const routes: Routes = [
     path: 'productos',
     loadChildren: () => import('./pages/productos/productos.module').then( m => m.ProductosPageModule)
   },
+  {
+    path: 'categoria12',
+    loadChildren: () => import('./pages/categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },  {
+    path: 'plantilla',
+    loadChildren: () => import('./pages/plantilla/plantilla.module').then( m => m.PlantillaPageModule)
+  },
+
+
 
 ];
 
