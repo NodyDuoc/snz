@@ -14,7 +14,7 @@ export class EditarUsuarioComponent implements OnInit {
   usuarioForm!: FormGroup;
   mostrarInformacionUsuario: boolean = false;
   usuarioActual!: AuthCreateUserRequest;
-
+  user!: any; // Almacenar toda la información del usuario
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -27,6 +27,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   
   ngOnInit() {
+    this.loadUser();
     // Inicializar el formulario
     this.usuarioForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -39,47 +40,50 @@ export class EditarUsuarioComponent implements OnInit {
       isActivated: [''],
       changePassword: [false],
       passwordNew: ['']
-    });
+    })
+    ;
 
     // Obtener el ID del usuario desde la URL
     const userId = this.route.snapshot.paramMap.get('id');
-    if (userId) {
-      this.buscarUsuarioPorId(+userId);  // Convierte el ID a número
+    this.loadUser();
+    
+  }
+
+  loadUser() {
+    const email = this.authService.getEmailFromToken();
+    if (email) {
+      this.authService.searchByEmail(email).subscribe(
+        (user) => {
+          this.user = user; // Aquí almacenas toda la información del usuario
+
+          // Cargar el usuario por ID
+          const userId = user.id; // Asegúrate de que 'id' sea el nombre correcto de tu parámetro de ruta
+          this.authService.getUserById(userId).subscribe(user => {
+            this.user = user; // Asigna los datos del usuario a la propiedad
+
+            // Aquí actualizas todos los campos del formulario, incluyendo roles, activación, y demás
+            this.usuarioForm.patchValue({
+              firstName: user.firstName,
+              secondName: user.secondName,
+              firstLastName: user.firstLastName,
+              secondLastName: user.secondLastName,
+              phone: user.phone,
+              roleListName: user.role?.roleEnum, // Ajustar según cómo guardes los roles
+              isActivated: user.isActivated, // Suponiendo que esta propiedad está en tu objeto user
+              email: user.email,
+              changePassword: false, // Por defecto, no cambiar la contraseña
+              passwordNew: 'Hola', // Campo vacío hasta que decida cambiar la contraseña
+            });
+          });
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+        }
+      );
     }
   }
 
-  buscarUsuarioPorId(id: number) {
-    // Llamada al servicio para buscar el usuario por ID
-    this.authService.getUserById(id).subscribe(
-      (usuario) => {
-        if (usuario && usuario.role && usuario.role.roleEnum) {
-          this.usuarioActual = {
-            ...usuario,
-            id: usuario.id // Mapea 'id' a 'id_usuario'
-          };
-          
-          // Asignar valores al formulario, incluyendo el rol
-          this.usuarioForm.patchValue({
-            firstName: usuario.firstName,
-            secondName: usuario.secondName,
-            firstLastName: usuario.firstLastName,
-            secondLastName: usuario.secondLastName,
-            email: usuario.email,
-            phone: usuario.phone,
-            roleListName: usuario.role.roleEnum,  // Asignar el rol correctamente
-            isActivated: usuario.isActivated
-          });
-    
-          this.mostrarInformacionUsuario = true;
-        } else {
-          this.mostrarAlerta('Error en la respuesta', 'No se encontró un rol válido para el usuario.');
-        }
-      },
-      (error) => {
-        this.mostrarAlerta('Error', 'No se pudo obtener el usuario.');
-      }
-    );
-  }
+
 
   onPhoneInput(event: any) {
     const inputValue = event.target.value;
@@ -112,7 +116,7 @@ export class EditarUsuarioComponent implements OnInit {
         });
         await loading.present();
   
-        const nuevaData: AuthCreateUserRequest = {
+        const nuevaData = {
           firstName: this.usuarioForm.get('firstName')?.value,
           secondName: this.usuarioForm.get('secondName')?.value,
           firstLastName: this.usuarioForm.get('firstLastName')?.value,
