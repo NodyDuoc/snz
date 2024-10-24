@@ -43,7 +43,7 @@ const routes: Routes = [
     path:'editar-clave',
     component:EditarClaveComponent
   },{
-    path:'perfil',
+    path:'perfil-no',
     component:PerfilComponent
   },{
     path:'producto',
@@ -68,7 +68,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/index/index.module').then( m => m.IndexPageModule)
   },
   {
-    path: 'perfiluno',
+    path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
