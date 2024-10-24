@@ -10,7 +10,11 @@ import { AuthService } from 'src/app/Service/auth.service';
 })
 export class PerfilComponent  implements OnInit {
    user!: any; // Almacenar toda la información del usuario
-
+   currentYear: number = new Date().getFullYear();
+   searchQuery: string = '';
+   cartTotal: number = 0;
+   cartItemCount: number = 0;
+   currentIndex: number = 0;
 
   constructor(
     private router: Router, // Cambiado a Router aquí
@@ -39,6 +43,30 @@ export class PerfilComponent  implements OnInit {
         }
       );
     }
+  }
+
+  search(): void {
+    console.log('Buscando:', this.searchQuery);
+  }
+
+  onViewProfile() {
+    console.log('Ver perfil');
+  }
+
+  onEditProfile() {
+    console.log('Editar perfil');
+  }
+
+  onViewPurchases() {
+    console.log('Ver compras');
+  }
+
+  onViewAddresses() {
+    console.log('Ver direcciones');
+  }
+
+  onLogout() {
+    console.log('Cerrar sesión');
   }
 
 }

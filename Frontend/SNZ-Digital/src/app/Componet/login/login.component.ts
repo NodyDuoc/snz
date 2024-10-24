@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
               const userRole = this.authService.getRoleFromToken();
               console.log('Respuesta del inicio de sesión:', response);
 
-              this.router.navigate(['/inicio']).then(() => {
+              this.router.navigate(['/index']).then(() => {
                 window.location.reload(); // Recarga la página para asegurar que el token se guarda y se usa correctamente
               });
           }

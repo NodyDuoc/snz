@@ -35,7 +35,7 @@ export class AppComponent {
         text: 'OK',
         handler: () => {
           localStorage.removeItem('token');  // Eliminar el token del almacenamiento local
-          this.router.navigate(['/inicio']).then(() => {
+          this.router.navigate(['/index']).then(() => {
             window.location.reload();  // Redirigir a la página de login y recargar la aplicación
           });
         }
@@ -59,7 +59,7 @@ export class AppComponent {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
-    this.router.navigate(['/inicio']).then(() => {
+    this.router.navigate(['/index']).then(() => {
       // Después de redirigir, recarga la página
       window.location.reload();
     });

@@ -1,40 +1,111 @@
-<ion-header class="header-custom">
-  <ion-toolbar>
-    <!-- Menú botón a la izquierda -->
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<ion-content [fullscreen]="true">
+  <header class="header">
+  
+    <!-- Main Header -->
+    <div class="main-header">
+      <div class="container">
+          <!-- Logo -->
+          <div class="logo">
+            <a [routerLink]="['/']">
+              <ion-img src="assets/img/logo.png" alt="ItaliaSPA Logo" class="logo-img"></ion-img>
+            </a>
+          </div>
+    
+        <!-- Menu Button -->
+        <div class="menu-button">
+          <ion-buttons slot="start">
+            <ion-menu-button>
+              <div class="menu-button-content">
+                <i class="fas fa-bars"></i>
+                <span>Menu</span>
+              </div>
+            </ion-menu-button>
+          </ion-buttons>
+        </div>
+    
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input type="text" placeholder="Busque productos aquí..." [(ngModel)]="searchQuery">
+          <button (click)="search()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+    
+        <!-- Cart -->
+        <div class="cart">
+          <a href="/carrito" class="cart-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-text">${{cartTotal}}</span>
+            <span class="cart-count">{{cartItemCount}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+  
+    <!-- Navigation -->
+    <nav class="navigation">
+      <div class="container">
+        <button class="products-btn">
+          <i class="fas fa-bars"></i>
+          Categorías
+        </button>
 
-    <!-- Logo a la izquierda -->
-    <ion-img class="logo" src="assets/icon/favicon.png" slot="start"></ion-img>
+        <ul class="nav-links">
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Nuevos Productos</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+          <li><a href="#">Sobre SN.Z Digital</a></li>
+        </ul>
+  
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Barra de búsqueda en el centro -->
-    <ion-searchbar class="searchbar-custom" placeholder="Buscar"></ion-searchbar>
-
-    <!-- Botón de iniciar sesión a la derecha -->
-    <ion-buttons slot="end">
-      <ion-button color="primary" routerLink="/login">Iniciar sesión</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="profile-content">
-  <div *ngIf="user; else loading">
-    <ion-card class="profile-card">
-      <ion-card-header>
-        <ion-card-title class="profile-title">Perfil del Usuario</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
+  <div class="profile-container">
+    <div class="profile-card" *ngIf="user; else loading">
+      <h2 class="card-title">Perfil del Usuario</h2>
+      <div class="card-content">
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Nombre:</strong> {{ user.firstName }}</p>
         <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
         <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
         <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
         <p><strong>Teléfono:</strong> {{ user.phone }}</p>
-      </ion-card-content>
-    </ion-card>
+      </div>
+    </div>
+
+    <div class="profile-menu">
+      <button class="menu-item" (click)="onViewProfile()">
+        <span>Ver perfil</span>
+      </button>
+      <button class="menu-item" (click)="onEditProfile()">
+        <span>Editar Perfil</span>
+      </button>
+      <button class="menu-item" (click)="onViewPurchases()">
+        <span>Ver compras</span>
+      </button>
+      <button class="menu-item" (click)="onViewAddresses()">
+        <span>Ver direcciones</span>
+      </button>
+      <button class="menu-item logout" (click)="onLogout()">
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
   </div>
-  
+
   <ng-template #loading>
     <p class="loading-text">Cargando datos del usuario...</p>
   </ng-template>
