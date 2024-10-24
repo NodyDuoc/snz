@@ -82,11 +82,15 @@
       <button class="nav-button prev" (click)="prevSlide()">❮</button>
       <div class="carousel-slide" [ngClass]="{'fade': transitioning}">
         <img [src]="images[currentIndex].url" [alt]="images[currentIndex].title">
-        <div class="slide-info">
-          <h2>{{ images[currentIndex].title }}</h2>
-          <p>{{ images[currentIndex].description }}</p>
+        
+        <!-- Mostrar el contenedor solo si hay contenido en el título o descripción -->
+        <div class="slide-info" *ngIf="images[currentIndex].title.trim() || images[currentIndex].description.trim()">
+          <h2 *ngIf="images[currentIndex].title.trim()">{{ images[currentIndex].title }}</h2>
+          <p *ngIf="images[currentIndex].description.trim()">{{ images[currentIndex].description }}</p>
         </div>
+        
       </div>
+      
       <button class="nav-button next" (click)="nextSlide()">❯</button>
     </div>
   
@@ -96,17 +100,18 @@
 
 <!-- src/app/components/categorias/categorias.component.html -->
 
-<div class="container-card">
-  <ion-toolbar>
+<div class="container-card" >
+ <!--  <ion-toolbar class="category-title">
     <ion-title>Categorías de Productos</ion-title>
-</ion-toolbar>
+</ion-toolbar>-->
 
 <div class="product-section">
   <ion-grid>
     <ion-row>
       <div *ngFor="let categoria of categorias">
         <!-- Título de la categoría -->
-        <h2>{{ categoria.catName }}</h2>
+        <h2 class="category-title">{{ categoria.catName }}</h2>
+
         
         <!-- Fila de productos por categoría -->
         <ion-row>
