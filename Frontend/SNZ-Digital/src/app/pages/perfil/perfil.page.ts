@@ -107,8 +107,10 @@ comprarAhora(producto: Producto) {
   }
 
   onEditProfile() {
-    console.log('Editar perfil');
+    this.router.navigate(['/editar-perfil'], { state: { user: this.user } });
+    console.log('Redirigiendo a la página de edición de perfil con los datos actuales');
   }
+  
 
   onViewPurchases() {
     console.log('Ver compras');
