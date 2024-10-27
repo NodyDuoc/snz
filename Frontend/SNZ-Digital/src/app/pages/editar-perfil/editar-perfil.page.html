@@ -10,88 +10,86 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content padding>
-    <form id="usuarioForm" (ngSubmit)="actualizarUsuario()">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Información del Usuario</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Nombre</ion-label>
-            <ion-input class="input-field" formControlName="firstName"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Segundo Nombre</ion-label>
-            <ion-input class="input-field" formControlName="secondName"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Apellido Materno</ion-label>
-            <ion-input class="input-field" formControlName="firstLastName"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Apellido Paterno</ion-label>
-            <ion-input class="input-field" formControlName="secondLastName"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Teléfono</ion-label>
-            <ion-input class="input-field" formControlName="phone" type="tel" (ionInput)="onPhoneInput($event)"  [value]="usuarioForm.get('phone')?.value"></ion-input>
-          </ion-item>
-  
-          <ion-item lines="none" class="input-item">
-            <ion-label class="input-label" position="floating">Rol</ion-label>
-            <ion-select class="input-field" formControlName="roleListName" multiple="false" placeholder="Seleccione rol">
-              <ion-select-option value="ADMINISTRADOR">Administrador</ion-select-option>
-              <ion-select-option value="EJECUTIVO">Ejecutivo</ion-select-option>
-            </ion-select>
-            <ion-note
-              *ngIf="usuarioForm.get('roleListName')?.hasError('required') && usuarioForm.get('roleListName')?.touched"
-              color="danger">
-              El rol es obligatorio.
-            </ion-note>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="stacked">Estado del Usuario</ion-label>
-            <div class="custom-checkbox-container">
-              <ion-checkbox slot="start" formControlName="isActivated" class="custom-checkbox"></ion-checkbox>
-              <ion-label [ngStyle]="{'color': usuarioForm.get('isActivated')?.value ? 'green' : 'red'}">
-                {{ usuarioForm.get('isActivated')?.value ? 'Activo' : 'Inactivo' }}
-              </ion-label>
-            </div>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="input-label" position="stacked">Email</ion-label>
-            <ion-input class="input-field" formControlName="email"></ion-input>
-          </ion-item>
-  
-  
-          <ion-item>
-            <ion-label>¿Cambiar Contraseña?</ion-label>
-            <ion-checkbox slot="end" class="pregunta" formControlName="changePassword"></ion-checkbox>
-          </ion-item>
-  
-          <ion-item *ngIf="usuarioForm.get('changePassword')?.value">
-            <ion-label position="stacked">Nueva Contraseña</ion-label>
-            <ion-input type="password" formControlName="passwordNew" placeholder="Ingrese nueva contraseña"></ion-input>
-          </ion-item>
-  
-  
-        </ion-card-content>
-      </ion-card>
-  
-      <!-- Botón para guardar cambios -->
-      <div class="button-container">
-        <ion-button type="submit" (click)="actualizarUsuario()">Guardar Cambios</ion-button>
-      </div>
-    </form>
-  </ion-content>
+  <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Información del Usuario</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Nombre</ion-label>
+          <ion-input class="input-field" formControlName="firstName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Segundo Nombre</ion-label>
+          <ion-input class="input-field" formControlName="secondName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Apellido Materno</ion-label>
+          <ion-input class="input-field" formControlName="firstLastName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Apellido Paterno</ion-label>
+          <ion-input class="input-field" formControlName="secondLastName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Teléfono</ion-label>
+          <ion-input class="input-field" formControlName="phone" type="tel" (ionInput)="onPhoneInput($event)"  [value]="usuarioForm.get('phone')?.value"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="input-item">
+          <ion-label class="input-label" position="floating">Rol</ion-label>
+          <ion-select class="input-field" formControlName="roleListName" multiple="false" placeholder="Seleccione rol">
+            <ion-select-option value="ADMINISTRADOR">Administrador</ion-select-option>
+            <ion-select-option value="EJECUTIVO">Ejecutivo</ion-select-option>
+          </ion-select>
+          <ion-note
+            *ngIf="usuarioForm.get('roleListName')?.hasError('required') && usuarioForm.get('roleListName')?.touched"
+            color="danger">
+            El rol es obligatorio.
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Estado del Usuario</ion-label>
+          <div class="custom-checkbox-container">
+            <ion-checkbox slot="start" formControlName="isActivated" class="custom-checkbox"></ion-checkbox>
+            <ion-label [ngStyle]="{'color': usuarioForm.get('isActivated')?.value ? 'green' : 'red'}">
+              {{ usuarioForm.get('isActivated')?.value ? 'Activo' : 'Inactivo' }}
+            </ion-label>
+          </div>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="input-label" position="stacked">Email</ion-label>
+          <ion-input class="input-field" formControlName="email"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>¿Cambiar Contraseña?</ion-label>
+          <ion-checkbox slot="end" class="pregunta" formControlName="changePassword"></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="usuarioForm.get('changePassword')?.value">
+          <ion-label position="stacked">Nueva Contraseña</ion-label>
+          <ion-input type="password" formControlName="passwordNew" placeholder="Ingrese nueva contraseña"></ion-input>
+        </ion-item>
+
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botón para guardar cambios -->
+    <div class="button-container">
+      <ion-button type="submit" (click)="actualizarUsuario()">Guardar Cambios</ion-button>
+    </div>
+  </form>
   
 
   <app-footer></app-footer>
