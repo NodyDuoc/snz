@@ -27,25 +27,25 @@
             Productos
           </ion-item>
 
-          <ion-item routerLink="/sobre" routerLinkActive="active-item">
-            <ion-icon slot="start" name="information-circle"></ion-icon>
-            Sobre S.N.Z Digital
-          </ion-item>
-
           <ion-item routerLink="/catalogo" routerLinkActive="active-item">
             <ion-icon slot="start" name="albums"></ion-icon>
             Catálogo
           </ion-item>
 
-          <ion-item routerLink="/terminos" routerLinkActive="active-item">
+          <ion-item routerLink="/preguntas-frecuentes" routerLinkActive="active-item">
             <ion-icon slot="start" name="document-text"></ion-icon>
-            Términos y Condiciones
+            Preguntas frecuentes
           </ion-item>
 
-          <ion-item routerLink="/contactanos" routerLinkActive="active-item">
+          <ion-item routerLink="/contacto" routerLinkActive="active-item">
             <ion-icon slot="start" name="mail"></ion-icon>
             Contáctanos
           </ion-item>
+          <ion-item routerLink="/informacion" routerLinkActive="active-item">
+            <ion-icon slot="start" name="information-circle"></ion-icon>
+            Sobre S.N.Z Digital
+          </ion-item>
+
 
           <!-- Sección de Cuenta para administrador -->
           <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR' || userRole === 'ROLE_EJECUTIVO')">
