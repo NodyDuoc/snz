@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import com.snzDigital.SNZDigital.util.ResourceNotFoundException;
+import java.util.Base64;
 @Service
 public class ProductoService {
 

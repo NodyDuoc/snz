@@ -6,11 +6,34 @@ public class ProductoResponse {
     private int statusCode;
     private Object data;
 
+
+    private Long productId;
+    private String descripcion;
+    private Number Precio;
+    private Long CategoriaCatId;
+    private String imagen; // En formato Base64
+
+
+
     public ProductoResponse(String message, int statusCode, Object data) {
         this.message = message;
         this.statusCode = statusCode;
         this.data = data;
+
+
+
     }
+    public ProductoResponse(Long productId, String descripcion, String imagen, String message, Long CategoriaCatId) {
+        this.productId = productId;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.message = message;
+        this.CategoriaCatId = CategoriaCatId;
+    }
+
+
+
+
 
     public String getMessage() {
         return message;
