@@ -114,7 +114,15 @@ const routes: Routes = [
   {
     path: 'producto/:id',
     loadChildren: () => import('./pages/producto/producto.module').then( m => m.ProductoPageModule)
+  },  {
+    path: 'contacto',
+    loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
   },
+  {
+    path: 'preguntas-frecuentes',
+    loadChildren: () => import('./pages/preguntas-frecuentes/preguntas-frecuentes.module').then( m => m.PreguntasFrecuentesPageModule)
+  },
+
 
 
 
