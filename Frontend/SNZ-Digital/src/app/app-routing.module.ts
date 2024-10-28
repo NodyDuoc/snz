@@ -122,6 +122,10 @@ const routes: Routes = [
     path: 'preguntas-frecuentes',
     loadChildren: () => import('./pages/preguntas-frecuentes/preguntas-frecuentes.module').then( m => m.PreguntasFrecuentesPageModule)
   },
+  {
+    path: 'menu-trabajador',
+    loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then( m => m.MenuTrabajadorPageModule)
+  },
 
 
 
