@@ -126,6 +126,22 @@ const routes: Routes = [
     path: 'menu-trabajador',
     loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then( m => m.MenuTrabajadorPageModule)
   },
+  {
+    path: 'maestro-producto',
+    loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then( m => m.MaestroProductoPageModule)
+  },
+  {
+    path: 'maestro-categoria',
+    loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
+  },
+  {
+    path: 'maestro-etiqueta',
+    loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then( m => m.MaestroEtiquetaPageModule)
+  },
+  {
+    path: 'kardex',
+    loadChildren: () => import('./pages/kardex/kardex.module').then( m => m.KardexPageModule)
+  },
 
 
 
