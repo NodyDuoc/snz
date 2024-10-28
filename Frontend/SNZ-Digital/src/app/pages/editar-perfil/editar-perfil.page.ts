@@ -1,33 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthCreateUserRequest } from 'src/models/usuarioI';
 import { AlertController, LoadingController } from '@ionic/angular';
+
 @Component({
   selector: 'app-editar-perfil',
   templateUrl: './editar-perfil.page.html',
   styleUrls: ['./editar-perfil.page.scss'],
 })
 export class EditarPerfilPage implements OnInit {
+  
   buscarUsuarioForm!: FormGroup;
   usuarioForm!: FormGroup;
   mostrarInformacionUsuario: boolean = false;
   usuarioActual!: AuthCreateUserRequest;
-  user!: any; // Almacenar toda la información del usuario
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private alertController: AlertController,
     private route: ActivatedRoute,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private router: Router // Inyectar Router
 
   ) { }
 
-
-  
   ngOnInit() {
-    this.loadUser();
     // Inicializar el formulario
     this.usuarioForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -40,51 +40,48 @@ export class EditarPerfilPage implements OnInit {
       isActivated: [''],
       changePassword: [false],
       passwordNew: ['']
-    })
-    ;
+    });
 
     // Obtener el ID del usuario desde la URL
     const userId = this.route.snapshot.paramMap.get('id');
-    this.loadUser();
-    
-  }
-
-  loadUser() {
-    const email = this.authService.getEmailFromToken();
-    if (email) {
-      this.authService.searchByEmail(email).subscribe(
-        (user) => {
-          this.user = user; // Aquí almacenas toda la información del usuario
-
-          // Cargar el usuario por ID
-          const userId = user.id; // Asegúrate de que 'id' sea el nombre correcto de tu parámetro de ruta
-          this.authService.getUserById(userId).subscribe(user => {
-            this.user = user; // Asigna los datos del usuario a la propiedad
-
-            // Aquí actualizas todos los campos del formulario, incluyendo roles, activación, y demás
-            this.usuarioForm.patchValue({
-              firstName: user.firstName,
-              secondName: user.secondName,
-              firstLastName: user.firstLastName,
-              secondLastName: user.secondLastName,
-              phone: user.phone,
-              roleListName: user.role?.roleEnum, // Ajustar según cómo guardes los roles
-              isActivated: user.isActivated, // Suponiendo que esta propiedad está en tu objeto user
-              email: user.email,
-              changePassword: false, // Por defecto, no cambiar la contraseña
-              passwordNew: 'Hola', // Campo vacío hasta que decida cambiar la contraseña
-            });
-          });
-        },
-        (error) => {
-          console.error('Error fetching user:', error);
-        }
-      );
+    if (userId) {
+      this.buscarUsuarioPorId(+userId);  // Convierte el ID a número
     }
   }
 
-
-
+  buscarUsuarioPorId(id: number) {
+    // Llamada al servicio para buscar el usuario por ID
+    this.authService.getUserById(id).subscribe(
+      (usuario) => {
+        if (usuario && usuario.role && usuario.role.roleEnum) {
+          this.usuarioActual = {
+            ...usuario,
+            id: usuario.id // Mapea 'id' a 'id_usuario'
+          };
+          
+          // Asignar valores al formulario, incluyendo el rol
+          this.usuarioForm.patchValue({
+            firstName: usuario.firstName,
+            secondName: usuario.secondName,
+            firstLastName: usuario.firstLastName,
+            secondLastName: usuario.secondLastName,
+            email: usuario.email,
+            phone: usuario.phone,
+            roleListName: usuario.role.roleEnum,  // Asignar el rol correctamente
+            isActivated: usuario.isActivated
+          });
+    
+          this.mostrarInformacionUsuario = true;
+        } else {
+          this.mostrarAlerta('Error en la respuesta', 'No se encontró un rol válido para el usuario.');
+        }
+      },
+      (error) => {
+        this.mostrarAlerta('Error', 'No se pudo obtener el usuario.');
+      }
+    );
+  }
+  
   onPhoneInput(event: any) {
     const inputValue = event.target.value;
   
@@ -104,19 +101,19 @@ export class EditarPerfilPage implements OnInit {
 
   async actualizarUsuario() {
     const id = this.usuarioActual?.id;
-  
+
     if (this.usuarioForm.valid && id != undefined) {
       const result = await this.presentConfirmUpdate();
-      
+
       if (result) {
         const loading = await this.loadingController.create({
-          message: 'Actualizando...', // Mensaje de carga
-          spinner: 'circles', // Tipo de spinner
-          duration: 5000 // Tiempo máximo antes de ocultar el loading, opcional
+          message: 'Actualizando...',
+          spinner: 'circles',
+          duration: 5000
         });
         await loading.present();
-  
-        const nuevaData = {
+
+        const nuevaData: AuthCreateUserRequest = {
           firstName: this.usuarioForm.get('firstName')?.value,
           secondName: this.usuarioForm.get('secondName')?.value,
           firstLastName: this.usuarioForm.get('firstLastName')?.value,
@@ -130,26 +127,39 @@ export class EditarPerfilPage implements OnInit {
           }
         };
 
-        
         this.authService.updateUserById(id, nuevaData).subscribe(
           (response) => {
-            loading.dismiss(); // Ocultar la pantalla de carga
-            this.mostrarAlerta('Usuario actualizado', 'Usuario actualziado correctamente');
-            // Manejar la respuesta, como redirigir o mostrar un mensaje
+            loading.dismiss();
+            this.mostrarAlerta('Usuario actualizado', 'Usuario actualizado correctamente');
+            // Redirigir al perfil después de la actualización
+            this.router.navigate(['/perfil']);
           },
           (error) => {
-            loading.dismiss(); // Ocultar la pantalla de carga en caso de error
-            this.mostrarAlerta('Error al actualizar', "Ocurrio un error al actualizar intentelo nuevamente");
-            // Manejar el error, como mostrar un mensaje de error
+            loading.dismiss();
+            this.mostrarAlerta('Error al actualizar', 'Ocurrió un error al actualizar, inténtelo nuevamente');
           }
         );
-  
-        
       }
     }
-    
   }
+  
 
+  async eliminarUsuario() {
+    const id = this.usuarioActual?.id; // Verifica que id_usuario existe
+
+    // Comprueba si id no es undefined
+    if (id !== undefined) {
+      const result = await this.presentConfirmUpdate();
+
+      if (result) {
+        this.authService.deactivateUser(id).subscribe(() => {
+          this.mostrarAlerta("Desactivación exitosa", "Usuario desactivado correctamente");
+        });
+      }
+    } else {
+      this.mostrarAlerta("Error", "No se pudo obtener el ID del usuario para desactivar.");
+    }
+  }
   async presentConfirm(): Promise<boolean> {
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
@@ -217,6 +227,8 @@ export class EditarPerfilPage implements OnInit {
     const currentValue = this.usuarioForm.get('isActivated')?.value;
     this.usuarioForm.patchValue({ isActivated: !currentValue });
   }
+
+
 
 
 }

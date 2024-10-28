@@ -41,6 +41,10 @@ export class PerfilPage implements OnInit {
 
   }
 
+  // Agregar este método para cargar el usuario al navegar
+ionViewWillEnter() {
+  this.loadUser(); // Cargar usuario cada vez que la vista entra
+}
   
   loadProductos(): void {
     this.categoriaService.getCategorias().subscribe({
@@ -82,21 +86,21 @@ comprarAhora(producto: Producto) {
 
 // Funciones propias
 
-  loadUser() {
-    const email = this.userService.getEmailFromToken();
-    if (email) {
-      this.userService.searchByEmail(email).subscribe(
-        (user) => {
-          this.user = user; // Aquí almacenas toda la información del usuario
-
-          // Puedes hacer más acciones con el id_user si lo necesitas
-        },
-        (error) => {
-          console.error('Error fetching user:', error);
-        }
-      );
-    }
+loadUser() {
+  const email = this.userService.getEmailFromToken();
+  if (email) {
+    this.userService.searchByEmail(email).subscribe(
+      (user) => {
+        this.user = user;
+        console.log('Usuario cargado:', this.user); // Verifica el contenido de this.user
+      },
+      (error) => {
+        console.error('Error fetching user:', error);
+      }
+    );
   }
+}
+
 
   search(): void {
     console.log('Buscando:', this.searchQuery);
@@ -107,10 +111,15 @@ comprarAhora(producto: Producto) {
   }
 
   onEditProfile() {
-    this.router.navigate(['/editar-perfil'], { state: { user: this.user } });
-    console.log('Redirigiendo a la página de edición de perfil con los datos actuales');
+    // Verifica si el usuario está definido y tiene un ID
+    if (this.user && this.user.id) {
+      // Redirige a la página de edición con el ID en la URL
+      this.router.navigate(['/editar-perfil', this.user.id]);
+      console.log(`Redirigiendo a la página de edición de perfil con ID ${this.user.id}`);
+    } else {
+      console.error('No se pudo obtener el ID del usuario');
+    }
   }
-  
 
   onViewPurchases() {
     console.log('Ver compras');

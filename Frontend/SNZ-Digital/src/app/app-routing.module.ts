@@ -92,7 +92,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/catalogo/catalogo.module').then( m => m.CatalogoPageModule)
   },
   {
-    path: 'editar-perfil',
+    path: 'editar-perfil/:id',
     loadChildren: () => import('./pages/editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
   },
   {
