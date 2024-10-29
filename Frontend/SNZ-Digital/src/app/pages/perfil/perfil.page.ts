@@ -81,9 +81,7 @@ loadUser() {
     console.log('Buscando:', this.searchQuery);
   }
 
-  onViewProfile() {
-    console.log('Ver perfil');
-  }
+
 
   onEditProfile() {
     // Verifica si el usuario está definido y tiene un ID
@@ -99,18 +97,23 @@ loadUser() {
   }
   
 
-  onViewPurchases() {
-    console.log('Ver compras');
-  }
+  onViewProfile() {  
+    this.router.navigate(['/perfil']);  
+  }  
 
-  onViewAddresses() {
-    console.log('Ver direcciones');
-  }
+  onViewPurchases() {  
+    this.router.navigate(['/compras']);  
+  }  
 
-  onLogout() {
-    console.log('Cerrar sesión');
-  }
+  onViewAddresses() {  
+    this.router.navigate(['/direcciones']);  
+  }  
 
+  onLogout() {  
+    console.log('Cerrar sesión');  
+    // Aquí podrías añadir lógica para cerrar sesión  
+    this.router.navigate(['/login']); // Redirigir a la página de login después de cerrar sesión  
+  } 
 
 
 }

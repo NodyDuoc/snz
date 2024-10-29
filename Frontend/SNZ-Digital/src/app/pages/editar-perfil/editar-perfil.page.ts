@@ -247,6 +247,27 @@ export class EditarPerfilPage implements OnInit {
   }
 
 
+  onViewProfile() {  
+    this.router.navigate(['/perfil']);  
+  }  
+
+  onEditProfile() {  
+    this.router.navigate(['/editar-perfil']);  
+  }  
+
+  onViewPurchases() {  
+    this.router.navigate(['/compras']);  
+  }  
+
+  onViewAddresses() {  
+    this.router.navigate(['/direcciones']);  
+  }  
+
+  onLogout() {  
+    console.log('Cerrar sesión');  
+    // Aquí podrías añadir lógica para cerrar sesión  
+    this.router.navigate(['/login']); // Redirigir a la página de login después de cerrar sesión  
+  } 
 
 
 }

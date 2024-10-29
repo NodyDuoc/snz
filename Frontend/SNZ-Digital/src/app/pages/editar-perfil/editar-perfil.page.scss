@@ -1,42 +1,82 @@
-.user-card {
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+.layout {  
+  display: flex; /* Usar flexbox */  
+  flex-direction: row; /* Disposición de fila */  
+  padding: 20px; /* Opcional: Añadir un poco de padding */  
+}  
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #3880ff; // Color del título
-}
+.profile-menu-container {  
+  flex: 0 0 250px; /* Ancho fijo para el menú */  
+  margin-right: 20px; /* Espacio entre el menú y el contenido */  
+}  
 
-.card-content {
-  padding: 20px;
-}
+.user-card {  
+  flex: 1; /* Ocupa el espacio restante */  
+  margin: 0; /* Elimina margen */  
+  border-radius: 10px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}  
 
-.input-label {
-  font-size: 1rem;
-  color: #666; // Color de las etiquetas
-}
+.card-title {  
+  font-size: 1.5rem;  
+  font-weight: bold;  
+  color: #3880ff; /* Color del título */  
+}  
 
-.input-field {
-  border-radius: 5px;
-  background-color: #f9f9f9; // Color de fondo del input
-}
+.card-content {  
+  padding: 20px;  
+}  
 
-.pregunta {
-  --ion-color: #3880ff; // Color de la casilla de verificación
-}
+.input-label {  
+  font-size: 1rem;  
+  color: #666; /* Color de las etiquetas */  
+}  
 
-.button-container {
-  margin-top: 20px;
-}
+.input-field {  
+  border-radius: 5px;  
+  background-color: #f9f9f9; /* Color de fondo del input */  
+}  
 
-ion-button {
-  background-color: #3880ff; // Color del botón
-  color: white;
+.pregunta {  
+  --ion-color: #3880ff; /* Color de la casilla de verificación */  
+}  
 
-  &:disabled {
-    background-color: #ccc; // Color del botón deshabilitado
-  }
+.button-container {  
+  margin-top: 20px;  
+}  
+
+ion-button {  
+  background-color: #3880ff; /* Color del botón */  
+  color: white;  
+
+  &:disabled {  
+    background-color: #ccc; /* Color del botón deshabilitado */  
+  }  
+}  
+
+.profile-menu {  
+  display: flex;  
+  flex-direction: column;  
+  gap: 0.5rem;  
+  min-width: 200px;  
+
+  .menu-item {  
+    background: white;  
+    border: none;  
+    padding: 0.75rem 1rem;  
+    text-align: left;  
+    border-radius: 4px;  
+    cursor: pointer;  
+    transition: background-color 0.2s;  
+    color: #3c4043;  
+    font-size: 0.95rem;  
+
+    &:hover {  
+      background-color: #f1f3f4;  
+    }  
+
+    &.logout {  
+      margin-top: 1rem;  
+      color: #d93025;  
+    }  
+  }  
 }
