@@ -37,9 +37,11 @@ export class BusquedaPage implements OnInit {
   get filteredProductos() {
     const query = this.searchQuery?.toLowerCase() || ''; // Convierte la consulta a minúsculas para coincidencias parciales
     return this.productos.filter(producto =>
-      producto?.productName?.toLowerCase().includes(query)
+      producto?.productName?.toLowerCase().includes(query) || 
+      producto?.descripcion?.toLowerCase().includes(query)
     );
   }
+  
 
   realizarBusqueda(): void {
     console.log('Realizando búsqueda para:', this.searchQuery);
