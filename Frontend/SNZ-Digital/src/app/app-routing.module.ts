@@ -147,6 +147,11 @@ const routes: Routes = [
     path: 'actualizar-despacho',
     loadChildren: () => import('./pages/actualizar-despacho/actualizar-despacho.module').then( m => m.ActualizarDespachoPageModule)
   },
+  {
+    path: 'busqueda/detalle',
+    loadChildren: () => import('./pages/busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+  },
+
 
 
 

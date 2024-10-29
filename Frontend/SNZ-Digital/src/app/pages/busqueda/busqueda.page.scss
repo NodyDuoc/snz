@@ -1,0 +1,264 @@
+$primary-color: #3880ff;
+$secondary-color: #f4f4f4;
+$card-bg-color: #fff;
+$text-color: #333;
+
+.hover-item {
+  transition: background-color 0.2s ease; /* Transición suave */
+}
+
+.hover-item:hover {
+  background-color: #4b0082; /* Color celeste */
+}
+
+.destacado {
+  max-width: 100%;    /* Asegura que las imágenes no excedan el tamaño del contenedor */
+  max-height: 250px;  /* Limita la altura para mantenerlas en la misma fila */
+  object-fit: contain; /* Mantiene las proporciones de las imágenes */
+}
+
+.header-title {
+  text-align: center; // Centrar el título
+  padding: 20px 0; // Espaciado interno
+  background-color: white; // Fondo blanco
+}
+
+.main-title {
+  text-align: center; // Centrar el título
+  padding: 20px 0; // Espaciado interno
+  background-color: white; // Fondo blanco
+  color: #800080; // Color morado para el título
+  font-size: 1.5rem; // Tamaño del título
+  margin: 0; // Sin margen
+}
+
+.sub-title {
+  color: #666; // Color gris para el subtítulo
+  font-size: 1rem; // Tamaño del subtítulo
+  margin-top: 5px; // Espacio encima del subtítulo
+}
+
+.custom-button {
+  background-color: #4b0082; /* Color de fondo morado */
+  color: white; /* Color del texto */
+  border-radius: 25px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para un efecto de elevación */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+
+  &:hover {
+    background-color: darken(#4b0082, 10%); /* Color más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Eleva el botón al pasar el ratón */
+  }
+}
+
+.custom-button12 {
+  --background: var(--custom-button-color);  
+  color: white; /* Color del texto */
+  border-radius: 25px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para un efecto de elevación */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+
+  &:hover {
+    background-color: darken(#4b0082, 10%); /* Color más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Eleva el botón al pasar el ratón */
+  }
+}
+
+.header-custom {
+  background-color: #4b0082; /* Color de fondo del encabezado */
+  color: white; /* Color del texto */
+  padding: 10px; /* Espaciado interno */
+  position: relative; /* Establece la posición como relativa para evitar que se superponga */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
+  .logo {
+    width: 40px; /* Ajusta según sea necesario */
+  }
+
+  ion-searchbar {
+    --background: white; /* Fondo blanco para la barra de búsqueda */
+    --color: $text-color; /* Color del texto */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    margin-left: 10px; /* Espaciado a la izquierda */
+  }
+}
+
+ion-button {
+  margin-left: 12px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --border-radius: 8px;
+  --background: #4b0082; 
+  --color: #000000;
+}
+
+.btn-cotizacion {
+  text-align: center;
+  margin: 20px;
+
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.user-detail {
+  text-align: right;
+  font-size: 16px;
+  color: $text-color;
+}
+
+.featured-carousel {
+  width: 100%;
+  height: 200px; // Ajusta según sea necesario
+
+  ion-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    ion-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover; // Para mantener la relación de aspecto
+    }
+  }
+}
+
+
+
+.product-card {
+  background-color: $card-bg-color;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  ion-card-header {
+    background-color: $primary-color;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    ion-img {
+      max-height: 150px;
+      object-fit: contain;
+    }
+  }
+
+  .product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: $primary-color;
+    text-align: center;
+    margin: 10px 0;
+  }
+}
+
+.product-row {
+  display: flex;
+  overflow-x: auto;
+
+  ion-card {
+    margin: 0 5px;
+  }
+}
+
+.footer {
+  background-color: #f8f8f8;
+}
+
+.footer-section {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+}
+
+.social-media ion-button {
+  margin: 0 5px; /* Espaciado entre iconos */
+}
+
+/* Estilo para las imágenes dentro de los ion-card de productos */
+.product-section ion-card img {
+  width: 100%;            /* Ocupa el ancho completo del contenedor */
+  height: 200px;          /* Ajusta la altura fija según tus necesidades */
+  object-fit: contain;      
+  border-radius: 10px;    /* Opcional: añade bordes redondeados */
+}
+
+
+ion-footer ion-toolbar {
+  display: flex;
+  justify-content: space-around; /* Distribuye las secciones uniformemente */
+  align-items: center;
+}
+
+ion-footer ion-title {
+  font-size: 1rem; /* Tamaño de fuente para título */
+  color: #333;
+}
+
+.footer {
+  background-color: #161515; // Fondo negro
+  color: white; // Color del texto
+  padding: 20px; // Espaciado interno
+  display: flex; // Usar flexbox para alinear el contenido
+  justify-content: space-between; // Espacio entre los elementos
+  align-items: center; // Centrar verticalmente
+  border-top: 3px solid #800080; // Línea morada en la parte superior
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); // Sombra en la parte superior
+
+  .footer-section {
+    margin: 0 16px; // Espaciado entre las secciones
+    flex: 1; // Permitir que las secciones se expandan uniformemente
+
+    ion-title {
+      color: #800080; // Morado para los títulos
+      margin-bottom: 10px; // Espacio debajo del título
+      font-weight: bold; // Negrita para el título
+      font-size: 1.2rem; // Tamaño de fuente para mejorar la visibilidad
+    }
+
+    p {
+      color: #ccc; // Color más claro para el texto
+      margin: 4px 0; // Espaciado entre párrafos
+    }
+  }
+
+  .social-media {
+    display: flex; // Usar flexbox para alinear los botones de redes sociales
+    align-items: center; // Centrar verticalmente
+
+    ion-button {
+      color: white; // Color del texto del botón
+      margin-left: 8px; // Espacio entre los botones
+      background: transparent; // Fondo transparente para que se vea el negro
+      --color: white; // Color del texto del botón
+      --border-radius: 50%; // Bordes redondeados
+
+      ion-icon {
+        font-size: 24px; // Tamaño del icono
+        transition: color 0.3s; // Transición suave para el color
+      }
+
+      &:hover {
+        ion-icon {
+          color: #800080; // Cambio de color al pasar el mouse
+        }
+      }
+    }
+  }
+}
+
