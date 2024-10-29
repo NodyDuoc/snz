@@ -142,6 +142,10 @@ const routes: Routes = [
     path: 'kardex',
     loadChildren: () => import('./pages/kardex/kardex.module').then( m => m.KardexPageModule)
   },
+  {
+    path: 'actualizar-despacho',
+    loadChildren: () => import('./pages/actualizar-despacho/actualizar-despacho.module').then( m => m.ActualizarDespachoPageModule)
+  },
 
 
 
