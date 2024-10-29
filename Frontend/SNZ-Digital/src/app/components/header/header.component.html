@@ -5,21 +5,9 @@
     <div class="container">
       <!-- Logo -->
       <div class="logo">
-        <a>
+        <a href="index.html">
           <ion-img src="assets/img/logo.png" alt="ItaliaSPA Logo" class="logo-img"></ion-img>
         </a>
-      </div>
-
-      <!-- Menu Button -->
-      <div class="menu-button">
-        <ion-buttons slot="start">
-          <ion-menu-button>
-            <div class="menu-button-content">
-              <i class="fas fa-bars"></i>
-              <span>Menu</span>
-            </div>
-          </ion-menu-button>
-        </ion-buttons>
       </div>
 
       <!-- Search Bar -->
@@ -45,10 +33,12 @@
   <!-- Navigation -->
   <nav class="navigation">
     <div class="container">
-      <button class="products-btn">
+      <button class="products-btn" (click)="onToggleMenu()">
         <i class="fas fa-bars"></i>
-        Categorías
+        Menú
       </button>
+      
+      
       
 
       <ul class="nav-links">

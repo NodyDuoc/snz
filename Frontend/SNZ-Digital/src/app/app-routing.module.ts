@@ -114,7 +114,8 @@ const routes: Routes = [
   {
     path: 'producto/:id',
     loadChildren: () => import('./pages/producto/producto.module').then( m => m.ProductoPageModule)
-  },  {
+  },
+  {
     path: 'contacto',
     loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
   },
@@ -122,17 +123,17 @@ const routes: Routes = [
     path: 'preguntas-frecuentes',
     loadChildren: () => import('./pages/preguntas-frecuentes/preguntas-frecuentes.module').then( m => m.PreguntasFrecuentesPageModule)
   },
-  {
-    path: 'menu-trabajador',
-    loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then( m => m.MenuTrabajadorPageModule)
-  },
-  {
-    path: 'maestro-producto',
-    loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then( m => m.MaestroProductoPageModule)
-  },
-  {
-    path: 'maestro-categoria',
-    loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
+  {  
+    path: 'menu-trabajador',  
+    loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then(m => m.MenuTrabajadorPageModule)  
+  },  
+  {  
+    path: 'maestro-producto',  
+    loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then(m => m.MaestroProductoPageModule)  
+  },  
+  {  
+    path: 'maestro-etiqueta',  
+    loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then(m => m.MaestroEtiquetaPageModule)  
   },
   {
     path: 'maestro-etiqueta',

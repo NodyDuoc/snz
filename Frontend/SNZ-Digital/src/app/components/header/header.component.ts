@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +13,20 @@ export class HeaderComponent  implements OnInit {
   cartItemCount: number = 0;
   currentIndex: number = 0;
 
-  constructor() { }
+  constructor(private menuController: MenuController) { }
 
   ngOnInit() {}
 
   search(): void {
     console.log('Buscando:', this.searchQuery);
   }
+
+  onToggleMenu(): void {
+    this.menuController.open().then(() => {
+      console.log('Menu opened');
+    }).catch(err => {
+      console.error('Error opening menu:', err);
+    });
+  }
+  
 }
