@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,13 +13,20 @@ export class HeaderComponent  implements OnInit {
   cartItemCount: number = 0;
   currentIndex: number = 0;
 
-  constructor(private menuController: MenuController) { }
-
-  ngOnInit() {}
+  constructor(
+    private menuController: MenuController,
+    private router: Router
+  ) { }
 
   search(): void {
-    console.log('Buscando:', this.searchQuery);
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/busqueda', this.searchQuery]);
+    } else {
+      console.log('Ingrese un término de búsqueda');
+    }
   }
+
+  ngOnInit() {}
 
   onToggleMenu(): void {
     this.menuController.open().then(() => {

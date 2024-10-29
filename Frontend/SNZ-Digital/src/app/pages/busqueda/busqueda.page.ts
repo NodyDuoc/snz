@@ -11,35 +11,53 @@ import { Producto } from 'src/models/producto';
 })
 export class BusquedaPage implements OnInit {
   productos: Producto[] = []; // Inicializa como un array vacío
-    selectedProducto?: Producto; // Producto seleccionado
-    errorMessage: string = ''; // Variable para almacenar mensajes de error
-    imagePreview: string | ArrayBuffer | null = null;
-    toastMessage: string | null = null;
-    toastColor: string = 'success';
+  selectedProducto?: Producto; // Producto seleccionado
+  errorMessage: string = ''; // Variable para almacenar mensajes de error
+  imagePreview: string | ArrayBuffer | null = null;
+  toastMessage: string | null = null;
+  toastColor: string = 'success';
+  searchQuery: string = '';
 
-    constructor(
-      private productoService: ProductoService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private toastController: ToastController  // Inyectar ToastController
-    ) {}
+  constructor(
+    private productoService: ProductoService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastController: ToastController  // Inyectar ToastController
+  ) { }
 
-    ngOnInit() {
-      this.cargarProductos(); // Cargar los productos cuando el componente se inicie
+  ngOnInit() {
+    this.cargarProductos(); // Cargar los productos cuando el componente se inicie
+    this.route.paramMap.subscribe(params => {
+      this.searchQuery = params.get('detalle') || '';
+      this.realizarBusqueda();
+    });
+  }
+
+  // Agrega este método en tu componente TypeScript
+  get filteredProductos() {
+    const query = this.searchQuery?.toLowerCase() || ''; // Convierte la consulta a minúsculas para coincidencias parciales
+    return this.productos.filter(producto =>
+      producto?.productName?.toLowerCase().includes(query)
+    );
+  }
+
+  realizarBusqueda(): void {
+    console.log('Realizando búsqueda para:', this.searchQuery);
+    // Aquí agregas la lógica para buscar productos basados en `this.searchQuery`
   }
 
   cargarProductos() {
     this.productoService.getAllProductos().subscribe(
       (data: Producto[]) => {
         this.productos = data;
-  
+
         // Llama al método para ordenar después de cargar los productos
-        this.ordenarProductos(); 
-  
+        this.ordenarProductos();
+
         // Selecciona el primer producto por defecto si hay productos disponibles
         if (this.productos.length > 0) {
           this.selectedProducto = this.productos[0];
-  
+
           // Si el producto tiene imagen, se crea la vista previa
           if (this.selectedProducto.imagen) {
             this.imagePreview = `data:image/png;base64,${this.selectedProducto.imagen}`;
@@ -54,7 +72,7 @@ export class BusquedaPage implements OnInit {
       }
     );
   }
-  
+
 
   onImageChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -88,25 +106,25 @@ export class BusquedaPage implements OnInit {
   }
 
   seleccionarProducto(producto: Producto) {
-      this.selectedProducto = producto; // Método para cambiar el producto seleccionado
+    this.selectedProducto = producto; // Método para cambiar el producto seleccionado
   }
 
   // Función para hacer scroll suave a la sección con el id proporcionado
   scrollToSection(sectionId: string) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   agregarAlCarrito(producto: Producto) {
-      // Lógica para agregar el producto al carrito
-      console.log('Producto agregado al carrito:', producto);
+    // Lógica para agregar el producto al carrito
+    console.log('Producto agregado al carrito:', producto);
   }
 
   comprarAhora(producto: Producto) {
-      // Lógica para realizar la compra del producto
-      console.log('Iniciar compra para el producto:', producto);
+    // Lógica para realizar la compra del producto
+    console.log('Iniciar compra para el producto:', producto);
   }
 
   async presentToast() {
