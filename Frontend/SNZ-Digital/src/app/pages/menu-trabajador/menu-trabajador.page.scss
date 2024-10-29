@@ -1,0 +1,87 @@
+$primary-color: #3880ff;
+$highlight-color: #4b0082;
+$card-bg-color: #fff;
+$text-color: #333;
+$hover-color: lighten($highlight-color, 15%);
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  flex: 1;
+  max-width: 500px;
+  background: $card-bg-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  text-align: center;
+
+  .card-title {
+    color: $primary-color;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid $primary-color;
+  }
+
+  .card-content {
+    p {
+      margin: 0.75rem 0;
+      color: $text-color;
+      font-size: 1rem;
+      font-weight: 500;
+
+      strong {
+        color: darken($text-color, 10%);
+        min-width: 140px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.profile-menu {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  min-width: 220px;
+
+  .menu-item {
+    background: $highlight-color;
+    border: none;
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    transition: background-color 0.3s, transform 0.3s;
+
+    ion-icon {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: $hover-color;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.loading-text {
+  text-align: center;
+  color: $text-color;
+  padding: 2rem;
+  font-style: italic;
+}

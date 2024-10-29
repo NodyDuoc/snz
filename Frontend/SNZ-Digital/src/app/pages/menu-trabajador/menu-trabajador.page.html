@@ -1,0 +1,42 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header> 
+  <app-carrusel></app-carrusel>
+
+  <div class="profile-container">
+    <div class="profile-card" *ngIf="user; else loading">
+      <h2 class="card-title">Trabajador</h2>
+      <div class="card-content">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Nombre:</strong> {{ user.firstName }}</p>
+        <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
+        <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
+        <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
+        <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+      </div>
+    </div>
+
+    <div class="profile-menu">
+      <button class="menu-item" href="/maestro-producto">
+        <span>Maestro de productos</span>
+      </button>
+      <button class="menu-item" href="/maestro-categoria">
+        <span>Maestro de categorias</span>
+      </button>
+      <button class="menu-item" href="/maestro-etiqueta">
+        <span>Maestro de etiquetas</span>
+      </button>
+      <button class="menu-item" href="/actualizar-despacho">
+        <span>Actualizar despacho</span>
+      </button>
+      <button class="menu-item" href="/kardex">
+        <span>Kardex</span>
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <p class="loading-text">Cargando datos del trabajador...</p>
+  </ng-template>
+  
+  <app-footer></app-footer>
+</ion-content>
