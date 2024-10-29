@@ -6,6 +6,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Service/auth.service';
+import { environment } from 'src/environments/environment.prod';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
@@ -62,6 +64,18 @@ loadUser() {
   }
 }
 
+  // Función para encriptar el ID
+  encryptId(id: string): string {
+    const combined = id + environment.secretKey; // Usa la clave secreta del entorno
+    let encrypted = '';
+
+    // Aplica una transformación a cada carácter
+    for (let i = 0; i < combined.length; i++) {
+      encrypted += String.fromCharCode(combined.charCodeAt(i) + (i % 10));
+    }
+
+    return btoa(encrypted); // Convierte el resultado a Base64
+  }
 
   search(): void {
     console.log('Buscando:', this.searchQuery);
@@ -74,13 +88,16 @@ loadUser() {
   onEditProfile() {
     // Verifica si el usuario está definido y tiene un ID
     if (this.user && this.user.id) {
+      const encryptedId = this.encryptId(this.user.id.toString()); // Encriptar el ID
+  
       // Redirige a la página de edición con el ID en la URL
-      this.router.navigate(['/editar-perfil', this.user.id]);
+      this.router.navigate(['/editar-perfil', encryptedId]);
       console.log(`Redirigiendo a la página de edición de perfil con ID ${this.user.id}`);
     } else {
       console.error('No se pudo obtener el ID del usuario');
     }
   }
+  
 
   onViewPurchases() {
     console.log('Ver compras');

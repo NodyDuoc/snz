@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/Service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthCreateUserRequest } from 'src/models/usuarioI';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -43,11 +44,28 @@ export class EditarPerfilPage implements OnInit {
     });
 
     // Obtener el ID del usuario desde la URL
-    const userId = this.route.snapshot.paramMap.get('id');
-    if (userId) {
-      this.buscarUsuarioPorId(+userId);  // Convierte el ID a número
+    const encryptedId = this.route.snapshot.paramMap.get('id');
+    if (encryptedId) {
+      const userId = this.decryptId(encryptedId); // Desencriptar el ID
+      this.buscarUsuarioPorId(+userId); // Convierte el ID a número
     }
   }
+
+
+  // Función para desencriptar el ID
+  decryptId(encryptedId: string): string {
+    const decoded = atob(encryptedId); // Decodifica de Base64
+    let decrypted = '';
+
+    // Invierte la transformación para obtener el ID original
+    for (let i = 0; i < decoded.length; i++) {
+      decrypted += String.fromCharCode(decoded.charCodeAt(i) - (i % 10));
+    }
+
+    // Extrae el ID original, quitando la clave secreta
+    return decrypted.replace(environment.secretKey, ''); // Devuelve solo el ID
+  }
+
 
   buscarUsuarioPorId(id: number) {
     // Llamada al servicio para buscar el usuario por ID
