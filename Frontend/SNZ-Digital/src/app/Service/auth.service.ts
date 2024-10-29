@@ -52,26 +52,15 @@ export class AuthService {
     return null;
   }
 
-  getTokenExpirationDate(): Date | null {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken: any = jwtDecode(token);
-      if (decodedToken.exp) {
-        const expirationDate = new Date(0); // Inicializa con fecha 0
-        expirationDate.setUTCSeconds(decodedToken.exp); // Establece los segundos desde la marca UNIX
-        return expirationDate;
-      }
-    }
-    return null;
-  }
-  
-  isTokenExpired(): boolean {
-    const expirationDate = this.getTokenExpirationDate();
-    if (expirationDate) {
-      return expirationDate.valueOf() < new Date().valueOf(); // Comparar fechas
-    }
-    return true; // Si no hay fecha de expiración, asumimos que ha expirado
-  }
+  getTokenExpirationDate(): Date | null {  
+    // Suponiendo que decides no usar expiración en absoluto  
+    return null; // No habrá expiración  
+}  
+
+isTokenExpired(): boolean {  
+    // Suponiendo que decides que el token nunca expira  
+    return false; // El token nunca expira  
+}
   
 
   getEmailFromToken(): string | null {
