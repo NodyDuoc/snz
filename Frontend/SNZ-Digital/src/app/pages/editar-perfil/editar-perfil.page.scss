@@ -19,7 +19,7 @@
 .card-title {  
   font-size: 1.5rem;  
   font-weight: bold;  
-  color: #3880ff; /* Color del título */  
+  color: #4b0082;/* Color del título */  
 }  
 
 .card-content {  
@@ -33,11 +33,10 @@
 
 .input-field {  
   border-radius: 5px;  
-  background-color: #f9f9f9; /* Color de fondo del input */  
 }  
 
 .pregunta {  
-  --ion-color: #3880ff; /* Color de la casilla de verificación */  
+  --ion-color: #4b0082; /* Color de la casilla de verificación */  
 }  
 
 .button-container {  
@@ -45,7 +44,7 @@
 }  
 
 ion-button {  
-  background-color: #3880ff; /* Color del botón */  
+  background-color: #4b0082; /* Color del botón */  
   color: white;  
 
   &:disabled {  
@@ -79,4 +78,64 @@ ion-button {
       color: #d93025;  
     }  
   }  
+}
+
+
+ion-button {
+  margin-left: 12px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --border-radius: 8px;
+  --background: #4b0082;
+  --color: #000000;
+}
+
+ion-title {
+  font-weight: bold;
+}
+.detalle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.left-side,
+.right-side {
+  width: 45%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: #000000; /* Color negro bien marcado */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.editable-field {
+  background-color: #fef8e3;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #000000; /* Color negro bien marcado */
+}
+
+.readonly-field {
+  color: #000000; /* Color negro bien marcado */
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+}
+
+.ion-valid.sc-ion-input-md-h {
+  --highlight-color: #4b0082;
 }
