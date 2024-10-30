@@ -150,7 +150,11 @@ const routes: Routes = [
   {
     path: 'busqueda/:detalle',
     loadChildren: () => import('./pages/busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+  },  {
+    path: 'getproductosid',
+    loadChildren: () => import('./pages/getproductosid/getproductosid.module').then( m => m.GetproductosidPageModule)
   },
+
 
 
 
