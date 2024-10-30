@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { Producto } from 'src/models/producto';
+import { AuthService } from 'src/app/Service/auth.service';
 
 @Component({
   selector: 'app-direccion',
@@ -17,24 +18,50 @@ export class DireccionPage implements OnInit {
   toastMessage: string | null = null;
   toastColor: string = 'success';
   searchQuery: string = '';
+  user: any = null; // Almacenar toda la información del usuario
 
   constructor(
     private productoService: ProductoService,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: AuthService,
     private toastController: ToastController  // Inyectar ToastController
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.cargarProductos(); // Cargar los productos cuando el componente se inicie
+    this.loadUser();
+  }
+
+  loadUser() {
+    const email = this.userService.getEmailFromToken();
+    if (email) {
+      this.userService.searchByEmail(email).subscribe(
+        (user) => {
+          this.user = user;
+          console.log('Usuario cargado:', this.user); // Verifica el contenido de this.user
+          this.cargarProductos(); // Cargar los productos solo si hay un usuario
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+        }
+      );
+    } else {
+      this.errorMessage = 'Debes iniciar sesión para ver los productos.';
+    }
   }
 
   // Nueva función para filtrar por productId
   filtrarPorId(): Producto[] {
-    return this.productos.filter(producto => producto.productId === 1);
+    return this.productos.filter(producto => producto.productId === this.user.id);
   }
 
   cargarProductos() {
+    if (!this.user) {
+      this.productos = []; // No muestra productos si no hay usuario
+      this.errorMessage = 'Debes iniciar sesión para ver los productos.';
+      return;
+    }
+
     this.productoService.getAllProductos().subscribe(
       (data: Producto[]) => {
         this.productos = data;
