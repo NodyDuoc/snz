@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { ProductoService } from 'src/app/Service/ProductoService.service';
-import { Producto } from 'src/models/producto';
+import { DireccionService } from 'src/app/Service/DireccionService.service'; // Asegúrate de que este servicio existe
+import { Direccion } from 'src/models/direccion';
 import { AuthService } from 'src/app/Service/auth.service';
 
 @Component({
@@ -11,21 +11,18 @@ import { AuthService } from 'src/app/Service/auth.service';
   styleUrls: ['./direccion.page.scss'],
 })
 export class DireccionPage implements OnInit {
-  productos: Producto[] = []; // Inicializa como un array vacío
-  selectedProducto?: Producto; // Producto seleccionado
+  direcciones: Direccion[] = []; // Inicializa como un array vacío
+  selectedDireccion?: Direccion; // Dirección seleccionada
   errorMessage: string = ''; // Variable para almacenar mensajes de error
-  imagePreview: string | ArrayBuffer | null = null;
   toastMessage: string | null = null;
   toastColor: string = 'success';
-  searchQuery: string = '';
   user: any = null; // Almacenar toda la información del usuario
 
   constructor(
-    private productoService: ProductoService,
-    private route: ActivatedRoute,
+    private direccionService: DireccionService, // Cambiado a DireccionService
     private router: Router,
     private userService: AuthService,
-    private toastController: ToastController  // Inyectar ToastController
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -39,105 +36,52 @@ export class DireccionPage implements OnInit {
         (user) => {
           this.user = user;
           console.log('Usuario cargado:', this.user); // Verifica el contenido de this.user
-          this.cargarProductos(); // Cargar los productos solo si hay un usuario
+          this.cargarDirecciones(); // Cargar las direcciones solo si hay un usuario
         },
         (error) => {
           console.error('Error fetching user:', error);
         }
       );
     } else {
-      this.errorMessage = 'Debes iniciar sesión para ver los productos.';
+      this.errorMessage = 'Debes iniciar sesión para ver las direcciones.';
     }
   }
 
-  // Nueva función para filtrar por productId
-  filtrarPorId(): Producto[] {
-    return this.productos.filter(producto => producto.productId === this.user.id);
+  // Nueva función para filtrar direcciones por usuarioIdUser
+  filtrarPorUsuarioId(): Direccion[] {
+    return this.direcciones.filter(direccion => direccion.usuarioIdUser === this.user.id);
   }
 
-  cargarProductos() {
+  cargarDirecciones() {
     if (!this.user) {
-      this.productos = []; // No muestra productos si no hay usuario
-      this.errorMessage = 'Debes iniciar sesión para ver los productos.';
+      this.direcciones = []; // No muestra direcciones si no hay usuario
+      this.errorMessage = 'Debes iniciar sesión para ver las direcciones.';
       return;
     }
 
-    this.productoService.getAllProductos().subscribe(
-      (data: Producto[]) => {
-        this.productos = data;
+    this.direccionService.getAllDirecciones().subscribe(
+      (data: Direccion[]) => {
+        this.direcciones = data;
 
-        // Filtra los productos para que solo incluya el de productId = 1
-        this.productos = this.filtrarPorId();
+        // Filtra las direcciones para que solo incluya las del usuario
+        this.direcciones = this.filtrarPorUsuarioId();
 
-        if (this.productos.length > 0) {
-          this.selectedProducto = this.productos[0];
+        if (this.direcciones.length > 0) {
+          this.selectedDireccion = this.direcciones[0]; // Selecciona la primera dirección
 
-          // Si el producto tiene imagen, se crea la vista previa
-          if (this.selectedProducto.imagen) {
-            this.imagePreview = `data:image/png;base64,${this.selectedProducto.imagen}`;
-          }
         } else {
-          this.errorMessage = 'No hay productos disponibles con el ID especificado.';
+          this.errorMessage = 'No hay direcciones disponibles para este usuario.';
         }
       },
       (error) => {
-        console.error('Error al obtener los productos', error);
-        this.errorMessage = 'Hubo un problema al cargar los productos. Por favor, intenta más tarde.';
+        console.error('Error al obtener las direcciones', error);
+        this.errorMessage = 'Hubo un problema al cargar las direcciones. Por favor, intenta más tarde.';
       }
     );
   }
 
-  onImageChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const allowedTypes = ['image/jpeg', 'image/png'];
-
-      // Validar el tipo de archivo
-      if (allowedTypes.includes(file.type)) {
-        const reader = new FileReader();
-
-        reader.onload = () => {
-          this.imagePreview = reader.result;
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        // Mostrar mensaje de error si el archivo no es JPG o PNG
-        this.toastMessage = "Solo se permiten archivos JPG o PNG.";
-        this.toastColor = 'danger';
-        this.presentToast();
-      }
-    }
-  }
-
-  ordenarProductos() {
-    this.productos.sort((a, b) => {
-      // Ordenar por precio de mayor a menor
-      return (b.precio || 0) - (a.precio || 0);
-    });
-  }
-
-  seleccionarProducto(producto: Producto) {
-    this.selectedProducto = producto; // Método para cambiar el producto seleccionado
-  }
-
-  // Función para hacer scroll suave a la sección con el id proporcionado
-  scrollToSection(sectionId: string) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  agregarAlCarrito(producto: Producto) {
-    // Lógica para agregar el producto al carrito
-    console.log('Producto agregado al carrito:', producto);
-  }
-
-  comprarAhora(producto: Producto) {
-    // Lógica para realizar la compra del producto
-    console.log('Iniciar compra para el producto:', producto);
+  seleccionarDireccion(direccion: Direccion) {
+    this.selectedDireccion = direccion; // Método para cambiar la dirección seleccionada
   }
 
   async presentToast() {
