@@ -1,104 +1,32 @@
 <ion-content [fullscreen]="true">
-
   <app-header></app-header>
 
-  <app-carrusel></app-carrusel>
+  <div class="carrito-container" *ngIf="carrito && detalles.length > 0">
+    <div>
+      <ion-title>Carrito de Compras</ion-title>
+      <p>Total: ${{ carrito.costoTotalCarrito?.toFixed(2) || '0.00' }}</p>
+    </div>
 
-  
-  <!-- Título de la página de carrito de compras -->
-  <div class="cart-header">
     <ion-grid>
       <ion-row>
-        <ion-col size="auto">
-          <h2>Carrito de compras</h2>
+        <ion-col size="12" *ngFor="let detalle of detalles">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Producto ID: {{ detalle.productId }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Cantidad: {{ detalle.cantidad }}</p>
+              <p>Costo Unitario: ${{ detalle.costoUnitario?.toFixed(2) || '0.00' }}</p>
+              <p>Costo Total: ${{ detalle.costoTotal?.toFixed(2) || '0.00' }}</p>
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
-  <!-- Total del carrito y botón de proceder al pago -->
-  <div class="cart-checkout">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="auto">
-          <h2>Total: $600</h2>
-        </ion-col>
-        <ion-col size="auto">
-          <ion-button color="success" expand="block">Proceder al pago</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- Sección de productos en el carrito -->
-  <div class="cart-section">
-    <ion-grid>
-      <!-- Producto 1 -->
-      <ion-row class="cart-item">
-        <ion-col size="auto">
-          <ion-img src="assets/img/producto1.jpg"></ion-img>
-        </ion-col>
-        <ion-col>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Producto 1</ion-card-title>
-              <p>$100</p>
-              <p>Cantidad: 1</p>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-button color="primary" routerLink="/producto">Ver producto</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="auto">
-          <ion-button color="danger" fill="outline">Eliminar</ion-button>
-        </ion-col>
-      </ion-row>
-
-      <!-- Producto 2 -->
-      <ion-row class="cart-item">
-        <ion-col size="auto">
-          <ion-img src="assets/img/producto2.jpg"></ion-img>
-        </ion-col>
-        <ion-col>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Producto 2</ion-card-title>
-              <p>$150</p>
-              <p>Cantidad: 2</p>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-button color="primary" routerLink="/producto">Ver producto</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="auto">
-          <ion-button color="danger" fill="outline">Eliminar</ion-button>
-        </ion-col>
-      </ion-row>
-
-      <!-- Producto 3 -->
-      <ion-row class="cart-item">
-        <ion-col size="auto">
-          <ion-img src="assets/img/producto3.jpg"></ion-img>
-        </ion-col>
-        <ion-col>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Producto 3</ion-card-title>
-              <p>$200</p>
-              <p>Cantidad: 1</p>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-button color="primary" routerLink="/producto">Ver producto</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="auto">
-          <ion-button color="danger" fill="outline">Eliminar</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div *ngIf="!carrito || detalles.length === 0">
+    <p>{{ errorMessage }}</p>
   </div>
 
   <app-footer></app-footer>
