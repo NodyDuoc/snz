@@ -4,7 +4,7 @@
   <div class="carrito-container" *ngIf="carrito && detalles.length > 0">
     <div>
       <ion-title>Carrito de Compras</ion-title>
-      <p>Total: ${{ carrito.costoTotalCarrito?.toFixed(2) || '0.00' }}</p>
+      <p>Total: ${{ carrito.costoTotalCarrito.toFixed(2) || '0.00' }}</p>
     </div>
 
     <ion-grid>
@@ -16,8 +16,8 @@
             </ion-card-header>
             <ion-card-content>
               <p>Cantidad: {{ detalle.cantidad }}</p>
-              <p>Costo Unitario: ${{ detalle.costoUnitario?.toFixed(2) || '0.00' }}</p>
-              <p>Costo Total: ${{ detalle.costoTotal?.toFixed(2) || '0.00' }}</p>
+              <p>Costo Unitario: ${{ detalle.costoUnitario.toFixed(2) || '0.00' }}</p>
+              <p>Costo Total: ${{ detalle.costoTotal.toFixed(2) || '0.00' }}</p>
             </ion-card-content>
           </ion-card>
         </ion-col>
