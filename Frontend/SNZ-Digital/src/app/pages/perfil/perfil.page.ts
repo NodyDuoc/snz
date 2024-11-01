@@ -102,7 +102,7 @@ loadUser() {
   }  
 
   onViewPurchases() {  
-    this.router.navigate(['/compras']);  
+    this.router.navigate(['/pedido']);  
   }  
 
   onViewAddresses() {  

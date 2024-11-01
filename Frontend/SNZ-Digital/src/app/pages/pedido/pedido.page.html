@@ -1,85 +1,46 @@
 <ion-content [fullscreen]="true">
-
   <app-header></app-header>
-
-  <app-carrusel></app-carrusel>
-
+  
   <div class="container-card">
+    <div class="header-title">
+      <ion-title class="main-title">¡Gestión de Pedidos!</ion-title>
+      <p class="sub-title">Aquí puedes gestionar tus pedidos pendientes</p>
+    </div>
+
     <ion-grid>
       <ion-row>
         <ion-col size="12" class="ion-text-start">
-          <ion-button expand="full" fill="solid" routerLink="/perfil" class="custom-button">
+          <ion-button 
+            expand="full" 
+            fill="solid" 
+            routerLink="/index" 
+            class="custom-button">
             <ion-icon name="arrow-back" slot="start"></ion-icon>
-            Volver a mi perfil
+            Volver a la página principal
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <div class="header-title">
-      <ion-title class="main-title">Mis pedidos</ion-title>
-    </div>
-  
-
-    <div class="product-section">
+    <div class="pedido-section">
       <ion-grid>
         <ion-row>
-          <ion-col size="3" *ngFor="let producto of productos">
+          <ion-col size="12" *ngFor="let pedido of pedidos">
             <ion-card>
-              <div *ngIf="producto.imagen">
-                <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
-              </div>
               <ion-card-header>
-                <ion-card-title>{{ producto.productName }}</ion-card-title>
-                <p>${{ producto.precio?.toFixed(2) }}</p>
-                <p>Id: {{ producto.productId}}
-                </p>
+                <ion-card-title>Pedido ID: {{ pedido.pedidoId }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
-                <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
-                <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al
-                  carrito</ion-button>
-                <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar
-                  ahora</ion-button>
+                <p>Producto ID: {{ pedido.productoProductId }}</p>
+                <p>Comuna: {{ pedido.comuna || 'No disponible' }}</p>
+                <p>Dirección: {{ pedido.direccion || 'No disponible' }}</p>
+                <p>Detalle: {{ pedido.detalle || 'No disponible' }}</p>
               </ion-card-content>
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
-
-    <div class="header-title">
-      <ion-title class="main-title">Pedidos Finalizados</ion-title>
-    </div>
-  
-
-    <div class="product-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="3" *ngFor="let producto of productos">
-            <ion-card>
-              <div *ngIf="producto.imagen">
-                <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
-              </div>
-              <ion-card-header>
-                <ion-card-title>{{ producto.productName }}</ion-card-title>
-                <p>${{ producto.precio?.toFixed(2) }}</p>
-                <p>Id: {{ producto.productId}}
-                </p>
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
-                <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al
-                  carrito</ion-button>
-                <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar
-                  ahora</ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
   </div>
 
   <app-footer></app-footer>
