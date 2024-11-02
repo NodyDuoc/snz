@@ -8,6 +8,7 @@ public class ProductoResponse {
 
 
     private Long productId;
+    private String productName;
     private String descripcion;
     private Number Precio;
     private Long CategoriaCatId;
@@ -23,8 +24,9 @@ public class ProductoResponse {
 
 
     }
-    public ProductoResponse(Long productId, String descripcion, String imagen, String message, Long CategoriaCatId) {
+    public ProductoResponse(Long productId,String productName, String descripcion, String imagen, String message, Long CategoriaCatId) {
         this.productId = productId;
+        this.productName = productName;
         this.descripcion = descripcion;
         this.imagen = imagen;
         this.message = message;

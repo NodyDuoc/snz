@@ -39,6 +39,14 @@ public class ProductoController {
         return productoService.getProductosByCategoria(categoriaCatId);
     }
 
+    @GetMapping("/categoria/paginado/{categoriaCatId}")
+    public ProductoResponse getProductosByCategoria(
+            @PathVariable Long categoriaCatId,
+            @RequestParam(defaultValue = "0") int page, // Página por defecto 0
+            @RequestParam(defaultValue = "6") int size) { // Tamaño por defecto 6
+        return productoService.getProductosByCategoria(categoriaCatId, page, size);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ProductoResponse> createProducto(
             @RequestParam("productName") String productName,

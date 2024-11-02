@@ -1,10 +1,13 @@
 package com.snzDigital.SNZDigital.service;
 
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import com.snzDigital.SNZDigital.controller.dto.ProductoResponse;
 import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
 import com.snzDigital.SNZDigital.persistence.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,4 +72,30 @@ public class ProductoService {
         producto.setProductId(id); // Aseguramos que el ID se setea correctamente
         return productoRepository.save(producto);
     }
+
+    public ProductoResponse getProductosByCategoria(Long categoriaCatId, int page, int size) {
+        // Crear el PageRequest
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Obtener productos paginados por categoría
+        Page<ProductoEntity> productosPage = productoRepository.findByCategoriaCatId(categoriaCatId, pageable);
+        // Convertir productos a ProductoResponse
+        List<ProductoResponse> productosResponse = productosPage.getContent().stream()
+                .map(producto -> new ProductoResponse(
+                        producto.getProductId(),
+                        producto.getProductName(),
+                        producto.getDescripcion(),
+                        producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
+                        "Productos listados correctamente",
+                        producto.getCategoriaCatId()
+                ))
+                .collect(Collectors.toList());
+
+        // Construir el response final
+        return new ProductoResponse("Productos listados correctamente", 200, productosResponse);
+    }
+
+
+
+
 }

@@ -154,7 +154,11 @@ const routes: Routes = [
   {
     path: 'getproductosid',
     loadChildren: () => import('./pages/getproductosid/getproductosid.module').then( m => m.GetproductosidPageModule)
+  },  {
+    path: 'test',
+    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
   },
+
 
 
 

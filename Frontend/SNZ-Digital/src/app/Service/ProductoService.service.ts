@@ -28,4 +28,14 @@ export class ProductoService {
     return this.http.get<Producto[]>(`${this.baseUrl}/categoria/${categoriaId}`);
   }
 
+    // Método para obtener productos por categoría
+    getProductosByCategoriaPaginado(categoriaCatId: number, page: number = 0, size: number = 5): Observable<Producto> {
+      // Configurar los parámetros de la solicitud
+      const params = new HttpParams()
+        .set('page', page.toString())
+        .set('size', size.toString());
+  
+      // Corregir la URL para incluir la categoría
+      return this.http.get<Producto>(`${this.baseUrl}/categoria/${categoriaCatId}`, { params });
+    }
 }

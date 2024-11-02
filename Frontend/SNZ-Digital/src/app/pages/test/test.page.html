@@ -1,0 +1,142 @@
+<ion-content [fullscreen]="true">
+
+  <app-header></app-header>
+
+  <app-carrusel></app-carrusel>
+
+  <!-- Categorías pequeñas -->
+  <div class="category-list">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-computacion')">
+          <ion-item>Computación</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-celulares')">
+          <ion-item>Celulares</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-accesorios')">
+          <ion-item>Accesorios</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-audio')">
+          <ion-item>Audio</ion-item>
+        </ion-col>
+        <ion-col size="auto" class="hover-item" (click)="scrollToSection('categoria-electronica')">
+          <ion-item>Electrónica</ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Swiper carrusel de promociones -->
+  <div class="swiper-container promotion-slider">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide">
+        <div class="promotion-content">
+          <div class="promotion-left">
+            <h1>#LoMejorEnSNZ</h1>
+            <h2>Aprovecha</h2>
+            <h3>Hasta </h3>
+            <p>Pagando a través de WebPay</p>
+            <button class="btn-primary">Ver productos</button>
+          </div>
+          <div class="promotion-right">
+            <div class="product">
+              <img src="assets/img/producto_destacado_1.jpg" alt="Stream Deck Elgato">
+              <h3>TELE GOD</h3>
+              <p class="price">$129.990</p>
+            </div>
+            <div class="product">
+              <img src="assets/img/producto_destacado_2.jpg" alt="Monitor Gamer LG UltraGear">
+              <h3>PERIERICOS</h3>
+              <p class="price">$144.990 </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="swiper-slide">
+        <div class="promotion-content">
+          <div class="promotion-left">
+            <h1>#LoMejorEnSNZ</h1>
+            <h2>Aprovecha</h2>
+            <h3>Hasta </h3>
+            <p>Pagando a través de WebPay</p>
+            <button class="btn-primary">Explorar ofertas</button>
+          </div>
+          <div class="promotion-right">
+            <div class="product">
+              <img src="assets/img/producto_destacado_2.jpg" alt="Silla Gaming">
+              <h3>Silla Gamer RGB</h3>
+              <p class="price">$99.990</p>
+            </div>
+            <div class="product">
+              <img src="assets/img/producto_destacado_2.jpg" alt="Teclado Mecánico">
+              <h3>Teclado Mecánico RGB</h3>
+              <p class="price">$59.99</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles de navegación -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <!-- Categorías de productos -->
+  <div class="category-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2 id="categoria-computacion">Categoría: Computación</h2>
+        </ion-col>
+        <ion-col>
+          <ion-buttons>
+            <ion-button color="primary" routerLink="/categoria">Ver mas</ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Sección de productos de la categoría seleccionada -->
+  <div class="category-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto1.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 1</ion-card-title>
+              <p>$100</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto2.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 2</ion-card-title>
+              <p>$150</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-card routerLink="/producto">
+            <ion-img src="assets/img/producto3.jpg"></ion-img>
+            <ion-card-header>
+              <ion-card-title>Producto 3</ion-card-title>
+              <p>$200</p>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

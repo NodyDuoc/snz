@@ -11,57 +11,57 @@ import { Producto } from 'src/models/producto';
 })
 export class IndexPage implements OnInit {
   categorias: Categoria[] = [];
-  productosPorCategoria: { [key: number]: Producto[] } = {}; // Almacena productos por categoría
-  categoriasIds: number[] = []; // Arreglo para almacenar las IDs de las categorías
+  productosPorCategoria: { [key: number]: Producto[] } = { 5: [] }; // Inicializamos con un array vacío para la categoría 5
+  categoriasIds: number[] = [];
 
   constructor(
     private categoriaService: CategoriaService,
     private productoService: ProductoService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadProductos();
-
   }
 
-  
   loadProductos(): void {
     this.categoriaService.getCategorias().subscribe({
       next: (data: Categoria[]) => {
         this.categorias = data;
         console.log('Categorías:', this.categorias);
         
+        // Limpiar el array de IDs de categorías
         this.categoriasIds = [];
-        this.categorias.forEach(categoria => {
-          console.log('Cargando productos para la categoría:', categoria);
-          this.categoriasIds.push(categoria.catId);
+        
+        // Filtrar solo la categoría con catId 5
+        const categoria5 = this.categorias.find(categoria => categoria.catId === 5);
+        if (categoria5) {
+          console.log('Cargando productos para la categoría 5:', categoria5);
+          this.categoriasIds.push(categoria5.catId);
           
-          this.productoService.getProductosByCategoria(categoria.catId).subscribe({
+          this.productoService.getProductosByCategoria(categoria5.catId).subscribe({
             next: (productos) => {
-              console.log(`Productos para la categoría ${categoria.catId}:`, productos);
-              this.productosPorCategoria[categoria.catId] = productos;
+              console.log(`Productos para la categoría ${categoria5.catId}:`, productos);
+              this.productosPorCategoria[categoria5.catId] = productos;
             },
             error: (err) => {
-              console.error(`Error al cargar los productos de la categoría ${categoria.catId}:`, err);
+              console.error(`Error al cargar los productos de la categoría ${categoria5.catId}:`, err);
             }
           });
-        });
+        } else {
+          console.log('No se encontró la categoría 5');
+        }
       },
       error: (error) => {
         console.error('Error al obtener las categorías:', error);
       }
     });
   }
-
-agregarAlCarrito(producto: Producto) {
-    // Lógica para agregar el producto al carrito
+  
+  agregarAlCarrito(producto: Producto) {
     console.log('Producto agregado al carrito:', producto);
-}
+  }
 
-comprarAhora(producto: Producto) {
-    // Lógica para realizar la compra del producto
+  comprarAhora(producto: Producto) {
     console.log('Iniciar compra para el producto:', producto);
-}
-
-
+  }
 }
