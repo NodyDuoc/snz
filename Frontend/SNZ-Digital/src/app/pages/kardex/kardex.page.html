@@ -1,10 +1,58 @@
 <ion-content [fullscreen]="true">
-
   <app-header></app-header>
+  
+  <div class="container-card">
+    <div class="header-title">
+      <ion-title class="main-title">¡Gestión de Kardex!</ion-title>
+      <p class="sub-title">Aquí puedes gestionar los registros de kardex de los productos</p>
+    </div>
 
-  <app-carrusel></app-carrusel>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="ion-text-start">
+          <ion-button 
+            expand="full" 
+            fill="solid" 
+            routerLink="/index" 
+            class="custom-button">
+            <ion-icon name="arrow-back" slot="start"></ion-icon>
+            Volver a la página principal
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-
+    <div class="kardex-section">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="full" class="custom-button">
+              Agregar Nuevo Registro de Kardex
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" *ngFor="let kardex of kardexRecords">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Producto ID: {{ kardex?.productoProductId || 'No disponible' }}</ion-card-title>
+                <p>ID de Kardex: {{ kardex?.kardexId || 'No disponible' }}</p>
+              </ion-card-header>
+              <ion-card-content>
+                <p>Fecha: {{ kardex?.fecha | date:'yyyy-MM-dd' }}</p>
+                <p>Hora: {{ kardex?.hora || 'No disponible' }}</p>
+                <p>Entrada: {{ kardex?.entrada || 0 }}</p>
+                <p>Salida: {{ kardex?.salida || 0 }}</p>
+                <p>Saldo: {{ kardex?.saldo || 0 }}</p>
+                <p>Precio Unitario: {{ kardex?.precioUnitario || 0 | currency }}</p>
+                <p>Precio Actualizado: {{ kardex?.precioActualizado || 0 | currency }}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 
   <app-footer></app-footer>
 </ion-content>

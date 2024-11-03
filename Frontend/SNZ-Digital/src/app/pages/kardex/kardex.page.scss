@@ -1,0 +1,25 @@
+.page-content {
+    padding: 16px;
+  }
+  
+  .kardex-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .kardex-table th, .kardex-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .kardex-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .no-data {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
