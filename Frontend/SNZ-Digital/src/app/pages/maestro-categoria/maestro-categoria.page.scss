@@ -1,0 +1,47 @@
+.container-card {
+    padding: 16px;
+  }
+  
+  .header-title {
+    text-align: center;
+    margin-bottom: 16px;
+  
+    .main-title {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+  
+    .sub-title {
+      font-size: 1em;
+      color: #666;
+    }
+  }
+  
+  .custom-button {
+    --background: #3880ff;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .categoria-section ion-card {
+    margin-bottom: 16px;
+  }
+  
+  .categoria-section ion-card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .categoria-section p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #333;
+  }
+  
+  .categoria-imagen {
+    width: 100%;
+    height: auto;
+    margin-top: 8px;
+    border-radius: 8px;
+  }
+  

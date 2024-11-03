@@ -131,10 +131,6 @@ const routes: Routes = [
     path: 'maestro-producto',  
     loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then(m => m.MaestroProductoPageModule)  
   },  
-  {  
-    path: 'maestro-etiqueta',  
-    loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then(m => m.MaestroEtiquetaPageModule)  
-  },
   {
     path: 'maestro-etiqueta',
     loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then( m => m.MaestroEtiquetaPageModule)
@@ -154,10 +150,15 @@ const routes: Routes = [
   {
     path: 'getproductosid',
     loadChildren: () => import('./pages/getproductosid/getproductosid.module').then( m => m.GetproductosidPageModule)
-  },  {
+  },
+  {
     path: 'test',
     loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
+  },  {
+    path: 'maestro-categoria',
+    loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
   },
+
 
 
 
