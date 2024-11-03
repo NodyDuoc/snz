@@ -8,6 +8,7 @@ import { CatalogoPageRoutingModule } from './catalogo-routing.module';
 
 import { CatalogoPage } from './catalogo.page';
 import { SharedModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,

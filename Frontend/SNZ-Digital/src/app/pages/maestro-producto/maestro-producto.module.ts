@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { MaestroProductoPageRoutingModule } from './maestro-producto-routing.module';
 
 import { MaestroProductoPage } from './maestro-producto.page';
-
 import { SharedModule } from 'src/app/components/components.module';
 
 @NgModule({

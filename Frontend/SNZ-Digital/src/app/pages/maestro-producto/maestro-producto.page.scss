@@ -1,0 +1,87 @@
+.category-menu-container {  
+    position: -webkit-sticky; /* Para navegadores Safari */  
+    position: sticky; /* Permite que el menú sea "sticky" */  
+    top: 0; /* Fijo en la parte superior */  
+    height: 100%; /* Tomar toda la altura */  
+    overflow: auto; /* Permitir desplazamiento si es necesario */  
+    background-color: #f8f9fa; /* Color suave de fondo */  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra opcional para darle estilo */  
+    z-index: 10; /* Asegúrate que esté por encima de otros elementos si es necesario */  
+    padding: 20px; /* Espaciado dentro del menú */  
+  }  
+  
+  .category-menu {  
+    display: flex;   
+    flex-direction: column; /* Para apilar los elementos verticalmente */  
+  }  
+  
+  .menu-item {  
+    display: flex;  
+    align-items: center;  
+    padding: 15px;  
+    font-size: 18px;  
+    border: none;  
+    border-radius: 8px;  
+    margin: 10px 0;  
+    background-color: #4b0082;  
+    color: white; /* Color del texto */  
+    transition: background-color 0.3s;  
+  }  
+  
+  .menu-item:hover {  
+    background-color: #210336;  
+  }  
+  
+  .menu-item.selected {  
+    background-color: #210336;  /* Color de fondo cuando está seleccionada */  
+    /* Puedes cambiar el color del texto si es necesario */  
+  }
+  
+  .menu-item ion-icon {  
+    margin-right: 10px; /* Espaciado entre ícono y texto */  
+    font-size: 24px; /* Tamaño del ícono */  
+  }
+  
+  .layout {  
+    display: flex; /* Mantiene el diseño flexible */  
+  }  
+  
+  .main-content {  
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */  
+    padding: 16px; /* Añadir espaciado */  
+  }
+  
+  .productos-container {  
+    display: flex; /* Utiliza flexbox para la disposición horizontal */  
+    overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */  
+    padding: 10px 0; /* Espaciado alrededor del contenedor */  
+  }  
+  
+  .producto-card {  
+    display: flex;  
+    flex-direction: column; /* Mantiene los elementos de cada producto en columna */  
+    align-items: center; /* Centra el contenido de cada tarjeta */  
+    margin: 10px; /* Espaciado entre tarjetas de producto */  
+    background-color: #f9f9f9; /* Fondo suave para las tarjetas */  
+    border: 1px solid #ddd; /* Bordes ligeros */  
+    border-radius: 8px; /* Bordes redondeados */  
+    padding: 10px; /* Espaciado interno */  
+    max-width: 200px; /* Limitamos el ancho de cada tarjeta */  
+    flex-shrink: 0; /* Previene que las tarjetas se reduzcan al mínimo */  
+  }  
+  
+  .image-preview {  
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho de la tarjeta */  
+    height: auto; /* Mantiene la proporción de la imagen */  
+    border-radius: 4px; /* Bordes redondeados para imágenes */  
+  }
+  
+  .producto-info {  
+    flex: 1; // Asegura que el texto use el espacio disponible  
+  }
+  
+  .menu-item.logout {
+    margin-top: 1rem;
+    color: #d93025;
+  }
+  
