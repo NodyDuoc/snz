@@ -19,7 +19,7 @@ export class CarruselComponent  implements OnInit {
   images: CarouselImage[] = [
     {
       id: 1,
-      url: 'assets/img/fondo-1.jpg',
+      url: 'assets/img/fondo-6.jpg',
       title: '',
       description: ''
     },
@@ -34,7 +34,7 @@ export class CarruselComponent  implements OnInit {
       url: 'assets/img/fondo-3.jpg',
       title: 'Setup Gamer de Alto Rendimiento',
       description: 'Transforma tu espacio con un setup diseñado para ofrecer la mejor experiencia en gaming. Equipado con tecnología de punta y un diseño elegante, este equipo Corsair te permite disfrutar de tus juegos con máxima fluidez y estilo. Domina cada partida con un entorno optimizado para rendimiento y comodidad.'
-    }
+    },
   ];
 
   constructor() { }
@@ -43,7 +43,7 @@ export class CarruselComponent  implements OnInit {
     // Auto-advance slides every 5 seconds
     setInterval(() => {
       this.nextSlide();
-    }, 5000);
+    }, 8000);
     this.cartTotal = 0;
     this.cartItemCount = 0;
   }

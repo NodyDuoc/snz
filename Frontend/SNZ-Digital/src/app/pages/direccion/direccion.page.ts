@@ -56,6 +56,7 @@ export class DireccionPage implements OnInit {
   buscarUsuarioPorId(id: number) {
     this.userService.getUserById(id).subscribe(
       (usuario) => {
+        console.log('Usuario encontrado:', usuario); // Log del usuario encontrado
         if (usuario && usuario.role && usuario.role.roleEnum) {
           this.usuarioActual = { ...usuario, id: usuario.id };
           this.usuarioForm.patchValue({
@@ -74,6 +75,7 @@ export class DireccionPage implements OnInit {
         }
       },
       (error) => {
+        console.error('Error al buscar usuario:', error);
         this.mostrarAlerta('Error', 'No se pudo obtener el usuario.');
       }
     );
@@ -85,7 +87,7 @@ export class DireccionPage implements OnInit {
       this.userService.searchByEmail(email).subscribe(
         (user) => {
           this.user = user;
-          console.log('Usuario cargado:', this.user);
+          console.log('Usuario cargado:', this.user); // Log del usuario cargado
           this.cargarDirecciones();
         },
         (error) => {
@@ -94,6 +96,7 @@ export class DireccionPage implements OnInit {
       );
     } else {
       this.errorMessage = 'Debes iniciar sesión para ver las direcciones.';
+      console.log(this.errorMessage); // Log del error si no hay email
     }
   }
 
@@ -107,12 +110,19 @@ export class DireccionPage implements OnInit {
       this.errorMessage = 'Debes iniciar sesión para ver las direcciones.';
       return;
     }
-
+  
     this.direccionService.getAllDirecciones().subscribe(
       (data: Direccion[]) => {
-        this.direcciones = this.filtrarPorUsuarioId();
-        if (this.direcciones.length > 0) {
-          this.selectedDireccion = this.direcciones[0];
+        this.direcciones = data; // Almacena todas las direcciones
+        console.log('Direcciones obtenidas:', this.direcciones); // Log de todas las direcciones
+        console.log('ID de usuario actual:', this.user.id); // Log del ID del usuario
+  
+        // Filtrar las direcciones
+        const direccionesFiltradas = this.filtrarPorUsuarioId();
+        console.log('Direcciones filtradas:', direccionesFiltradas); // Log de las direcciones filtradas
+  
+        if (direccionesFiltradas.length > 0) {
+          this.selectedDireccion = direccionesFiltradas[0];
         } else {
           this.errorMessage = 'No hay direcciones disponibles para este usuario.';
         }
@@ -123,6 +133,7 @@ export class DireccionPage implements OnInit {
       }
     );
   }
+  
 
   seleccionarDireccion(direccion: Direccion) {
     this.selectedDireccion = direccion;
