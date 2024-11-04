@@ -186,6 +186,10 @@ const routes: Routes = [
     path: 'kardex-editar',
     loadChildren: () => import('./pages/kardex-editar/kardex-editar.module').then( m => m.KardexEditarPageModule)
   },
+  {
+    path: 'crear-direccion',
+    loadChildren: () => import('./pages/crear-direccion/crear-direccion.module').then( m => m.CrearDireccionPageModule)
+  },
 
 
 
