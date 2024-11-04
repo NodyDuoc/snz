@@ -12,11 +12,9 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./editar-perfil.page.scss'],
 })
 export class EditarPerfilPage implements OnInit {
-  
-  buscarUsuarioForm!: FormGroup;
   usuarioForm!: FormGroup;
-  mostrarInformacionUsuario: boolean = false;
   usuarioActual!: AuthCreateUserRequest;
+  mostrarInformacionUsuario: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,11 +23,14 @@ export class EditarPerfilPage implements OnInit {
     private route: ActivatedRoute,
     private loadingController: LoadingController,
     private router: Router // Inyectar Router
-
-  ) { }
+  ) {}
 
   ngOnInit() {
-    // Inicializar el formulario
+    this.inicializarFormulario();
+    this.cargarUsuarioDesdeRuta();
+  }
+
+  inicializarFormulario() {
     this.usuarioForm = this.formBuilder.group({
       email: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -42,15 +43,15 @@ export class EditarPerfilPage implements OnInit {
       changePassword: [false],
       passwordNew: ['']
     });
+  }
 
-    // Obtener el ID del usuario desde la URL
+  cargarUsuarioDesdeRuta() {
     const encryptedId = this.route.snapshot.paramMap.get('id');
     if (encryptedId) {
       const userId = this.decryptId(encryptedId); // Desencriptar el ID
       this.buscarUsuarioPorId(+userId); // Convierte el ID a número
     }
   }
-
 
   // Función para desencriptar el ID
   decryptId(encryptedId: string): string {
@@ -62,22 +63,14 @@ export class EditarPerfilPage implements OnInit {
       decrypted += String.fromCharCode(decoded.charCodeAt(i) - (i % 10));
     }
 
-    // Extrae el ID original, quitando la clave secreta
     return decrypted.replace(environment.secretKey, ''); // Devuelve solo el ID
   }
 
-
   buscarUsuarioPorId(id: number) {
-    // Llamada al servicio para buscar el usuario por ID
     this.authService.getUserById(id).subscribe(
       (usuario) => {
         if (usuario && usuario.role && usuario.role.roleEnum) {
-          this.usuarioActual = {
-            ...usuario,
-            id: usuario.id // Mapea 'id' a 'id_usuario'
-          };
-          
-          // Asignar valores al formulario, incluyendo el rol
+          this.usuarioActual = { ...usuario, id: usuario.id };
           this.usuarioForm.patchValue({
             firstName: usuario.firstName,
             secondName: usuario.secondName,
@@ -85,10 +78,9 @@ export class EditarPerfilPage implements OnInit {
             secondLastName: usuario.secondLastName,
             email: usuario.email,
             phone: usuario.phone,
-            roleListName: usuario.role.roleEnum,  // Asignar el rol correctamente
+            roleListName: usuario.role.roleEnum,
             isActivated: usuario.isActivated
           });
-    
           this.mostrarInformacionUsuario = true;
         } else {
           this.mostrarAlerta('Error en la respuesta', 'No se encontró un rol válido para el usuario.');
@@ -99,30 +91,21 @@ export class EditarPerfilPage implements OnInit {
       }
     );
   }
-  
+
   onPhoneInput(event: any) {
     const inputValue = event.target.value;
-  
-    // Verifica si el valor no comienza con '+'
     if (!inputValue.startsWith('+')) {
-      event.target.value = '+' + inputValue.replace(/\D/g, ''); // Reinsertar el '+' y eliminar caracteres no numéricos
+      event.target.value = '+' + inputValue.replace(/\D/g, '');
     } else {
-      // Solo permite números después del '+'
-      event.target.value = '+' + inputValue.slice(1).replace(/\D/g, ''); // Permitir solo dígitos
+      event.target.value = '+' + inputValue.slice(1).replace(/\D/g, '');
     }
-  
-    // Actualiza el valor en el formulario
     this.usuarioForm.patchValue({ phone: event.target.value });
   }
 
-
-
   async actualizarUsuario() {
     const id = this.usuarioActual?.id;
-
-    if (this.usuarioForm.valid && id != undefined) {
+    if (this.usuarioForm.valid && id !== undefined) {
       const result = await this.presentConfirmUpdate();
-
       if (result) {
         const loading = await this.loadingController.create({
           message: 'Actualizando...',
@@ -132,14 +115,8 @@ export class EditarPerfilPage implements OnInit {
         await loading.present();
 
         const nuevaData: AuthCreateUserRequest = {
-          firstName: this.usuarioForm.get('firstName')?.value,
-          secondName: this.usuarioForm.get('secondName')?.value,
-          firstLastName: this.usuarioForm.get('firstLastName')?.value,
-          secondLastName: this.usuarioForm.get('secondLastName')?.value,
-          email: this.usuarioForm.get('email')?.value,
+          ...this.usuarioForm.value,
           password: this.usuarioForm.get('changePassword')?.value ? this.usuarioForm.get('passwordNew')?.value : '',
-          phone: this.usuarioForm.get('phone')?.value,
-          isActivated: this.usuarioForm.get('isActivated')?.value,
           authCreateRoleRequest: {
             roleListName: [this.usuarioForm.get('roleListName')?.value]
           }
@@ -149,7 +126,6 @@ export class EditarPerfilPage implements OnInit {
           (response) => {
             loading.dismiss();
             this.mostrarAlerta('Usuario actualizado', 'Usuario actualizado correctamente');
-            // Redirigir al perfil después de la actualización
             this.router.navigate(['/perfil']);
           },
           (error) => {
@@ -160,76 +136,27 @@ export class EditarPerfilPage implements OnInit {
       }
     }
   }
-  
-
-  async eliminarUsuario() {
-    const id = this.usuarioActual?.id; // Verifica que id_usuario existe
-
-    // Comprueba si id no es undefined
-    if (id !== undefined) {
-      const result = await this.presentConfirmUpdate();
-
-      if (result) {
-        this.authService.deactivateUser(id).subscribe(() => {
-          this.mostrarAlerta("Desactivación exitosa", "Usuario desactivado correctamente");
-        });
-      }
-    } else {
-      this.mostrarAlerta("Error", "No se pudo obtener el ID del usuario para desactivar.");
-    }
-  }
-  async presentConfirm(): Promise<boolean> {
-    return new Promise(async (resolve) => {
-      const alert = await this.alertController.create({
-        header: 'Confirmación',
-        message: '¿Está seguro de que desea desacticar a este usuario? ',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-            handler: () => {
-              resolve(false);
-            }
-          }, {
-            text: 'Desactivar',
-            handler: () => {
-              // Aquí puedes poner el código para eliminar el elemento
-              resolve(true);
-            }
-          }
-        ]
-      });
-
-      await alert.present();
-    });
-  }
 
   async presentConfirmUpdate(): Promise<boolean> {
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
         header: 'Confirmación',
-        message: '¿Está seguro de que desea Actualizar  a este usuario? ',
+        message: '¿Está seguro de que desea actualizar a este usuario?',
         buttons: [
           {
             text: 'Cancelar',
             role: 'cancel',
-            handler: () => {
-              resolve(false);
-            }
-          }, {
+            handler: () => resolve(false)
+          },
+          {
             text: 'Actualizar',
-            handler: () => {
-              // Aquí puedes poner el código para eliminar el elemento
-              resolve(true);
-            }
+            handler: () => resolve(true)
           }
         ]
       });
-
       await alert.present();
     });
   }
-
 
   async mostrarAlerta(titulo: string, mensaje: string) {
     const alert = await this.alertController.create({
@@ -237,7 +164,6 @@ export class EditarPerfilPage implements OnInit {
       message: mensaje,
       buttons: ['OK']
     });
-
     await alert.present();
   }
 
@@ -245,29 +171,4 @@ export class EditarPerfilPage implements OnInit {
     const currentValue = this.usuarioForm.get('isActivated')?.value;
     this.usuarioForm.patchValue({ isActivated: !currentValue });
   }
-
-
-  onViewProfile() {  
-    this.router.navigate(['/perfil']);  
-  }  
-
-  onEditProfile() {  
-    this.router.navigate(['/editar-perfil']);  
-  }  
-
-  onViewPurchases() {  
-    this.router.navigate(['/compras']);  
-  }  
-
-  onViewAddresses() {  
-    this.router.navigate(['/direcciones']);  
-  }  
-
-  onLogout() {  
-    console.log('Cerrar sesión');  
-    // Aquí podrías añadir lógica para cerrar sesión  
-    this.router.navigate(['/login']); // Redirigir a la página de login después de cerrar sesión  
-  } 
-
-
 }

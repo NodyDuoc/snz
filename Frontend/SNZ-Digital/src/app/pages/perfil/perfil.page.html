@@ -37,17 +37,14 @@
     
 
     <div class="profile-menu">
-      <button class="menu-item" (click)="onViewProfile()">
-        <span>Ver perfil</span>
-      </button>
       <button class="menu-item" (click)="onEditProfile()">
         <span>Editar Perfil</span>
       </button>
       <button class="menu-item" (click)="onViewPurchases()">
         <span>Ver compras</span>
       </button>
-      <a href="/direccion">
-      <button class="menu-item">
+      <a>
+      <button class="menu-item" (click)="onViewAddresses()">
         <span>Ver direcciones</span>
       </button>
     </a>

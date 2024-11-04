@@ -11,27 +11,6 @@
     </ion-toolbar>  
   </ion-header>  
   
-  <div class="layout"> <!-- Contenedor para el menú y el contenido -->  
-    <div class="profile-menu-container"> <!-- Contenedor para el menú del perfil -->  
-      <div class="profile-menu">  
-        <button class="menu-item" (click)="onViewProfile()">  
-          <span>Ver perfil</span>  
-        </button>  
-        <button class="menu-item" (click)="onEditProfile()">  
-          <span>Editar Perfil</span>  
-        </button>  
-        <button class="menu-item" (click)="onViewPurchases()">  
-          <span>Ver compras</span>  
-        </button>  
-        <button class="menu-item" (click)="onViewAddresses()">  
-          <span>Ver direcciones</span>  
-        </button>  
-        <button class="menu-item logout" (click)="onLogout()">  
-          <span>Cerrar sesión</span>  
-        </button>  
-      </div>  
-    </div>  
-
     <ion-card class="user-card">  
       <ion-card-header>  
         <ion-card-title class="card-title">Información del Usuario</ion-card-title>  
@@ -89,7 +68,7 @@
         </form>   
       </ion-card-content>  
     </ion-card>  
-  </div>  
+   
 
   <app-footer></app-footer>  
 </ion-content>

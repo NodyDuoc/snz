@@ -100,7 +100,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/informacion/informacion.module').then( m => m.InformacionPageModule)
   },
   {
-    path: 'direccion',
+    path: 'direccion/:id',
     loadChildren: () => import('./pages/direccion/direccion.module').then( m => m.DireccionPageModule)
   },
   {
