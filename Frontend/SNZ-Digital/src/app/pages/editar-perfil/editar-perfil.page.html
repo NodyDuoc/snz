@@ -2,14 +2,15 @@
   <app-header></app-header>  
   <app-carrusel></app-carrusel>  
 
-  <ion-header>  
-    <ion-toolbar>  
-      <ion-buttons slot="start">  
-        <ion-back-button defaultHref="/perfil"></ion-back-button>  
-      </ion-buttons>  
-      <ion-title>Editar Perfil</ion-title>  
-    </ion-toolbar>  
-  </ion-header>  
+  <div class="main-container">
+    <ion-header>  
+      <ion-toolbar>  
+        <ion-buttons slot="start">  
+          <ion-back-button defaultHref="/perfil"></ion-back-button>  
+        </ion-buttons>  
+        <ion-title>Editar Perfil</ion-title>  
+      </ion-toolbar>  
+    </ion-header>  
   
     <ion-card class="user-card">  
       <ion-card-header>  
@@ -17,50 +18,40 @@
       </ion-card-header>  
       <ion-card-content class="card-content">  
         <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()">  
-
           <div class="form-group">
               <label position="stacked">Nombre</label>
               <ion-input class="editable-field" formControlName="firstName" placeholder="Ingrese su nombre"></ion-input>  
           </div>
-
           <div class="form-group">
               <label position="stacked">Segundo Nombre</label>  
               <ion-input class="editable-field" formControlName="secondName" placeholder="Ingrese su segundo nombre"></ion-input>  
           </div>
- 
           <div class="form-group">
               <label position="stacked">Apellido Materno</label>  
               <ion-input class="editable-field" formControlName="firstLastName" placeholder="Ingrese su apellido materno"></ion-input>  
           </div>
-
           <div class="form-group">
               <label position="stacked">Apellido Paterno</label>  
               <ion-input class="editable-field" formControlName="secondLastName" placeholder="Ingrese su apellido paterno"></ion-input>  
           </div>
-
           <div class="form-group">
               <label position="stacked">Teléfono</label>  
               <ion-input class="editable-field" formControlName="phone" type="tel" (ionInput)="onPhoneInput($event)" placeholder="Ingrese su teléfono"></ion-input>  
           </div>
-
           <div class="form-group">
               <label position="stacked">Email</label>  
               <ion-input class="readonly-field" formControlName="email" placeholder="Ingrese su email" readonly></ion-input>  
           </div>
-
           <div class="form-group">
             <ion-item>  
               <label>¿Cambiar Contraseña?</label>  
               <ion-checkbox slot="end" class="pregunta" formControlName="changePassword"></ion-checkbox>  
             </ion-item>  
-      
             <ion-item *ngIf="usuarioForm.get('changePassword')?.value">  
               <label position="stacked">Nueva Contraseña</label>  
-              <ion-input class="editable-field"  type="password" formControlName="passwordNew" placeholder="Ingrese nueva contraseña"></ion-input>  
+              <ion-input class="editable-field" type="password" formControlName="passwordNew" placeholder="Ingrese nueva contraseña"></ion-input>  
             </ion-item>  
           </div>
-
-          
           <!-- Botón para guardar cambios -->  
           <div class="button-container">  
             <ion-button type="submit" expand="full" [disabled]="!usuarioForm.valid">Guardar Cambios</ion-button>  
@@ -68,7 +59,8 @@
         </form>   
       </ion-card-content>  
     </ion-card>  
-   
-
+  </div>
+  
   <app-footer></app-footer>  
+
 </ion-content>

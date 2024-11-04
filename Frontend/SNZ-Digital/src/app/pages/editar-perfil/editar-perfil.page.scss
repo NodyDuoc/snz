@@ -1,20 +1,21 @@
-.layout {  
-  display: flex; /* Usar flexbox */  
-  flex-direction: row; /* Disposición de fila */  
-  padding: 20px; /* Opcional: Añadir un poco de padding */  
-}  
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Espacio alrededor del contenido */
+  padding-top: 20px;
+}
 
-.profile-menu-container {  
-  flex: 0 0 250px; /* Ancho fijo para el menú */  
-  margin-right: 20px; /* Espacio entre el menú y el contenido */  
-}  
-
-.user-card {  
-  flex: 1; /* Ocupa el espacio restante */  
-  margin: 0; /* Elimina margen */  
-  border-radius: 10px;  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
-}  
+.user-card {
+  width: 100%;
+  max-width: 500px; /* Tamaño máximo para la tarjeta */
+  margin: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  margin-top: 20px;
+}
 
 .card-title {  
   font-size: 1.5rem;  
@@ -51,34 +52,6 @@ ion-button {
     background-color: #ccc; /* Color del botón deshabilitado */  
   }  
 }  
-
-.profile-menu {  
-  display: flex;  
-  flex-direction: column;  
-  gap: 0.5rem;  
-  min-width: 200px;  
-
-  .menu-item {  
-    background: white;  
-    border: none;  
-    padding: 0.75rem 1rem;  
-    text-align: left;  
-    border-radius: 4px;  
-    cursor: pointer;  
-    transition: background-color 0.2s;  
-    color: #3c4043;  
-    font-size: 0.95rem;  
-
-    &:hover {  
-      background-color: #f1f3f4;  
-    }  
-
-    &.logout {  
-      margin-top: 1rem;  
-      color: #d93025;  
-    }  
-  }  
-}
 
 
 ion-button {
