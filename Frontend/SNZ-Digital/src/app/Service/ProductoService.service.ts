@@ -38,4 +38,9 @@ export class ProductoService {
       // Corregir la URL para incluir la categoría
       return this.http.get<Producto>(`${this.baseUrl}/categoria/${categoriaCatId}`, { params });
     }
+
+      // Método para obtener un producto por ID
+  getProductoById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/get/${id}`); // Ajusta la URL según tu API
+  }
 }

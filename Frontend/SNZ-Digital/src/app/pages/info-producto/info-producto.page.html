@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">  
+  <app-header></app-header>  
+  <app-carrusel></app-carrusel>  
+
+  <ion-header>  
+    <ion-toolbar>  
+      <ion-buttons slot="start">  
+        <ion-back-button defaultHref="/catalogo"></ion-back-button>  
+      </ion-buttons>  
+      <ion-title>Volver al Catálogo</ion-title>  
+    </ion-toolbar>  
+  </ion-header>  
+
+  <div class="info-producto">
+    <h2>Detalles del Producto</h2>
+  
+    <div *ngIf="producto; else loading">
+      <div class="producto-detalle">
+        <div class="producto-imagen">
+          <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+        </div>
+        <div class="producto-info">
+          <h3>{{ producto.productName }}</h3>
+          <p>{{ producto.descripcion }}</p>
+          <p>Precio: {{ producto.precio | currency }}</p>
+  
+          <!-- Botones de acción -->
+          <button class="custom-button12" (click)="agregarAlCarrito(producto)">
+            <i class="fas fa-shopping-cart"></i> Agregar al carrito
+          </button>
+          <button class="custom-button" (click)="comprarAhora(producto)">
+            <i class="fas fa-money-bill-wave"></i> Comprar ahora
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #loading>
+      <p>Cargando detalles del producto...</p>
+    </ng-template>
+  </div>
+  
+  <app-footer></app-footer>  
+</ion-content>

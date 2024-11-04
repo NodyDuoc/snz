@@ -154,7 +154,8 @@ const routes: Routes = [
   {
     path: 'test',
     loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
-  },  {
+  },
+  {
     path: 'maestro-categoria',
     loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
   },
@@ -169,6 +170,10 @@ const routes: Routes = [
   {
     path: 'maestro-etiqueta-editar',
     loadChildren: () => import('./pages/maestro-etiqueta-editar/maestro-etiqueta-editar.module').then( m => m.MaestroEtiquetaEditarPageModule)
+  },
+  {
+    path: 'info-producto/:id',
+    loadChildren: () => import('./pages/info-producto/info-producto.module').then( m => m.InfoProductoPageModule)
   },
 
 

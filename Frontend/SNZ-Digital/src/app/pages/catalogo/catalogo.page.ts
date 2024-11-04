@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/Service/categoria.service';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { Categoria } from 'src/models/categoria';
@@ -17,7 +18,8 @@ export class CatalogoPage implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
-    private productoService: ProductoService // Inyecta el servicio de productos  
+    private productoService: ProductoService, // Inyecta el servicio de productos  
+    private router: Router
 
   ) {}
 
@@ -49,6 +51,11 @@ export class CatalogoPage implements OnInit {
       }  
     });  
   } 
+
+  irADetalleProducto(productId: any) {
+    console.log(productId)
+    this.router.navigate(['/info-producto', productId]); // Redirige a la página de info-producto con el ID del producto
+  }
 
   agregarAlCarrito(producto: Producto) {  
     // Lógica para agregar el producto al carrito  

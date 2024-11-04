@@ -21,7 +21,7 @@
 
       <div *ngIf="productosSeleccionados.length > 0; else noProducts">  
         <div class="productos-container"> <!-- Cambia ion-list a un contenedor div -->  
-          <div class="producto-card" *ngFor="let producto of productosSeleccionados">  
+          <div class="producto-card" *ngFor="let producto of productosSeleccionados" (click)="irADetalleProducto(producto.productId)">  
             <div *ngIf="producto.imagen">  
               <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">  
             </div>  
@@ -29,15 +29,15 @@
               <h3>{{ producto.productName }}</h3>  
               <p>{{ producto.descripcion }}</p>  
               <p>Precio: {{ producto.precio | currency }}</p>  
-      
+
               <!-- Botones de acción -->  
-              <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">  
-                Agregar al carrito  
-              </ion-button>  
-              <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">  
-                Comprar ahora  
-              </ion-button>  
-            </div>  
+              <button class="custom-button12" (click)="agregarAlCarrito(producto)">  
+                <i class="fas fa-shopping-cart"></i> Agregar al carrito  
+              </button>  
+              <button class="custom-button" (click)="comprarAhora(producto)">  
+                <i class="fas fa-money-bill-wave"></i> Comprar ahora  
+              </button>
+            </div> 
           </div>  
         </div>  
       </div>   
@@ -45,7 +45,8 @@
       <ng-template #noProducts>  
         <p>No hay productos disponibles para esta categoría.</p>  
       </ng-template>  
-    </div>  
+    </div>
+ 
   </div>  
 
   <app-footer></app-footer>  
