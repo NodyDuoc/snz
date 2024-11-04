@@ -1,13 +1,111 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>RegistrarUsuario</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">  
+  <app-header></app-header>   
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">RegistrarUsuario</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>Crear Cuenta</h1>
+        <p>Por favor, completa tu información</p>
+      </div>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Primer Nombre"
+                formControlName="firstName"
+            />
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error-message">
+                Primer nombre es obligatorio.
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Segundo Nombre"
+                formControlName="secondName"
+            />
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Primer Apellido"
+                formControlName="firstLastName"
+            />
+            <div *ngIf="registerForm.get('firstLastName')?.invalid && registerForm.get('firstLastName')?.touched" class="error-message">
+                Primer apellido es obligatorio.
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Segundo Apellido"
+                formControlName="secondLastName"
+            />
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="email"
+                class="form-control"
+                placeholder="Dirección de correo electrónico"
+                formControlName="email"
+            />
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+                Ingresa un correo electrónico válido.
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="password"
+                class="form-control"
+                placeholder="Contraseña"
+                formControlName="password"
+            />
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+                La contraseña es obligatoria y debe tener al menos 6 caracteres.
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <input
+                type="tel"
+                class="form-control"
+                placeholder="Número de Teléfono"
+                formControlName="phone"
+            />
+            <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" class="error-message">
+                Ingresa un número de teléfono válido.
+            </div>
+        </div>
+    
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+    
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+            Crear Cuenta
+        </button>
+    
+        <button type="button" class="btn btn-secondary" (click)="onLogin()">
+            Volver al Inicio de Sesión
+        </button>
+    </form>
+    
+      
+      <div class="form-footer">
+        <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+      </div>
+    </div>
+  </div>
+
+  <app-footer class="app-footer"></app-footer>  
 </ion-content>

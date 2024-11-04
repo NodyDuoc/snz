@@ -1,120 +1,132 @@
-.category-title {
-    background-color: #dadada; /* Color de fondo */
-    text-align: center; /* Centrar el texto */
-    padding: 20px; /* Espaciado alrededor del texto */
-    margin: 0; /* Eliminar margen por defecto */
-  }
-  
+/* Estilos para la página de inicio de sesión */  
+body {  
+  margin: 0;  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+  background: #f5f7fa; /* Color de fondo general */  
+}  
 
-  .container-card {
-    width: 100%;
-    padding-right: 300px;
-    padding-left: 300px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+.login-container {  
+  display: flex;  
+  flex-direction: column;  
+  align-items: center;  
+  justify-content: center;  
+  min-height: 100vh;  
+  padding: 2rem;  
+  position: relative; // Añade esta línea  
+  overflow: hidden; // Añade esta línea  
 
-  .product-section {
-    h2 {
-      margin: 16px 0; // Espacio alrededor del título de la categoría
-      font-size: 1.5rem; // Tamaño del texto del título
-      color: #333; // Color del texto
-    }
-  
-    .product-card {
-      margin-bottom: 16px; // Espacio entre tarjetas de productos
-      max-width: 200px; // Ancho máximo de la tarjeta
-      margin: auto; // Centra las tarjetas en la columna
-  
-      .image-preview {
-        width: 100%; // Ajusta el ancho al 100% del contenedor
-        height: 250px; // Ajusta la altura a 250px (o el tamaño que desees)
-        object-fit: cover; // Mantiene la proporción de la imagen
-      }
-    }
-  
-    .product-price {
-      font-weight: bold; // Hace que el precio sea más destacado
-      color: #000000; // Color verde para el precio
-    }
-  
-    .custom-button {
-      background-color: #3498db; // Color del botón "Comprar ahora"
-      color: white; // Color del texto en el botón
-    }
-  
-    .custom-button12 {
-      background-color: #e74c3c; // Color del botón "Agregar al carrito"
-      color: white; // Color del texto en el botón
-    }
-  }
+  &:before {  
+    content: "";  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 100%;  
+    background-image: url('/assets/img/fondo-pantalla.jpg');  
+    background-size: cover;  
+    background-position: center;  
+    z-index: -1; // Coloca la imagen detrás de los otros elementos  
+  }  
 
+  &:after {  
+    content: "";  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 100%;  
+    background-color: rgba(44, 62, 80, 0.3); // Color de la superposición gris  
+    z-index: -1; // Coloca la superposición detrás de los otros elementos  
+  }  
+}  
+.login-card {  
+  background: white;  
+  padding: 2.5rem;  
+  border-radius: 1rem;  
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  
+  width: 100%;  
+  max-width: 400px;  
+}  
 
-  /* Botón de login */
-ion-button {
-    --background: #3498db; /* Azul */
-    --background-activated: #2980b9; /* Azul más oscuro */
-    --background-focused: #2980b9;
-    --background-hover: #2980b9;
-    --color: #ffffff; /* Blanco */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-    border-radius: 8px; /* Bordes redondeados */
-}
+.login-header {  
+  text-align: center;  
+  margin-bottom: 2rem;  
+}  
 
-.login-content {
-    --background: #f0f8ff; /* Azul claro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Altura completa de la vista */
-    padding: 0;
-    margin: auto;
-}
-.contenido {
-    background: #ffffff; /* Blanco */
-    padding: 20px;
-    border: 1px solid #2c3e50;
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-    width: auto;
-    max-width: 400px;
-    text-align: center;    
-    margin: 4rem auto;
-    
-    
-}
+.login-header h1 {  
+  color: #333; /* Color de texto */  
+  font-size: 2rem;  
+  margin-bottom: 0.5rem;  
+}  
 
-/* Título del login */
-.titulo {
-    color: #2c3e50; /* Azul oscuro */
-    margin-bottom: 20px;
-}
+.form-group {  
+  margin-bottom: 1.5rem;  
+}  
 
-/* Elementos del formulario */
-.input-item {
-    margin-bottom: 15px;
-    --ion-item-background:#ffffff;
-    border: 1px solid #2c3e50;
-    border-radius: 8px;
-}
+.form-control {  
+  width: 100%;  
+  padding: 0.75rem;  
+  border: 2px solid #e1e1e1;  
+  border-radius: 0.5rem;  
+  font-size: 1rem;  
+  color: #000; /* Color del texto negro */  
+  background: #fff; /* Fondo blanco */  
+  transition: border-color 0.3s ease;  
 
-.input-label {
-    color: #2c3e50; /* Azul oscuro */
-}
+  &:focus {  
+    outline: none;  
+    border-color: #4a90e2; /* Color de borde al enfocar */  
+  }  
+}  
 
-.input-field {
-    color: #2c3e50; /* Azul oscuro */
-}
+.btn {  
+  width: 100%;  
+  padding: 0.75rem;  
+  border: none;  
+  border-radius: 0.5rem;  
+  font-size: 1rem;  
+  font-weight: 600;  
+  cursor: pointer;  
+  transition: all 0.3s ease;  
+}  
 
-/* Contenedor de botones */
-.button-container {
-    margin-top: 20px;
-}
+.btn-primary {  
+  background: linear-gradient(135deg, #6a5acd, #8a2be2); /* Degradado morado */  
+  color: white;  
 
-/* Enlace de olvido de contraseña */
-.link {
-    color: #2980b9; /* Azul más oscuro */
-    text-decoration: none;
-    display: block;
-    margin-top: 15px;
+  &:hover {  
+    opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
+  }  
+}  
+
+.btn-secondary {  
+  background: transparent;  
+  color: #4a90e2; /* Color del texto del botón secundario */  
+  border: 2px solid #4a90e2; /* Bordes del botón */  
+  margin-top: 1rem;  
+
+  &:hover {  
+    background: #4a90e2; /* Color de fondo al pasar el cursor */  
+    color: white; /* Color del texto al pasar el cursor */  
+  }  
+}  
+
+.form-footer {  
+  text-align: center;  
+  margin-top: 1.5rem;  
+
+  a {  
+    color: #4a90e2; /* Color del enlace */  
+    text-decoration: none;  
+
+    &:hover {  
+      text-decoration: underline; /* Subrayado al pasar el cursor */  
+    }  
+  }  
+}  
+
+.error-message {  
+  color: #e74c3c; /* Color del mensaje de error */  
+  font-size: 0.875rem;  
+  margin-top: 0.5rem;  
 }

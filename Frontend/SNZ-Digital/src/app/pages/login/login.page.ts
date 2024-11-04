@@ -64,6 +64,11 @@ export class LoginPage implements OnInit {
       }
     });
   }
+  
+
+  onRegister() {
+    this.router.navigate(['/registrar-usuario']);
+  }
 
 agregarAlCarrito(producto: Producto) {
     // Lógica para agregar el producto al carrito

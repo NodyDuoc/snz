@@ -72,19 +72,24 @@ public class UserDetailServiceImp implements UserDetailsService {
         String password = authCreateUserRequest.password();
         String roleName = authCreateUserRequest.authCreateRoleRequest().roleListName().get(0);
 
+        // Verificar si el correo ya existe
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("Este correo ya está registrado. Intenta con otro.");
+        }
+
         // Convertir el nombre del rol a RoleEnum
         RoleEnum roleEnum;
         try {
             roleEnum = RoleEnum.valueOf(roleName);  // Convertir String a RoleEnum
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("The specified role does not exist.");
+            throw new IllegalArgumentException("El rol especificado no existe.");
         }
 
         // Buscar el rol en la base de datos usando el método actualizado
         Optional<RoleEntity> roleEntityOptional = roleRepository.findByRoleEnum(roleEnum);
 
         if (roleEntityOptional.isEmpty()) {
-            throw new IllegalArgumentException("The specified role does not exist.");
+            throw new IllegalArgumentException("El rol especificado no existe.");
         }
 
         RoleEntity roleEntity = roleEntityOptional.get();
@@ -106,7 +111,7 @@ public class UserDetailServiceImp implements UserDetailsService {
         UserEntity userSaved = userRepository.save(userEntity);
 
         // Devolver una respuesta simple sin token
-        return new AuthResponse(email, "User created successfully", null, true);
+        return new AuthResponse(email, "Usuario creado exitosamente", null, true);
     }
 
 

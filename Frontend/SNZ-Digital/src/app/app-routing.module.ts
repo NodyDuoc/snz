@@ -178,6 +178,10 @@ const routes: Routes = [
     path: 'registrar-usuario',
     loadChildren: () => import('./pages/registrar-usuario/registrar-usuario.module').then( m => m.RegistrarUsuarioPageModule)
   },
+  {
+    path: 'pago-test',
+    loadChildren: () => import('./pages/pago-test/pago-test.module').then( m => m.PagoTestPageModule)
+  },
 
 
 
