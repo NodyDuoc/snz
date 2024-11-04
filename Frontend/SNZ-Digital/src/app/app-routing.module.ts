@@ -174,9 +174,14 @@ const routes: Routes = [
   {
     path: 'info-producto/:id',
     loadChildren: () => import('./pages/info-producto/info-producto.module').then( m => m.InfoProductoPageModule)
-  },  {
+  },
+  {
     path: 'registrar-usuario',
     loadChildren: () => import('./pages/registrar-usuario/registrar-usuario.module').then( m => m.RegistrarUsuarioPageModule)
+  },
+  {
+    path: 'pago-test',
+    loadChildren: () => import('./pages/pago-test/pago-test.module').then( m => m.PagoTestPageModule)
   },
 
 

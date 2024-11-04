@@ -13,10 +13,5 @@ export class PagoComponent {
 
   constructor(private paykuService: PaykuService) {}
 
-  generarPago(): void {
-    this.paykuService.generarPago(this.pagoRequest).subscribe(response => {
-      this.pagoResponse = response;
-      window.location.href = response.paymentUrl; // Redirige a la URL de pago
-    });
-  }
+  
 }
