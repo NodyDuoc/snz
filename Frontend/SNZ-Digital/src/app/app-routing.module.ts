@@ -182,7 +182,11 @@ const routes: Routes = [
   {
     path: 'pago-test',
     loadChildren: () => import('./pages/pago-test/pago-test.module').then( m => m.PagoTestPageModule)
+  },  {
+    path: 'kardex-editar',
+    loadChildren: () => import('./pages/kardex-editar/kardex-editar.module').then( m => m.KardexEditarPageModule)
   },
+
 
 
 

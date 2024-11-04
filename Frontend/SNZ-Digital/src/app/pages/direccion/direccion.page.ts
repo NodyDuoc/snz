@@ -98,7 +98,7 @@ export class DireccionPage implements OnInit {
   }
 
   filtrarPorUsuarioId(): Direccion[] {
-    return this.direcciones.filter(direccion => direccion.usuarioIdUser === this.user.id);
+    return this.direcciones;
   }
 
   cargarDirecciones() {
