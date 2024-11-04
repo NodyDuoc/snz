@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>PagoTest</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PagoTest</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-header></app-header>
+  <div class="container">
+    <h2 class="title">Proceso de Pago</h2>
+
+    <!-- Formulario de detalles de pago -->
+    <div class="payment-section">
+      <form (submit)="iniciarPago()">
+        <ion-item>
+          <ion-label position="floating">Monto a pagar</ion-label>
+          <ion-input [(ngModel)]="montoPago" type="number" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input [(ngModel)]="descripcionPago" type="text" required></ion-input>
+        </ion-item>
+        
+        <!-- Botón para iniciar el pago -->
+        <ion-button expand="full" type="submit" class="custom-button">
+          Pagar Ahora
+        </ion-button>
+      </form>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
 </ion-content>
