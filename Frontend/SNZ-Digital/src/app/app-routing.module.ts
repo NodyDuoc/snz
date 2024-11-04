@@ -158,6 +158,18 @@ const routes: Routes = [
     path: 'maestro-categoria',
     loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
   },
+  {
+    path: 'maestro-categoria-editar',
+    loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule)
+  },
+  {
+    path: 'maestro-producto-editar',
+    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then( m => m.MaestroProductoEditarPageModule)
+  },
+  {
+    path: 'maestro-etiqueta-editar',
+    loadChildren: () => import('./pages/maestro-etiqueta-editar/maestro-etiqueta-editar.module').then( m => m.MaestroEtiquetaEditarPageModule)
+  },
 
 
 
