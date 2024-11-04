@@ -1,50 +1,81 @@
 .category-title {
-    background-color: #dadada; /* Color de fondo */
-    text-align: center; /* Centrar el texto */
-    padding: 20px; /* Espaciado alrededor del texto */
-    margin: 0; /* Eliminar margen por defecto */
-  }
-  
+  background-color: #dadada;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+}
 
-  .container-card {
-    width: 100%;
-    padding-right: 300px;
-    padding-left: 300px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+.container-card {
+  padding-bottom: 50px;
+  width: 100%;
+  padding-right: 300px;
+  padding-left: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
-  .product-section {
-    h2 {
-      margin: 16px 0; // Espacio alrededor del título de la categoría
-      font-size: 1.5rem; // Tamaño del texto del título
-      color: #333; // Color del texto
-    }
-  
-    .product-card {
-      margin-bottom: 16px; // Espacio entre tarjetas de productos
-      max-width: 200px; // Ancho máximo de la tarjeta
-      margin: auto; // Centra las tarjetas en la columna
-  
-      .image-preview {
-        width: 100%; // Ajusta el ancho al 100% del contenedor
-        height: 250px; // Ajusta la altura a 250px (o el tamaño que desees)
-        object-fit: cover; // Mantiene la proporción de la imagen
-      }
-    }
-  
-    .product-price {
-      font-weight: bold; // Hace que el precio sea más destacado
-      color: #000000; // Color verde para el precio
-    }
-  
-    .custom-button {
-      background-color: #3498db; // Color del botón "Comprar ahora"
-      color: white; // Color del texto en el botón
-    }
-  
-    .custom-button12 {
-      background-color: #e74c3c; // Color del botón "Agregar al carrito"
-      color: white; // Color del texto en el botón
-    }
-  }
+/* Estilo de barra de desplazamiento para .productos-container */
+.productos-container {
+  display: flex;
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+  padding: 10px 0;
+  scrollbar-color: #8a2be2 #e0d3ff; /* Color de la barra y del fondo */
+  scrollbar-width: thin; /* Ancho de la barra en Firefox */
+}
+
+/* Scrollbar personalizado para navegadores basados en Webkit (Chrome, Safari) */
+.productos-container::-webkit-scrollbar {
+  height: 12px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+.productos-container::-webkit-scrollbar-track {
+  background: #e0d3ff; /* Color de fondo del track */
+}
+
+.productos-container::-webkit-scrollbar-thumb {
+  background-color: #8a2be2; /* Color de la barra de desplazamiento (morado) */
+  border-radius: 10px; /* Redondeo de las esquinas de la barra */
+}
+
+/* Al pasar el mouse sobre el scrollbar */
+.productos-container::-webkit-scrollbar-thumb:hover {
+  background-color: #7a1ec1; /* Color más oscuro en hover */
+}
+
+
+.product-scroll {
+  display: flex;
+  gap: 16px; /* Espacio entre tarjetas */
+}
+
+.product-card {
+  min-width: 200px; /* Ancho mínimo de cada tarjeta */
+  max-width: 200px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  flex-shrink: 0; /* Evita que las tarjetas se reduzcan */
+}
+
+.image-preview {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #000000;
+}
+
+.custom-button {
+  background-color: #3498db;
+  color: white;
+}
+
+.custom-button12 {
+  background-color: #e74c3c;
+  color: white;
+}
