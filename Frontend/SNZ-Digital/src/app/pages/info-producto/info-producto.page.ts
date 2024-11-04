@@ -10,7 +10,8 @@ import { ProductoService } from 'src/app/Service/ProductoService.service';
 export class InfoProductoPage implements OnInit {
   idProducto: number | undefined;
   producto: any; // Cambia el tipo según tu modelo
-
+  cantidadSeleccionada: number = 1;
+  precioTotal: number = 0;
   constructor(private route: ActivatedRoute, private productoService: ProductoService) {}
 
   ngOnInit() {
@@ -19,6 +20,12 @@ export class InfoProductoPage implements OnInit {
       this.idProducto = +id;
       this.cargarProducto(this.idProducto);
     }
+    this.actualizarPrecio();
+    this.precioTotal = this.producto.precio; 
+  }
+
+  actualizarPrecio() {
+    this.precioTotal = this.producto.precio * this.cantidadSeleccionada;
   }
 
   cargarProducto(id: number) {

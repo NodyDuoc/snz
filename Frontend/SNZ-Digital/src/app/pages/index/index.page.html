@@ -5,11 +5,11 @@
   <div class="container-card">
     <div class="product-section">
       <h2 class="category-title" style="margin-top: 20px;">Destacados</h2>
-      <div class="productos-container">
+      <div class="productos-container" >
         <!-- Verificamos si hay productos en la categoría 5 -->
         <div *ngIf="(productosPorCategoria[5] ?? []).length > 0">
           <div class="product-scroll">
-            <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[5]">
+            <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[5]" (click)="irADetalleProducto(producto.productId)">
               <div *ngIf="producto.imagen">
                 <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
               </div>

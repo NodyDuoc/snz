@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/Service/categoria.service';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { Categoria } from 'src/models/categoria';
@@ -13,10 +14,12 @@ export class IndexPage implements OnInit {
   categorias: Categoria[] = [];
   productosPorCategoria: { [key: number]: Producto[] } = { 5: [] }; // Inicializamos con un array vacío para la categoría 5
   categoriasIds: number[] = [];
-
+  productosSeleccionados: Producto[] = []; // Productos de la categoría seleccionada  
+  selectedCategory: Categoria | null = null; // Agrega esta propiedad  
   constructor(
     private categoriaService: CategoriaService,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +58,11 @@ export class IndexPage implements OnInit {
         console.error('Error al obtener las categorías:', error);
       }
     });
+  }
+
+  irADetalleProducto(productId: any) {
+    console.log(productId)
+    this.router.navigate(['/info-producto', productId]); // Redirige a la página de info-producto con el ID del producto
   }
   
   agregarAlCarrito(producto: Producto) {
