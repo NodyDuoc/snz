@@ -164,7 +164,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule)
   },
   {
-    path: 'maestro-producto-editar',
+    path: 'maestro-producto-editar/:id',
     loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then( m => m.MaestroProductoEditarPageModule)
   },
   {
