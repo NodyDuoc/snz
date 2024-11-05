@@ -6,4 +6,6 @@ export interface DetalleCarrito {
     costoUnitario: number;
     costoTotal: number;
     productName?: string;  // Agrega esta propiedad opcional
+    imagen?: string;  // Asegúrate de agregar esta línea
+
 }

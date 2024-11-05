@@ -4,26 +4,38 @@
   <div class="carrito-container" *ngIf="carrito && detalles.length > 0">
     <div>
       <ion-title>Carrito de Compras</ion-title>
-      <p>Total: ${{ carrito.costoTotalCarrito.toFixed(2) || '0.00' }}</p>
     </div>
 
     <ion-grid>
-      <ion-row>
-        <ion-col size="12" *ngFor="let detalle of detalles">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>{{ detalle.productId || 'Producto sin id' }}</ion-card-title> <!-- Nombre del producto -->
-              <ion-card-title>{{ detalle.productName || 'Producto sin nombre' }}</ion-card-title> <!-- Nombre del producto -->
-            </ion-card-header>
-            <ion-card-content>
-              <p>Cantidad: {{ detalle.cantidad }}</p>
-              <p>Costo Unitario: ${{ detalle.costoUnitario.toFixed(2) || '0.00' }}</p>
-              <p>Costo Total: ${{ detalle.costoTotal.toFixed(2) || '0.00' }}</p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
+      <ion-list>
+        <ion-item *ngFor="let detalle of detalles" class="product-card">
+          <ion-thumbnail slot="start">
+            <img [src]="'data:image/png;base64,' + detalle.imagen" alt="Imagen del Producto" class="image-preview">
+          </ion-thumbnail>
+          <ion-label>
+            <h2 class="product-title">{{ detalle.productName }}</h2>
+            <p class="product-subtitle">Cantidad: {{ detalle.cantidad }}</p>
+            <p>Costo Unitario: {{ detalle.costoUnitario | currency }}</p>
+            <p>Costo Total: {{ detalle.costoTotal | currency }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-grid>
+
+    <ion-row>
+      <ion-col size="4">
+        <ion-card class="total-card">
+          <ion-card-header>
+            <ion-card-title>Total del Carrito</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p class="total-text">Subtotal: {{ calcularTotal() | currency }}</p>
+            <p class="total-text">Total: {{ calcularTotal() | currency }}</p>
+            <ion-button expand="full" color="primary">Pagar</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </div>
 
   <div *ngIf="!carrito || detalles.length === 0">
