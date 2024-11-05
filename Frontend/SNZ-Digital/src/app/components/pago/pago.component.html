@@ -1,3 +1,8 @@
-<p>
-  pago works!
-</p>
+<div>
+  <h2>Generar Pago</h2>
+  <button (click)="generarPago()">Pagar</button>
+  <div *ngIf="pagoResponse">
+    <p>ID de Pago: {{ pagoResponse.id }}</p>
+    <p>Estado: {{ pagoResponse.status }}</p>
+  </div>
+</div>

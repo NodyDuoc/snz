@@ -8,6 +8,9 @@ import { DetalleCarrito } from 'src/models/detalleCarrito';
 import { AuthService } from 'src/app/Service/auth.service';
 import { Producto } from 'src/models/producto'; 
 import { catchError, forkJoin, map, of } from 'rxjs';
+import { PaykuService } from 'src/app/Service/PaykuService.service';
+import { PagoRequest } from 'src/models/PagoRequest';
+import { PagoResponse } from 'src/models/PagoResponse';
 
 @Component({
   selector: 'app-carrito',
@@ -25,12 +28,56 @@ export class CarritoPage implements OnInit {
     private router: Router,
     private userService: AuthService,
     private productoService: ProductoService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private paykuService: PaykuService // Inyección del servicio de pago
+
   ) { }
 
   ngOnInit() {
     this.loadUser();
   }
+
+  // Método para iniciar el proceso de pago
+  realizarPago() {  
+    if (!this.carrito || this.detalles.length === 0) {  
+        this.presentToast('El carrito está vacío. No hay nada para pagar.');  
+        return;  
+    }  
+
+    const totalCarrito = this.calcularTotal();  
+    
+    const pagoRequest: PagoRequest = {  
+        amount: totalCarrito.toString(),  
+        currency: 'CLP',  
+        description: 'Pago de carrito'  
+    };  
+
+    // Llamada al servicio de pago para generar el enlace de pago  
+    this.paykuService.generarPago(pagoRequest).subscribe({  
+        next: (response: PagoResponse) => {  
+            if (response.paymentUrl) {  
+                window.location.href = response.paymentUrl; // Redirige a la pasarela de pago  
+            } else {  
+                this.presentToast('Error al generar el enlace de pago.');  
+            }  
+        },  
+        error: (error) => {  
+            console.error('Error en el proceso de pago:', error);  
+            this.presentToast('Ocurrió un problema al iniciar el pago. Por favor, intenta nuevamente.');  
+        }  
+    });  
+}
+
+// Método auxiliar para mostrar un mensaje de notificación
+async presentToast(message: string) {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 2000,
+    position: 'bottom'
+  });
+  toast.present();
+}
+
 
   loadUser() {
     const email = this.userService.getEmailFromToken();

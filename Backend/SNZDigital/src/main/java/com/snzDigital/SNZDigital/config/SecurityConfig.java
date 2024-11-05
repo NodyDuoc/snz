@@ -134,6 +134,10 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/pedidos/update/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/pedidos/delete/{id}").permitAll();
 
+                    // Endpoints de Pago
+                    http.requestMatchers(HttpMethod.POST, "/api/payku/pago").permitAll(); // Permitir acceso público
+
+
                     http.anyRequest().permitAll(); // Requiere autenticación para cualquier otra solicitud
 
 

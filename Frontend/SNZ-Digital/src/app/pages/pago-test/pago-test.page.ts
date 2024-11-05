@@ -23,18 +23,19 @@ export class PagoTestPage implements OnInit {
     }
 
     // Llamar al servicio para iniciar el pago en Payku
-    this.paykuService.iniciarPago(this.montoPago, this.descripcionPago).subscribe({
-      next: (data: any) => {  
-        if (data.url) {
+    //this.paykuService.generarPago(this.montoPago, this.descripcionPago).subscribe({
+      //next: (data: any) => {  
+        //if (data.url) {
           // Redirigir a la URL de pago proporcionada por Payku
-          window.location.href = data.url;
-        } else {
-          console.error('No se recibió URL de pago.');
-        }
-      },
-      error: (error) => {
-        console.error('Error al iniciar el pago:', error);
-      },
-    });
-  }
+        //  window.location.href = data.url;
+       // } else {
+        //  console.error('No se recibió URL de pago.');
+       // }
+     // },
+     // error: (error) => {
+     //   console.error('Error al iniciar el pago:', error);
+     // },
+    //});
+ // }
+}
 }

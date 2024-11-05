@@ -29,13 +29,14 @@
             <ion-card-title>Total del Carrito</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <p class="total-text">Subtotal: {{ calcularTotal() | currency }}</p>
-            <p class="total-text">Total: {{ calcularTotal() | currency }}</p>
-            <ion-button expand="full" color="primary">Pagar</ion-button>
+            <p class="total-text">Subtotal: {{ calcularTotal() | currency:'CLP' }}</p>
+            <p class="total-text">Total: {{ calcularTotal() | currency:'CLP' }}</p>
+            <ion-button expand="full" color="primary" (click)="realizarPago()">Pagar</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
+    
   </div>
 
   <div *ngIf="!carrito || detalles.length === 0">
