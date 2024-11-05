@@ -190,6 +190,22 @@ const routes: Routes = [
     path: 'crear-direccion',
     loadChildren: () => import('./pages/crear-direccion/crear-direccion.module').then( m => m.CrearDireccionPageModule)
   },
+  {
+    path: 'kardex-crear',
+    loadChildren: () => import('./pages/kardex-crear/kardex-crear.module').then( m => m.KardexCrearPageModule)
+  },
+  {
+    path: 'maestro-etiqueta-crear',
+    loadChildren: () => import('./pages/maestro-etiqueta-crear/maestro-etiqueta-crear.module').then( m => m.MaestroEtiquetaCrearPageModule)
+  },
+  {
+    path: 'maestro-categoria-crear',
+    loadChildren: () => import('./pages/maestro-categoria-crear/maestro-categoria-crear.module').then( m => m.MaestroCategoriaCrearPageModule)
+  },
+  {
+    path: 'maestro-producto-crear',
+    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then( m => m.MaestroProductoCrearPageModule)
+  },
 
 
 
