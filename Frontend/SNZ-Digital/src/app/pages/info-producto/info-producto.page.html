@@ -1,16 +1,9 @@
+<!-- src/app/pages/info-producto/info-producto.page.html -->
 <ion-content [fullscreen]="true">  
   <app-header></app-header>  
   <app-carrusel></app-carrusel>  
 
-  <ion-header>  
-    <ion-toolbar>  
-      <ion-buttons slot="start">  
-        <ion-back-button defaultHref="/catalogo"></ion-back-button>  
-      </ion-buttons>  
-      <ion-title>Volver al Catálogo</ion-title>  
-    </ion-toolbar>  
-  </ion-header>  
-
+  <!-- Información del Producto -->
   <div class="info-producto">
     <h2>Detalles del Producto</h2>
   
@@ -23,16 +16,13 @@
           <h3>{{ producto.productName }}</h3>
           <p>{{ producto.descripcion }}</p>
           
-          <!-- Select para la cantidad -->
           <label for="cantidad">Cantidad:</label>
           <select id="cantidad" [(ngModel)]="cantidadSeleccionada" (change)="actualizarPrecio()">
             <option *ngFor="let cantidad of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="cantidad">{{ cantidad }}</option>
           </select>
 
-          <!-- Precio total calculado directamente en la plantilla -->
           <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada | currency }}</p>
 
-          <!-- Botones de acción -->
           <button class="custom-button12" (click)="agregarAlCarrito(producto)">
             <i class="fas fa-shopping-cart"></i> Agregar al carrito
           </button>
@@ -48,52 +38,22 @@
     </ng-template>
   </div>
 
-  <h2 class="titulo-valoraciones">Valoraciones</h2>  
-
+  <!-- Valoraciones -->
+  <h2 class="titulo-valoraciones">Valoraciones</h2>
   <div class="valoraciones">  
     <h4>Reseñas de Usuarios</h4>  
     <div class="reseñas-container">  
-      <div class="reseña">  
-        <strong class="usuario usuario-1">Carlos89:</strong>  
+      <div *ngFor="let valoracion of valoraciones" class="reseña">  
+        <strong class="usuario">Usuario ID {{ valoracion.usuariosUserId }}:</strong>  
         <div class="detalles">  
-          <span class="resena">¡Excelente producto! Muy recomendable.</span>  
-          <span class="estrellas">★★★★★</span>  
-        </div>  
-      </div>  
-      <div class="reseña">  
-        <strong class="usuario usuario-2">Ana_Maria:</strong>  
-        <div class="detalles">  
-          <span class="resena">Buena calidad y rápido envío.</span>  
-          <span class="estrellas">★★★★☆</span>  
-        </div>  
-      </div>  
-      <div class="reseña">  
-        <strong class="usuario usuario-3">Juanito123:</strong>  
-        <div class="detalles">  
-          <span class="resena">El producto es bueno, pero esperaba más.</span>  
-          <span class="estrellas">★★★☆☆</span>  
-        </div>  
-      </div>  
-      <div class="reseña">  
-        <strong class="usuario usuario-4">Sofia_R:</strong>  
-        <div class="detalles">  
-          <span class="resena">Simplemente espectacular.</span>  
-          <span class="estrellas">★★★★★</span>  
-        </div>  
-      </div>  
-      <div class="reseña">  
-        <strong class="usuario usuario-5">LuisC97:</strong>  
-        <div class="detalles">  
-          <span class="resena">No cumplió con mis expectativas.</span>  
-          <span class="estrellas">★★☆☆☆</span>  
+          <span class="resena">{{ valoracion.valComentario }}</span>  
+          <span class="estrellas">
+            {{ '★'.repeat(valoracion.valPuntuacion) + '☆'.repeat(5 - valoracion.valPuntuacion) }}
+          </span>  
         </div>  
       </div>  
     </div>  
   </div>
-  
-  
-  
 
-  
   <app-footer></app-footer>  
 </ion-content>
