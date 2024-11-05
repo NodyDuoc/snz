@@ -165,4 +165,8 @@ export class DireccionPage implements OnInit {
   mostrarAlerta(titulo: string, mensaje: string) {
     console.error(`${titulo}: ${mensaje}`);
   }
+  
+  navigateToCrearDireccion() {
+    this.router.navigate(['/crear-direccion']);
+  }
 }
