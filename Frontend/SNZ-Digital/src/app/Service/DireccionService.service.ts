@@ -14,4 +14,9 @@ export class DireccionService {
   getAllDirecciones(): Observable<Direccion[]> {
     return this.http.get<Direccion[]>(`${this.baseUrl}/getall`);
   }
+
+  // Crear una nueva dirección
+  createDireccion(direccion: Direccion): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create`, direccion);
+  }
 }

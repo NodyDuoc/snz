@@ -1,7 +1,6 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
 
-
   <div class="register-container">
     <div class="register-card">
       <div class="register-header">
@@ -9,16 +8,15 @@
         <p>Por favor, completa los detalles de la dirección</p>
       </div>
 
-      <form>
+      <form [formGroup]="direccionForm" (ngSubmit)="onSubmit()">
         <!-- Campo para COMUNA -->
         <div class="form-group">
           <input
             type="text"
             class="form-control"
             placeholder="Comuna"
-            name="comuna"
+            formControlName="comuna"
             maxlength="100"
-            required
           >
         </div>
 
@@ -28,9 +26,8 @@
             type="text"
             class="form-control"
             placeholder="Dirección"
-            name="direccion"
+            formControlName="direccion"
             maxlength="100"
-            required
           >
         </div>
 
@@ -40,7 +37,7 @@
             type="text"
             class="form-control"
             placeholder="Detalle"
-            name="detalle"
+            formControlName="detalle"
             maxlength="100"
           >
         </div>
@@ -51,7 +48,7 @@
             <input
               type="checkbox"
               id="dirPrincipal"
-              name="dirPrincipal"
+              formControlName="dirPrincipal"
             >
             ¿Es dirección principal?
           </label>
@@ -61,7 +58,7 @@
           Registrar Dirección
         </button>
 
-        <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/perfil'])">
           Cancelar
         </button>
       </form>
