@@ -1,9 +1,9 @@
 <ion-content [fullscreen]="true">
 
-  <app-header></app-header> 
-  
+  <app-header></app-header>
+
   <app-carrusel></app-carrusel>
-  
+
   <div class="profile-container">
     <div class="profile-card" *ngIf="user; else loading">
       <h2 class="card-title">Perfil del Usuario</h2>
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <div class="profile-menu">
       <button class="menu-item" (click)="onEditProfile()">
@@ -44,10 +44,10 @@
         <span>Ver compras</span>
       </button>
       <a>
-      <button class="menu-item" (click)="onViewAddresses()">
-        <span>Ver direcciones</span>
-      </button>
-    </a>
+        <button class="menu-item" (click)="onViewAddresses()">
+          <span>Ver direcciones</span>
+        </button>
+      </a>
       <button class="menu-item logout" (click)="onLogout()">
         <span>Cerrar sesión</span>
       </button>
@@ -57,7 +57,6 @@
   <ng-template #loading>
     <p class="loading-text">Cargando datos del usuario...</p>
   </ng-template>
-  
+
   <app-footer></app-footer>
-  </ion-content>
-  
+</ion-content>

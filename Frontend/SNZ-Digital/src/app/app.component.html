@@ -2,7 +2,7 @@
   <!-- Configurar el Split Pane para que no se muestre automáticamente en pantallas grandes -->
   <ion-split-pane contentId="main-content" when="false">
     <!-- Menú lateral -->
-    <ion-menu side="start" contentId="main-content" >
+    <ion-menu side="start" contentId="main-content">
       <ion-header>
         <ion-toolbar routerLink="/index" class="menu">
           <ion-title>S.N.Z Digital</ion-title>
@@ -46,6 +46,13 @@
             Sobre S.N.Z Digital
           </ion-item>
 
+          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR')">
+          <ion-item routerLink="/menu-trabajador" routerLinkActive="active-item"> 
+            <ion-icon slot="start" name="build"></ion-icon>
+            Opciones de empleado
+          </ion-item>
+        </div>
+
 
           <!-- Sección de Cuenta para administrador -->
           <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR' || userRole === 'ROLE_EJECUTIVO')">
@@ -58,7 +65,7 @@
               Perfil
             </ion-item>
 
-            <ion-item (click)="logout()"  routerLinkActive="active-item">
+            <ion-item (click)="logout()" routerLinkActive="active-item">
               <ion-icon slot="start" name="log-out"></ion-icon>
               Cerrar Sesión
             </ion-item>

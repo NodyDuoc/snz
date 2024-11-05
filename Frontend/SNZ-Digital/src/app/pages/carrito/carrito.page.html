@@ -12,7 +12,8 @@
         <ion-col size="12" *ngFor="let detalle of detalles">
           <ion-card>
             <ion-card-header>
-              <ion-card-title>Producto ID: {{ detalle.productId }}</ion-card-title>
+              <ion-card-title>{{ detalle.productId || 'Producto sin id' }}</ion-card-title> <!-- Nombre del producto -->
+              <ion-card-title>{{ detalle.productName || 'Producto sin nombre' }}</ion-card-title> <!-- Nombre del producto -->
             </ion-card-header>
             <ion-card-content>
               <p>Cantidad: {{ detalle.cantidad }}</p>

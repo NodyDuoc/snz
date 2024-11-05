@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MaestroCategoriaEditarPageRoutingModule } from './maestro-categoria-editar-routing.module';
+import { MaestroEtiquetaCrearPageRoutingModule } from './maestro-etiqueta-crear-routing.module';
 
-import { MaestroCategoriaEditarPage } from './maestro-categoria-editar.page';
+import { MaestroEtiquetaCrearPage } from './maestro-etiqueta-crear.page';
 import { SharedModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MaestroCategoriaEditarPageRoutingModule,
+    MaestroEtiquetaCrearPageRoutingModule,
     SharedModule
   ],
-  declarations: [MaestroCategoriaEditarPage]
+  declarations: [MaestroEtiquetaCrearPage]
 })
-export class MaestroCategoriaEditarPageModule {}
+export class MaestroEtiquetaCrearPageModule {}

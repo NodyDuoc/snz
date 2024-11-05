@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MaestroCategoriaEditarPageRoutingModule } from './maestro-categoria-editar-routing.module';
+import { KardexCrearPageRoutingModule } from './kardex-crear-routing.module';
 
-import { MaestroCategoriaEditarPage } from './maestro-categoria-editar.page';
+import { KardexCrearPage } from './kardex-crear.page';
 import { SharedModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MaestroCategoriaEditarPageRoutingModule,
+    KardexCrearPageRoutingModule,
     SharedModule
   ],
-  declarations: [MaestroCategoriaEditarPage]
+  declarations: [KardexCrearPage]
 })
-export class MaestroCategoriaEditarPageModule {}
+export class KardexCrearPageModule {}
