@@ -46,10 +46,12 @@
             Sobre S.N.Z Digital
           </ion-item>
 
-          <ion-item routerLink="/menu-trabajador" routerLinkActive="active-item">
-            <ion-icon slot="start" name="menu-trabajador"></ion-icon>
+          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR')">
+          <ion-item routerLink="/menu-trabajador" routerLinkActive="active-item"> 
+            <ion-icon slot="start" name="build"></ion-icon>
             Opciones de empleado
           </ion-item>
+        </div>
 
 
           <!-- Sección de Cuenta para administrador -->

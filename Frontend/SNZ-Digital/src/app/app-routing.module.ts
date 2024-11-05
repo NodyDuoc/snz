@@ -182,7 +182,8 @@ const routes: Routes = [
   {
     path: 'pago-test',
     loadChildren: () => import('./pages/pago-test/pago-test.module').then( m => m.PagoTestPageModule)
-  },  {
+  },
+  {
     path: 'kardex-editar',
     loadChildren: () => import('./pages/kardex-editar/kardex-editar.module').then( m => m.KardexEditarPageModule)
   },
@@ -205,6 +206,10 @@ const routes: Routes = [
   {
     path: 'maestro-producto-crear',
     loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then( m => m.MaestroProductoCrearPageModule)
+  },
+  {
+    path: 'maestro-despacho',
+    loadChildren: () => import('./pages/maestro-despacho/maestro-despacho.module').then( m => m.MaestroDespachoPageModule)
   },
 
 

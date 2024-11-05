@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MaestroEtiquetaEditarPageRoutingModule } from './maestro-etiqueta-editar-routing.module';
 
 import { MaestroEtiquetaEditarPage } from './maestro-etiqueta-editar.page';
+import { SharedModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MaestroEtiquetaEditarPageRoutingModule
+    MaestroEtiquetaEditarPageRoutingModule,
+    SharedModule
   ],
   declarations: [MaestroEtiquetaEditarPage]
 })
