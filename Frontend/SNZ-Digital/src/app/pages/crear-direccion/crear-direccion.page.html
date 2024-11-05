@@ -1,10 +1,72 @@
 <ion-content [fullscreen]="true">
-
   <app-header></app-header>
 
-  <app-carrusel></app-carrusel>
 
+  <div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h1>Registrar Dirección</h1>
+        <p>Por favor, completa los detalles de la dirección</p>
+      </div>
 
+      <form>
+        <!-- Campo para COMUNA -->
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Comuna"
+            name="comuna"
+            maxlength="100"
+            required
+          >
+        </div>
 
-  <app-footer></app-footer>
+        <!-- Campo para DIRECCION -->
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dirección"
+            name="direccion"
+            maxlength="100"
+            required
+          >
+        </div>
+
+        <!-- Campo para DETALLE -->
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Detalle"
+            name="detalle"
+            maxlength="100"
+          >
+        </div>
+
+        <!-- Campo para DIRPRINCIPAL (Checkbox para indicar dirección principal) -->
+        <div class="form-group">
+          <label for="dirPrincipal">
+            <input
+              type="checkbox"
+              id="dirPrincipal"
+              name="dirPrincipal"
+            >
+            ¿Es dirección principal?
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Registrar Dirección
+        </button>
+
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <app-footer class="app-footer"></app-footer>
 </ion-content>

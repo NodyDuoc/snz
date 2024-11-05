@@ -164,7 +164,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule)
   },
   {
-    path: 'maestro-producto-editar',
+    path: 'maestro-producto-editar/:id',
     loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then( m => m.MaestroProductoEditarPageModule)
   },
   {
@@ -202,10 +202,6 @@ const routes: Routes = [
   {
     path: 'maestro-categoria-crear',
     loadChildren: () => import('./pages/maestro-categoria-crear/maestro-categoria-crear.module').then( m => m.MaestroCategoriaCrearPageModule)
-  },
-  {
-    path: 'maestro-producto-crear',
-    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then( m => m.MaestroProductoCrearPageModule)
   },
   {
     path: 'maestro-despacho',
