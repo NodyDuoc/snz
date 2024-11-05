@@ -10,11 +10,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12" class="ion-text-start">
-          <ion-button 
-            expand="full" 
-            fill="solid" 
-            routerLink="/index" 
-            class="custom-button">
+          <ion-button expand="full" fill="solid" routerLink="/index" class="custom-button">
             <ion-icon name="arrow-back" slot="start"></ion-icon>
             Volver a la página principal
           </ion-button>
@@ -26,9 +22,11 @@
       <ion-grid>
         <ion-row>
           <ion-col size="12">
-            <ion-button expand="full" class="custom-button">
-              Agregar Nueva Categoría
-            </ion-button>
+            <a href="/maestro-categoria-crear">
+              <ion-button expand="full" class="custom-button">
+                Agregar Nueva Categoría
+              </ion-button>
+            </a>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -41,7 +39,7 @@
               <ion-card-content>
                 <p>Detalle: {{ categoria.catDetalle || 'No disponible' }}</p>
                 <div *ngIf="categoria.imagen">
-                  <img [src]="categoria.imagen" alt="Imagen de categoría" class="categoria-imagen"/>
+                  <img [src]="categoria.imagen" alt="Imagen de categoría" class="categoria-imagen" />
                 </div>
               </ion-card-content>
             </ion-card>

@@ -1,13 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>maestro-categoria-crear</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">maestro-categoria-crear</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-header></app-header>
+
+  <div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h1>Registrar Categoría</h1>
+        <p>Por favor, completa los detalles de la categoría</p>
+      </div>
+
+      <!-- Formulario de registro de Categoría -->
+      <div class="form-group">
+        <!-- Campo para NOMBRE DE CATEGORÍA -->
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre de la Categoría"
+          #catName
+          maxlength="100"
+          required
+        >
+      </div>
+
+      <!-- Campo para DETALLE DE CATEGORÍA -->
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Detalle de la Categoría"
+          #catDetalle
+          maxlength="255"
+          required
+        >
+      </div>
+
+      <!-- Campo para IMAGEN (URL o Base64) -->
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="URL de la Imagen o Base64"
+          #imagen
+          maxlength="255"
+        >
+      </div>
+
+      <!-- Botón para enviar los datos -->
+      <button type="button" class="btn btn-primary" >
+        Registrar Categoría
+      </button>
+
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/perfil'])">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <app-footer class="app-footer"></app-footer>
 </ion-content>
