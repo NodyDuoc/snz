@@ -1,0 +1,86 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f7fa; // Fondo general
+  }
+  
+  .register-card {
+    background: white;
+    padding: 3rem; // Aumenta el relleno para hacer que el formulario se vea más grande
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra suave
+    width: 100%;
+    max-width: 600px; // Aumenta el ancho máximo para hacer el formulario más grande
+    box-sizing: border-box;
+  }
+  
+  .register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .register-header h1 {
+    font-size: 2rem; // Aumenta el tamaño del título
+    color: #333;
+  }
+  
+  .register-header p {
+    font-size: 1.1rem; // Aumenta el tamaño del subtítulo para mejor visibilidad
+    color: #666;
+  }
+  
+  .form-group {
+    margin-bottom: 1.8rem; // Aumenta el espacio entre los campos
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 1rem; // Aumenta el padding para agrandar el campo de entrada
+    border: 2px solid #e1e1e1;
+    border-radius: 0.5rem;
+    font-size: 1.1rem; // Aumenta el tamaño de la fuente del campo
+    color: #000;
+    background: #fff;
+    transition: border-color 0.3s ease;
+  
+    &:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 1rem; // Aumenta el padding del botón para que se vea más grande
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem; // Aumenta el tamaño de la fuente en el botón
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #6a5acd, #8a2be2);
+    color: white;
+  
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    margin-top: 1rem;
+  
+    &:hover {
+      background: #4a90e2;
+      color: white;
+    }
+  }
+  

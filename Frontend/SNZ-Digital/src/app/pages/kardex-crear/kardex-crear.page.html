@@ -1,13 +1,124 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>kardex-crear</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">kardex-crear</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-header></app-header>
+
+  <div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h1>Registrar Kardex</h1>
+        <p>Por favor, completa los detalles del Kardex</p>
+      </div>
+
+      <!-- Formulario sin Angular bindings -->
+      <form action="/api/kardex/create" method="POST">
+        <!-- Campo para FECHA -->
+        <div class="form-group">
+          <input
+            type="date"
+            class="form-control"
+            placeholder="Fecha"
+            name="fecha"
+          >
+        </div>
+
+        <!-- Campo para HORA -->
+        <div class="form-group">
+          <input
+            type="time"
+            class="form-control"
+            placeholder="Hora"
+            name="hora"
+          >
+        </div>
+
+        <!-- Campo para ENTRADA -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Entrada"
+            name="entrada"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para SALIDA -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Salida"
+            name="salida"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para SALDO -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Saldo"
+            name="saldo"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para PRECIO UNITARIO -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Precio Unitario"
+            name="precioUnitario"
+            step="0.01"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para PRECIO ACTUALIZADO -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Precio Actualizado"
+            name="precioActualizado"
+            step="0.01"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para MOVIMIENTO KARDEX ID -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="ID de Movimiento"
+            name="movimientoKarMovId"
+            min="0"
+          >
+        </div>
+
+        <!-- Campo para PRODUCTO ID -->
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="ID de Producto"
+            name="productoProductId"
+            min="0"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Registrar Kardex
+        </button>
+
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/perfil'">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <app-footer class="app-footer"></app-footer>
 </ion-content>
