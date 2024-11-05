@@ -5,4 +5,5 @@ export interface DetalleCarrito {
     cantidad: number;
     costoUnitario: number;
     costoTotal: number;
+    productName?: string;  // Agrega esta propiedad opcional
 }

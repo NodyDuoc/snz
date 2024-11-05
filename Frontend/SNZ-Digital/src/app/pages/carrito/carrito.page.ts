@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { CarritoService } from 'src/app/Service/carrito.service';
+import { ProductoService } from 'src/app/Service/ProductoService.service'; // Importa el servicio de productos
 import { Carrito } from 'src/models/carrito';
 import { DetalleCarrito } from 'src/models/detalleCarrito';
 import { AuthService } from 'src/app/Service/auth.service';
+import { Producto } from 'src/models/producto'; // Asegúrate de tener la importación correcta
+import { catchError, forkJoin, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-carrito',
@@ -16,13 +19,16 @@ export class CarritoPage implements OnInit {
   detalles: DetalleCarrito[] = [];
   errorMessage: string = '';
   user: any = null;
+  producto: any; // Cambia el tipo según tu modelo
+  productos: Producto[] = []; // Arreglo para almacenar los productos
 
   constructor(
     private carritoService: CarritoService,
     private router: Router,
     private userService: AuthService,
+    private productoService: ProductoService, // Inyecta el servicio de productos
     private toastController: ToastController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadUser();
@@ -76,13 +82,13 @@ export class CarritoPage implements OnInit {
     this.carritoService.getAllDetallesCarrito().subscribe(
       (detalles) => {
         this.detalles = detalles.filter(d => d.idCarrito === carritoId);
+
       },
       (error) => {
         console.error('Error al obtener los detalles del carrito:', error);
       }
     );
   }
-
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
       message: message,
@@ -91,5 +97,26 @@ export class CarritoPage implements OnInit {
       position: 'top'
     });
     toast.present();
+  }
+
+
+  cargarNombresProductos() {
+    const requests = this.detalles.map(detalle => {
+      return this.productoService.getProductoById(detalle.productId).pipe(
+        map(data => {
+          // Devuelve el detalle actualizado con el productName
+          return { ...detalle, productName: "data.productName" };
+        }),
+        catchError(error => {
+          console.error('Error al cargar el producto', error);
+          return of(detalle); // Devuelve el detalle original en caso de error
+        })
+      );
+    });
+
+    // Ejecuta todas las solicitudes en paralelo
+    forkJoin(requests).subscribe(updatedDetalles => {
+      this.detalles = updatedDetalles; // Actualiza this.detalles con los detalles actualizados
+    });
   }
 }
