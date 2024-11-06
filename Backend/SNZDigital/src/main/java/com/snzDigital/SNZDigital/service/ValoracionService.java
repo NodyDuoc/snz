@@ -39,4 +39,9 @@ public class ValoracionService {
     public void deleteValoracion(Integer id) {
         valoracionRepository.deleteById(id);
     }
+
+    // Obtener valoraciones por ID de producto
+    public List<ValoracionEntity> getValoracionesByProductoId(Long productoId) {
+        return valoracionRepository.findByProductoProductId(productoId);
+    }
 }

@@ -1,12 +1,19 @@
-<!-- src/app/pages/info-producto/info-producto.page.html -->
-<ion-content [fullscreen]="true">  
-  <app-header></app-header>  
-  <app-carrusel></app-carrusel>  
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+  <app-carrusel></app-carrusel>
 
-  <!-- Información del Producto -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/catalogo"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Volver al Catálogo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
   <div class="info-producto">
     <h2>Detalles del Producto</h2>
-  
+
     <div *ngIf="producto; else loading">
       <div class="producto-detalle">
         <div class="producto-imagen">
@@ -15,7 +22,8 @@
         <div class="producto-info">
           <h3>{{ producto.productName }}</h3>
           <p>{{ producto.descripcion }}</p>
-          
+
+          <!-- Select para la cantidad -->
           <label for="cantidad">Cantidad:</label>
           <select id="cantidad" [(ngModel)]="cantidadSeleccionada" (change)="actualizarPrecio()">
             <option *ngFor="let cantidad of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="cantidad">{{ cantidad }}</option>
@@ -23,6 +31,7 @@
 
           <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada | currency }}</p>
 
+          <!-- Botones de acción -->
           <button class="custom-button12" (click)="agregarAlCarrito(producto)">
             <i class="fas fa-shopping-cart"></i> Agregar al carrito
           </button>
@@ -32,28 +41,56 @@
         </div>
       </div>
     </div>
-    
+
     <ng-template #loading>
       <p>Cargando detalles del producto...</p>
     </ng-template>
   </div>
 
-  <!-- Valoraciones -->
-  <h2 class="titulo-valoraciones">Valoraciones</h2>
-  <div class="valoraciones">  
-    <h4>Reseñas de Usuarios</h4>  
-    <div class="reseñas-container">  
-      <div *ngFor="let valoracion of valoraciones" class="reseña">  
-        <strong class="usuario">Usuario ID {{ valoracion.usuariosUserId }}:</strong>  
-        <div class="detalles">  
-          <span class="resena">{{ valoracion.valComentario }}</span>  
-          <span class="estrellas">
-            {{ '★'.repeat(valoracion.valPuntuacion) + '☆'.repeat(5 - valoracion.valPuntuacion) }}
-          </span>  
-        </div>  
-      </div>  
-    </div>  
+  <!-- Sección de Valoraciones -->
+<h2 class="titulo-valoraciones">Valoraciones</h2>
+<div *ngIf="idProducto !== undefined && tieneValoraciones(); else sinValoraciones" class="valoraciones">
+  <h4>Reseñas de Usuarios</h4>
+  <div class="reseñas-container">
+    <div *ngFor="let resena of valoracionesPorProducto[idProducto]" class="reseña">
+      <strong>{{ resena.nombreUsuario }}:</strong>
+      <div class="detalles">
+        <span class="resena">{{ resena.resena.valComentario }}</span>
+        <span class="estrellas">
+          {{ '★'.repeat(resena.resena.valPuntuacion) }}
+          {{ '☆'.repeat(5 - resena.resena.valPuntuacion) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #sinValoraciones>
+  <p>No hay valoraciones para este producto.</p>
+</ng-template>
+
+
+  <!-- Formulario de valoración visible solo para usuarios registrados -->
+  <div *ngIf="isLoggedIn">
+    <h4>Deja tu valoración</h4>
+    <form (ngSubmit)="enviarValoracion()">
+      <ion-item>
+        <ion-label>Calificación:</ion-label>
+        <ion-select placeholder="Selecciona una calificación" [(ngModel)]="valoracion" name="valoracion" required>
+          <ion-select-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">{{ star }} estrellas</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Comentario</ion-label>
+        <ion-textarea [(ngModel)]="comentario" name="comentario"></ion-textarea>
+      </ion-item>
+      <ion-button expand="full" type="submit">Enviar Valoración</ion-button>
+    </form>
   </div>
 
-  <app-footer></app-footer>  
+  <ng-template #sinAcceso>
+    <p>Inicia sesión para ver y dejar valoraciones.</p>
+  </ng-template>
+
+  <app-footer></app-footer>
 </ion-content>

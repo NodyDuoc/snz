@@ -47,4 +47,10 @@ public class ValoracionController {
         valoracionService.deleteValoracion(id);
         return ResponseEntity.noContent().build();
     }
+    // Obtener valoraciones por ID de producto
+    @GetMapping("/producto/{productoId}")
+    public ResponseEntity<List<ValoracionEntity>> getValoracionesByProductoId(@PathVariable Long productoId) {
+        List<ValoracionEntity> valoraciones = valoracionService.getValoracionesByProductoId(productoId);
+        return ResponseEntity.ok(valoraciones);
+    }
 }
