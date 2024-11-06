@@ -9,3 +9,4 @@ export interface Pedido {
   cantidad?: number;
   estado?: string;
 }
+ 

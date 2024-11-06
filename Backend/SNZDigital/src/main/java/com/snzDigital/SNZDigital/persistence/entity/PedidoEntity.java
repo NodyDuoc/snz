@@ -18,14 +18,23 @@ public class PedidoEntity {
     @Column(name = "PRODUCTO_PRODUCTID", nullable = false)
     private Long productoProductId;
 
-    @Column(name = "COMUNA", length = 40)
+    @Column(name = "COMUNA", length = 100)
     private String comuna;
 
-    @Column(name = "DIRECCION", length = 40)
+    @Column(name = "DIRECCION", length = 100)
     private String direccion;
 
-    @Column(name = "DETALLE", length = 40)
+    @Column(name = "DETALLE", length = 100)
     private String detalle;
+
+    @Column(name = "PRECIO")
+    private Double precio;
+
+    @Column(name = "CANTIDAD", nullable = false)
+    private Integer cantidad;
+
+    @Column(name = "ESTADO", length = 100)
+    private String estado;
 
     // Getters y Setters
 
@@ -75,5 +84,29 @@ public class PedidoEntity {
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
