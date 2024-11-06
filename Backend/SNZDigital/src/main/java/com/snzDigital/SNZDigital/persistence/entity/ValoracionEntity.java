@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class ValoracionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
-    @SequenceGenerator(name = "prod_seq", sequenceName = "SNZ1.PROD_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "val_seq")
+    @SequenceGenerator(name = "val_seq", sequenceName = "VAL_SEQ", allocationSize = 1)
     @Column(name = "VALID")
     private Integer valid;
 
