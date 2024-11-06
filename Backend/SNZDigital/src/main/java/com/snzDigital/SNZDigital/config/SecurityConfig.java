@@ -139,6 +139,21 @@ public class SecurityConfig {
                     // Endpoints de Pago
                     http.requestMatchers(HttpMethod.POST, "/api/payku/create-transaction").permitAll(); // Permitir acceso público
 
+                    // Endpoints de etiquetas
+                    http.requestMatchers(HttpMethod.GET, "/api/etiquetas/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/etiquetas/get/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/etiquetas/create").permitAll();
+                    http.requestMatchers(HttpMethod.PUT, "/api/etiquetas/update/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/etiquetas/delete/{id}").permitAll();
+
+                    // Endpoints de etiqueta_producto
+                    http.requestMatchers(HttpMethod.GET, "/api/etiqueta_producto/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/etiqueta_producto/get/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/etiqueta_producto/create").permitAll();
+                    http.requestMatchers(HttpMethod.PUT, "/api/etiqueta_producto/update/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/etiqueta_producto/delete/{id}").permitAll();
+
+
 
                     http.anyRequest().permitAll(); // Requiere autenticación para cualquier otra solicitud
 
