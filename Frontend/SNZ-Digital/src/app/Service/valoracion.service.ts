@@ -12,8 +12,13 @@ export class ValoracionService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las valoraciones de un producto específico
+  // Obtener valoraciones para un producto específico
   getValoracionesByProductoId(productoId: number): Observable<Valoracion[]> {
-    return this.http.get<Valoracion[]>(`${this.baseUrl}/getall`);
+    return this.http.get<Valoracion[]>(`${this.baseUrl}/producto/${productoId}`);
+  }
+  
+  // Crear una nueva valoración
+  createValoracion(valoracion: Valoracion): Observable<Valoracion> {
+    return this.http.post<Valoracion>(`${this.baseUrl}/create`, valoracion);
   }
 }
