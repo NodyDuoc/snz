@@ -38,5 +38,7 @@ public class CategoriaEntity {
     }
 
 
-
+    public String getCatName() {
+        return catName;
+    }
 }

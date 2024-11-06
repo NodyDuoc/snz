@@ -87,7 +87,7 @@ export class CarritoPage implements OnInit {
       this.userService.searchByEmail(email).subscribe(
         (user) => {
           this.user = user;
-          this.cargarCarrito(); 
+          this.cargarDetallesCarrito(user.id); 
         },
         (error) => {
           this.errorMessage = 'Debes iniciar sesión para ver el carrito.';
@@ -98,33 +98,11 @@ export class CarritoPage implements OnInit {
     }
   }
 
-  cargarCarrito() {
-    if (!this.user) {
-      this.carrito = undefined;
-      this.detalles = [];
-      this.errorMessage = 'Debes iniciar sesión para ver el carrito.';
-      return;
-    }
 
-    this.carritoService.getAllCarritos().subscribe(
-      (carritos) => {
-        this.carrito = carritos.find(c => c.usuarioIdUser === this.user.id);
-        if (this.carrito) {
-          this.cargarDetallesCarrito(this.carrito.idCarrito);
-        } else {
-          this.errorMessage = 'No hay un carrito disponible para este usuario.';
-        }
-      },
-      (error) => {
-        this.errorMessage = 'Hubo un problema al cargar el carrito. Por favor, intenta más tarde.';
-      }
-    );
-  }
-
-  cargarDetallesCarrito(carritoId: number) {
+  cargarDetallesCarrito(usuarioId: number) {
     this.carritoService.getAllDetallesCarrito().subscribe(
       (detalles) => {
-        this.detalles = detalles.filter(d => d.idCarrito === carritoId);
+        this.detalles = detalles.filter(d => d.usuarioIdUser === usuarioId);
         this.cargarNombresProductos();
       },
       (error) => {

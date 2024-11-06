@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
 
-  <div class="carrito-container" *ngIf="carrito && detalles.length > 0">
+  <div class="carrito-container" *ngIf="detalles.length > 0">
     <div>
       <ion-title>Carrito de Compras</ion-title>
     </div>
@@ -36,10 +36,10 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    
+
   </div>
 
-  <div *ngIf="!carrito || detalles.length === 0">
+  <div *ngIf="detalles.length === 0">
     <p>{{ errorMessage }}</p>
   </div>
 

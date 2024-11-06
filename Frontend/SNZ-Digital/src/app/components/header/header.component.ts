@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private userService: AuthService,
     private carritoService: CarritoService,
-
   ) { }
 
   ngOnInit() {
@@ -45,20 +44,19 @@ export class HeaderComponent implements OnInit {
   }
 
   calculateCartItems() {
-    this.carritoService.getAllCarritos().subscribe((carritos) => {
-      const userCarritos = carritos.filter(carrito => carrito.usuarioIdUser === this.user.id);
+    // Obtener todos los detalles del carrito directamente
+    this.carritoService.getAllDetallesCarrito().subscribe((detalles: any[]) => {
+      // Filtrar los detalles por usuarioIdUser
+      const userDetalles = detalles.filter(detalle => detalle.usuarioIdUser === this.user.id);
 
+      // Reiniciar las variables del carrito
       this.cartItemCount = 0;
       this.cartTotal = 0;
 
-      userCarritos.forEach(carrito => {
-        this.carritoService.getAllDetallesCarrito().subscribe((detalles: any[]) => {
-          const detallesCarrito = detalles.filter(detalle => detalle.idCarrito === carrito.idCarrito);
-          detallesCarrito.forEach(detalle => {
-            this.cartItemCount += detalle.cantidad; // Suma de las cantidades
-            this.cartTotal += detalle.cantidad * detalle.costoUnitario; // Suma del costo total
-          });
-        });
+      // Sumar la cantidad y el costo total de los detalles del carrito
+      userDetalles.forEach(detalle => {
+        this.cartItemCount += detalle.cantidad; // Suma de las cantidades
+        this.cartTotal += detalle.cantidad * detalle.costoUnitario; // Suma del costo total
       });
     });
   }

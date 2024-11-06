@@ -8,12 +8,12 @@ public class DetalleCarritoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detail_car_seq")
-    @SequenceGenerator(name = "detail_car_seq", sequenceName = "SNZ1.DETAIL_CAR_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "detail_car_seq", sequenceName = "DETAIL_CAR_SEQ", allocationSize = 1)
     @Column(name = "ID_DETALLE_CARRITO")
     private Integer idDetalleCarrito;
 
-    @Column(name = "ID_CARRITO", nullable = false)
-    private Integer idCarrito;
+    @Column(name = "USUARIO_ID_USER", nullable = false)
+    private Integer usuarioIdUser;
 
     @Column(name = "PRODUCTID", nullable = false)
     private Integer productId;
@@ -36,12 +36,12 @@ public class DetalleCarritoEntity {
         this.idDetalleCarrito = idDetalleCarrito;
     }
 
-    public Integer getIdCarrito() {
-        return idCarrito;
+    public Integer getUsuarioIdUser() {
+        return usuarioIdUser;
     }
 
-    public void setIdCarrito(Integer idCarrito) {
-        this.idCarrito = idCarrito;
+    public void setUsuarioIdUser(Integer usuarioIdUser) {
+        this.usuarioIdUser = usuarioIdUser;
     }
 
     public Integer getProductId() {

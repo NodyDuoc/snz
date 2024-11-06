@@ -8,7 +8,7 @@ public class MovimientoKarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mov_seq")
-    @SequenceGenerator(name = "mov_seq", sequenceName = "SNZ1.MOV_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "mov_seq", sequenceName = "MOV_SEQ", allocationSize = 1)
     @Column(name = "MOVID")
     private Integer movId;
 

@@ -8,7 +8,7 @@ public class CarritoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "car_seq")
-    @SequenceGenerator(name = "car_seq", sequenceName = "SNZ1.CAR_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "car_seq", sequenceName = "CAR_SEQ", allocationSize = 1)
     @Column(name = "ID_CARRITO")
     private Integer idCarrito; // Cambiado a Integer
 

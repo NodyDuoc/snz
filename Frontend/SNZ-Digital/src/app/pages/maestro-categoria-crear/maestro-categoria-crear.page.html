@@ -9,49 +9,47 @@
       </div>
 
       <!-- Formulario de registro de Categoría -->
-      <div class="form-group">
-        <!-- Campo para NOMBRE DE CATEGORÍA -->
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Nombre de la Categoría"
-          #catName
-          maxlength="100"
-          required
-        >
-      </div>
+      <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="catName"
+            placeholder="Nombre de la Categoría"
+            maxlength="100"
+            required
+          >
+        </div>
 
-      <!-- Campo para DETALLE DE CATEGORÍA -->
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Detalle de la Categoría"
-          #catDetalle
-          maxlength="255"
-          required
-        >
-      </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="catDetalle"
+            placeholder="Detalle de la Categoría"
+            maxlength="255"
+            required
+          >
+        </div>
 
-      <!-- Campo para IMAGEN (URL o Base64) -->
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="URL de la Imagen o Base64"
-          #imagen
-          maxlength="255"
-        >
-      </div>
+        <!-- Campo para seleccionar imagen -->
+        <div class="form-group">
+          <input
+            type="file"
+            class="form-control"
+            (change)="onImageChange($event)"
+          >
+        </div>
 
-      <!-- Botón para enviar los datos -->
-      <button type="button" class="btn btn-primary" >
-        Registrar Categoría
-      </button>
+        <!-- Botón para enviar los datos -->
+        <button type="submit" class="btn btn-primary">
+          Registrar Categoría
+        </button>
 
-      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/perfil'])">
-        Cancelar
-      </button>
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/perfil'])">
+          Cancelar
+        </button>
+      </form>
     </div>
   </div>
 

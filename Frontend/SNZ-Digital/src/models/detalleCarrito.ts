@@ -1,11 +1,10 @@
 export interface DetalleCarrito {
     idDetalleCarrito: number;
-    idCarrito: number;
+    usuarioIdUser: number;  // Cambiado de idCarrito a usuarioIdUser
     productId: number;
     cantidad: number;
     costoUnitario: number;
     costoTotal: number;
-    productName?: string;  // Agrega esta propiedad opcional
-    imagen?: string;  // Asegúrate de agregar esta línea
-
+    productName?: string;  // Propiedad opcional para el nombre del producto
+    imagen?: string;  // Propiedad opcional para la imagen del producto
 }
