@@ -1,6 +1,7 @@
 package com.snzDigital.SNZDigital.controller;
 
 import com.snzDigital.SNZDigital.controller.dto.ProductoResponse;
+import com.snzDigital.SNZDigital.controller.dto.ProductoUpdateDTO;
 import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
 import com.snzDigital.SNZDigital.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +65,30 @@ public class ProductoController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductoResponse> updateProducto(@PathVariable Long id, @RequestBody ProductoEntity producto) {
-        ProductoEntity updatedProducto = productoService.updateProducto(id, producto);
+    public ResponseEntity<ProductoResponse> updateProducto(
+            @PathVariable Long id,
+            @RequestParam("productName") String productName,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam("precio") Double precio,
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+
+        ProductoUpdateDTO productoDTO = new ProductoUpdateDTO();
+        productoDTO.setProductName(productName);
+        productoDTO.setDescripcion(descripcion);
+        productoDTO.setPrecio(precio);
+
+        if (imagen != null && !imagen.isEmpty()) {
+            try {
+                productoDTO.setImagen(imagen.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException("Error al procesar la imagen", e);
+            }
+        }
+
+        ProductoEntity updatedProducto = productoService.updateProducto(id, productoDTO);
         return ResponseEntity.ok(new ProductoResponse("Producto actualizado con éxito", HttpStatus.OK.value(), updatedProducto));
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ProductoResponse> deleteProducto(@PathVariable Long id) {

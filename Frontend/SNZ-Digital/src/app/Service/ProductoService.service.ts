@@ -39,9 +39,13 @@ export class ProductoService {
       return this.http.get<Producto>(`${this.baseUrl}/categoria/${categoriaCatId}`, { params });
     }
 
-      // Método para obtener un producto por ID
-  getProductoById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/get/${id}`); // Ajusta la URL según tu API
+  // Método para obtener un producto por ID, con la estructura de respuesta especificada
+  getProductoById(id: number): Observable<{ message: string; statusCode: number; data: Producto }> {
+    return this.http.get<{ message: string; statusCode: number; data: Producto }>(`${this.baseUrl}/get/${id}`);
+  }
+
+  updateProducto(id: number, formData: FormData): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, formData);
   }
 
   createProducto(producto: Producto, imagenFile: File | null): Observable<any> {
@@ -72,5 +76,5 @@ export class ProductoService {
       })
     );
   }
-  
+
 }

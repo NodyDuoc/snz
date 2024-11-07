@@ -212,9 +212,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/necesidades-pc/necesidades-pc.module').then( m => m.NecesidadesPcPageModule)
   },
   {
-    path: 'maestro-producto-crear/:id',
-    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then( m => m.MaestroProductoCrearPageModule)
+    path: 'maestro-producto-editar/:categoryId/:productId',
+    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then(m => m.MaestroProductoEditarPageModule)
   },
+  
+  
 
 
 

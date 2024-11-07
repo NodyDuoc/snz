@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { CategoriaService } from 'src/app/Service/categoria.service';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
@@ -22,11 +22,16 @@ export class MaestroProductoPage implements OnInit {
       private categoriaService: CategoriaService,
       private productoService: ProductoService, // Inyecta el servicio de productos  
       private router: Router,
-      private toastController: ToastController
-  
+      private toastController: ToastController,
+      private route: ActivatedRoute,
     ) {}
   
     ngOnInit() {
+      this.route.queryParams.subscribe((params) => {
+        if (params['refresh'] === 'true' && this.selectedCategory) {
+          this.seleccionarCategoria(this.selectedCategory);
+        }
+      });
       this.cargarCategorias();
     }
   
@@ -55,9 +60,17 @@ export class MaestroProductoPage implements OnInit {
       });  
     } 
   
-    irADetalleProducto(productId: any) {
-      this.router.navigate(['/maestro-producto-editar', productId]);
+    irADetalleProducto(product: Producto) {
+      if (this.selectedCategory) {
+        const categoryId = this.selectedCategory.catId;
+        const productId = product.productId;
+        console.log('Navegando a la edición del producto con ID:', productId, 'y categoría ID:', categoryId);
+        this.router.navigate(['/maestro-producto-editar', categoryId, productId]);
+      }
     }
+    
+    
+    
   
     agregarAlCarrito(producto: Producto) {  
       // Lógica para agregar el producto al carrito  

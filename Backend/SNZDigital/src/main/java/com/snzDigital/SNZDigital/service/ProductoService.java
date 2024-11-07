@@ -1,5 +1,6 @@
 package com.snzDigital.SNZDigital.service;
 
+import com.snzDigital.SNZDigital.controller.dto.ProductoUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -65,12 +66,22 @@ public class ProductoService {
     }
 
     // Agregamos el método para actualizar un producto
-    public ProductoEntity updateProducto(Long id, ProductoEntity producto) {
-        if (!productoRepository.existsById(id)) {
-            throw new RuntimeException("Producto no encontrado con ID: " + id);
+    public ProductoEntity updateProducto(Long id, ProductoUpdateDTO productoDTO) {
+        // Buscar el producto existente
+        ProductoEntity productoExistente = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+
+        // Actualizar solo los campos específicos
+        productoExistente.setProductName(productoDTO.getProductName());
+        productoExistente.setDescripcion(productoDTO.getDescripcion());
+        productoExistente.setPrecio(productoDTO.getPrecio());
+
+        if (productoDTO.getImagen() != null) {
+            productoExistente.setImagen(productoDTO.getImagen());
         }
-        producto.setProductId(id); // Aseguramos que el ID se setea correctamente
-        return productoRepository.save(producto);
+
+        // Guardar el producto actualizado
+        return productoRepository.save(productoExistente);
     }
 
     public ProductoResponse getProductosByCategoria(Long categoriaCatId, int page, int size) {

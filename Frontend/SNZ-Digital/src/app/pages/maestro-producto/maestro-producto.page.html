@@ -33,8 +33,11 @@
               <p>Precio: {{ producto.precio | currency }}</p>  
 
               <!-- Botones de acción -->  
-              <button class="custom-button12" (click)="irADetalleProducto(producto.productId)">  
-                <i class="fa-solid fa-pen"></i> Editar
+              <button 
+              class="custom-button12" 
+              *ngIf="producto.productId && selectedCategory?.catId" 
+              (click)="irADetalleProducto(producto)">           
+              <i class="fa-solid fa-pen"></i> Editar
               </button>  
               <button *ngIf="producto.productId !== undefined" class="custom-button" (click)="eliminarProducto(producto.productId!)">  
                 <i class="fa-solid fa-trash"></i> Eliminar
