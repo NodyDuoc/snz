@@ -200,8 +200,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/maestro-etiqueta-crear/maestro-etiqueta-crear.module').then( m => m.MaestroEtiquetaCrearPageModule)
   },
   {
-    path: 'maestro-categoria-crear',
-    loadChildren: () => import('./pages/maestro-categoria-crear/maestro-categoria-crear.module').then( m => m.MaestroCategoriaCrearPageModule)
+    path: 'maestro-producto-crear/:categoryId',
+    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then(m => m.MaestroProductoCrearPageModule)
   },
   {
     path: 'maestro-despacho',

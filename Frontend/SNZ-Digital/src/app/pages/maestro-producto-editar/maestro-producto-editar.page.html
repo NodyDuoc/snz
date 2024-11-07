@@ -38,7 +38,7 @@
                 </ion-item>
   
                 <ion-item>
-                  <ion-label class="input-label" position="stacked">Descripción</ion-label>
+                  <ion-label class="textarea-descripcion" class="input-label" position="stacked">Descripción</ion-label>
                   <ion-textarea class="textarea-descripcion" formControlName="descripcion"></ion-textarea>
                 </ion-item>
 
@@ -64,9 +64,9 @@
       </ion-card>
   
       <div class="button-container">
-        <ion-button type="submit" expand="block" [disabled]="!productoForm.valid" color="primary">
+        <button class="btn btn-primary" type="submit" expand="block" [disabled]="!productoForm.valid" color="primary">
           Guardar Cambios
-        </ion-button>
+        </button>
       </div>
     </form>
   
