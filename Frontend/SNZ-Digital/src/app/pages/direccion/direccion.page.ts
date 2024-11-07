@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { DireccionService } from 'src/app/Service/DireccionService.service';
 import { Direccion } from 'src/models/direccion';
 import { AuthService } from 'src/app/Service/auth.service';
 import { environment } from 'src/environments/environment.prod';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DireccionDetalleComponent } from 'src/app/components/direccion-detalle/direccion-detalle.component';
 
 @Component({
   selector: 'app-direccion',
@@ -30,7 +31,9 @@ export class DireccionPage implements OnInit {
     private userService: AuthService,
     private toastController: ToastController,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalController: ModalController // Inyectar ModalController
+
   ) {
     this.usuarioForm = this.formBuilder.group({
       firstName: [''],
@@ -51,7 +54,15 @@ export class DireccionPage implements OnInit {
       this.buscarUsuarioPorId(+userId);
     }
     this.loadUser();
+    this.cargarDirecciones(); // Cargar direcciones al iniciar
+
   }
+
+    // Agregar este método para cargar el usuario al navegar
+ionViewWillEnter() {
+  this.cargarDirecciones(); // Cargar usuario cada vez que la vista entra
+}
+  
 
   buscarUsuarioPorId(id: number) {
     this.userService.getUserById(id).subscribe(
@@ -103,26 +114,12 @@ export class DireccionPage implements OnInit {
   }
 
   cargarDirecciones() {
-    if (!this.user) {
-      this.direcciones = [];
-      this.errorMessage = 'Debes iniciar sesión para ver las direcciones.';
-      return;
-    }
-  
     this.direccionService.getAllDirecciones().subscribe(
       (data: Direccion[]) => {
-        this.direcciones = data.filter(d => d.usuarioIdUser === this.user.id); // Filtrar direcciones del usuario
-        console.log('Direcciones obtenidas:', this.direcciones);
-        
-        if (this.direcciones.length > 0) {
-          this.selectedDireccion = this.direcciones[0];
-        } else {
-          this.errorMessage = 'No hay direcciones disponibles para este usuario.';
-        }
+        this.direcciones = data;
       },
-      (error) => {
-        console.error('Error al obtener las direcciones', error);
-        this.errorMessage = 'Hubo un problema al cargar las direcciones. Por favor, intenta más tarde.';
+      error => {
+        console.error('Error al cargar direcciones:', error);
       }
     );
   }
@@ -168,5 +165,31 @@ export class DireccionPage implements OnInit {
   
   navigateToCrearDireccion() {
     this.router.navigate(['/crear-direccion']);
+  }
+
+  async editarDireccion(dirId: number) {
+    const direccion = this.direcciones.find(d => d.dirId === dirId);
+    if (!direccion) {
+      return;
+    }
+
+    const modal = await this.modalController.create({
+      component: DireccionDetalleComponent,
+      componentProps: { direccion: direccion, isEditing: true }
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data && data.updatedDireccion) {
+      // Actualiza la dirección en la lista si fue editada
+      const index = this.direcciones.findIndex(d => d.dirId === data.updatedDireccion.dirId);
+      if (index !== -1) {
+        this.direcciones[index] = data.updatedDireccion;
+      }
+      
+      // Redirige al perfil después de guardar los cambios
+      this.router.navigate(['/perfil']);
+    }
   }
 }

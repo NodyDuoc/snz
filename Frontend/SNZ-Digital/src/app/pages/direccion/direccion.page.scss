@@ -1,32 +1,128 @@
-.layout {  
-  display: flex; /* Usar flexbox */  
-  flex-direction: row; /* Disposición de fila */  
-  padding: 20px; /* Opcional: Añadir un poco de padding */  
-}  
-  .profile-menu {
+ion-content {
+  --background: #f5f7fa; /* Fondo claro */
+
+  .container-card {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: 200px;
-  
-    .menu-item {
-      background: white;
-      border: none;
-      padding: 0.75rem 1rem;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      color: #3c4043;
-      font-size: 0.95rem;
-  
-      &:hover {
-        background-color: #f1f3f4;
+    align-items: center;
+    justify-content: center;
+
+    .direccion-section {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .btn-container {
+      padding-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .table-card {
+      margin: 16px 0;
+      padding: 0;
+    }
+
+    /* Estilos para la tabla de direcciones */
+    .direccion-table {
+      width: 100%;
+      border-collapse: collapse;
+    
+      thead {
+        background-color: #f9f9f9;
+        border-bottom: 2px solid #e0e0e0;
+    
+        th {
+          padding: 12px;
+          text-align: left;
+          font-size: 14px;
+          color: #333;
+        }
       }
-  
-      &.logout {
-        margin-top: 1rem;
-        color: #d93025;
+    
+      tbody {
+        tr {
+          border-bottom: 1px solid #e0e0e0;
+    
+          td {
+            padding: 12px;
+            font-size: 14px;
+            color: #555;
+          }
+    
+          &:hover {
+            background-color: #f1f1f1;
+          }
+        }
+    
+        /* Estilo para la dirección principal */
+        tr.principal {
+          background-color: #e0f7fa; /* Color de fondo destacado */
+          font-weight: bold;
+    
+          td {
+            color: #00796b; /* Color de texto para dirección principal */
+          }
+        }
       }
     }
+    
+    /* Estilos para los botones */
+    .btn-primary {
+      background-color: #f39422;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    
+      &:hover {
+        background-color: #d35c02;
+      }
+    }
+    
+    .noAhi {
+      color: #ff0000;
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
   }
+}
+// Botón principal
+.btn {  
+  width: 100%;  
+  padding: 0.75rem;  
+  border: none;  
+  border-radius: 0.5rem;  
+  font-size: 1rem;  
+  font-weight: 600;  
+  cursor: pointer;  
+  transition: all 0.3s ease;  
+}
+
+.btn-primary {  
+  background: linear-gradient(135deg, #6a5acd, #8a2be2); /* Degradado morado */  
+  color: white;  
+
+  &:hover {  
+    opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
+  }  
+}
+
+.btn-view {
+  background-color: #f39422; /* Color naranja */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #d35c02;
+  }
+}

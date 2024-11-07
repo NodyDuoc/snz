@@ -2,7 +2,6 @@
   <app-header></app-header>
   <app-carrusel></app-carrusel>  
 
-
   <ion-header>  
     <ion-toolbar>  
       <ion-buttons slot="start">  
@@ -14,39 +13,42 @@
   
   <div class="container-card">
     <div class="direccion-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <ion-button expand="full" class="custom-button" (click)="navigateToCrearDireccion()">
-              Agregar Nueva Dirección
-            </ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" *ngIf="direcciones.length === 0">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>No tienes direcciones guardadas</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p>Agrega una nueva dirección para comenzar.</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col size="12" *ngFor="let direccion of direcciones">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>{{ direccion?.direccion || 'Dirección no disponible' }}</ion-card-title>
-                <p>ID: {{ direccion?.dirId || 'No disponible' }}</p>
-              </ion-card-header>
-              <ion-card-content>
-                <p>Comuna: {{ direccion?.comuna || 'No disponible' }}</p>
-                <p>Detalle: {{ direccion?.detalle || 'No disponible' }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <div class="btn-container">
+        <button class="btn btn-primary" (click)="navigateToCrearDireccion()">
+          Agregar Nueva Dirección
+        </button>
+      </div>
+
+      <!-- Tabla de direcciones -->
+      <div class="table-card">
+        <ion-card-content>
+          <table class="direccion-table">
+            <thead>
+              <tr>
+                <th>Dirección</th>
+                <th>Comuna</th>
+                <th>Detalle</th>
+                <th>Principal</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let direccion of direcciones" [class.principal]="direccion?.dirPrincipal">
+                <td>{{ direccion?.direccion || 'No disponible' }}</td>
+                <td>{{ direccion?.comuna || 'No disponible' }}</td>
+                <td>{{ direccion?.detalle || 'No disponible' }}</td>
+                <td>{{ direccion?.dirPrincipal ? 'Sí' : 'No' }}</td>
+                <td><button class="btn btn-primary" (click)="editarDireccion(direccion.dirId)">EDITAR</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </div>
+
+      <!-- Mensaje si no hay direcciones -->
+      <ion-item *ngIf="direcciones.length === 0">
+        <ion-label class="noAhi">No se encontraron direcciones guardadas.</ion-label>
+      </ion-item>
     </div>
   </div>
   <app-footer></app-footer>

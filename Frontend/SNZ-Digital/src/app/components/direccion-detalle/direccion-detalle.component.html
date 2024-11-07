@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>{{ isEditing ? 'Editar Dirección' : 'Detalles de Dirección' }}</ion-title>
+    <ion-buttons slot="end">
+      <button class="btn btn-primary" (click)="close()">Cerrar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="direccion">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Dirección</ion-label>
+        <ion-input [(ngModel)]="direccion.direccion" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Comuna</ion-label>
+        <ion-input [(ngModel)]="direccion.comuna" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Detalle</ion-label>
+        <ion-input [(ngModel)]="direccion.detalle" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Principal</ion-label>
+        <ion-toggle [(ngModel)]="direccion.dirPrincipal" [disabled]="!isEditing"></ion-toggle>
+      </ion-item>
+    </ion-list>
+    
+    <ion-footer *ngIf="isEditing">
+          <button class="btn btn-primary" (click)="saveChanges()">Guardar Cambios</button>
+    </ion-footer>
+  </div>
+</ion-content>

@@ -19,4 +19,10 @@ export class DireccionService {
   createDireccion(direccion: Direccion): Observable<any> {
     return this.http.post(`${this.baseUrl}/create`, direccion);
   }
+
+  updateDireccion(id: number, direccion: Direccion): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, direccion);
+  }
+
+  
 }
