@@ -12,7 +12,7 @@ import { Producto } from 'src/models/producto';
 })
 export class IndexPage implements OnInit {
   categorias: Categoria[] = [];
-  productosPorCategoria: { [key: number]: Producto[] } = { 5: [] }; // Inicializamos con un array vacío para la categoría 5
+  productosPorCategoria: { [key: number]: Producto[] } = { 1: [] }; // Inicializamos con un array vacío para la categoría 5
   categoriasIds: number[] = [];
   productosSeleccionados: Producto[] = []; // Productos de la categoría seleccionada  
   selectedCategory: Categoria | null = null; // Agrega esta propiedad  
@@ -36,9 +36,9 @@ export class IndexPage implements OnInit {
         this.categoriasIds = [];
         
         // Filtrar solo la categoría con catId 5
-        const categoria5 = this.categorias.find(categoria => categoria.catId === 5);
+        const categoria5 = this.categorias.find(categoria => categoria.catId === 1);
         if (categoria5) {
-          console.log('Cargando productos para la categoría 5:', categoria5);
+          console.log('Cargando productos para la categoría 1:', categoria5);
           this.categoriasIds.push(categoria5.catId);
           
           this.productoService.getProductosByCategoria(categoria5.catId).subscribe({

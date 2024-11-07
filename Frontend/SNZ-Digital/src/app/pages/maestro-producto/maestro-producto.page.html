@@ -19,6 +19,8 @@
     <div class="main-content">  
       <h2>Productos de la Categoría Seleccionada</h2>  
 
+      <button class="custom-button12" *ngIf="selectedCategory" (click)="irACrearProducto()">Añadir Producto</button>
+
       <div *ngIf="productosSeleccionados.length > 0; else noProducts">  
         <div class="productos-container"> <!-- Cambia ion-list a un contenedor div -->  
           <div class="producto-card" *ngFor="let producto of productosSeleccionados" >  
@@ -34,7 +36,7 @@
               <button class="custom-button12" (click)="irADetalleProducto(producto.productId)">  
                 <i class="fa-solid fa-pen"></i> Editar
               </button>  
-              <button class="custom-button" (click)="comprarAhora(producto)">  
+              <button *ngIf="producto.productId !== undefined" class="custom-button" (click)="eliminarProducto(producto.productId!)">  
                 <i class="fa-solid fa-trash"></i> Eliminar
               </button>
             </div> 

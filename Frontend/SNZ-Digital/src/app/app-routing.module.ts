@@ -206,9 +206,14 @@ const routes: Routes = [
   {
     path: 'maestro-despacho',
     loadChildren: () => import('./pages/maestro-despacho/maestro-despacho.module').then( m => m.MaestroDespachoPageModule)
-  },  {
+  },
+  {
     path: 'necesidades-pc',
     loadChildren: () => import('./pages/necesidades-pc/necesidades-pc.module').then( m => m.NecesidadesPcPageModule)
+  },
+  {
+    path: 'maestro-producto-crear/:id',
+    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then( m => m.MaestroProductoCrearPageModule)
   },
 
 

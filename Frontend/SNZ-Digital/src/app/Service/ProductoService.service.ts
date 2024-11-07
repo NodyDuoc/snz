@@ -43,4 +43,34 @@ export class ProductoService {
   getProductoById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/get/${id}`); // Ajusta la URL según tu API
   }
+
+  createProducto(producto: Producto, imagenFile: File | null): Observable<any> {
+    const formData = new FormData();
+    
+    formData.append('productName', producto.productName || '');
+    formData.append('descripcion', producto.descripcion || '');
+    formData.append('precio', producto.precio?.toString() || '0');
+    
+    if (producto.categoriaCatId) {
+      formData.append('categoriaCatId', producto.categoriaCatId.toString());
+    } else {
+      console.warn('El campo categoriaCatId está vacío');
+    }
+  
+    if (imagenFile) {
+      formData.append('imagen', imagenFile);
+    }
+  
+    return this.http.post<any>(`${this.baseUrl}/create`, formData).pipe();
+  }
+  
+  deleteProducto(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${id}`).pipe(
+      catchError(error => {
+        console.error('Error al eliminar el producto:', error);
+        return throwError(() => new Error('No se pudo eliminar el producto. Intente nuevamente.'));
+      })
+    );
+  }
+  
 }

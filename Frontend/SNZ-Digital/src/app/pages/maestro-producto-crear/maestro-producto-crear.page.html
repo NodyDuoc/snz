@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true">  
+  <app-header></app-header>  
+  <app-carrusel></app-carrusel>  
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Nuevo Producto</ion-title>
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="/maestro-producto"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="productoForm" (ngSubmit)="onSubmit()" class="form-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Información del Producto</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                <!-- Imagen del producto -->
+                <div class="image-upload">
+                  <ion-item class="upload-item">
+                    <input type="file" (change)="onFileSelected($event)" accept="image/png, image/jpeg" />
+                  </ion-item>
+                  <ion-item *ngIf="imagePreview">
+                    <img [src]="imagePreview" alt="Imagen del Producto" class="image-preview">
+                  </ion-item>
+                </div>
+              </ion-col>
+  
+              <ion-col size="8">
+                <!-- Campos del formulario -->
+                <ion-item>
+                  <ion-label class="input-label" position="stacked">Nombre</ion-label>
+                  <ion-input class="input-field" formControlName="productName"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label class="input-label" position="stacked">Descripción</ion-label>
+                  <ion-textarea class="textarea-descripcion" formControlName="descripcion"></ion-textarea>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label class="input-label" position="stacked">Precio</ion-label>
+                  <ion-input
+                    type="number"
+                    class="input-field"
+                    formControlName="precio"
+                    (input)="validatePositiveNumber('precio')"
+                    (keypress)="preventNonNumericInput($event)"
+                    min="0"
+                    step="0.01">
+                  </ion-input>
+                </ion-item>
+                <div *ngIf="productoForm.get('precio')?.hasError('min') && productoForm.get('precio')!.touched" class="error-message">
+                  El precio debe ser mayor a 0.
+                </div>
+                
+  
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+  
+      <!-- Botones de acción -->
+      <div class="button-container">
+        <button class="btn btn-primary" type="submit" expand="block" [disabled]="!productoForm.valid">Crear Producto</button>
+      </div>
+    </form>
+  
+    <!-- Toast para mostrar mensajes de confirmación -->
+    <ion-toast [message]="toastMessage" [color]="toastColor" [duration]="3000" position="top" *ngIf="toastMessage">
+    </ion-toast>
+  </ion-content>
+  
+  <app-footer></app-footer>  
+</ion-content>

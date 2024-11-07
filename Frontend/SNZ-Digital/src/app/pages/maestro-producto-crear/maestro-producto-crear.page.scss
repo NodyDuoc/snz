@@ -1,0 +1,29 @@
+ion-toolbar {
+    --background: #dadada;
+    color: #000000;
+    text-align: center;
+  }
+  
+  ion-title {
+    font-weight: bold;
+  }
+
+  .btn {  
+    width: 100%;  
+    padding: 0.75rem;  
+    border: none;  
+    border-radius: 0.5rem;  
+    font-size: 1rem;  
+    font-weight: 600;  
+    cursor: pointer;  
+    transition: all 0.3s ease;  
+  }
+  
+  .btn-primary {  
+    background: linear-gradient(135deg, #6a5acd, #8a2be2); /* Degradado morado */  
+    color: white;  
+  
+    &:hover {  
+      opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
+    }  
+  }
