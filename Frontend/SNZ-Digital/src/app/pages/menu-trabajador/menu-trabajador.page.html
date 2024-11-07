@@ -4,37 +4,53 @@
 
   <div class="profile-container">
     <div class="profile-card" *ngIf="user; else loading">
-      <h2 class="card-title">Trabajador</h2>
+      <h2 class="card-title">Perfil del Empleado</h2>
       <div class="card-content">
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Nombre:</strong> {{ user.firstName }}</p>
-        <p><strong>Segundo Nombre:</strong> {{ user.secondName }}</p>
-        <p><strong>Apellido Paterno:</strong> {{ user.firstLastName }}</p>
-        <p><strong>Apellido Materno:</strong> {{ user.secondLastName }}</p>
-        <p><strong>Teléfono:</strong> {{ user.phone }}</p>
+        <div class="user-info-item">
+          <strong>Email:</strong>
+          <p>{{ user.email }}</p>
+        </div>
+        <div class="user-info-item">
+          <strong>Nombre:</strong>
+          <p>{{ user.firstName }}</p>
+        </div>
+        <div class="user-info-item">
+          <strong>Segundo Nombre:</strong>
+          <p>{{ user.secondName }}</p>
+        </div>
+        <div class="user-info-item">
+          <strong>Apellido Paterno:</strong>
+          <p>{{ user.firstLastName }}</p>
+        </div>
+        <div class="user-info-item">
+          <strong>Apellido Materno:</strong>
+          <p>{{ user.secondLastName }}</p>
+        </div>
+        <div class="user-info-item">
+          <strong>Teléfono:</strong>
+          <p>{{ user.phone }}</p>
+        </div>
       </div>
     </div>
 
     <div class="profile-menu">
+      <h3 class="menu-title">Menú</h3> 
       <button class="menu-item" (click)="ViewProductos()">
         <span>Maestro de productos</span>
       </button>
       <button class="menu-item" (click)="ViewCategorias()">
         <span>Maestro de categorias</span>
       </button>
-      <button class="menu-item logout" (click)="ViewKardex()">
+      <button class="menu-item" (click)="ViewKardex()">
         <span>Kardex</span>
       </button>
       <button class="menu-item" (click)="ViewTag()">
         <span>Maestro de etiquetas</span>
       </button>
-
-      <button class="menu-item logout">
+      <button class="menu-item">
         <span>Actualizar despacho</span>
       </button>
-
     </div>
-
   </div>
 
   <ng-template #loading>
