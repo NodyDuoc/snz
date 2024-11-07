@@ -39,11 +39,12 @@ export class RegistrarUsuarioPage implements OnInit {
       secondLastName: ['', Validators.required],
       phone: ['+', [Validators.required, Validators.pattern(/^\+?[0-9]*$/)]],
       authCreateRoleRequest: this.formBuilder.group({
-        roleListName: [['ADMINISTRADOR'], Validators.required]
+        roleListName: [['USUARIO'], Validators.required] // Cambia a "USUARIO"
       }),
       isActivated: [true, Validators.required]
     });
   }
+  
 
   async presentToast(message: string, color: 'success' | 'danger') {
     const toast = await this.toastController.create({

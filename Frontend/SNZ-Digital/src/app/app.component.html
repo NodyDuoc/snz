@@ -46,20 +46,23 @@
             Sobre S.N.Z Digital
           </ion-item>
 
-          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR')">
-          <ion-item routerLink="/menu-trabajador" routerLinkActive="active-item"> 
-            <ion-icon slot="start" name="build"></ion-icon>
-            Opciones de empleado
-          </ion-item>
-        </div>
+
+        
 
 
           <!-- Sección de Cuenta para administrador -->
-          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR' || userRole === 'ROLE_EJECUTIVO')">
+          <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR' || userRole === 'ROLE_USUARIO')">
             <ion-list-header>
               Cuenta
             </ion-list-header>
 
+            <div *ngIf="isLoggedIn && (userRole === 'ROLE_ADMINISTRADOR')">
+              <ion-item routerLink="/menu-trabajador" routerLinkActive="active-item"> 
+                <ion-icon slot="start" name="build"></ion-icon>
+                Opciones de empleado
+              </ion-item>
+            </div>
+            
             <ion-item routerLink="/perfil" routerLinkActive="active-item">
               <ion-icon slot="start" name="person-circle"></ion-icon>
               Perfil
