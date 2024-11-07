@@ -135,6 +135,20 @@ loadUser() {
     }
   }  
 
+
+  ViewTag(){  
+    // Verifica si el usuario está definido y tiene un ID
+    if (this.user && this.user.id) {
+      const encryptedId = this.encryptId(this.user.id.toString()); // Encriptar el ID
+  
+      // Redirige a la página de edición con el ID en la URL
+      this.router.navigate(['/maestro-etiqueta']);
+      console.log(`Redirigiendo a la página de pedidos de perfil con ID ${this.user.id}`);
+    } else {
+      console.error('No se pudo obtener el ID del usuario');
+    }
+  }  
+
   onViewPurchases() {
     console.log('Ver compras');
   }

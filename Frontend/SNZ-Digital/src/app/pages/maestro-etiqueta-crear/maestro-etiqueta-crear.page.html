@@ -1,13 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>maestro-etiqueta-crear</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">maestro-etiqueta-crear</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-header></app-header>
+
+  <div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h1>Registrar Etiqueta</h1>
+        <p>Por favor, completa los detalles de la etiqueta</p>
+      </div>
+
+      <!-- Formulario para crear etiqueta -->
+      <form [formGroup]="etiquetaForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Campo para NOMBRE DE LA ETIQUETA -->
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre de la etiqueta"
+            formControlName="nombreEtiqueta"
+            required
+          >
+        </div>
+
+        <!-- Campo para DETALLE DE LA ETIQUETA -->
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            placeholder="Descripción"
+            formControlName="detalleEtiqueta"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!etiquetaForm.valid">
+          Registrar Etiqueta
+        </button>
+
+        <button type="button" class="btn btn-secondary" >
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <app-footer class="app-footer"></app-footer>
 </ion-content>

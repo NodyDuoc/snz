@@ -66,7 +66,7 @@ export class MaestroCategoriaCrearPage implements OnInit {
     this.categoriaService.createCategoria(catName, catDetalle, this.selectedImage).subscribe({
       next: (response) => {
         this.presentToast('Categoría registrada exitosamente.', 'success');
-        this.router.navigate(['/perfil']); // Redirigir a perfil después de éxito
+        this.router.navigate(['/maestro-categoria']); // Redirigir a perfil después de éxito
       },
       error: (error) => {
         this.presentToast('Ocurrió un error al registrar la categoría.', 'danger');

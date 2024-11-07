@@ -20,4 +20,9 @@ export class EtiquetaService {
   getEtiquetaById(id: number): Observable<Etiqueta> {
     return this.http.get<Etiqueta>(`${this.baseUrl}/get/${id}`);
   }
+
+  // Crear una nueva dirección
+  createEtiqueta(etiqueta: Etiqueta): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create`, etiqueta);
+  }
 }
