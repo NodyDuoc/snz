@@ -13,7 +13,7 @@ import { Producto } from 'src/models/producto';
 export class MaestroProductoCrearPage implements OnInit {
 
   productoForm!: FormGroup;
-  imagePreview: string | ArrayBuffer | null = 'assets/images/default.jpg'; // Imagen por defecto
+  imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
   toastMessage: string | null = null;
   toastColor: string = 'success'; // Color por defecto para el toast
   imagenFile: File | null = null; 
@@ -30,7 +30,7 @@ export class MaestroProductoCrearPage implements OnInit {
 
   ngOnInit() {
     // Obtener el id de la categoría de los parámetros de la URL
-    this.categoriaId = +this.route.snapshot.paramMap.get('id')!;
+    this.categoriaId = +this.route.snapshot.paramMap.get('categoryId')!;
     console.log('ID de la categoría recibida:', this.categoriaId);
 
     this.productoForm = this.formBuilder.group({

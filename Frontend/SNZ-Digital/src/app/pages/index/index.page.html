@@ -10,8 +10,10 @@
         <div *ngIf="(productosPorCategoria[1] ?? []).length > 0">
           <div class="product-scroll">
             <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[1]" (click)="irADetalleProducto(producto.productId)">
-              <div *ngIf="producto.imagen">
-                <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+              <div>
+                <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+                     alt="Imagen del Producto" 
+                     class="image-preview">  
               </div>
               <ion-card-header>
                 <ion-card-title>{{ producto.productName }}</ion-card-title>

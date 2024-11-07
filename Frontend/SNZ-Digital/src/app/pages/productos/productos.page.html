@@ -31,8 +31,10 @@
         <ion-row>
           <ion-col size="3" *ngFor="let producto of productos">
             <ion-card>
-              <div *ngIf="producto.imagen">
-                <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+              <div>
+                <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+                     alt="Imagen del Producto" 
+                     class="image-preview">  
               </div>
               <ion-card-header>
                 <ion-card-title>{{ producto.productName }}</ion-card-title>

@@ -20,6 +20,7 @@ export class InfoProductoPage implements OnInit {
   valoracion: number | undefined;
   comentario: string = '';
   userId: number | null = null;
+  imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
 
   // Diccionario para valoraciones, asegurándonos de que cada producto tiene su propio arreglo de valoraciones
   valoracionesPorProducto: { [key: number]: { resena: Valoracion, nombreUsuario: string }[] } = {};

@@ -12,7 +12,7 @@ export class ProductosPage implements OnInit {
   productos: Producto[] = []; // Inicializa como un array vacío
     selectedProducto?: Producto; // Producto seleccionado
     errorMessage: string = ''; // Variable para almacenar mensajes de error
-    imagePreview: string | ArrayBuffer | null = null;
+    imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
     toastMessage: string | null = null;
     toastColor: string = 'success';
 

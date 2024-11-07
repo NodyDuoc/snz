@@ -24,9 +24,11 @@
       <div *ngIf="productosSeleccionados.length > 0; else noProducts">  
         <div class="productos-container"> <!-- Cambia ion-list a un contenedor div -->  
           <div class="producto-card" *ngFor="let producto of productosSeleccionados" >  
-            <div *ngIf="producto.imagen">  
-              <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">  
-            </div>  
+            <div>
+              <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+                   alt="Imagen del Producto" 
+                   class="image-preview">  
+            </div>
             <div class="producto-info">  
               <h3>{{ producto.productName }}</h3>  
               <p>{{ producto.descripcion }}</p>  

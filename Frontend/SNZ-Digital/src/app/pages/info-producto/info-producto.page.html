@@ -16,9 +16,12 @@
 
     <div *ngIf="producto; else loading">
       <div class="producto-detalle">
-        <div class="producto-imagen">
-          <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+        <div>
+          <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+               alt="Imagen del Producto" 
+               class="image-preview">  
         </div>
+        
         <div class="producto-info">
           <h3>{{ producto.productName }}</h3>
           <p>{{ producto.descripcion }}</p>
