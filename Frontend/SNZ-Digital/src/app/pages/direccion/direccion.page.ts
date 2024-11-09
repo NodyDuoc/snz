@@ -33,7 +33,6 @@ export class DireccionPage implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalController: ModalController // Inyectar ModalController
-
   ) {
     this.usuarioForm = this.formBuilder.group({
       firstName: [''],
@@ -55,14 +54,12 @@ export class DireccionPage implements OnInit {
     }
     this.loadUser();
     this.cargarDirecciones(); // Cargar direcciones al iniciar
-
   }
 
-    // Agregar este método para cargar el usuario al navegar
-ionViewWillEnter() {
-  this.cargarDirecciones(); // Cargar usuario cada vez que la vista entra
-}
-  
+  // Agregar este método para cargar el usuario al navegar
+  ionViewWillEnter() {
+    this.cargarDirecciones(); // Cargar direcciones cada vez que la vista entra
+  }
 
   buscarUsuarioPorId(id: number) {
     this.userService.getUserById(id).subscribe(
@@ -117,6 +114,7 @@ ionViewWillEnter() {
     this.direccionService.getAllDirecciones().subscribe(
       (data: Direccion[]) => {
         this.direcciones = data;
+        this.direcciones = this.filtrarPorUsuarioId(); // Filtrar por ID de usuario
       },
       error => {
         console.error('Error al cargar direcciones:', error);
