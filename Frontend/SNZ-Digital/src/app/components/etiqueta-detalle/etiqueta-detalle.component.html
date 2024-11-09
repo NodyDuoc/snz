@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ isEditing ? 'Editar Etiqueta' : 'Detalles de Etiqueta' }}</ion-title>
+    <ion-buttons slot="end">
+      <button class="btn btn-primary" (click)="close()">Cerrar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="etiqueta">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombre de Etiqueta</ion-label>
+        <ion-input [(ngModel)]="etiqueta.nombreEtiqueta" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="etiqueta.detalleEtiqueta" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-footer *ngIf="isEditing">
+      <button class="btn btn-primary" (click)="saveChanges()">Guardar Cambios</button>
+    </ion-footer>
+  </div>
+</ion-content>

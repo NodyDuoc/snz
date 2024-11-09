@@ -1,50 +1,53 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
+  <app-carrusel></app-carrusel>  
 
+  <ion-header>  
+    <ion-toolbar>  
+      <ion-buttons slot="start">  
+        <ion-back-button defaultHref="/perfil"></ion-back-button>  
+      </ion-buttons>  
+      <ion-title>¡Gestión de Etiquetas!</ion-title>  
+    </ion-toolbar>  
+  </ion-header> 
+  
   <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Gestión de Etiquetas!</ion-title>
-      <p class="sub-title">Aquí puedes gestionar las etiquetas de productos</p>
-    </div>
+    <div class="direccion-section">
+      <div class="btn-container">
+        <button class="btn btn-primary" (click)="navigateToCrearEtiqueta()">
+          Agregar Nueva Etiqueta
+        </button>
+      </div>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" class="ion-text-start">
-          <ion-button expand="full" fill="solid" routerLink="/index" class="custom-button">
-            <ion-icon name="arrow-back" slot="start"></ion-icon>
-            Volver a la página principal
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+      <!-- Tabla de direcciones -->
+      <div class="table-card">
+        <ion-card-content>
+          <table class="direccion-table">
+            <thead>
+              <tr>
+                <th>etiquetaId</th>
+                <th>nombreEtiqueta</th>
+                <th>detalleEtiqueta</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let etiqueta of etiquetas">
+                <td>{{ etiqueta?.etiquetaId || 'No disponible' }}</td>
+                <td>{{ etiqueta?.nombreEtiqueta || 'No disponible' }}</td>
+                <td>{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
+                <td><button class="btn btn-primary" (click)="editarEtiqueta(etiqueta.etiquetaId)">EDITAR</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </div>
 
-    <div class="etiqueta-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <a href="/maestro-etiqueta-crear">
-              <ion-button expand="full" class="custom-button">
-                Agregar Nueva Etiqueta
-              </ion-button>
-            </a>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" *ngFor="let etiqueta of etiquetas">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>{{ etiqueta.nombreEtiqueta || 'Etiqueta no disponible' }}</ion-card-title>
-                <p>ID: {{ etiqueta.etiquetaId || 'No disponible' }}</p>
-              </ion-card-header>
-              <ion-card-content>
-                <p>Detalle: {{ etiqueta.detalleEtiqueta || 'No disponible' }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <!-- Mensaje si no hay direcciones -->
+      <ion-item *ngIf="etiquetas.length === 0">
+        <ion-label class="noAhi">No se encontraron etiquetas guardadas.</ion-label>
+      </ion-item>
     </div>
   </div>
-
   <app-footer></app-footer>
 </ion-content>

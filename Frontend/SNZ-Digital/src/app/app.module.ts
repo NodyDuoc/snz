@@ -15,12 +15,14 @@ import { FormsModule } from '@angular/forms';
 import { register } from 'swiper/element/bundle';
 import { AuthInterceptorService } from 'src/interceptors/auth-interceptor.service';
 import { DireccionDetalleComponent } from './components/direccion-detalle/direccion-detalle.component';
+import { EtiquetaDetalleComponent } from './components/etiqueta-detalle/etiqueta-detalle.component';
 register();
 
 @NgModule({
   declarations: [
     AppComponent, // Mantén el componente principal
-    DireccionDetalleComponent 
+    DireccionDetalleComponent,
+    EtiquetaDetalleComponent 
   ],
   imports: [
     BrowserModule, 

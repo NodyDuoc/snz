@@ -25,4 +25,12 @@ export class EtiquetaService {
   createEtiqueta(etiqueta: Etiqueta): Observable<any> {
     return this.http.post(`${this.baseUrl}/create`, etiqueta);
   }
+
+  updateEtiqueta(id: number, etiqueta: Etiqueta): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, etiqueta);
+  }
+
+  deleteEtiqueta(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${id}`);
+  }
 }
