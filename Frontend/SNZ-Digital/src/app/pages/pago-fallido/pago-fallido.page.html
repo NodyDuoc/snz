@@ -1,0 +1,18 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+
+  <div class="container text-center mt-5">
+    <h1 class="text-danger">¡Pago Fallido!</h1>
+    <p>Lo sentimos, pero hubo un problema al procesar tu pago. Por favor, verifica los detalles e intenta nuevamente.</p>
+    
+    <div class="error-icon">
+      <i class="fas fa-exclamation-triangle fa-4x text-danger"></i>
+    </div>
+    
+    <button class="btn btn-primary mt-4" (click)="reintentarPago()">Reintentar Pago</button>
+    <button class="btn btn-secondary mt-4" (click)="volverAlCarrito()">Regresar al Carrito</button>
+  </div>
+  
+
+  <app-footer></app-footer>
+</ion-content>

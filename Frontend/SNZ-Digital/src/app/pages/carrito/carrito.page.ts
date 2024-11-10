@@ -27,48 +27,44 @@ export class CarritoPage implements OnInit {
     private userService: AuthService,
     private productoService: ProductoService,
     private toastController: ToastController,
-    private paykuService: PaykuService // Inyección del servicio de pago
+    private paykuService: PaykuService
   ) {}
 
   ngOnInit() {
     this.loadUser();
   }
 
-  // Método para iniciar el proceso de pago
-  realizarPago() {  
-    if (!this.carrito || this.detalles.length === 0) {  
-        this.presentToast('El carrito está vacío. No hay nada para pagar.');  
-        return;  
-    }  
-
-    const totalCarrito = this.calcularTotal();  
+  // Método para iniciar el proceso de pago 
+  async realizarPago() {
+    const totalCarrito = this.calcularTotal();
+    const pagoRequest: PagoRequest = {
+      amount: totalCarrito.toString(),
+      currency: 'CLP',
+      subject: 'Compra en tienda',
+      email: this.user?.email || 'usuario@ejemplo.com',
+      order: '12345',
+      urlreturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
+      urlnotify: 'http://localhost:8084/api/payku/notificar'
+    };
     
-    const pagoRequest: PagoRequest = new PagoRequest(
-        totalCarrito.toString(),
-        'CLP',
-        'Pago de carrito',
-        this.user?.email || 'usuario@ejemplo.com',  // Email del usuario o predeterminado
-        '12345', // Número de orden o identificador único
-        'Compra de productos' // Asunto de la transacción
-    );
-
-    // Llamada al servicio de pago para generar el enlace de pago  
+  
     this.paykuService.createTransaction(pagoRequest).subscribe({
-        next: (response: any) => { // Cambiado a `response` para acceder a las propiedades del objeto recibido
-            console.log("URL de pago recibida:", response); // Verifica el objeto completo aquí
-            if (response && response.url) {
-                window.open(response.url, '_blank'); // Abre la URL en una nueva ventana
-            } else {
-                this.presentToast('Error al generar el enlace de pago.');
-            }
-        },
-        error: (error) => {
-            console.error('Error en el proceso de pago:', error);
-            this.presentToast('Ocurrió un problema al iniciar el pago. Por favor, intenta nuevamente.');
+      next: async (response) => {
+        if (response && response.url) {
+          window.open(response.url, '_blank');
+          await this.presentToast('Redirigiendo al pago...');
+        } else {
+          await this.presentToast('Error al generar el enlace de pago.');
+          this.router.navigate(['/pago-fallido']);  // Redirige a la página de fallo si no se genera el enlace
         }
+      },
+      error: async () => {
+        await this.presentToast('Ocurrió un error en el proceso de pago.');
+        this.router.navigate(['/pago-fallido']);  // Redirige a la página de fallo en caso de error
+      }
     });
-}
-
+  }
+  
 
 
   // Método auxiliar para mostrar un mensaje de notificación
@@ -87,6 +83,7 @@ export class CarritoPage implements OnInit {
       this.userService.searchByEmail(email).subscribe(
         (user) => {
           this.user = user;
+          console.log("Usuario cargado:", this.user);
           this.cargarDetallesCarrito(user.id); 
         },
         (error) => {
@@ -98,11 +95,11 @@ export class CarritoPage implements OnInit {
     }
   }
 
-
   cargarDetallesCarrito(usuarioId: number) {
     this.carritoService.getAllDetallesCarrito().subscribe(
       (detalles) => {
         this.detalles = detalles.filter(d => d.usuarioIdUser === usuarioId);
+        console.log("Detalles del carrito cargados:", this.detalles);
         this.cargarNombresProductos();
       },
       (error) => {
@@ -128,11 +125,64 @@ export class CarritoPage implements OnInit {
     });
 
     forkJoin(requests).subscribe(updatedDetalles => {
-      this.detalles = updatedDetalles; 
+      this.detalles = updatedDetalles;
+      console.log("Detalles del carrito con nombres de productos:", this.detalles);
     });
   }
 
   calcularTotal() {
     return this.detalles.reduce((total, detalle) => total + detalle.costoTotal, 0);
   }
+
+  modificarCantidad(detalle: DetalleCarrito, nuevaCantidad: number) {
+    if (nuevaCantidad < 1) return;
+  
+    detalle.cantidad = nuevaCantidad;
+    detalle.costoTotal = detalle.costoUnitario * nuevaCantidad;
+  
+    this.carritoService.updateDetalleCarrito(detalle.idDetalleCarrito, { cantidad: nuevaCantidad }).subscribe({
+      next: () => {
+        this.presentToast('Cantidad actualizada');
+        this.calcularTotal();
+      },
+      error: (error) => {
+        console.error('Error al actualizar la cantidad:', error);
+        this.presentToast('Hubo un problema al actualizar la cantidad');
+      }
+    });
+  }
+  
+  eliminarProducto(detalle: DetalleCarrito) {
+    this.carritoService.deleteDetalleCarrito(detalle.idDetalleCarrito).subscribe({
+      next: () => {
+        this.detalles = this.detalles.filter(d => d.idDetalleCarrito !== detalle.idDetalleCarrito);
+        this.presentToast('Producto eliminado del carrito');
+        this.calcularTotal();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el producto:', error);
+        this.presentToast('Hubo un problema al eliminar el producto');
+      }
+    });
+  }
+
+
+  async verificarEstadoPago(token: string) {
+    this.paykuService.checkTransactionStatus(token).subscribe({
+      next: async (status) => {
+        if (status === 'approved') {
+          await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
+        } else {
+          await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
+          this.router.navigate(['/pago-fallido']);
+        }
+      },
+      error: async () => {
+        await this.presentToast('Error al verificar el estado de la transacción.');
+        this.router.navigate(['/pago-fallido']);
+      }
+    });
+  }
+  
+  
 }

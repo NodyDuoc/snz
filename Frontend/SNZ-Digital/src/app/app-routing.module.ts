@@ -214,7 +214,15 @@ const routes: Routes = [
   {
     path: 'maestro-producto-editar/:categoryId/:productId',
     loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then(m => m.MaestroProductoEditarPageModule)
+  },  {
+    path: 'pago-exitoso',
+    loadChildren: () => import('./pages/pago-exitoso/pago-exitoso.module').then( m => m.PagoExitosoPageModule)
   },
+  {
+    path: 'pago-fallido',
+    loadChildren: () => import('./pages/pago-fallido/pago-fallido.module').then( m => m.PagoFallidoPageModule)
+  },
+
   
   
 

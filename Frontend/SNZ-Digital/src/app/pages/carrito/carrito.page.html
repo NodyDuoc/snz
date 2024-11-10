@@ -14,9 +14,14 @@
           </ion-thumbnail>
           <ion-label>
             <h2 class="product-title">{{ detalle.productName }}</h2>
-            <p class="product-subtitle">Cantidad: {{ detalle.cantidad }}</p>
             <p>Costo Unitario: {{ detalle.costoUnitario | currency }}</p>
             <p>Costo Total: {{ detalle.costoTotal | currency }}</p>
+            <div class="cantidad-control">
+              <ion-button (click)="modificarCantidad(detalle, detalle.cantidad - 1)" [disabled]="detalle.cantidad <= 1">-</ion-button>
+              <span>{{ detalle.cantidad }}</span>
+              <ion-button (click)="modificarCantidad(detalle, detalle.cantidad + 1)">+</ion-button>
+            </div>
+            <ion-button color="danger" (click)="eliminarProducto(detalle)">Eliminar</ion-button>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -36,7 +41,6 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
   </div>
 
   <div *ngIf="detalles.length === 0">

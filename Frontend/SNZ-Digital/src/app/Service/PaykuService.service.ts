@@ -11,8 +11,14 @@ export class PaykuService {
 
   constructor(private http: HttpClient) {}
 
-  createTransaction(pagoRequest: PagoRequest): Observable<string> {
-    // Accede directamente a la URL de create-transaction
-    return this.http.post<string>(`${this.baseUrl}/create-transaction`, pagoRequest);
+  // Cambia el tipo de retorno a Observable<{ url: string }>
+  createTransaction(pagoRequest: PagoRequest): Observable<{ url: string }> {
+    return this.http.post<{ url: string }>(`${this.baseUrl}/create-transaction`, pagoRequest);
   }
+
+  // Cambia el tipo de retorno de checkTransactionStatus a Observable<string>
+  checkTransactionStatus(token: string): Observable<string> {
+    return this.http.get<string>(`${this.baseUrl}/checkTransactionStatus?token=${token}`);
+  }
+
 }

@@ -1,15 +1,15 @@
 package com.snzDigital.SNZDigital.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 
 
 @Service
@@ -53,6 +53,40 @@ public class PaykuService {
         HttpEntity<PaykuRequest> entity = new HttpEntity<>(request, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
         return response.getBody();
+    }
+
+    public String checkTransactionStatus(String token) {
+        // Construye la URL para verificar el estado de la transacción usando el token
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path("/checkTransactionStatus") // Ruta que debe coincidir con la documentación de Payku
+                .queryParam("token", token)
+                .toUriString();
+
+        try {
+            // Establece el encabezado de autenticación
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + secretKey);
+
+            HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+            // Realiza la solicitud GET para obtener el estado de la transacción
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+            // Si la respuesta es exitosa, analiza el estado y devuélvelo
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Extrae y procesa la respuesta de la API (asumiendo que es JSON con campo "status")
+                // Actualiza este análisis según la estructura real de la respuesta de Payku
+                JSONObject jsonResponse = new JSONObject(response.getBody());
+                String status = jsonResponse.optString("status");
+
+                return status.equalsIgnoreCase("approved") ? "approved" : "rejected";
+            } else {
+                return "Estado de transacción desconocido";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al verificar el estado de la transacción: " + e.getMessage();
+        }
     }
 
 
