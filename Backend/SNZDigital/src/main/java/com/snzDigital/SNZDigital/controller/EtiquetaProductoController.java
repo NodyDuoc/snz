@@ -50,4 +50,29 @@ public class EtiquetaProductoController {
         etiquetaProductoService.deleteEtiquetaProducto(id);
         return ResponseEntity.ok(new EtiquetaProductoResponse(id, "EtiquetaProducto eliminado con éxito", true));
     }
+
+    @GetMapping("/verificar/{productId}/{etiquetaId}")
+    public ResponseEntity<?> verificarEtiquetaProducto(
+            @PathVariable Integer productId,
+            @PathVariable Integer etiquetaId) {
+
+        boolean existe = etiquetaProductoService.existeEtiquetaProducto(productId, etiquetaId);
+
+        if (existe) {
+            return ResponseEntity.ok("Conectado");
+        } else {
+            return ResponseEntity.ok("No conectado");
+        }
+    }
+
+
+
+
+    @DeleteMapping("/eliminar/{etiquetaId}/{productoId}")
+    public ResponseEntity<?> eliminar(@PathVariable Integer etiquetaId, @PathVariable Integer productoId) {
+        etiquetaProductoService.deleteByProductIdAndEtiquetaId(productoId, etiquetaId);
+        return ResponseEntity.ok("Etiqueta eliminada exitosamente.");
+    }
+
+
 }

@@ -115,6 +115,14 @@ export class MaestroProductoPage implements OnInit {
         }
       });
     }
+
+
+    etiquetas(id: number) {
+      // Verifica si el usuario está definido y tiene un ID
+ 
+        this.router.navigate(['/maestro-etiqueta-producto', id]);
+        
+    }
     
     
   }

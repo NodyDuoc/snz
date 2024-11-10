@@ -2,6 +2,7 @@ package com.snzDigital.SNZDigital.service;
 
 import com.snzDigital.SNZDigital.persistence.entity.EtiquetaProductoEntity;
 import com.snzDigital.SNZDigital.persistence.repositories.EtiquetaProductoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,13 @@ public class EtiquetaProductoService {
 
     public void deleteEtiquetaProducto(Integer id) {
         etiquetaProductoRepository.deleteById(id);
+    }
+    public boolean existeEtiquetaProducto(Integer productId, Integer etiquetaId) {
+        return etiquetaProductoRepository.findByProductIdAndEtiquetaId(productId, etiquetaId).isPresent();
+    }
+
+    @Transactional
+    public void deleteByProductIdAndEtiquetaId(Integer productId, Integer etiquetaId) {
+        etiquetaProductoRepository.deleteByProductIdAndEtiquetaId(productId, etiquetaId);
     }
 }
