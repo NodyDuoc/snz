@@ -214,7 +214,8 @@ const routes: Routes = [
   {
     path: 'maestro-producto-editar/:categoryId/:productId',
     loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then(m => m.MaestroProductoEditarPageModule)
-  },  {
+  },
+  {
     path: 'pago-exitoso',
     loadChildren: () => import('./pages/pago-exitoso/pago-exitoso.module').then( m => m.PagoExitosoPageModule)
   },
@@ -222,7 +223,10 @@ const routes: Routes = [
     path: 'pago-fallido',
     loadChildren: () => import('./pages/pago-fallido/pago-fallido.module').then( m => m.PagoFallidoPageModule)
   },
-
+  {
+    path: 'maestro-etiqueta-producto/:Id',
+    loadChildren: () => import('./pages/maestro-etiqueta-producto/maestro-etiqueta-producto.module').then( m => m.MaestroEtiquetaProductoPageModule)
+  },
   
   
 

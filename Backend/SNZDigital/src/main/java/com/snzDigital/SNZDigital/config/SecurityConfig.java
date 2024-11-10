@@ -152,8 +152,8 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/etiqueta_producto/create").permitAll();
                     http.requestMatchers(HttpMethod.PUT, "/api/etiqueta_producto/update/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/etiqueta_producto/delete/{id}").permitAll();
-
-
+                    http.requestMatchers(HttpMethod.GET, "/api/etiqueta_producto/verificar/{productId}/{etiquetaId}").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/etiqueta_producto/eliminar/{productId}/{etiquetaId}").permitAll();
 
                     http.anyRequest().permitAll(); // Requiere autenticación para cualquier otra solicitud
 

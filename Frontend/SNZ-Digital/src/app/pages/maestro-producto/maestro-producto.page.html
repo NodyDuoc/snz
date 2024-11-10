@@ -57,6 +57,9 @@
                   (click)="eliminarProducto(producto.productId!)">
                   <i class="fa-solid fa-trash"></i> Eliminar
                 </button>
+                <button *ngIf="producto.productId !== undefined" class="custom-button" (click)="etiquetas(producto.productId)">  
+                  <i class="fa-solid fa-tag"></i> Etiquetas
+                </button>
               </div>
             </div> 
           </div>  

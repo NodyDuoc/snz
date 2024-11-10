@@ -43,4 +43,5 @@ public class EtiquetaProductoEntity {
     public void setEtiquetaId(Integer etiquetaId) {
         this.etiquetaId = etiquetaId;
     }
+
 }
