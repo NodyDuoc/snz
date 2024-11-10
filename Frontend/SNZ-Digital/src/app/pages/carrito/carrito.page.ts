@@ -140,7 +140,13 @@ export class CarritoPage implements OnInit {
     detalle.cantidad = nuevaCantidad;
     detalle.costoTotal = detalle.costoUnitario * nuevaCantidad;
   
-    this.carritoService.updateDetalleCarrito(detalle.idDetalleCarrito, { cantidad: nuevaCantidad }).subscribe({
+    this.carritoService.updateDetalleCarrito(detalle.idDetalleCarrito, {
+      cantidad: nuevaCantidad,
+      costoTotal: detalle.costoTotal,
+      costoUnitario: detalle.costoUnitario,
+      productId: detalle.productId,
+      usuarioIdUser: detalle.usuarioIdUser
+    }).subscribe({
       next: () => {
         this.presentToast('Cantidad actualizada');
         this.calcularTotal();
@@ -151,6 +157,7 @@ export class CarritoPage implements OnInit {
       }
     });
   }
+  
   
   eliminarProducto(detalle: DetalleCarrito) {
     this.carritoService.deleteDetalleCarrito(detalle.idDetalleCarrito).subscribe({
