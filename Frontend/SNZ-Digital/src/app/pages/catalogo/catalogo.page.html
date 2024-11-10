@@ -29,16 +29,18 @@
             </div>
             <div class="producto-info">  
               <h3>{{ producto.productName }}</h3>  
-              <p>{{ producto.descripcion }}</p>  
+             <!-- <p>{{ producto.descripcion }}</p>  -->  
               <p>Precio: {{ producto.precio | currency }}</p>  
 
               <!-- Botones de acción -->  
-              <button class="custom-button12" (click)="agregarAlCarrito(producto)">  
-                <i class="fas fa-shopping-cart"></i> Agregar al carrito  
-              </button>  
-              <button class="custom-button" (click)="comprarAhora(producto)">  
-                <i class="fas fa-money-bill-wave"></i> Comprar ahora  
-              </button>
+              <div class="botones-container">
+                <button class="custom-button12" (click)="agregarAlCarrito(producto); $event.stopPropagation()">
+                  <i class="fas fa-shopping-cart"></i> Agregar al carrito
+                </button>
+                <button class="custom-button" (click)="comprarAhora(producto); $event.stopPropagation()">
+                  <i class="fas fa-money-bill-wave"></i> Comprar ahora
+                </button>
+              </div>
             </div> 
           </div>  
         </div>  

@@ -14,6 +14,10 @@ export class CarritoService {
 
   constructor(private http: HttpClient) { }
 
+  agregarAlCarrito(detalle: DetalleCarrito): Observable<any> {
+    return this.http.post(`${this.detalleCarritoUrl}/create`, detalle);
+  }
+
   // Obtener todos los carritos
   getAllCarritos(): Observable<Carrito[]> {
     return this.http.get<Carrito[]>(`${this.baseUrl}/getall`);
@@ -53,4 +57,5 @@ export class CarritoService {
   deleteDetalleCarrito(idDetalleCarrito: number): Observable<void> {
     return this.http.delete<void>(`${this.detalleCarritoUrl}/delete/${idDetalleCarrito}`);
   }
+  
 }
