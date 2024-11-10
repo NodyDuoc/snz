@@ -34,37 +34,54 @@ export class CarritoPage implements OnInit {
     this.loadUser();
   }
 
+    // Genera un ID único para cada pedido
+    private generateUniqueOrderId(): string {
+      const timestamp = Date.now().toString().slice(-10); // Recorta a 10 dígitos
+      return `${timestamp}`; // Ejemplo: "order_1234567890"
+  }
+
   // Método para iniciar el proceso de pago 
   async realizarPago() {
     const totalCarrito = this.calcularTotal();
+    console.log('Total del carrito:', totalCarrito);
+
+    const orderValue = Date.now().toString(); // Genera un ID único numérico
+    console.log('Order ID:', orderValue, 'Length:', orderValue.length);
+
     const pagoRequest: PagoRequest = {
       amount: totalCarrito.toString(),
       currency: 'CLP',
       subject: 'Compra en tienda',
-      email: this.user?.email || 'usuario@ejemplo.com',
-      order: '12345',
+      email: this.user?.email,
+      order: orderValue, // Usa el ID de pedido único generado
       urlreturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
       urlnotify: 'http://localhost:8084/api/payku/notificar'
     };
-    
-  
+
+    console.log('Datos del pagoRequest:', pagoRequest);
+
     this.paykuService.createTransaction(pagoRequest).subscribe({
       next: async (response) => {
+        console.log('Respuesta completa de Payku:', response);
         if (response && response.url) {
           window.open(response.url, '_blank');
           await this.presentToast('Redirigiendo al pago...');
         } else {
+          console.error('Error al generar el enlace de pago:', response);
           await this.presentToast('Error al generar el enlace de pago.');
-          this.router.navigate(['/pago-fallido']);  // Redirige a la página de fallo si no se genera el enlace
+          this.router.navigate(['/pago-fallido']);
         }
       },
-      error: async () => {
+      error: async (error) => {
+        console.error('Error en el proceso de pago:', error);
         await this.presentToast('Ocurrió un error en el proceso de pago.');
-        this.router.navigate(['/pago-fallido']);  // Redirige a la página de fallo en caso de error
+        this.router.navigate(['/pago-fallido']);
       }
     });
   }
-  
+
+
+
 
 
   // Método auxiliar para mostrar un mensaje de notificación

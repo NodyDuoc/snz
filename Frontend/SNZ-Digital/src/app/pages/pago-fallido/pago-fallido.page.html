@@ -5,14 +5,15 @@
     <h1 class="text-danger">¡Pago Fallido!</h1>
     <p>Lo sentimos, pero hubo un problema al procesar tu pago. Por favor, verifica los detalles e intenta nuevamente.</p>
     
+    <!-- Mostrar la imagen de pago fallido -->
     <div class="error-icon">
-      <i class="fas fa-exclamation-triangle fa-4x text-danger"></i>
+      <img src="assets/img/pago-fallido.png" alt="Pago fallido" class="img-fluid mt-3" style="max-width: 400px;">
     </div>
-    
-    <button class="btn btn-primary mt-4" (click)="reintentarPago()">Reintentar Pago</button>
-    <button class="btn btn-secondary mt-4" (click)="volverAlCarrito()">Regresar al Carrito</button>
+    <div class="botones-container">
+    <button class="custom-button12" (click)="reintentarPago()">Reintentar Pago</button>
+    <button class="custom-button" (click)="volverAlCarrito()">Regresar al Carrito</button>
   </div>
-  
+  </div>
 
   <app-footer></app-footer>
 </ion-content>
