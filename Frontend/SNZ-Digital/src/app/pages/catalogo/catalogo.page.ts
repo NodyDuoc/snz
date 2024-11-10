@@ -18,18 +18,38 @@ export class CatalogoPage implements OnInit {
   productosPorCategoria: { [key: number]: Producto[] } = {};
   productosSeleccionados: Producto[] = [];
   selectedCategory: Categoria | null = null;
+  user: any = null; // Almacena la información del usuario
 
   constructor(
     private categoriaService: CategoriaService,
     private productoService: ProductoService,
     private carritoService: CarritoService,
-    private authService: AuthService, // Inyecta el servicio de autenticación
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.loadUser();
     this.cargarCategorias();
   }
+
+    // Método para cargar la información del usuario
+    loadUser() {
+      const email = this.authService.getEmailFromToken();
+      if (email) {
+        this.authService.searchByEmail(email).subscribe(
+          (user) => {
+            this.user = user;
+            console.log('Usuario cargado:', this.user);
+          },
+          (error) => {
+            console.error('Error al obtener el usuario:', error);
+          }
+        );
+      } else {
+        console.warn('No se encontró un token válido. El usuario debe iniciar sesión.');
+      }
+    }
 
   cargarCategorias() {
     this.categoriaService.getCategorias().subscribe({
@@ -64,22 +84,21 @@ export class CatalogoPage implements OnInit {
       alert('Este producto no tiene un ID válido y no se puede agregar al carrito.');
       return;
     }
-  
-    const userId = this.authService.getUserId();
-    if (!userId) {
+
+    if (!this.user || !this.user.id) {
       alert('Debes iniciar sesión para agregar productos al carrito.');
       return;
     }
-  
+
     const detalle: DetalleCarrito = {
       idDetalleCarrito: 0,
       cantidad: 1,
       costoUnitario: producto.precio ?? 0,
       costoTotal: (producto.precio ?? 0) * 1,
       productId: producto.productId,
-      usuarioIdUser: userId
+      usuarioIdUser: this.user.id
     };
-  
+
     this.carritoService.agregarAlCarrito(detalle).subscribe({
       next: () => {
         console.log('Producto agregado al carrito:', producto);
@@ -90,14 +109,6 @@ export class CatalogoPage implements OnInit {
         alert('Hubo un problema al agregar el producto al carrito');
       }
     });
-  }
-  
-  
-  
-
-  getUserId(): number {
-    // Aquí debes obtener el ID del usuario actual; puedes obtenerlo desde un servicio de autenticación
-    return 1; // Este es solo un ejemplo
   }
 
   comprarAhora(producto: Producto) {

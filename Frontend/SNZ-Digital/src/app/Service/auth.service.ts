@@ -88,11 +88,11 @@ isTokenExpired(): boolean {
 
   // Método para obtener el ID del usuario desde el token
   getUserId(): number | null {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); // Asegúrate de que el token esté en localStorage
     if (token) {
       try {
-        const payload = jwtDecode<{ id: number }>(token); // Asegúrate de que el tipo de payload coincide
-        return payload.id || null; // Cambia 'id' al nombre correcto en el token
+        const decodedToken: any = jwtDecode(token); // Decodifica el token
+        return decodedToken.id || null; // Cambia 'id' por el nombre del campo correcto en tu token
       } catch (error) {
         console.error('Error al decodificar el token:', error);
         return null;
