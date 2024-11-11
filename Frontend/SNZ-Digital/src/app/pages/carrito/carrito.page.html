@@ -6,27 +6,44 @@
       <ion-title>Carrito de Compras</ion-title>
     </div>
 
+    <!-- Selección de Dirección -->
+    <div class="direccion-container">
+      <h3>Selecciona una Dirección de Envío</h3>
+      <ion-item>
+        <ion-label>Dirección</ion-label>
+        <ion-select [(ngModel)]="selectedDireccion" (ionChange)="seleccionarDireccion($event.detail.value)">
+          <ion-select-option *ngFor="let direccion of direcciones" [value]="direccion">
+            {{ direccion.direccion }}, {{ direccion.comuna }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <!-- Lista de Productos en el Carrito -->
     <ion-grid>
       <ion-list>
         <ion-item *ngFor="let detalle of detalles" class="product-card">
-          <ion-thumbnail slot="start">
+          <ion-thumbnail slot="start" class="product-thumbnail">
             <img [src]="'data:image/png;base64,' + detalle.imagen" alt="Imagen del Producto" class="image-preview">
           </ion-thumbnail>
           <ion-label>
             <h2 class="product-title">{{ detalle.productName }}</h2>
             <p>Costo Unitario: {{ detalle.costoUnitario | currency }}</p>
             <p>Costo Total: {{ detalle.costoTotal | currency }}</p>
+          </ion-label>
+          <div class="product-actions">
             <div class="cantidad-control">
               <ion-button (click)="modificarCantidad(detalle, detalle.cantidad - 1)" [disabled]="detalle.cantidad <= 1">-</ion-button>
               <span>{{ detalle.cantidad }}</span>
               <ion-button (click)="modificarCantidad(detalle, detalle.cantidad + 1)">+</ion-button>
             </div>
             <ion-button color="danger" (click)="eliminarProducto(detalle)">Eliminar</ion-button>
-          </ion-label>
+          </div>
         </ion-item>
       </ion-list>
     </ion-grid>
 
+    <!-- Total y Botón de Pago -->
     <ion-row>
       <ion-col size="4">
         <ion-card class="total-card">
