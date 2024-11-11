@@ -37,7 +37,14 @@
                 <td>{{ etiqueta?.nombreEtiqueta || 'No disponible' }}</td>
                 <td>{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
                 <td>{{ etiqueta?.conexion || 'false' }}</td>
-                <td><button class="btn btn-primary" (click)="editarEtiqueta(etiqueta.etiquetaId)">EDITAR</button></td>
+
+                <ion-item *ngIf="etiqueta.conexion === true">
+                  <td><button class="btn btn-primary">Eliminar</button></td>
+                </ion-item>
+                <ion-item *ngIf="etiqueta.conexion !== true">
+                  <td><button class="btn btn-primary" (click)="agregarEtiquetaProducto(etiqueta.etiquetaId,this.ProductoId)">Agregar</button></td>
+                </ion-item>
+                
               </tr>
             </tbody>
           </table>

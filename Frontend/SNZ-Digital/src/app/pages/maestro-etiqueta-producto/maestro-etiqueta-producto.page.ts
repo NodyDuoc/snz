@@ -29,11 +29,11 @@ export class MaestroEtiquetaProductoPage implements OnInit {
   ProductoId?: any;
 
   conexiones: { [key: number]: string } = {};
-  
+
   searchQuery: string = '';
   direcciones: Direccion[] = [];
   selectedDireccion?: Direccion;
- 
+
   usuarioActual: any;
   usuarioForm: FormGroup;
   mostrarInformacionUsuario: boolean = false;
@@ -48,7 +48,7 @@ export class MaestroEtiquetaProductoPage implements OnInit {
     private modalController: ModalController, // Inyectar ModalController
 
     private etiquetaProductoService: EtiquetaProductoService, // Inyecta el servicio EtiquetaProducto
-   
+
   ) {
     this.usuarioForm = this.formBuilder.group({
       firstName: [''],
@@ -66,114 +66,102 @@ export class MaestroEtiquetaProductoPage implements OnInit {
     this.ProductoId = this.route.snapshot.paramMap.get('Id');
     this.cargarEtiquetas();
   }
- 
-  // Adaptado
- // Agregar este método para cargar el usuario al navegar
- ionViewWillEnter() {
-  this.cargarEtiquetas(); // Cargar direcciones cada vez que la vista entra
-}
 
-cargarEtiquetas() {
-  this.etiquetaService.getAllEtiquetas().subscribe(
-    (data: Etiqueta[]) => {
-      this.etiquetas = data;
-
-      if (this.etiquetas.length === 0) {
-        this.errorMessage = 'No hay etiquetas disponibles.';
-      } else {
-        // Iterar sobre cada etiqueta y verificar la relación con el producto
-        this.etiquetas.forEach((etiqueta) => {
-          this.etiquetaProductoService.verificarEtiquetaProducto(this.ProductoId, etiqueta.etiquetaId)
-            .subscribe(
-              (conexion: any) => {
-                etiqueta.conexion = conexion; // Asignar true o false a 'conexion'
-              },
-              (error: any) => {
-                etiqueta.conexion = "No se conecto"; // Asignar true o false a 'conexion'
-                console.error(`Error al verificar la conexión para la etiqueta ${etiqueta.etiquetaId}`, error);
-              }
-            );
-        });
+  agregarEtiquetaProducto(etiquetaId: number, productoIda: any) {
+    const productoId: number = Number(productoIda);  // Convertir productoId a número
+    this.etiquetaProductoService.createEtiquetaProducto(etiquetaId,productoId).subscribe(
+      () => {
+        this.showToast('Etiqueta agregada al producto exitosamente.', 'success');
+        this.cargarEtiquetas();  // Recargar etiquetas para actualizar el estado de 'conexión'
+      },
+      (error) => {
+        console.error('Error al agregar etiqueta al producto', error);
+        this.showToast('Hubo un problema al agregar la etiqueta. Por favor, intenta más tarde.', 'danger');
       }
-    },
-    (error) => {
-      console.error('Error al obtener las etiquetas', error);
-      this.errorMessage = 'Hubo un problema al cargar las etiquetas. Por favor, intenta más tarde.';
+    );
+  }
+  
+
+  // Adaptado
+  // Agregar este método para cargar el usuario al navegar
+  ionViewWillEnter() {
+    this.cargarEtiquetas(); // Cargar direcciones cada vez que la vista entra
+  }
+
+  cargarEtiquetas() {
+    this.etiquetaService.getAllEtiquetas().subscribe(
+      (data: Etiqueta[]) => {
+        this.etiquetas = data;
+
+        if (this.etiquetas.length === 0) {
+          this.errorMessage = 'No hay etiquetas disponibles.';
+        } else {
+          // Iterar sobre cada etiqueta y verificar la relación con el producto
+          this.etiquetas.forEach((etiqueta) => {
+            this.etiquetaProductoService.verificarEtiquetaProducto(this.ProductoId, etiqueta.etiquetaId)
+              .subscribe(
+                (conexion: any) => {
+                  etiqueta.conexion = conexion; // Asignar true o false a 'conexion'
+                },
+                (error: any) => {
+                  etiqueta.conexion = "No se conecto"; // Asignar true o false a 'conexion'
+                  console.error(`Error al verificar la conexión para la etiqueta ${etiqueta.etiquetaId}`, error);
+                }
+              );
+          });
+        }
+      },
+      (error) => {
+        console.error('Error al obtener las etiquetas', error);
+        this.errorMessage = 'Hubo un problema al cargar las etiquetas. Por favor, intenta más tarde.';
+      }
+    );
+  }
+
+
+
+
+
+  seleccionarEtiqueta(etiqueta: Etiqueta) {
+    this.selectedEtiqueta = etiqueta;
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: this.toastMessage || '',
+      color: this.toastColor,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  async showToast(message: string, color: string = 'success') {
+    this.toastMessage = message;
+    this.toastColor = color;
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: color,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  decryptId(encryptedId: string): string {
+    const decoded = atob(encryptedId);
+    let decrypted = '';
+    for (let i = 0; i < decoded.length; i++) {
+      decrypted += String.fromCharCode(decoded.charCodeAt(i) - (i % 10));
     }
-  );
-}
-
-
-
-
-
-seleccionarEtiqueta(etiqueta: Etiqueta) {
-  this.selectedEtiqueta = etiqueta;
-}
-
-async presentToast() {
-  const toast = await this.toastController.create({
-    message: this.toastMessage || '',
-    color: this.toastColor,
-    duration: 3000,
-    position: 'top'
-  });
-  toast.present();
-}
-
-async showToast(message: string, color: string = 'success') {
-  this.toastMessage = message;
-  this.toastColor = color;
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 3000,
-    color: color,
-    position: 'top'
-  });
-  toast.present();
-}
-
-decryptId(encryptedId: string): string {
-  const decoded = atob(encryptedId);
-  let decrypted = '';
-  for (let i = 0; i < decoded.length; i++) {
-    decrypted += String.fromCharCode(decoded.charCodeAt(i) - (i % 10));
-  }
-  return decrypted.replace(environment.secretKey, '');
-}
-
-mostrarAlerta(titulo: string, mensaje: string) {
-  console.error(`${titulo}: ${mensaje}`);
-}
-
-navigateToCrearEtiqueta() {
-  this.router.navigate(['/maestro-etiqueta-crear']);
-}
-
-async editarEtiqueta(etiquetaId: number) {
-  const etiqueta = this.etiquetas.find(e => e.etiquetaId === etiquetaId);
-  if (!etiqueta) {
-    return;
+    return decrypted.replace(environment.secretKey, '');
   }
 
-  const modal = await this.modalController.create({
-    component: EtiquetaDetalleComponent,
-    componentProps: { etiqueta: etiqueta, isEditing: true }
-  });
-
-  await modal.present();
-
-  const { data } = await modal.onWillDismiss();
-  if (data && data.updatedEtiqueta) {
-    // Actualiza la dirección en la lista si fue editada
-    const index = this.etiquetas.findIndex(e => e.detalleEtiqueta === data.updatedEtiqueta.dirId);
-    if (index !== -1) {
-      this.direcciones[index] = data.updatedDireccion;
-    }
-    // Redirige al perfil después de guardar los cambios
-    this.router.navigate(['/maestro-etiqueta']);
+  mostrarAlerta(titulo: string, mensaje: string) {
+    console.error(`${titulo}: ${mensaje}`);
   }
-}
 
-
+  navigateToCrearEtiqueta() {
+    this.router.navigate(['/maestro-etiqueta-crear']);
+  }
 }

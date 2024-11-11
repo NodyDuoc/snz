@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EtiquetaProducto } from 'src/models/EtiquetaProducto';
+import { EtiquetaProductoEnvio } from 'src/models/EtiquetaProductoEnvio';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,15 @@ export class EtiquetaProductoService {
     return this.http.get<EtiquetaProducto>(`${this.baseUrl}/get/${id}`);
   }
 
-  // Crear una nueva dirección
-  createEtiquetaProducto(etiqueta: EtiquetaProducto): Observable<any> {
+  // Crear una nueva Etiqueta producto
+  createEtiquetaProducto(etiquetaId: number, productId: number): Observable<any> {
+    const etiqueta: EtiquetaProductoEnvio = {
+      etiquetaId: etiquetaId,
+      productId: productId,
+    };
     return this.http.post(`${this.baseUrl}/create`, etiqueta);
   }
+  
 
   updateEtiquetaProducto(id: number, etiqueta: EtiquetaProducto): Observable<any> {
     return this.http.put(`${this.baseUrl}/update/${id}`, etiqueta);
@@ -36,13 +42,14 @@ export class EtiquetaProductoService {
 
 
   // Verificar si existe una relación entre etiqueta y producto
-  verificarEtiquetaProducto(productId: number, etiquetaId: number): Observable<string> {
-    return this.http.get<string>(`${this.baseUrl}/verificar/${productId}/${etiquetaId}`);
+  verificarEtiquetaProducto(productId: number, etiquetaId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/verificar/${productId}/${etiquetaId}`);
   }
 
   // Eliminar una relación entre etiqueta y producto por IDs
   eliminarEtiquetaProducto(etiquetaId: number, productoId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/eliminar/${etiquetaId}/${productoId}`);
   }
+  
 }
 
