@@ -1,6 +1,7 @@
 package com.snzDigital.SNZDigital.persistence.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -15,8 +16,13 @@ public class PedidoEntity {
     @Column(name = "USUARIOS_USERID", nullable = false)
     private Long usuariosUserId;
 
-    @Column(name = "PRODUCTO_PRODUCTID", nullable = false)
-    private Long productoProductId;
+    @ManyToMany
+    @JoinTable(
+            name = "pedido_producto",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id")
+    )
+    private List<ProductoEntity> productos;
 
     @Column(name = "COMUNA", length = 100)
     private String comuna;
@@ -36,8 +42,26 @@ public class PedidoEntity {
     @Column(name = "ESTADO", length = 100)
     private String estado;
 
-    // Getters y Setters
+    @Column(name = "ORDERID", length = 40)
+    private String orderId;
 
+    @Column(name = "CURRENCY", length = 10, columnDefinition = "VARCHAR2(10) DEFAULT 'CLP'")
+    private String currency;
+
+    @Column(name = "URLRETURN", length = 200)
+    private String urlReturn;
+
+    @Column(name = "URLNOTIFY", length = 200)
+    private String urlNotify;
+
+    // Getter y Setter para productos
+    public List<ProductoEntity> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoEntity> productos) {
+        this.productos = productos;
+    }
     public Long getPedidoId() {
         return pedidoId;
     }
@@ -52,14 +76,6 @@ public class PedidoEntity {
 
     public void setUsuariosUserId(Long usuariosUserId) {
         this.usuariosUserId = usuariosUserId;
-    }
-
-    public Long getProductoProductId() {
-        return productoProductId;
-    }
-
-    public void setProductoProductId(Long productoProductId) {
-        this.productoProductId = productoProductId;
     }
 
     public String getComuna() {
@@ -109,4 +125,39 @@ public class PedidoEntity {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getUrlReturn() {
+        return urlReturn;
+    }
+
+    public void setUrlReturn(String urlReturn) {
+        this.urlReturn = urlReturn;
+    }
+
+    public String getUrlNotify() {
+        return urlNotify;
+    }
+
+    public void setUrlNotify(String urlNotify) {
+        this.urlNotify = urlNotify;
+    }
+
+    // Getters y Setters
+    // Puedes eliminar los métodos getter y setter si estás utilizando Lombok
 }

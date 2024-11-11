@@ -1,45 +1,73 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
+
+  <ion-header>  
+    <ion-toolbar>  
+      <ion-buttons slot="start">  
+        <ion-back-button defaultHref="/perfil"></ion-back-button>  
+      </ion-buttons>  
+      <ion-title>¡Gestión de Pedidos!</ion-title>  
+    </ion-toolbar>  
+  </ion-header> 
   
   <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Gestión de Pedidos!</ion-title>
-      <p class="sub-title">Aquí puedes gestionar tus pedidos pendientes</p>
-    </div>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" class="ion-text-start">
-          <ion-button 
-            expand="full" 
-            fill="solid" 
-            routerLink="/index" 
-            class="custom-button">
-            <ion-icon name="arrow-back" slot="start"></ion-icon>
-            Volver a la página principal
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
     <div class="pedido-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" *ngFor="let pedido of pedidos">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>Pedido ID: {{ pedido.pedidoId }}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p>Producto ID: {{ pedido.productoProductId }}</p>
-                <p>Comuna: {{ pedido.comuna || 'No disponible' }}</p>
-                <p>Dirección: {{ pedido.direccion || 'No disponible' }}</p>
-                <p>Detalle: {{ pedido.detalle || 'No disponible' }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+
+      <!-- Tabla de pedidos -->
+      <div class="table-card">
+        <ion-card-content>
+          <table class="pedido-table">
+            <thead>
+              <tr>
+                <th>Pedido ID</th>
+                <th>Usuario ID</th>
+                <th>Comuna</th>
+                <th>Dirección</th>
+                <th>Detalle</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+                <th>Order ID</th>
+                <th>Moneda</th>
+                <th>Productos</th> <!-- Nueva columna para los productos -->
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pedido of pedidos">
+                <td>{{ pedido.pedidoId       || 'No disponible' }}</td>
+                <td>{{ pedido.usuariosUserId || 'No disponible' }}</td>
+                <td>{{ pedido.comuna         || 'No disponible' }}</td>
+                <td>{{ pedido.direccion      || 'No disponible' }}</td>
+                <td>{{ pedido.detalle        || 'No disponible' }}</td>
+                <td>{{ pedido.precio         || 'No disponible' }}</td>
+                <td>{{ pedido.cantidad       || 'No disponible' }}</td>
+                <td>{{ pedido.estado         || 'No disponible' }}</td>
+                <td>{{ pedido.orderId        || 'No disponible' }}</td>
+                <td>{{ pedido.currency       || 'CLP' }}</td>
+
+                <!-- Columna de productos -->
+                <td>
+                  <ul>
+                    <li *ngFor="let productId of pedido.productoProductId">
+                      Producto ID: {{ productId }}
+                    </li>
+                  </ul>
+                </td>
+
+                <td>
+                  <button class="btn-view">VER DETALLE</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </div>
+
+      <!-- Mensaje si no hay pedidos -->
+      <ion-item *ngIf="pedidos.length === 0">
+        <ion-label class="noAhi">No se encontraron pedidos pendientes.</ion-label>
+      </ion-item>
     </div>
   </div>
 

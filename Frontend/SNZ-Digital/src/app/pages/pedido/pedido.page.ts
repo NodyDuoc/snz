@@ -53,33 +53,38 @@ export class PedidoPage implements OnInit {
     return this.pedidos.filter(pedido => pedido.usuariosUserId === this.user.id);
   }
 
-  // Cargar pedidos desde el servicio
-  cargarPedidos() {
-    if (!this.user) {
-      this.pedidos = []; // No muestra pedidos si no hay usuario
-      this.errorMessage = 'Debes iniciar sesión para ver los pedidos.';
-      return;
-    }
-
-    this.pedidoService.getAllPedidos().subscribe(
-      (data: Pedido[]) => {
-        this.pedidos = data;
-
-        // Filtra los pedidos para que solo incluya los del usuario logeado
-        this.pedidos = this.filtrarPorUsuarioId();
-
-        if (this.pedidos.length > 0) {
-          this.selectedPedido = this.pedidos[0]; // Selecciona el primer pedido
-        } else {
-          this.errorMessage = 'No hay pedidos disponibles para este usuario.';
-        }
-      },
-      (error) => {
-        console.error('Error al obtener los pedidos', error);
-        this.errorMessage = 'Hubo un problema al cargar los pedidos. Por favor, intenta más tarde.';
-      }
-    );
+// Cargar pedidos desde el servicio
+cargarPedidos() {
+  if (!this.user) {
+    this.pedidos = []; // No muestra pedidos si no hay usuario
+    this.errorMessage = 'Debes iniciar sesión para ver los pedidos.';
+    return;
   }
+
+  this.pedidoService.getAllPedidos().subscribe(
+    (data: Pedido[]) => {
+      console.log('Pedidos obtenidos del servicio:', data); // Mostrar todos los pedidos obtenidos
+      this.pedidos = data;
+
+      // Filtra los pedidos para que solo incluya los del usuario logeado
+      this.pedidos = this.filtrarPorUsuarioId();
+      console.log('Pedidos filtrados por usuario:', this.pedidos); // Mostrar los pedidos después de filtrar por usuario
+
+      if (this.pedidos.length > 0) {
+        this.selectedPedido = this.pedidos[0]; // Selecciona el primer pedido
+        console.log('Primer pedido seleccionado:', this.selectedPedido); // Mostrar el primer pedido seleccionado
+      } else {
+        this.errorMessage = 'No hay pedidos disponibles para este usuario.';
+        console.log(this.errorMessage);
+      }
+    },
+    (error) => {
+      console.error('Error al obtener los pedidos', error);
+      this.errorMessage = 'Hubo un problema al cargar los pedidos. Por favor, intenta más tarde.';
+    }
+  );
+}
+
 
   seleccionarPedido(pedido: Pedido) {
     this.selectedPedido = pedido; // Método para cambiar el pedido seleccionado

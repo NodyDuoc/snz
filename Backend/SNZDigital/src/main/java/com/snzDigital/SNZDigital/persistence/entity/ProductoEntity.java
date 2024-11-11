@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "producto")
 @Data
@@ -33,7 +35,8 @@ public class ProductoEntity {
     @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;
 
-    // Getters y Setters
+    @ManyToMany(mappedBy = "productos")
+    private List<PedidoEntity> pedidos;
 
     public Long getProductId() {
         return productId;
@@ -81,5 +84,13 @@ public class ProductoEntity {
 
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
+    }
+
+    public List<PedidoEntity> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<PedidoEntity> pedidos) {
+        this.pedidos = pedidos;
     }
 }

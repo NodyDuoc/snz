@@ -18,6 +18,29 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
+    @PostMapping("/crear-pedido-con-pago")
+    public ResponseEntity<PedidoEntity> crearPedidoConPago(@RequestBody PedidoEntity pedido) {
+        PedidoEntity nuevoPedido = pedidoService.crearPedidoConPago(pedido);
+        return ResponseEntity.ok(nuevoPedido);
+    }
+
+    @PutMapping("/{pedidoId}/actualizar-estado")
+    public ResponseEntity<PedidoEntity> actualizarEstadoPedido(@PathVariable Long pedidoId, @RequestParam String nuevoEstado) {
+        PedidoEntity pedidoActualizado = pedidoService.actualizarEstadoPedido(pedidoId, nuevoEstado);
+        return ResponseEntity.ok(pedidoActualizado);
+    }
+
+    @PostMapping("/crear-pedido-con-productos")
+    public ResponseEntity<PedidoEntity> crearPedidoConProductos(
+            @RequestBody PedidoEntity pedido,
+            @RequestParam List<Long> productoIds) {
+
+        PedidoEntity nuevoPedido = pedidoService.createPedido(pedido, productoIds);
+        return ResponseEntity.ok(nuevoPedido);
+    }
+
+
+
     @GetMapping("/getall")
     public ResponseEntity<List<PedidoEntity>> getAllPedidos() {
         List<PedidoEntity> pedidos = pedidoService.getAllPedidos();
@@ -35,11 +58,10 @@ public class PedidoController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<PedidoResponse> createPedido(@RequestBody PedidoEntity pedido) {
-        PedidoEntity createdPedido = pedidoService.createPedido(pedido);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new PedidoResponse("Pedido creado con éxito", HttpStatus.CREATED.value(), createdPedido));
+    @PostMapping("/crear")
+    public PedidoEntity crearPedido(@RequestBody PedidoEntity pedido, @RequestParam List<Long> productoIds) {
+        // Llama a createPedido con ambos argumentos
+        return pedidoService.createPedido(pedido, productoIds);
     }
 
     @PutMapping("/update/{id}")
