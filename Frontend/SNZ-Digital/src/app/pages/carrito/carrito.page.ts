@@ -51,12 +51,14 @@ export class CarritoPage implements OnInit {
       this.direccionService.getAllDirecciones().subscribe(
         (data: Direccion[]) => {
           this.direcciones = data.filter(d => d.usuarioIdUser === this.user.id); // Filtrar direcciones por usuario
+          console.log('Direcciones:', this.direcciones); // Corrección en el console.log
         },
         error => {
           console.error('Error al cargar direcciones:', error);
         }
       );
     }
+
 
     // Genera un ID único para cada pedido
     private generateUniqueOrderId(): string {
@@ -164,6 +166,7 @@ crearPedido(orderId: string, amount: number, estado: string) {
         (user) => {
           this.user = user;
           console.log("Usuario cargado:", this.user);
+          this.cargarDirecciones(); // Mueve esta línea aquí
           this.cargarDetallesCarrito(user.id); 
         },
         (error) => {
@@ -174,6 +177,7 @@ crearPedido(orderId: string, amount: number, estado: string) {
       this.errorMessage = 'Debes iniciar sesión para ver el carrito.';
     }
   }
+  
 
   cargarDetallesCarrito(usuarioId: number) {
     this.carritoService.getAllDetallesCarrito().subscribe(
