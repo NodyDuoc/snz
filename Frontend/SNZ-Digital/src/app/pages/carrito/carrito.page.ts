@@ -9,6 +9,10 @@ import { AuthService } from 'src/app/Service/auth.service';
 import { catchError, forkJoin, map, of } from 'rxjs';
 import { PaykuService } from 'src/app/Service/PaykuService.service';
 import { PagoRequest } from 'src/models/PagoRequest';
+import { DireccionService } from 'src/app/Service/DireccionService.service';
+import { Direccion } from 'src/models/direccion';
+import { PedidoService } from 'src/app/Service/pedido.service';
+import { Pedido } from 'src/models/pedido';
 
 @Component({
   selector: 'app-carrito',
@@ -18,6 +22,8 @@ import { PagoRequest } from 'src/models/PagoRequest';
 export class CarritoPage implements OnInit {
   carrito: Carrito | undefined;
   detalles: DetalleCarrito[] = [];
+  direcciones: Direccion[] = []; // Almacena las direcciones del usuario
+  selectedDireccion?: Direccion; // Dirección seleccionada
   errorMessage: string = '';
   user: any = null;
 
@@ -27,12 +33,30 @@ export class CarritoPage implements OnInit {
     private userService: AuthService,
     private productoService: ProductoService,
     private toastController: ToastController,
-    private paykuService: PaykuService
+    private paykuService: PaykuService,
+    private direccionService: DireccionService, // Servicio de direcciones
+    private pedidoService: PedidoService // Inyecta el servicio de pedidos
+
+
   ) {}
+
 
   ngOnInit() {
     this.loadUser();
+    this.cargarDirecciones();
   }
+
+    // Cargar direcciones del usuario logueado
+    cargarDirecciones() {
+      this.direccionService.getAllDirecciones().subscribe(
+        (data: Direccion[]) => {
+          this.direcciones = data.filter(d => d.usuarioIdUser === this.user.id); // Filtrar direcciones por usuario
+        },
+        error => {
+          console.error('Error al cargar direcciones:', error);
+        }
+      );
+    }
 
     // Genera un ID único para cada pedido
     private generateUniqueOrderId(): string {
@@ -43,44 +67,83 @@ export class CarritoPage implements OnInit {
   // Método para iniciar el proceso de pago 
   async realizarPago() {
     const totalCarrito = this.calcularTotal();
-    console.log('Total del carrito:', totalCarrito);
+    const orderValue = this.generateUniqueOrderId();
 
-    const orderValue = Date.now().toString(); // Genera un ID único numérico
-    console.log('Order ID:', orderValue, 'Length:', orderValue.length);
+    if (!this.selectedDireccion) {
+      await this.presentToast('Por favor, selecciona una dirección.');
+      return;
+    }
 
     const pagoRequest: PagoRequest = {
       amount: totalCarrito.toString(),
       currency: 'CLP',
       subject: 'Compra en tienda',
-      email: this.user?.email,
-      order: orderValue, // Usa el ID de pedido único generado
+      email: this.user?.email || 'usuario@ejemplo.com',
+      order: orderValue,
       urlreturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
-      urlnotify: 'http://localhost:8084/api/payku/notificar'
+      urlnotify: 'http://localhost:8084/api/payku/notificar',
+      direccion: this.selectedDireccion.direccion || 'No especificada',
     };
-
-    console.log('Datos del pagoRequest:', pagoRequest);
 
     this.paykuService.createTransaction(pagoRequest).subscribe({
       next: async (response) => {
-        console.log('Respuesta completa de Payku:', response);
         if (response && response.url) {
           window.open(response.url, '_blank');
           await this.presentToast('Redirigiendo al pago...');
+          
+          // Llama al método para crear el pedido en el backend
+          this.crearPedido(orderValue, totalCarrito, 'Pendiente');
         } else {
-          console.error('Error al generar el enlace de pago:', response);
           await this.presentToast('Error al generar el enlace de pago.');
-          this.router.navigate(['/pago-fallido']);
         }
       },
       error: async (error) => {
         console.error('Error en el proceso de pago:', error);
         await this.presentToast('Ocurrió un error en el proceso de pago.');
-        this.router.navigate(['/pago-fallido']);
       }
     });
   }
 
 
+// Método para crear un pedido en el backend
+crearPedido(orderId: string, amount: number, estado: string) {
+  const pedido: Pedido = {
+    pedidoId: 0, // El backend lo asignará
+    usuariosUserId: this.user.id,
+    productoProductId: this.detalles.map(d => d.productId), // Siempre será un array
+    comuna: this.selectedDireccion?.comuna || '',
+    direccion: this.selectedDireccion?.direccion || '',
+    detalle: 'Detalles adicionales del pedido',
+    precio: amount,
+    cantidad: this.detalles.reduce((total, d) => total + d.cantidad, 0),
+    estado: estado,
+    orderId: orderId,
+    currency: 'CLP', 
+    urlReturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
+    urlNotify: 'http://localhost:8084/api/payku/notificar',
+  };
+  
+  console.log('Datos de pedido a enviar al backend:', pedido); // Verificar datos de pedido
+
+  this.pedidoService.createPedido(pedido).subscribe({
+    next: (nuevoPedido: Pedido) => {
+      console.log('Pedido creado en el backend:', nuevoPedido);
+      this.presentToast('Pedido creado con éxito.');
+    },
+    error: (error: any) => {
+      console.error('Error al crear el pedido:', error);
+      this.presentToast('Hubo un problema al crear el pedido.');
+    }
+  });
+}
+
+
+
+
+  // Método para seleccionar dirección
+  seleccionarDireccion(direccion: Direccion) {
+    this.selectedDireccion = direccion;
+  }
 
 
 
