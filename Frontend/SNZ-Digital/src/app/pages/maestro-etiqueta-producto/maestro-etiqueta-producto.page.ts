@@ -77,8 +77,23 @@ cargarEtiquetas() {
   this.etiquetaService.getAllEtiquetas().subscribe(
     (data: Etiqueta[]) => {
       this.etiquetas = data;
+
       if (this.etiquetas.length === 0) {
         this.errorMessage = 'No hay etiquetas disponibles.';
+      } else {
+        // Iterar sobre cada etiqueta y verificar la relación con el producto
+        this.etiquetas.forEach((etiqueta) => {
+          this.etiquetaProductoService.verificarEtiquetaProducto(this.ProductoId, etiqueta.etiquetaId)
+            .subscribe(
+              (conexion: any) => {
+                etiqueta.conexion = conexion; // Asignar true o false a 'conexion'
+              },
+              (error: any) => {
+                etiqueta.conexion = "No se conecto"; // Asignar true o false a 'conexion'
+                console.error(`Error al verificar la conexión para la etiqueta ${etiqueta.etiquetaId}`, error);
+              }
+            );
+        });
       }
     },
     (error) => {
@@ -87,6 +102,8 @@ cargarEtiquetas() {
     }
   );
 }
+
+
 
 
 
@@ -153,7 +170,6 @@ async editarEtiqueta(etiquetaId: number) {
     if (index !== -1) {
       this.direcciones[index] = data.updatedDireccion;
     }
-    
     // Redirige al perfil después de guardar los cambios
     this.router.navigate(['/maestro-etiqueta']);
   }

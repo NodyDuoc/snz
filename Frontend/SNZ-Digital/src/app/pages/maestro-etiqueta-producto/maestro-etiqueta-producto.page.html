@@ -36,7 +36,7 @@
                 <td>{{ etiqueta?.etiquetaId || 'No disponible' }}</td>
                 <td>{{ etiqueta?.nombreEtiqueta || 'No disponible' }}</td>
                 <td>{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
-                <td>{{ conexiones[etiqueta.etiquetaId] || 'Verificando...' }}</td>
+                <td>{{ etiqueta?.conexion || 'false' }}</td>
                 <td><button class="btn btn-primary" (click)="editarEtiqueta(etiqueta.etiquetaId)">EDITAR</button></td>
               </tr>
             </tbody>

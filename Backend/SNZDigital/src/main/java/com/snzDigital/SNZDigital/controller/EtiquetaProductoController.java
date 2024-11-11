@@ -59,9 +59,9 @@ public class EtiquetaProductoController {
         boolean existe = etiquetaProductoService.existeEtiquetaProducto(productId, etiquetaId);
 
         if (existe) {
-            return ResponseEntity.ok("Conectado");
+            return ResponseEntity.ok(existe);
         } else {
-            return ResponseEntity.ok("No conectado");
+            return ResponseEntity.ok(existe);
         }
     }
 
