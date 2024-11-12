@@ -140,6 +140,7 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/pedidos/{pedidoId}/actualizar-estado").permitAll();
                     // Endpoints de Pago
                     http.requestMatchers(HttpMethod.POST, "/api/payku/create-transaction").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.POST, "/api/payku/response").permitAll(); // Permitir acceso público
 
                     // Endpoints de etiquetas
                     http.requestMatchers(HttpMethod.GET, "/api/etiquetas/getall").permitAll(); // Permitir acceso público

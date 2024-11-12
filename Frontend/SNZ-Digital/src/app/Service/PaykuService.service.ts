@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PagoRequest } from 'src/models/PagoRequest';
+
+export interface PaykuResponse {
+  url: string;
+  id: string; // Cambiado de token a id
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +16,16 @@ export class PaykuService {
 
   constructor(private http: HttpClient) {}
 
-  // Cambia el tipo de retorno a Observable<{ url: string }>
-  createTransaction(pagoRequest: PagoRequest): Observable<{ url: string }> {
-    return this.http.post<{ url: string }>(`${this.baseUrl}/create-transaction`, pagoRequest);
+  createTransaction(pagoRequest: PagoRequest): Observable<PaykuResponse> {
+    return this.http.post<PaykuResponse>(`${this.baseUrl}/create-transaction`, pagoRequest);
   }
 
-  // Cambia el tipo de retorno de checkTransactionStatus a Observable<string>
-  checkTransactionStatus(token: string): Observable<string> {
-    return this.http.get<string>(`${this.baseUrl}/checkTransactionStatus?token=${token}`);
+  checkTransactionStatus(transactionId: string): Observable<any> {
+    const url = `${this.baseUrl}/response`;
+    return this.http.post<any>(url, { token: transactionId }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
-
 }

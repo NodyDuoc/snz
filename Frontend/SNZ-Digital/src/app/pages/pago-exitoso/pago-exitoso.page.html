@@ -1,6 +1,19 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
 
+  <div class="container text-center mt-5">
+    <h1 class="text-success">¡Pago Exitoso!</h1>
+    <p>¡Gracias por tu compra! Tu pago ha sido procesado exitosamente. Pronto recibirás una confirmación en tu correo electrónico.</p>
+    
+    <!-- Mostrar la imagen de pago exitoso -->
+    <div class="success-icon">
+      <img src="assets/img/pago.png" alt="Pago exitoso" class="img-fluid mt-3" style="max-width: 400px;">
+    </div>
+    
+    <div class="botones-container">
+      <button class="custom-button" routerLink="/index" >Regresar al Inicio</button>
+    </div>
+  </div>
 
   <app-footer></app-footer>
 </ion-content>

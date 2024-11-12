@@ -1,0 +1,48 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding-bottom: 20px;
+  }
+  
+  .error-icon {
+    margin-top: 20px;
+  }
+  
+  h1, p {
+    margin-top: 10px;
+  }
+  
+.custom-button12 {  
+    background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */  
+    font-size: 1rem; /* Texto ligeramente más grande */
+  }  
+  
+  .custom-button {  
+    background: linear-gradient(45deg, #28a745, #218838); /* Color verde para 'Comprar ahora' */  
+    font-size: 1.1rem;  
+  }
+
+.botones-container {
+    margin-top: auto; /* Mueve los botones hacia la parte inferior */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre los botones */
+  }
+  
+  .custom-button12,
+  .custom-button {
+    font-size: 1rem;
+    padding: 0.625rem;
+    width: 100%;
+    border: none;
+    border-radius: 0.3125rem;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-button12:hover,  
+  .custom-button:hover {  
+    transform: translateY(-0.125rem);  
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  
+  }  

@@ -35,7 +35,8 @@ export class CarritoPage implements OnInit {
     private toastController: ToastController,
     private paykuService: PaykuService,
     private direccionService: DireccionService, // Servicio de direcciones
-    private pedidoService: PedidoService // Inyecta el servicio de pedidos
+    private pedidoService: PedidoService, // Inyecta el servicio de pedidos
+    private authService: AuthService, 
 
 
   ) {}
@@ -44,6 +45,11 @@ export class CarritoPage implements OnInit {
   ngOnInit() {
     this.loadUser();
     this.cargarDirecciones();
+  
+    // Solo llama a verificarEstadoPago si transactionId tiene un valor
+    if (this.transactionId) {
+      this.verificarEstadoPago(this.transactionId);
+    }
   }
 
     // Cargar direcciones del usuario logueado
@@ -67,6 +73,8 @@ export class CarritoPage implements OnInit {
   }
 
   // Método para iniciar el proceso de pago 
+  transactionId: string | null = null; // Define esta propiedad en la clase
+
   async realizarPago() {
     const totalCarrito = this.calcularTotal();
     const orderValue = this.generateUniqueOrderId();
@@ -82,19 +90,17 @@ export class CarritoPage implements OnInit {
       subject: 'Compra en tienda',
       email: this.user?.email || 'usuario@ejemplo.com',
       order: orderValue,
-      urlreturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
-      urlnotify: 'http://localhost:8084/api/payku/notificar',
+      urlreturn: `http://localhost:8100/pago-exitoso?transactionId=${this.transactionId}`, // Agrega transactionId aquí
+      urlnotify: 'http://localhost:8084/api/payku/response',
       direccion: this.selectedDireccion.direccion || 'No especificada',
     };
 
     this.paykuService.createTransaction(pagoRequest).subscribe({
       next: async (response) => {
-        if (response && response.url) {
+        if (response && response.url && response.id) {
+          this.transactionId = response.id; // Guarda el transactionId
           window.open(response.url, '_blank');
           await this.presentToast('Redirigiendo al pago...');
-          
-          // Llama al método para crear el pedido en el backend
-          this.crearPedido(orderValue, totalCarrito, 'Pendiente');
         } else {
           await this.presentToast('Error al generar el enlace de pago.');
         }
@@ -106,13 +112,15 @@ export class CarritoPage implements OnInit {
     });
   }
 
+  
+  
 
 // Método para crear un pedido en el backend
-crearPedido(orderId: string, amount: number, estado: string) {
+crearPedido(orderId: string, amount: number, estado: string, token: string) {
   const pedido: Pedido = {
-    pedidoId: 0, // El backend lo asignará
+    pedidoId: 0,
     usuariosUserId: this.user.id,
-    productoProductId: this.detalles.map(d => d.productId), // Siempre será un array
+    productoProductId: this.detalles.map(d => d.productId),
     comuna: this.selectedDireccion?.comuna || '',
     direccion: this.selectedDireccion?.direccion || '',
     detalle: 'Detalles adicionales del pedido',
@@ -124,22 +132,12 @@ crearPedido(orderId: string, amount: number, estado: string) {
     urlReturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
     urlNotify: 'http://localhost:8084/api/payku/notificar',
   };
-  
-  console.log('Datos de pedido a enviar al backend:', pedido); // Verificar datos de pedido
 
   this.pedidoService.createPedido(pedido).subscribe({
-    next: (nuevoPedido: Pedido) => {
-      console.log('Pedido creado en el backend:', nuevoPedido);
-      this.presentToast('Pedido creado con éxito.');
-    },
-    error: (error: any) => {
-      console.error('Error al crear el pedido:', error);
-      this.presentToast('Hubo un problema al crear el pedido.');
-    }
+    next: (nuevoPedido: Pedido) => this.presentToast('Pedido creado con éxito.'),
+    error: (error: any) => this.presentToast('Hubo un problema al crear el pedido.')
   });
 }
-
-
 
 
   // Método para seleccionar dirección
@@ -257,18 +255,23 @@ crearPedido(orderId: string, amount: number, estado: string) {
     });
   }
 
-
-  async verificarEstadoPago(token: string) {
-    this.paykuService.checkTransactionStatus(token).subscribe({
-      next: async (status) => {
-        if (status === 'approved') {
+  async verificarEstadoPago(transactionId?: string) {
+    if (!transactionId) {
+      console.warn('Transaction ID is required for verification.');
+      return;
+    }
+    
+    this.paykuService.checkTransactionStatus(transactionId).subscribe({
+      next: async (response) => {
+        if (response.message === 'Transacción aprobada') {
           await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
         } else {
           await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
           this.router.navigate(['/pago-fallido']);
         }
       },
-      error: async () => {
+      error: async (error) => {
+        console.error('Error al verificar el estado de la transacción:', error);
         await this.presentToast('Error al verificar el estado de la transacción.');
         this.router.navigate(['/pago-fallido']);
       }

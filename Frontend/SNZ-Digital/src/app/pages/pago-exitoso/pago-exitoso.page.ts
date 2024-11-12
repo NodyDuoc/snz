@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaykuService } from 'src/app/Service/PaykuService.service';
 import { ToastController } from '@ionic/angular';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PaykuService } from 'src/app/Service/PaykuService.service';
 
 @Component({
   selector: 'app-pago-exitoso',
@@ -17,27 +18,26 @@ export class PagoExitosoPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Verifica el estado del pago utilizando el token de la URL
-    const token = this.route.snapshot.queryParamMap.get('token');
-    if (token) {
-      this.verificarEstadoPago(token);
+    const transactionId = this.route.snapshot.queryParamMap.get('transactionId');
+    if (transactionId) {
+      this.verificarEstadoPago(transactionId);
     } else {
-      this.presentToast('No se encontró el token de transacción');
-      this.router.navigate(['/carrito']); // Redirige al carrito si falta el token
+      this.presentToast('No se encontró el transactionId de la transacción');
+      this.router.navigate(['/carrito']);
     }
   }
 
-  async verificarEstadoPago(token: string) {
-    this.paykuService.checkTransactionStatus(token).subscribe({
-      next: async (status) => {
-        if (status === 'approved') {
+  verificarEstadoPago(transactionId: string) {
+    this.paykuService.checkTransactionStatus(transactionId).subscribe({
+      next: async (status: string) => {
+        if (status.toLowerCase() === 'transacción aprobada') { // Verifica el mensaje
           await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
         } else {
           await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
-          this.router.navigate(['/pago-fallido']); // Redirige a la página de fallo si es rechazado
+          this.router.navigate(['/pago-fallido']);
         }
       },
-      error: async () => {
+      error: async (error: HttpErrorResponse) => {
         await this.presentToast('Error al verificar el estado de la transacción.');
         this.router.navigate(['/pago-fallido']);
       }
