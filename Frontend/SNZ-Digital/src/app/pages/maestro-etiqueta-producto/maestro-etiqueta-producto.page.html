@@ -39,10 +39,10 @@
                 <td>{{ etiqueta?.conexion || 'false' }}</td>
 
                 <ion-item *ngIf="etiqueta.conexion === true">
-                  <td><button class="btn btn-primary">Eliminar</button></td>
+                  <td><button class="btn btn-primary" (click)="eliminarEtiqueta(this.ProductoId,etiqueta.etiquetaId)">Eliminar</button></td>
                 </ion-item>
                 <ion-item *ngIf="etiqueta.conexion !== true">
-                  <td><button class="btn btn-primary" (click)="agregarEtiquetaProducto(etiqueta.etiquetaId,this.ProductoId)">Agregar</button></td>
+                  <td><button class="btn btn-primary" (click)="agregarEtiquetaProducto(this.ProductoId,etiqueta.etiquetaId)">Agregar</button></td>
                 </ion-item>
                 
               </tr>

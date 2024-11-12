@@ -67,9 +67,9 @@ export class MaestroEtiquetaProductoPage implements OnInit {
     this.cargarEtiquetas();
   }
 
-  agregarEtiquetaProducto(etiquetaId: number, productoIda: any) {
+  agregarEtiquetaProducto(productoIda: any,etiquetaId: number) {
     const productoId: number = Number(productoIda);  // Convertir productoId a número
-    this.etiquetaProductoService.createEtiquetaProducto(etiquetaId,productoId).subscribe(
+    this.etiquetaProductoService.createEtiquetaProducto(productoId,etiquetaId).subscribe(
       () => {
         this.showToast('Etiqueta agregada al producto exitosamente.', 'success');
         this.cargarEtiquetas();  // Recargar etiquetas para actualizar el estado de 'conexión'
@@ -80,8 +80,21 @@ export class MaestroEtiquetaProductoPage implements OnInit {
       }
     );
   }
-  
 
+
+  eliminarEtiqueta(productoIda: any,etiquetaId: number) {
+    const productoId: number = Number(productoIda);  // Convertir productoId a número
+
+    this.etiquetaProductoService.eliminarEtiquetaProducto(productoId,etiquetaId).subscribe({
+      next: () => {
+        this.cargarEtiquetas();  // Recargar etiquetas para actualizar el estado de 'conexión'
+      },
+      error: (error) => {
+        console.error('Error al eliminar el producto:', error);
+      }
+    });
+  }
+  
   // Adaptado
   // Agregar este método para cargar el usuario al navegar
   ionViewWillEnter() {

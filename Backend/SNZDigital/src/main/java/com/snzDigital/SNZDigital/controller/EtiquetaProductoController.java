@@ -66,13 +66,9 @@ public class EtiquetaProductoController {
     }
 
 
-
-
-    @DeleteMapping("/eliminar/{etiquetaId}/{productoId}")
-    public ResponseEntity<?> eliminar(@PathVariable Integer etiquetaId, @PathVariable Integer productoId) {
-        etiquetaProductoService.deleteByProductIdAndEtiquetaId(productoId, etiquetaId);
-        return ResponseEntity.ok("Etiqueta eliminada exitosamente.");
+    @DeleteMapping("/eliminar/{productId}/{etiquetaId}")
+    public ResponseEntity<EtiquetaProductoResponse> eliminar(@PathVariable Integer productId, @PathVariable Integer etiquetaId) {
+        etiquetaProductoService.deleteByProductIdAndEtiquetaId(productId, etiquetaId);
+        return ResponseEntity.ok(new EtiquetaProductoResponse(etiquetaId, "EtiquetaProducto eliminado con éxito", true));
     }
-
-
 }

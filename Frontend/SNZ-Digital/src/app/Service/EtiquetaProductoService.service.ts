@@ -23,7 +23,7 @@ export class EtiquetaProductoService {
   }
 
   // Crear una nueva Etiqueta producto
-  createEtiquetaProducto(etiquetaId: number, productId: number): Observable<any> {
+  createEtiquetaProducto(productId: number, etiquetaId: number): Observable<any> {
     const etiqueta: EtiquetaProductoEnvio = {
       etiquetaId: etiquetaId,
       productId: productId,
@@ -47,8 +47,8 @@ export class EtiquetaProductoService {
   }
 
   // Eliminar una relación entre etiqueta y producto por IDs
-  eliminarEtiquetaProducto(etiquetaId: number, productoId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/eliminar/${etiquetaId}/${productoId}`);
+  eliminarEtiquetaProducto(productId: number, etiquetaId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/eliminar/${productId}/${etiquetaId}`);
   }
   
 }
