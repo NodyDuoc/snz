@@ -65,4 +65,10 @@ export class MaestroEtiquetaCrearPage implements OnInit {
       }
     });
   }
+
+  cancelar() {
+    this.router.navigate(['/maestro-etiqueta']);
+  }
+
+
 }

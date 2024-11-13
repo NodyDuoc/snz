@@ -64,4 +64,19 @@ public class CategoriaController {
         }
     }
 
+    @PatchMapping("/updateStatus/{id}")
+    public ResponseEntity<String> updateCategoriaStatus(@PathVariable Integer id, @RequestParam("status") int status) {
+        Optional<CategoriaEntity> categoriaOptional = categoriaService.findById(id);
+
+        if (categoriaOptional.isPresent()) {
+            CategoriaEntity categoria = categoriaOptional.get();
+            categoria.setStatus(status); // Cambia el estado
+            categoriaService.update(id, categoria); // Actualiza en la base de datos
+            String statusMessage = status == 1 ? "activada" : "desactivada";
+            return ResponseEntity.ok("Categoría " + statusMessage + " con éxito: " + categoria.getCatName());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoría no encontrada con ID: " + id);
+        }
+    }
+
 }

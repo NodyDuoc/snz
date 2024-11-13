@@ -52,7 +52,7 @@ export class MaestroCategoriaPage implements OnInit {
 
   modificarCategoria(catId: number) {
     // Navega a la página de edición con el ID de la categoría
-    this.router.navigate([`/editar-categoria`, catId]);
+    this.router.navigate([`/maestro-categoria-editar`, catId]);
   }
   
   eliminarCategoria(catId: number) {

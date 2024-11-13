@@ -29,6 +29,9 @@ public class CategoriaEntity {
     @Column(name = "imagen", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;
 
+    @Column(name = "STATUS")
+    private Integer status; // 1 = Activo, 0 = Inactivo
+
     public byte[] getImagen() {
         return imagen;
     }
@@ -40,5 +43,13 @@ public class CategoriaEntity {
 
     public String getCatName() {
         return catName;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

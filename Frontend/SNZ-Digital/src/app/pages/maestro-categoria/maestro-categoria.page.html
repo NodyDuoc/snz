@@ -34,7 +34,12 @@
               </ion-card-header>
               <ion-card-content>
                 <p>Detalle: {{ categoria.catDetalle || 'No disponible' }}</p>
-                
+                <p>
+                  Estado: 
+                  <span [ngClass]="{'active-status': categoria.status === 1, 'inactive-status': categoria.status === 0}">
+                    {{ categoria.status === 1 ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </p>
                 <div class="action-buttons">
                   <ion-button color="primary" (click)="modificarCategoria(categoria.catId)">
                     Modificar

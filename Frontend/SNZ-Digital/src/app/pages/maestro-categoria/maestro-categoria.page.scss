@@ -90,3 +90,13 @@
   transform: scale(1.05); /* Agranda la imagen en hover */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
 }
+/* Colores para el estado de la categoría */
+.active-status {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive-status {
+  color: red;
+  font-weight: bold;
+}

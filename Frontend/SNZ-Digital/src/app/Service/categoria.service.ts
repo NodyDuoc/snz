@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/models/categoria';
 
@@ -43,5 +43,11 @@ export class CategoriaService {
     return this.http.delete<string>(`${this.baseUrl}/delete/${id}`);
   }
 
+  updateCategoriaStatus(id: number, status: number): Observable<string> {
+    const params = new HttpParams().set('status', status.toString());
+    return this.http.patch<string>(`${this.baseUrl}/updateStatus/${id}`, {}, { params });
+}
+
   
+
 }

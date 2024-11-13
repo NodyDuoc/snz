@@ -160,7 +160,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
   },
   {
-    path: 'maestro-categoria-editar',
+    path: 'maestro-categoria-editar/:id',
     loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule)
   },
   {

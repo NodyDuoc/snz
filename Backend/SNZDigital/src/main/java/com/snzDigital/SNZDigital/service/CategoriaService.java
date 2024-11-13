@@ -55,11 +55,12 @@ public class CategoriaService {
     }
 
     public CategoriaEntity update(Integer id, CategoriaEntity categoria) {
-        categoria.setCatId(id);
         return categoriaRepository.save(categoria);
     }
 
     public void deleteById(Integer id) {
         categoriaRepository.deleteById(id);
     }
+
+
 }

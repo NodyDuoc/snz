@@ -106,6 +106,7 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/carritos/create").permitAll();
                     http.requestMatchers(HttpMethod.PUT, "/api/carritos/update/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/carritos/delete/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/carritos/updateStatus/{id}").permitAll();
 
                     // Endpoints de detalle de carritos
                     http.requestMatchers(HttpMethod.GET, "/api/detallecarritos/getall").permitAll(); // Permitir acceso público

@@ -63,7 +63,9 @@ export class MaestroEtiquetaPage implements OnInit {
     this.cargarEtiquetas();
   }
 
-
+  goToMenu() {
+    this.router.navigate(['/maestro-producto']);
+  }
  
 
   // Adaptado
