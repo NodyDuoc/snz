@@ -77,13 +77,16 @@ export class MaestroCategoriaEditarPage implements OnInit {
       catName: this.categoriaForm.value.catName,
       catDetalle: this.categoriaForm.value.catDetalle,
       imagen: this.imagePreview ? this.imagePreview.split(',')[1] : undefined,
-      status: this.categoriaForm.value.status ? 1 : 0, // Convertir booleano a entero
+      status: this.categoriaForm.value.status ? 1 : 0,
     };
   
     this.categoriaService.updateCategoria(this.categoriaId, categoria).subscribe(
       async () => {
         this.showToast('Categoría actualizada con éxito', 'success');
-        this.router.navigate(['/maestro-categoria']);
+        // Recargar la página de categorías
+        this.router.navigate(['/maestro-categoria']).then(() => {
+          window.location.reload(); // Forzar la recarga de la página
+        });
       },
       (error) => {
         console.error('Error al actualizar la categoría', error);
@@ -91,6 +94,8 @@ export class MaestroCategoriaEditarPage implements OnInit {
       }
     );
   }
+  
+  
   
 
   private async showToast(message: string, color: string) {

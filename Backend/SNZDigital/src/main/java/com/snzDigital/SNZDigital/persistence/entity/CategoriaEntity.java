@@ -52,4 +52,24 @@ public class CategoriaEntity {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public Integer getCatId() {
+        return catId;
+    }
+
+    public void setCatId(Integer catId) {
+        this.catId = catId;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public String getCatDetalle() {
+        return catDetalle;
+    }
+
+    public void setCatDetalle(String catDetalle) {
+        this.catDetalle = catDetalle;
+    }
 }

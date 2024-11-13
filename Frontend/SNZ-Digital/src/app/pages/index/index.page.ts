@@ -16,6 +16,10 @@ export class IndexPage implements OnInit {
   categoriasIds: number[] = [];
   productosSeleccionados: Producto[] = []; // Productos de la categoría seleccionada  
   selectedCategory: Categoria | null = null; // Agrega esta propiedad  
+  errorMessage: string = '';
+
+
+  
   constructor(
     private categoriaService: CategoriaService,
     private productoService: ProductoService,
@@ -28,14 +32,18 @@ export class IndexPage implements OnInit {
   }
 
   cargarCategorias() {
-    this.categoriaService.getCategorias().subscribe({
-      next: (data) => {
-        this.categorias = data;
+    this.categoriaService.getCategorias().subscribe(
+      (data: Categoria[]) => {
+        // Filtramos solo las categorías deseadas
+        this.categorias = data.filter(categoria =>
+          ['Destacados', 'Celulares', 'Computación', 'Gaming'].includes(categoria.catName)
+        );
       },
-      error: (err) => {
-        console.error('Error al cargar categorías:', err);
+      (error) => {
+        console.error('Error al obtener las categorías', error);
+        this.errorMessage = 'Hubo un problema al cargar las categorías. Por favor, intenta más tarde.';
       }
-    });
+    );
   }
 
   loadProductos(): void {
