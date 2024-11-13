@@ -8,8 +8,8 @@
 .container-card {
   padding-bottom: 50px;
   width: 100%;
-  padding-right: 300px;
-  padding-left: 300px;
+  padding-right: 200px;
+  padding-left: 200px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -49,33 +49,219 @@
 }
 
 .product-card {
-  min-width: 200px; /* Ancho mínimo de cada tarjeta */
-  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px; /* Ancho fijo */
+  height: 500px; /* Alto fijo */
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 10px;
-  flex-shrink: 0; /* Evita que las tarjetas se reduzcan */
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
 }
 
 .image-preview {
   width: 100%;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto de transición */
+}
+
+.image-preview:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
+}
+
+
+
+.producto-info {
+  flex-grow: 1; /* Empuja el contenido hacia arriba */
+  text-align: center;
 }
 
 .product-price {
   font-weight: bold;
   color: #000000;
+  text-align: center;
+
 }
 
+.custom-button12 {  
+  background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */  
+  font-size: 1rem; /* Texto ligeramente más grande */
+}  
+
+.custom-button {  
+  background: linear-gradient(45deg, #28a745, #218838); /* Color verde para 'Comprar ahora' */  
+  font-size: 1.1rem;  
+}
+
+.botones-container {
+  margin-top: auto; /* Mueve los botones hacia la parte inferior */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espacio entre los botones */
+
+}
+
+.custom-button12,
 .custom-button {
-  background-color: #3498db;
+  font-size: 1rem;
+  padding: 0.625rem;
+  width: 100%;
+  border: none;
+  border-radius: 0.3125rem;
   color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.custom-button12 {
-  background-color: #e74c3c;
-  color: white;
+.custom-button12:hover,  
+.custom-button:hover {  
+  transform: translateY(-0.125rem);  
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  
+}  
+
+
+// SECCION SOBRE PROMOCION 
+
+.promo-banner {
+  background-color: #dadada;
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px auto;
 }
+
+.promo-banner button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4b0082;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+// SECCION SOBRE PAGINA SEGURA
+
+.trust-section {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.trust-section h2 {
+  font-size: 2.5rem; /* Tamaño grande para destacar */
+  color: #4b0082; /* Morado profundo */
+  font-family: 'Montserrat', sans-serif; /* O 'Exo 2', sans-serif */
+  margin-bottom: 20px;
+  letter-spacing: 0.5px; /* Espaciado para mejorar la legibilidad */
+  font-weight: 700; /* Grosor para dar presencia */
+  text-transform: uppercase; /* Mayúsculas para un look más profesional */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Sombra ligera */
+}
+
+.trust-section h2:hover {
+  transform: scale(1.05); /* Efecto de hover sutil */
+  color: #d6336c; /* Rojo vibrante en hover para atraer atención */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.trust-items {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  max-width: 250px;
+  text-align: center;
+  background-color: #f2f2f2; /* Fondo gris claro para destacar sobre el fondo blanco */
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.4s ease, background-color 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  cursor: pointer;
+}
+
+.trust-item:hover {
+  background-color: #e6e0f8; /* Suave tono morado en hover */
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.trust-item ion-icon {
+  font-size: 3rem;
+  color: #d6336c; /* Rojo vibrante para los íconos */
+  margin-bottom: 10px;
+  transition: transform 0.4s ease;
+}
+
+.trust-item:hover ion-icon {
+  transform: rotate(15deg) scale(1.2); /* Ligera rotación y escalado en hover */
+}
+
+.trust-item h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #000000; /* Texto en negro */
+}
+
+.trust-item p {
+  color: #666666; /* Gris medio para el texto */
+  font-size: 0.95rem;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+
+.trust-item:hover p {
+  opacity: 1;
+}
+
+// SECCION SOBRE CATEGORIAS DESTACADAS
+
+
+.category-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.category-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-card {
+  width: 120px;
+  text-align: center;
+}
+
+.category-card img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.category-card img:hover {
+  transform: scale(1.1);
+}
+
+
+
+

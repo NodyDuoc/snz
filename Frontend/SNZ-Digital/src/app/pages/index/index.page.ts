@@ -24,6 +24,18 @@ export class IndexPage implements OnInit {
 
   ngOnInit(): void {
     this.loadProductos();
+    this.cargarCategorias();
+  }
+
+  cargarCategorias() {
+    this.categoriaService.getCategorias().subscribe({
+      next: (data) => {
+        this.categorias = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar categorías:', err);
+      }
+    });
   }
 
   loadProductos(): void {
