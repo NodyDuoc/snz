@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh; /* Ocupa toda la altura de la pantalla */
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro más sólido */
   position: fixed;
   top: 0;
   left: 0;
@@ -12,20 +12,27 @@
   z-index: 1000;
 }
 
+.loading-container p {
+  font-size: 2rem; /* Tamaño de fuente más grande */
+  font-weight: bold;
+  color: #ffffff; /* Texto en blanco */
+  margin-bottom: 15px;
+}
+
 .loading-bar {
   width: 80%;
-  height: 20px;
-  background-color: #e0e0e0;
+  height: 25px; /* Aumentar la altura de la barra */
+  background-color: #444444; /* Color gris oscuro */
   border-radius: 10px;
   overflow: hidden;
-  margin-top: 10px;
 }
 
 .loading-bar-progress {
   height: 100%;
-  background-color: #ff0000; /* Cambia el color según prefieras */
+  background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */
   transition: width 0.3s ease;
 }
+
 
 
 // AQUI COMIENDO EL BODY
