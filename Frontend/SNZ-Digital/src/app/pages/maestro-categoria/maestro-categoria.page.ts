@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/Service/categoria.service';
 import { Categoria } from 'src/models/categoria';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-maestro-categoria',
@@ -16,7 +17,8 @@ export class MaestroCategoriaPage implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router // Importamos Router para navegación
   ) {}
 
   ngOnInit() {
@@ -46,5 +48,25 @@ export class MaestroCategoriaPage implements OnInit {
       position: 'top'
     });
     toast.present();
+  }
+
+  modificarCategoria(catId: number) {
+    // Navega a la página de edición con el ID de la categoría
+    this.router.navigate([`/editar-categoria`, catId]);
+  }
+  
+  eliminarCategoria(catId: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
+      this.categoriaService.deleteCategoria(catId).subscribe(
+        () => {
+          this.showToast('Categoría eliminada con éxito.', 'success');
+          this.cargarCategorias(); // Actualiza la lista de categorías
+        },
+        (error) => {
+          console.error('Error al eliminar la categoría', error);
+          this.showToast('Hubo un problema al eliminar la categoría.', 'danger');
+        }
+      );
+    }
   }
 }

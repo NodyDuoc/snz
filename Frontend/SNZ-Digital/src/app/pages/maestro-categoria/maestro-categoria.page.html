@@ -1,23 +1,16 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
 
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Ver Perfil Empleado</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/menu-trabajador"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Gestión de Categorías!</ion-title>
-      <p class="sub-title">Aquí puedes gestionar las categorías de productos</p>
-    </div>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" class="ion-text-start">
-          <ion-button expand="full" fill="solid" routerLink="/index" class="custom-button">
-            <ion-icon name="arrow-back" slot="start"></ion-icon>
-            Volver a la página principal
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
     <div class="categoria-section">
       <ion-grid>
         <ion-row>
@@ -30,11 +23,10 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="12" *ngFor="let categoria of categorias">
+          <ion-col size="6" size-md="4" size-lg="2" *ngFor="let categoria of categorias">
             <ion-card>
-
-              <div *ngIf="categoria.imagen">  
-                <img [src]="'data:image/png;base64,' + categoria.imagen" alt="Imagen del categoria" class="image-preview">  
+              <div class="image-container">  
+                <img [src]="categoria.imagen ? 'data:image/png;base64,' + categoria.imagen : 'assets/img/default.jpg'" alt="Imagen de categoría" class="image-preview">  
               </div>  
               <ion-card-header>
                 <ion-card-title>{{ categoria.catName || 'Categoría no disponible' }}</ion-card-title>
@@ -42,14 +34,22 @@
               </ion-card-header>
               <ion-card-content>
                 <p>Detalle: {{ categoria.catDetalle || 'No disponible' }}</p>
-                <div *ngIf="categoria.imagen">
-                  <img [src]="categoria.imagen" alt="Imagen de categoría" class="categoria-imagen" />
+                
+                <div class="action-buttons">
+                  <ion-button color="primary" (click)="modificarCategoria(categoria.catId)">
+                    Modificar
+                  </ion-button>
+                  <ion-button color="danger" (click)="eliminarCategoria(categoria.catId)">
+                    Eliminar
+                  </ion-button>
                 </div>
               </ion-card-content>
             </ion-card>
           </ion-col>
+          
         </ion-row>
       </ion-grid>
+      
     </div>
   </div>
 

@@ -1,47 +1,92 @@
 .container-card {
-    padding: 16px;
-  }
-  
-  .header-title {
-    text-align: center;
-    margin-bottom: 16px;
-  
-    .main-title {
-      font-size: 1.8em;
-      font-weight: bold;
-    }
-  
-    .sub-title {
-      font-size: 1em;
-      color: #666;
-    }
-  }
-  
-  .custom-button {
-    --background: #3880ff;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  .categoria-section ion-card {
-    margin-bottom: 16px;
-  }
-  
-  .categoria-section ion-card-title {
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  
-  .categoria-section p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #333;
-  }
-  
-  .categoria-imagen {
-    width: 100%;
-    height: auto;
-    margin-top: 8px;
-    border-radius: 8px;
-  }
-  
+  padding: 16px;
+}
+
+.header-title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.custom-button {
+  --background: linear-gradient(45deg, #6a5acd, #4b0082);  
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.categoria-section ion-card {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoria-section ion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.categoria-section ion-card-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+}
+
+.categoria-section p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  padding: 16px;
+}
+
+.image-preview {
+  width: 200px; /* Tamaño uniforme para las imágenes */
+  height: 200px;
+  object-fit: cover; /* Ajusta la imagen para que cubra el área */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-preview:hover {
+  transform: scale(1.05); /* Agranda la imagen en hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
+}
+
+
+.categoria-imagen {
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-buttons ion-button {
+  width: 100px;
+  font-weight: bold;
+}
+
+.action-buttons ion-button:hover {
+  transform: scale(1.05); /* Agranda la imagen en hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
+}

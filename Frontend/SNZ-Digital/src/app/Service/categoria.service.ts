@@ -27,4 +27,21 @@ export class CategoriaService {
 
         return this.http.post(`${this.baseUrl}/create`, formData);
     }
+
+  // Obtener una categoría por ID
+  getCategoriaById(id: number): Observable<Categoria> {
+    return this.http.get<Categoria>(`${this.baseUrl}/get/${id}`);
+  }
+
+  // Actualizar una categoría existente
+  updateCategoria(id: number, categoria: Categoria): Observable<Categoria> {
+    return this.http.put<Categoria>(`${this.baseUrl}/update/${id}`, categoria);
+  }
+
+  // Eliminar una categoría por ID
+  deleteCategoria(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.baseUrl}/delete/${id}`);
+  }
+
+  
 }
