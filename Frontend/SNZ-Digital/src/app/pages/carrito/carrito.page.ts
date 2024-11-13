@@ -80,38 +80,46 @@ export class CarritoPage implements OnInit {
     const orderValue = this.generateUniqueOrderId();
 
     if (!this.selectedDireccion) {
-      await this.presentToast('Por favor, selecciona una dirección.');
-      return;
+        await this.presentToast('Por favor, selecciona una dirección.');
+        return;
     }
 
     const pagoRequest: PagoRequest = {
-      amount: totalCarrito.toString(),
-      currency: 'CLP',
-      subject: 'Compra en tienda',
-      email: this.user?.email || 'usuario@ejemplo.com',
-      order: orderValue,
-      urlreturn: `http://localhost:8100/pago-exitoso?transactionId=${this.transactionId}`, // Agrega transactionId aquí
-      urlnotify: 'http://localhost:8084/api/payku/response',
-      direccion: this.selectedDireccion.direccion || 'No especificada',
+        amount: totalCarrito.toString(),
+        currency: 'CLP',
+        subject: 'Compra en tienda',
+        email: this.user?.email || 'usuario@ejemplo.com',
+        order: orderValue,
+        urlreturn: 'http://localhost:8100/pago-exitoso', // URL de éxito sin el transactionId
+        urlnotify: 'http://localhost:8084/api/payku/response',
+        direccion: this.selectedDireccion.direccion || 'No especificada',
     };
 
+    // Realiza la solicitud de creación de transacción
     this.paykuService.createTransaction(pagoRequest).subscribe({
-      next: async (response) => {
-        if (response && response.url && response.id) {
-          this.transactionId = response.id; // Guarda el transactionId
-          window.open(response.url, '_blank');
-          await this.presentToast('Redirigiendo al pago...');
-        } else {
-          await this.presentToast('Error al generar el enlace de pago.');
-        }
-      },
-      error: async (error) => {
-        console.error('Error en el proceso de pago:', error);
-        await this.presentToast('Ocurrió un error en el proceso de pago.');
-      }
-    });
-  }
+        next: async (response) => {
+            if (response && response.url && response.id) {
+                this.transactionId = response.id;
 
+                // Guarda el transactionId en localStorage
+                localStorage.setItem('transactionId', this.transactionId);
+
+                // Redirige al usuario a la URL de pago de Payku
+                window.location.href = response.url;
+                await this.presentToast('Redirigiendo al pago...');
+            } else {
+                await this.presentToast('Error al generar el enlace de pago.');
+            }
+        },
+        error: async (error) => {
+            console.error('Error en el proceso de pago:', error);
+            await this.presentToast('Ocurrió un error en el proceso de pago.');
+        }
+    });
+}
+
+
+  
   
   
 
@@ -257,26 +265,27 @@ crearPedido(orderId: string, amount: number, estado: string, token: string) {
 
   async verificarEstadoPago(transactionId?: string) {
     if (!transactionId) {
-      console.warn('Transaction ID is required for verification.');
-      return;
+        console.warn('Transaction ID is required for verification.');
+        return;
     }
     
     this.paykuService.checkTransactionStatus(transactionId).subscribe({
-      next: async (response) => {
-        if (response.message === 'Transacción aprobada') {
-          await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
-        } else {
-          await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
-          this.router.navigate(['/pago-fallido']);
+        next: async (response) => {
+            if (response.message === 'Transacción aprobada') {
+                await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
+                this.router.navigate(['/pago-exitoso']); // Redirige a la página de éxito
+            } else {
+                await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
+                this.router.navigate(['/pago-fallido']);
+            }
+        },
+        error: async (error) => {
+            console.error('Error al verificar el estado de la transacción:', error);
+            await this.presentToast('Error al verificar el estado de la transacción.');
+            this.router.navigate(['/pago-fallido']);
         }
-      },
-      error: async (error) => {
-        console.error('Error al verificar el estado de la transacción:', error);
-        await this.presentToast('Error al verificar el estado de la transacción.');
-        this.router.navigate(['/pago-fallido']);
-      }
     });
-  }
-  
+}
+
   
 }
