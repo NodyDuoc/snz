@@ -1,3 +1,35 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.loading-bar {
+  width: 80%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.loading-bar-progress {
+  height: 100%;
+  background-color: #ff0000; /* Cambia el color según prefieras */
+  transition: width 0.3s ease;
+}
+
+
+// AQUI COMIENDO EL BODY
+
 .category-title {
   background-color: #dadada;
   text-align: center;
@@ -234,7 +266,6 @@
 
 // SECCION SOBRE CATEGORIAS DESTACADAS
 
-
 .category-section {
   text-align: center;
   margin: 20px 0;
@@ -242,29 +273,53 @@
 
 .category-grid {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
 }
 
 .category-card {
-  width: 120px;
-  height: 150px; /* Altura fija para las tarjetas */
+  width: 200px; /* Aumenta el tamaño de la tarjeta */
+  height: 250px; /* Aumenta la altura de la tarjeta */
   text-align: center;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .category-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Asegura que la imagen se recorte para ajustarse al tamaño del contenedor */
-  border-radius: 8px;
-  transition: transform 0.3s;
+  object-fit: cover;
 }
 
-.category-card img:hover {
-  transform: scale(1.1);
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
 
+.category-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
 
 
 

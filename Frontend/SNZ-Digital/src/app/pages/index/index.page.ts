@@ -18,7 +18,9 @@ export class IndexPage implements OnInit {
   selectedCategory: Categoria | null = null; // Agrega esta propiedad  
   errorMessage: string = '';
 
-
+  loading: boolean = true;
+  loadingProgress: number = 0;
+  
   
   constructor(
     private categoriaService: CategoriaService,
@@ -31,17 +33,27 @@ export class IndexPage implements OnInit {
     this.cargarCategorias();
   }
 
+  updateLoadingProgress(value: number) {
+    this.loadingProgress = value;
+    if (this.loadingProgress >= 100) {
+      setTimeout(() => {
+        this.loading = false; // Oculta la barra de carga cuando se completa
+      }, 500); // Agrega un pequeño retraso para una transición suave
+    }
+  }
+
   cargarCategorias() {
     this.categoriaService.getCategorias().subscribe(
       (data: Categoria[]) => {
-        // Filtramos solo las categorías deseadas
         this.categorias = data.filter(categoria =>
           ['Destacados', 'Celulares', 'Computación', 'Gaming'].includes(categoria.catName)
         );
+        this.updateLoadingProgress(50); // Actualiza el progreso después de cargar categorías
       },
       (error) => {
         console.error('Error al obtener las categorías', error);
         this.errorMessage = 'Hubo un problema al cargar las categorías. Por favor, intenta más tarde.';
+        this.updateLoadingProgress(50);
       }
     );
   }
@@ -50,32 +62,28 @@ export class IndexPage implements OnInit {
     this.categoriaService.getCategorias().subscribe({
       next: (data: Categoria[]) => {
         this.categorias = data;
-        console.log('Categorías:', this.categorias);
-        
-        // Limpiar el array de IDs de categorías
         this.categoriasIds = [];
-        
-        // Filtrar solo la categoría con catId 5
         const categoria5 = this.categorias.find(categoria => categoria.catId === 1);
         if (categoria5) {
-          console.log('Cargando productos para la categoría 1:', categoria5);
           this.categoriasIds.push(categoria5.catId);
-          
           this.productoService.getProductosByCategoria(categoria5.catId).subscribe({
             next: (productos) => {
-              console.log(`Productos para la categoría ${categoria5.catId}:`, productos);
               this.productosPorCategoria[categoria5.catId] = productos;
+              this.updateLoadingProgress(100); // Finaliza la carga
             },
             error: (err) => {
               console.error(`Error al cargar los productos de la categoría ${categoria5.catId}:`, err);
+              this.updateLoadingProgress(100);
             }
           });
         } else {
           console.log('No se encontró la categoría 5');
+          this.updateLoadingProgress(100);
         }
       },
       error: (error) => {
         console.error('Error al obtener las categorías:', error);
+        this.updateLoadingProgress(100);
       }
     });
   }

@@ -2,6 +2,15 @@
   <app-header></app-header>
   <app-carrusel></app-carrusel>
 
+  <!-- Indicador de carga -->
+  <div *ngIf="loading" class="loading-container">
+    <p>Cargando... {{ loadingProgress }}%</p>
+    <div class="loading-bar">
+      <div class="loading-bar-progress" [style.width.%]="loadingProgress"></div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading">
   <div class="trust-section">
     <h2>¿Por Qué Comprar con Nosotros?</h2>
     <div class="trust-items">
@@ -63,13 +72,18 @@
     <h2>Categorías Populares</h2>
     <div class="category-grid">
       <div class="category-card" *ngFor="let categoria of categorias">
-        <img [src]="categoria.imagen ? 'data:image/png;base64,' + categoria.imagen : 'assets/img/default.jpg'"  alt="Imagen de la Categoría" />
-        <p>{{ categoria.catName }}</p>
+        <div class="image-wrapper">
+          <img [src]="categoria.imagen ? 'data:image/png;base64,' + categoria.imagen : 'assets/img/default.jpg'" alt="Imagen de la Categoría" />
+          <div class="overlay">
+            <p class="category-name">{{ categoria.catName }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   
   
+</div>
 
   <app-footer></app-footer>
 </ion-content>
