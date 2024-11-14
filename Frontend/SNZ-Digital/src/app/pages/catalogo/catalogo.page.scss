@@ -1,14 +1,15 @@
-.category-menu-container {  
-  position: -webkit-sticky;  
-  position: sticky;  
-  top: 0;  
-  height: 100%;  
-  overflow: auto;  
-  background-color: #f8f9fa;  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
-  z-index: 10;  
-  padding: 2rem;  /* Usando rem para que sea más responsive */  
-}  
+.category-menu-container {
+  position: sticky;
+  top: 0;
+  width: 200px; /* Define un ancho fijo o máximo para el menú */
+  height: 100vh; /* Mantiene el menú visible en toda la pantalla */
+  overflow-y: auto;
+  background-color: #f7f7f7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 1rem; /* Ajuste de padding */
+  flex-shrink: 0; /* Evita que el menú se reduzca */
+}
 
 .category-menu {  
   display: flex;  
@@ -18,170 +19,148 @@
 .menu-item {  
   display: flex;  
   align-items: center;  
-  padding: 1rem; /* Cambiar a rem para mayor responsividad */  
-  font-size: 1.125rem; /* Pueblo primo (18px) cambiado a rem */  
+  padding: 1rem;  
+  font-size: 1.125rem;  
   border: none;  
   border-radius: 0.5rem;  
-  margin: 0.625rem 0; /* Ajustar márgenes para responsive */  
-  background: linear-gradient(45deg, #6a5acd, #4b0082);  
-  color: white;  
+  margin: 0.625rem 0;  
+  background: linear-gradient(45deg, #4b0082, #3a0065);  
+  color: #ffffff;  
   transition: background 0.3s, box-shadow 0.3s;  
 }  
 
 .menu-item:hover {  
-  background: linear-gradient(45deg, #5a3e8c, #210336);  
+  background: linear-gradient(45deg, #3a0065, #210336);  
 }  
 
 .menu-item.selected {  
-  background: linear-gradient(45deg, #3f2b61, #140122);  
+  background: linear-gradient(45deg, #2c1b53, #140122);  
   color: #fff;  
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);  
   transform: scale(1.05);  
 }  
 
 .menu-item ion-icon {  
-  margin-right: 0.625rem; /* Usando rem */  
-  font-size: 1.5rem; /* Un tamaño de icono más apropiado */  
+  margin-right: 0.625rem;  
+  font-size: 1.5rem;  
 }  
 
-.layout {  
-  display: flex;  
-}  
+.layout {
+  display: flex;
+}
 
-.main-content {  
-  flex: 1;  
-  padding: 1rem; /* Cambiar a rem para mayor responsividad */  
-}  
+.main-content {
+  padding: 1rem;
+  flex: 1; /* Permite que el contenido principal tome el espacio restante */
+  margin-left: 1rem; /* Da espacio entre el menú y el contenido */
+}
 
-.productos-container {  
-  display: grid;  
-  grid-template-columns: repeat(6, 1fr); /* Ajustar columnas en pantallas grandes */  
-  gap: 1.25rem; /* Espaciado en rem */  
-  padding: 1rem 0;  
-}  
+.category-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
 
-.producto-card {
+.productos-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Ajusta a 5 columnas */
+  gap: 1.5rem;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.product-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  overflow: hidden;
-  text-align: center;
-} 
+  width: 100%; /* Ajusta el ancho al 100% dentro de cada columna */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 2px 2px 8px rgba(55, 71, 79, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-.producto-card:hover {  
-  transform: translateY(-0.3125rem); /* Más responsivo */  
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);  
-}  
+.image-container {
+  display: flex;
+  justify-content: center;
+}
 
 .image-preview {
   width: 100%;
-  height: 12.5rem; /* Tamaño fijo para la imagen */
-  object-fit: cover;
-  border-radius: 0.75rem;
-  margin-bottom: 0.625rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto de transición */
-}
-
-.image-preview:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
-}
-
-.producto-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem; /* Espacio entre contenido y botones */
-}
-
-.producto-info h3 {  
-  font-size: 1.5em;  
-  margin: 0.625rem 0;  
-}  
-
-.producto-info p {  
-  margin: 0.3125rem 0;  
-  color: #555;  
-}  
-
-.custom-button12 {  
-  background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */  
-  font-size: 1rem; /* Texto ligeramente más grande */
-}  
-
-.custom-button {  
-  background: linear-gradient(45deg, #28a745, #218838); /* Color verde para 'Comprar ahora' */  
-  font-size: 1.1rem;  
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .botones-container {
-  margin-top: auto; /* Mueve los botones hacia la parte inferior */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Espacio entre los botones */
+  gap: 0.5rem;
 }
 
-.custom-button12,
-.custom-button {
-  font-size: 1rem;
+.producto-info {
+  text-align: center;
+  margin-top: auto;
+}
+
+.producto-info h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.brand, .product-id, .product-price, .payment-methods {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.custom-button12, .custom-button {
   padding: 0.625rem;
-  width: 100%;
-  border: none;
-  border-radius: 0.3125rem;
+  font-size: 1rem;
   color: white;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  border-radius: 4px;
+  border: none;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.custom-button12:hover,  
-.custom-button:hover {  
-  transform: translateY(-0.125rem);  
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  
-}  
+.custom-button12 {
+  background: linear-gradient(45deg, #28a745, #218838);
+}
 
-.menu-item.logout {  
-  margin-top: 1rem;  
-  color: #d93025;  
-}  
+.custom-button12:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-/* Media Queries */  
-@media (max-width: 1024px) {  
-  .productos-container {  
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas medianas */  
-  }  
-}  
+.custom-button {
+  background: linear-gradient(45deg, #28a745, #218838);
+}
 
-@media (max-width: 768px) {  
-  .productos-container {  
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en dispositivos más pequeños */  
-  }  
+.custom-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-  .category-menu-container {  
-    padding: 1rem; /* Ajustar padding para pantallas pequeñas */  
-  }  
+/* Responsivo */
+@media (max-width: 1024px) {
+  .productos-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-  .menu-item {  
-    font-size: 1rem; /* Ajustar tamaño de fuente para mobiles */  
-  }  
+@media (max-width: 768px) {
+  .productos-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-  .menu-item ion-icon {  
-    font-size: 1.25rem; /* Ajustar iconos en móviles */  
-  }  
-}  
-
-@media (max-width: 480px) {  
-  .productos-container {  
-    grid-template-columns: 1fr; /* Una sola columna en teléfonos */  
-  }  
-
-  .main-content {  
-    padding: 0.5rem; /* Reducir padding en móviles */  
-  }  
+@media (max-width: 480px) {
+  .productos-container {
+    grid-template-columns: 1fr;
+  }
 }

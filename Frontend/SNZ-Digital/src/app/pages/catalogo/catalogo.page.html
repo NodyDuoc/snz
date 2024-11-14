@@ -15,41 +15,44 @@
       </div>  
     </div>  
 
-    <!-- Contenido principal -->  
     <div class="main-content">  
-      <h2>Productos de la Categoría Seleccionada</h2>  
-
+      <h2 class="category-title">Productos de la Categoría Seleccionada</h2>  
+    
       <div *ngIf="productosSeleccionados.length > 0; else noProducts">  
-        <div class="productos-container"> <!-- Cambia ion-list a un contenedor div -->  
-          <div class="producto-card" *ngFor="let producto of productosSeleccionados" (click)="irADetalleProducto(producto.productId)">  
-            <div>
+        <div class="productos-container">  
+          <div class="product-card" *ngFor="let producto of productosSeleccionados" (click)="irADetalleProducto(producto.productId)">  
+    
+            <!-- Imagen del Producto -->
+            <div class="image-container">
               <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
                    alt="Imagen del Producto" 
                    class="image-preview">  
             </div>
-            <div class="producto-info">  
-              <h3>{{ producto.productName }}</h3>  
-             <!-- <p>{{ producto.descripcion }}</p>  -->  
-              <p>Precio: {{ producto.precio | currency }}</p>  
-
-              <!-- Botones de acción -->  
+    
+            <!-- Información del Producto -->
+            <div class="producto-info">
+              <p class="brand">{{ producto.marca || "No disponible" }}®</p>
+              <h3>{{ producto.productName }}</h3>
+              <p class="product-id">ID: {{ producto.productId }}</p>
+              <p class="product-price">Precio: {{ producto.precio | currency }}</p>  
+              <p class="payment-methods">Métodos de Pago: <span>Tarjeta, Transferencia, Efectivo</span></p>
+    
+              <!-- Botones de acción -->
               <div class="botones-container">
                 <button class="custom-button12" (click)="agregarAlCarrito(producto); $event.stopPropagation()">
                   <i class="fas fa-shopping-cart"></i> Agregar al carrito
                 </button>
-                <button class="custom-button" (click)="comprarAhora(producto); $event.stopPropagation()">
-                  <i class="fas fa-money-bill-wave"></i> Comprar ahora
-                </button>
               </div>
-            </div> 
+            </div>
           </div>  
         </div>  
       </div>   
-
+    
       <ng-template #noProducts>  
         <p>No hay productos disponibles para esta categoría.</p>  
       </ng-template>  
     </div>
+    
  
   </div>  
 
