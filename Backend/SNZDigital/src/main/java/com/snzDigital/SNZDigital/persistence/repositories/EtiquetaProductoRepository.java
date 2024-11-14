@@ -14,6 +14,7 @@ public interface EtiquetaProductoRepository extends JpaRepository<EtiquetaProduc
     void deleteByProductIdAndEtiquetaId(Integer productId, Integer etiquetaId);
 
     List<EtiquetaProductoEntity> findByProductId(Integer productId);
+    List<EtiquetaProductoEntity> findByEtiquetaId(Integer etiquetaId);
 }
 
 

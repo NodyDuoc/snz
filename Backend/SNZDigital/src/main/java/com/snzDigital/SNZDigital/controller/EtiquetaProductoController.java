@@ -1,7 +1,9 @@
 package com.snzDigital.SNZDigital.controller;
 
 import com.snzDigital.SNZDigital.controller.dto.EtiquetaProductoResponse;
+import com.snzDigital.SNZDigital.persistence.entity.EtiquetaEntity;
 import com.snzDigital.SNZDigital.persistence.entity.EtiquetaProductoEntity;
+import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
 import com.snzDigital.SNZDigital.service.EtiquetaProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,4 +78,22 @@ public class EtiquetaProductoController {
     public List<EtiquetaProductoEntity> getEtiquetasByProductId(@PathVariable Integer productId) {
         return etiquetaProductoService.getEtiquetaProductosByProductId(productId);
     }
+
+    @GetMapping("/producto/{productId}/detalles")
+    public List<EtiquetaEntity> getEtiquetaDetallesByProductId(@PathVariable Integer productId) {
+        return etiquetaProductoService.getEtiquetasByProductId(productId);
+    }
+
+
+    @GetMapping("/etiqueta/{etiquetaId}")
+    public List<EtiquetaProductoEntity> getProductosByEtiquetaId(@PathVariable Integer etiquetaId) {
+        return etiquetaProductoService.getProductosByEtiquetaId(etiquetaId);
+    }
+
+    @GetMapping("/etiqueta/{etiquetaId}/detalles")
+    public List<ProductoEntity> getProductosDetalleByEtiquetaId(@PathVariable Integer etiquetaId) {
+        return etiquetaProductoService.getProductosDetalleByEtiquetaId(etiquetaId);
+    }
+
+
 }
