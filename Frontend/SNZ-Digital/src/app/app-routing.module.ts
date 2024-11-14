@@ -1,62 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { RegistroComponent } from './Componet/registro/registro.component';
-import { LoginComponent } from './Componet/login/login.component';
-import { InicioComponent } from './Componet/inicio/inicio.component';
-import { CatalogoComponent } from './Componet/catalogo/catalogo.component';
-import { CategoriaComponent } from './Componet/categoria/categoria.component';
-import { EditarClaveComponent } from './Componet/editar-clave/editar-clave.component';
-import { PerfilComponent } from './Componet/perfil/perfil.component';
-import { ProductoComponent } from './Componet/producto/producto.component';
-import { DireccionComponent } from './Componet/direccion/direccion.component';
-import { EditarUsuarioComponent } from './Componet/editar-usuario/editar-usuario.component';
-import { CarritoComponent } from './Componet/carrito/carrito.component';
-import { PedidosComponent } from './Componet/pedidos/pedidos.component';
+
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path:'registro-usuario',
-    component:RegistroComponent
-  },
-  {
-    path:'login-np',
-    component:LoginComponent
-  },
-  {
-    path:'inicio',
-    component:InicioComponent
-  },
-  {
-    path:'editar-usuario',
-    component:EditarUsuarioComponent
-  },
-  {
-    path:'catalogo-no',
-    component:CatalogoComponent
-  },{
-    path:'categoria-no',
-    component:CategoriaComponent
-  },{
-    path:'editar-clave',
-    component:EditarClaveComponent
-  },{
-    path:'perfil-no',
-    component:PerfilComponent
-  },{
-    path:'producto-no',
-    component:ProductoComponent
-  },{
-    path:'direccion-no',
-    component:DireccionComponent
-  },{
-    path:'carrito-no',
-    component:CarritoComponent
-  },{
-    path:'pedido-no',
-    component:PedidosComponent
   },
   {
     path: '',
@@ -227,21 +175,6 @@ const routes: Routes = [
     path: 'maestro-etiqueta-producto/:Id',
     loadChildren: () => import('./pages/maestro-etiqueta-producto/maestro-etiqueta-producto.module').then( m => m.MaestroEtiquetaProductoPageModule)
   },
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ];
 
