@@ -99,6 +99,7 @@
   padding: 10px;
   flex-shrink: 0;
   box-sizing: border-box;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .product-card:hover {
