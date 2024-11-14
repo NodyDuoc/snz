@@ -176,7 +176,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/maestro-etiqueta-producto/maestro-etiqueta-producto.module').then( m => m.MaestroEtiquetaProductoPageModule)
   },
   {
-    path: 'etiqueta/:Id',
+    path: 'etiqueta/:Id/:detalle',
     loadChildren: () => import('./pages/etiqueta/etiqueta.module').then( m => m.EtiquetaPageModule)
   },
 

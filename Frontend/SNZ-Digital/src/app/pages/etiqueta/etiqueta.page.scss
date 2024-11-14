@@ -1,0 +1,110 @@
+.category-menu-container {  
+    position: sticky;  
+    top: 0;  
+    height: 100%;  
+    overflow: auto;  
+    background-color: #f8f9fa;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    z-index: 10;  
+    padding: 2rem;  
+  }  
+  
+  .productos-container {  
+    display: grid;  
+    grid-template-columns: repeat(6, 1fr); /* Ajustar columnas en pantallas grandes */  
+    gap: 1.25rem;  
+    padding: 1rem 0;  
+  }  
+  
+  .producto-card {  
+    display: flex;  
+    flex-direction: column;  
+    justify-content: space-between;  
+    height: 100%;  
+    background-color: #ffffff;  
+    border-radius: 0.75rem;  
+    padding: 1rem;  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  
+    transition: transform 0.3s, box-shadow 0.3s;  
+  
+    &:hover {  
+      transform: scale(1.05);  
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);  
+    }  
+  }
+  
+  .producto-info {  
+    text-align: center;  
+  }
+  
+  .image-preview {  
+    width: 100%;  
+    height: auto;  
+    object-fit: contain;  
+    border-radius: 10px;  
+  }
+  
+  .custom-button-back {
+    background: linear-gradient(90deg, #53068a, #963beb); /* Degradado de morado */
+    color: white; /* Color del texto */
+    border: none; /* Eliminar borde */
+    height: 50px; /* Ajusta la altura según sea necesario */
+    font-size: 20px; /* Ajusta el tamaño de la fuente según sea necesario */
+    text-align: center; /* Centra el texto */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho */
+    transition: transform 0.3s ease, background 0.3s ease; /* Transición suave para la animación */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  
+  .custom-button-back:hover {
+    transform: scale(1.03); /* Aumenta ligeramente el tamaño del botón al pasar el ratón */
+    background: linear-gradient(90deg, #8a2be2, #6a0dad); /* Cambia el degradado al pasar el ratón */
+  }
+  
+  .custom-button12 {  
+    background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */  
+    font-size: 1rem; /* Texto ligeramente más grande */
+  }  
+  
+  .custom-button {  
+    background: linear-gradient(45deg, #28a745, #218838); /* Color verde para 'Comprar ahora' */  
+    font-size: 1.1rem;  
+  }
+  
+  .custom-button12,  
+  .custom-button {  
+    font-size: 1rem;  
+    margin-top: 1rem;  
+    width: 100%;  
+    padding: 0.625rem; /* Ajustar el padding a rem */  
+    border: none;   
+    border-radius: 0.3125rem;   
+    color: white;  
+    font-weight: bold;  
+    transition: all 0.3s ease;  
+  }  
+  
+  .custom-button12:hover,  
+  .custom-button:hover {  
+    transform: translateY(-0.125rem);  
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  
+  }  
+  
+  .header-title {
+    text-align: center; 
+    padding: 20px 0; 
+    background-color: white; 
+  }
+  
+  .main-title {
+    color: #800080; 
+    font-size: 1.5rem; 
+    margin: 0; 
+  }
+  
+  .sub-title {
+    color: #666; 
+    font-size: 1rem; 
+    margin-top: 5px; 
+  }
+  

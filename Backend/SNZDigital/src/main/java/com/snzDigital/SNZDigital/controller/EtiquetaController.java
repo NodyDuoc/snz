@@ -2,6 +2,7 @@ package com.snzDigital.SNZDigital.controller;
 
 import com.snzDigital.SNZDigital.controller.dto.EtiquetaResponse;
 import com.snzDigital.SNZDigital.persistence.entity.EtiquetaEntity;
+import com.snzDigital.SNZDigital.persistence.entity.ValoracionEntity;
 import com.snzDigital.SNZDigital.service.EtiquetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +28,10 @@ public class EtiquetaController {
 
     // Obtener una etiqueta por ID
     @GetMapping("/get/{id}")
-    public ResponseEntity<EtiquetaResponse> getEtiquetaById(@PathVariable Integer id) {
-        Optional<EtiquetaEntity> etiqueta = etiquetaService.getEtiquetaById(id);
-        return etiqueta.map(e -> ResponseEntity.ok(new EtiquetaResponse(e.getEtiquetaId(), "Etiqueta encontrada", true)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new EtiquetaResponse(null, "Etiqueta no encontrada", false)));
+    public ResponseEntity<EtiquetaEntity> getEtiquetaById(@PathVariable Integer id) {
+        return etiquetaService.getEtiquetaById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Crear una nueva etiqueta

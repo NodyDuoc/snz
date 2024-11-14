@@ -1,13 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>etiqueta</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">etiqueta</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <app-header></app-header>
+
+  <app-carrusel></app-carrusel>
+
+  <div class="container-card">
+    <div class="header-title">
+      <ion-title class="main-title">¡Bienvenido a Nuestra Tienda!</ion-title>
+      <p class="sub-title">Explora nuestros productos y ofertas exclusivas</p>
+    </div>
+  
+    <div class="category-menu-container">
+      <ion-grid>
+
+        
+        <ion-row>
+          
+          <div *ngIf="etiquetaDetalle">
+            <h2 class="card-title">Perfil del Usuario</h2>
+            <div class="card-content">
+              <div class="user-info-item">
+                <strong>etiquetaId:</strong>
+
+                <p>{{ etiquetaDetalle.etiquetaId || 'Puto'}}</p>
+                <p>{{ etiquetaDetalle.nombreEtiqueta || 'Puto'}}</p>
+                <p>{{ etiquetaDetalle.detalleEtiqueta || 'Puto'}}</p>
+ 
+              </div>
+            </div>
+          </div>
+      
+        </ion-row>
+      </ion-grid>
+    </div>
+  
+    <div *ngIf="filteredProductos.length > 0; else noProducts">
+      <div class="productos-container">
+        <div class="producto-card" *ngFor="let producto of filteredProductos">
+          <div *ngIf="producto?.imagen">
+            <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
+          </div>
+          <div class="producto-info">
+            <h3>{{ producto?.productName || 'Nombre no disponible' }}</h3>
+            <p>Precio: ${{ producto?.precio?.toFixed(2) || '0.00' }}</p>
+            <p>Id: {{ producto?.productId || 'No disponible' }}</p>
+            <button class="custom-button12" (click)="agregarAlCarrito(producto)">
+              <i class="fas fa-shopping-cart"></i> Agregar al carrito
+            </button>
+            <button class="custom-button" (click)="comprarAhora(producto)">
+              <i class="fas fa-money-bill-wave"></i> Comprar ahora
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <p>No hay productos disponibles en este momento.</p>
+    </ng-template>
+
+  </div>
+
+  <app-footer></app-footer>
 </ion-content>
