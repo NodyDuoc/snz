@@ -35,8 +35,19 @@ public class ProductoEntity {
     @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;
 
+    @Column(name = "MARCA")
+    private String marca;
+
     @ManyToMany(mappedBy = "productos")
     private List<PedidoEntity> pedidos;
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
     public Long getProductId() {
         return productId;

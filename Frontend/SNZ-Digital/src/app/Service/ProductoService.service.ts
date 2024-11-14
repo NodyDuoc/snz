@@ -54,6 +54,8 @@ export class ProductoService {
     formData.append('productName', producto.productName || '');
     formData.append('descripcion', producto.descripcion || '');
     formData.append('precio', producto.precio?.toString() || '0');
+    formData.append('marca', producto.marca || ''); // Agrega la marca
+
     
     if (producto.categoriaCatId) {
       formData.append('categoriaCatId', producto.categoriaCatId.toString());

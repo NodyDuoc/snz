@@ -28,18 +28,19 @@ export class MaestroProductoCrearPage implements OnInit {
 
   ) {}
 
-  ngOnInit() {
-    // Obtener el id de la categoría de los parámetros de la URL
+ngOnInit() {
     this.categoriaId = +this.route.snapshot.paramMap.get('categoryId')!;
     console.log('ID de la categoría recibida:', this.categoriaId);
 
     this.productoForm = this.formBuilder.group({
       productName: ['', Validators.required],
       descripcion: [''],
-      precio: ['', [Validators.required, Validators.min(0.01)]], // Validación para que el precio sea mayor a 0
-      imagen: ['']  // Se maneja la imagen de forma opcional
+      precio: ['', [Validators.required, Validators.min(0.01)]],
+      imagen: [''],
+      marca: [''] // Campo de marca
     });
-  }
+}
+
 
   onSubmit() {
     if (this.productoForm.valid) {

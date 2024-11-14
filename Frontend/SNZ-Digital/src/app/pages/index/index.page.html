@@ -32,35 +32,38 @@
     </div>
   </div>
 
-  <div class="container-card">
-    <div class="product-section">
-      <h2 class="category-title" style="margin-top: 20px;">Destacados</h2>
-      <div class="productos-container" >
-        <!-- Verificamos si hay productos en la categoría 5 -->
-        <div *ngIf="(productosPorCategoria[1] ?? []).length > 0">
-          <div class="product-scroll">
-            <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[1]" (click)="irADetalleProducto(producto.productId)">
-              <div>
-                <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
-                     alt="Imagen del Producto" 
-                     class="image-preview">  
-              </div>
-              <ion-card-header>
-                <ion-card-title>{{ producto.productName }}</ion-card-title>
-                <p class="product-price">Precio: ${{ producto.precio?.toFixed(2) }}</p>
-              </ion-card-header>
-              <ion-card-content>
-                <div class="botones-container">
-                <button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
-                <button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar ahora</button>
-              </div>
-              </ion-card-content>
-            </ion-card>
-          </div>
+<div class="container-card">
+  <div class="product-section">
+    <h2 class="category-title" style="margin-top: 20px;">Destacados</h2>
+    <div class="productos-container">
+      <div *ngIf="(productosPorCategoria[1] ?? []).length > 0">
+        <div class="product-scroll">
+          <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[1]">
+            <!-- Imagen del producto -->
+            <div class="image-container">
+              <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+                   alt="Imagen del Producto" 
+                   class="image-preview">  
+            </div>
+            <!-- Información del producto -->
+            <ion-card-header>
+              <p class="brand">{{ producto.marca || "Sin Marca" }}®</p>
+              <ion-card-title>{{ producto.productName }}</ion-card-title>
+              <p class="product-id">ID {{ producto.productId }}</p>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="product-price">${{ producto.precio?.toFixed(2) }} </p>  
+              <h2>Cualquier medio de pago</h2>
+              <button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+            </ion-card-content>
+          </ion-card>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+  
 
   <div class="promo-banner">
     <h3>Novedades Destacadas</h3>

@@ -4,6 +4,7 @@ export interface Producto {
     descripcion?: string;      // Descripción opcional
     precio?: number;            // Precio del producto
     imagen?: string; // Cambia a string para la representación Base64
+    marca?: string; 
     categoriaCatId: number;    // ID de la categoría
   }
   

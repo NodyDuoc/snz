@@ -40,7 +40,8 @@ export class MaestroProductoEditarPage implements OnInit {
       productName: ['', Validators.required],
       descripcion: [''],
       precio: ['', [Validators.required, Validators.min(0.01)]],
-      imagen: ['']
+      imagen: [''],
+      marca: ['']
     });
     
     this.loadProducto();
@@ -59,6 +60,7 @@ export class MaestroProductoEditarPage implements OnInit {
           productName: producto.productName,
           descripcion: producto.descripcion,
           precio: producto.precio,
+          marca: producto.marca,
         });
 
         this.imagePreview = producto.imagen ? `data:image/png;base64,${producto.imagen}` : 'assets/images/default.jpg';
@@ -80,7 +82,8 @@ export class MaestroProductoEditarPage implements OnInit {
       formData.append('productName', this.productoForm.get('productName')?.value);
       formData.append('descripcion', this.productoForm.get('descripcion')?.value);
       formData.append('precio', this.productoForm.get('precio')?.value.toString());
-      
+      formData.append('marca', this.productoForm.get('marca')?.value);
+
       if (this.imagenFile) {
         formData.append('imagen', this.imagenFile);
       }

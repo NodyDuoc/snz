@@ -60,6 +60,8 @@
   padding: 10px 0;
   scrollbar-color: #8a2be2 #e0d3ff; /* Color de la barra y del fondo */
   scrollbar-width: thin; /* Ancho de la barra en Firefox */
+  max-width: 100%; /* Limita el ancho para activar el desplazamiento */
+  box-sizing: border-box;
 }
 
 /* Scrollbar personalizado para navegadores basados en Webkit (Chrome, Safari) */
@@ -91,70 +93,88 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 200px; /* Ancho fijo */
-  height: 500px; /* Alto fijo */
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  width: 220px; /* Ancho fijo para que todas las tarjetas tengan el mismo tamaño */
+  background-color: #fff;
+  border: 1px solid var(--gray-superlight, #ddd); /* Usa una variable para el color del borde o un color claro por defecto */
   border-radius: 8px;
   padding: 10px;
-  flex-shrink: 0;
   box-sizing: border-box;
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 2px 2px 8px rgba(55, 71, 79, 0.15); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  flex-shrink: 0; /* Evita que las tarjetas se encojan dentro del contenedor */
 }
 
 .product-card:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
+  transform: scale(1.05);
+  box-shadow: 4px 4px 12px rgba(55, 71, 79, 0.25); /* Aumenta la sombra en hover */
+}
+
+
+.image-container {
+  display: flex;
+  justify-content: center;
 }
 
 .image-preview {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px; /* Bordes más redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra suave */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto de transición */
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
-.image-preview:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
+.brand {
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  margin-bottom: 4px;
 }
 
+.product-id {
+  font-size: 0.9rem;
+  color: #777;
+}
 
+.stock-info {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: right;
+}
 
-.producto-info {
-  flex-grow: 1; /* Empuja el contenido hacia arriba */
-  text-align: center;
+.discount {
+  color: #e60000;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.price-before {
+  text-decoration: line-through;
+  font-size: 0.9rem;
+  color: #777;
+  text-align: left;
 }
 
 .product-price {
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #000000;
-  text-align: center;
-
+  color: #000;
+  text-align: left;
 }
 
-.custom-button12 {  
-  background: linear-gradient(45deg, #6a5acd, #4b0082); /* Color para 'Agregar al carrito' */  
-  font-size: 1rem; /* Texto ligeramente más grande */
-}  
-
-.custom-button {  
-  background: linear-gradient(45deg, #28a745, #218838); /* Color verde para 'Comprar ahora' */  
-  font-size: 1.1rem;  
+.product-price span {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.botones-container {
-  margin-top: auto; /* Mueve los botones hacia la parte inferior */
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Espacio entre los botones */
-
+.other-payments {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
 }
 
-.custom-button12,
-.custom-button {
+.custom-button12 {
+  background: linear-gradient(45deg, #6a5acd, #4b0082);
   font-size: 1rem;
   padding: 0.625rem;
   width: 100%;
@@ -165,11 +185,11 @@
   transition: all 0.3s ease;
 }
 
-.custom-button12:hover,  
-.custom-button:hover {  
-  transform: translateY(-0.125rem);  
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);  
-}  
+.custom-button12:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 
 
 // SECCION SOBRE PROMOCION 

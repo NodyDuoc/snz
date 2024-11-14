@@ -54,14 +54,16 @@ public class ProductoController {
             @RequestParam("descripcion") String descripcion,
             @RequestParam("precio") Double precio,
             @RequestParam(value = "categoriaCatId", required = false) Long categoriaCatId,
-            @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            @RequestParam("marca") String marca) { // Nuevo parámetro marca
 
-        // Llamar al servicio para crear el producto
-        ProductoResponse productoResponse = productoService.createProducto(productName, descripcion, precio, categoriaCatId, imagen);
+        // Llamar al servicio para crear el producto, incluyendo la marca
+        ProductoResponse productoResponse = productoService.createProducto(productName, descripcion, precio, categoriaCatId, imagen, marca);
 
         // Retornar la respuesta
         return new ResponseEntity<>(productoResponse, HttpStatus.CREATED);
     }
+
 
 
     @PutMapping("/update/{id}")
@@ -70,12 +72,14 @@ public class ProductoController {
             @RequestParam("productName") String productName,
             @RequestParam("descripcion") String descripcion,
             @RequestParam("precio") Double precio,
-            @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            @RequestParam("marca") String marca) { // Nuevo parámetro marca
 
         ProductoUpdateDTO productoDTO = new ProductoUpdateDTO();
         productoDTO.setProductName(productName);
         productoDTO.setDescripcion(descripcion);
         productoDTO.setPrecio(precio);
+        productoDTO.setMarca(marca); // Asigna la marca al DTO
 
         if (imagen != null && !imagen.isEmpty()) {
             try {

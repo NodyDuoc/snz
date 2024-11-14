@@ -38,12 +38,13 @@ public class ProductoService {
         return productoRepository.findByCategoriaCatId(categoriaCatId);
     }
 
-    public ProductoResponse createProducto(String productName, String descripcion, Double precio, Long categoriaCatId, MultipartFile imagen) {
+    public ProductoResponse createProducto(String productName, String descripcion, Double precio, Long categoriaCatId, MultipartFile imagen, String marca) {
         ProductoEntity producto = new ProductoEntity();
         producto.setProductName(productName);
         producto.setDescripcion(descripcion);
         producto.setPrecio(precio);
         producto.setCategoriaCatId(categoriaCatId);
+        producto.setMarca(marca); // Establece la marca
 
         // Convertir MultipartFile a byte[]
         if (imagen != null && !imagen.isEmpty()) {
@@ -75,6 +76,7 @@ public class ProductoService {
         productoExistente.setProductName(productoDTO.getProductName());
         productoExistente.setDescripcion(productoDTO.getDescripcion());
         productoExistente.setPrecio(productoDTO.getPrecio());
+        productoExistente.setMarca(productoDTO.getMarca()); // Actualiza la marca
 
         if (productoDTO.getImagen() != null) {
             productoExistente.setImagen(productoDTO.getImagen());
@@ -98,7 +100,9 @@ public class ProductoService {
                         producto.getDescripcion(),
                         producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
                         "Productos listados correctamente",
-                        producto.getCategoriaCatId()
+                        producto.getCategoriaCatId(),
+                        producto.getMarca() // Incluye la marca en la respuesta
+
                 ))
                 .collect(Collectors.toList());
 

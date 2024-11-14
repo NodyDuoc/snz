@@ -13,6 +13,8 @@ public class ProductoResponse {
     private Number Precio;
     private Long CategoriaCatId;
     private String imagen; // En formato Base64
+    private String marca; // Nuevo campo de marca
+
 
 
 
@@ -24,18 +26,26 @@ public class ProductoResponse {
 
 
     }
-    public ProductoResponse(Long productId,String productName, String descripcion, String imagen, String message, Long CategoriaCatId) {
+    public ProductoResponse(Long productId,String productName, String descripcion, String imagen, String message, Long CategoriaCatId, String marca) {
         this.productId = productId;
         this.productName = productName;
         this.descripcion = descripcion;
         this.imagen = imagen;
         this.message = message;
         this.CategoriaCatId = CategoriaCatId;
+        this.marca = marca;
+
     }
 
 
 
+    public String getMarca() {
+        return marca;
+    }
 
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
     public String getMessage() {
         return message;
