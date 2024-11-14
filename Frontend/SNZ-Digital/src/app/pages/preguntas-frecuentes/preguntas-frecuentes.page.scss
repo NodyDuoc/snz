@@ -1,69 +1,124 @@
-/* General */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-}
-
-.faq {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #F7F7F7; /* Fondo del cuerpo */
+    color: #333333; /* Color principal del texto */
+  }
+  
+  .faq {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 2rem;
+    background: #FFFFFF; /* Fondo de la sección FAQ */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra de la sección */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
     text-align: center;
+    margin-bottom: 2rem;
+    color: #2C3E50; /* Azul oscuro elegante para el encabezado */
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .faq-item {
     margin-bottom: 1.5rem;
-    color: #333;
-}
-
-.faq-item {
-    margin-bottom: 1.5rem;
-}
-
-.faq-item h2 {
+    cursor: pointer;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    background: #F3F3F3; /* Fondo claro y neutro para las tarjetas FAQ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra de las tarjetas */
+    transition: all 0.3s ease-in-out;
+    border-left: 5px solid #4F4F4F; /* Gris oscuro para el borde izquierdo */
+  }
+  
+  .faq-item:hover {
+    background: #E0E0E0; /* Fondo gris claro al pasar el mouse */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra al pasar el mouse */
+  }
+  
+  .faq-item h2 {
     font-size: 1.25rem;
-    color: #007acc;
-    margin-bottom: 0.5rem;
-}
-
-.faq-item p {
-    margin-bottom: 1rem;
+    color: #333333; /* Texto en gris oscuro para las preguntas */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .faq-item:hover h2 {
+    color: #2C3E50; /* Azul oscuro en hover para las preguntas */
+  }
+  
+  .faq-item p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #4F4F4F; /* Gris oscuro para el texto de las respuestas */
     line-height: 1.6;
-    color: #555;
-}
-
-a {
-    color: #007acc;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Responsivo */
-@media (max-width: 600px) {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+  }
+  
+  .faq-item ion-icon {
+    font-size: 1.5rem;
+    color: #4F4F4F; /* Gris oscuro para los iconos */
+    transition: transform 0.3s ease;
+  }
+  
+  .icon-rotate {
+    transform: rotate(90deg); /* Gira el icono cuando está expandido */
+  }
+  
+  .faq-answer {
+    margin-top: 0.5rem;
+    padding-left: 1.8rem;
+    color: #333333; /* Color sobrio para el borde de las respuestas */
+    font-size: 1rem;
+    border-left: 3px solid #2C3E50; /* Azul oscuro para el borde de las respuestas */
+    opacity: 1;
+    max-height: 100px;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+  }
+  
+  .faq-answer {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+  }
+  
+  .faq-answer.expandido {
+    opacity: 1;
+    max-height: 100px; /* Ajusta según el tamaño esperado de las respuestas */
+  }
+  
+  .faq-item:hover ion-icon {
+    color: #2C3E50; /* Azul oscuro para el icono al hacer hover */
+  }
+  
+  /* Responsivo */
+  @media (max-width: 600px) {
     .faq {
-        padding: 1rem;
+      padding: 1rem;
     }
-
+  
     h1 {
-        font-size: 1.75rem;
+      font-size: 1.75rem;
     }
-
+  
     .faq-item h2 {
-        font-size: 1.25rem;
+      font-size: 1.15rem;
     }
-}
+  
+    .faq-item p {
+      font-size: 0.9rem;
+    }
+  }
+  
