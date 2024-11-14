@@ -7,7 +7,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RegistroModule } from './Componet/registro.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -28,7 +27,6 @@ register();
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    RegistroModule, // Asegúrate de que este módulo contenga el EditarUsuarioComponent
     HttpClientModule, // Para habilitar HttpClient
     FormsModule, // Para habilitar formularios reactivos
   ],
