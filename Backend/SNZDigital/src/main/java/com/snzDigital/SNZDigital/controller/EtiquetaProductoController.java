@@ -71,4 +71,9 @@ public class EtiquetaProductoController {
         etiquetaProductoService.deleteByProductIdAndEtiquetaId(productId, etiquetaId);
         return ResponseEntity.ok(new EtiquetaProductoResponse(etiquetaId, "EtiquetaProducto eliminado con éxito", true));
     }
+
+    @GetMapping("/producto/{productId}")
+    public List<EtiquetaProductoEntity> getEtiquetasByProductId(@PathVariable Integer productId) {
+        return etiquetaProductoService.getEtiquetaProductosByProductId(productId);
+    }
 }

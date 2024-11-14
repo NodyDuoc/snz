@@ -3,7 +3,7 @@ package com.snzDigital.SNZDigital.persistence.repositories;
 import com.snzDigital.SNZDigital.persistence.entity.EtiquetaProductoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import java.util.List;
 
 import java.util.Optional;
 
@@ -12,6 +12,8 @@ public interface EtiquetaProductoRepository extends JpaRepository<EtiquetaProduc
     Optional<EtiquetaProductoEntity> findByProductIdAndEtiquetaId(Integer productId, Integer etiquetaId);
 
     void deleteByProductIdAndEtiquetaId(Integer productId, Integer etiquetaId);
+
+    List<EtiquetaProductoEntity> findByProductId(Integer productId);
 }
 
 

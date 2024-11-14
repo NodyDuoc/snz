@@ -43,4 +43,9 @@ public class EtiquetaProductoService {
     public void deleteByProductIdAndEtiquetaId(Integer productId, Integer etiquetaId) {
         etiquetaProductoRepository.deleteByProductIdAndEtiquetaId(productId, etiquetaId);
     }
+
+    public List<EtiquetaProductoEntity> getEtiquetaProductosByProductId(Integer productId) {
+        return etiquetaProductoRepository.findByProductId(productId);
+    }
+
 }
