@@ -17,14 +17,15 @@
         <ion-row>
           
           <div *ngIf="etiquetaDetalle">
-            <h2 class="card-title">Perfil del Usuario</h2>
+            <h2 class="card-title">Etiquetas</h2>
             <div class="card-content">
               <div class="user-info-item">
                 <strong>etiquetaId:</strong>
-
-                <p>{{ etiquetaDetalle.etiquetaId || 'Puto'}}</p>
-                <p>{{ etiquetaDetalle.nombreEtiqueta || 'Puto'}}</p>
-                <p>{{ etiquetaDetalle.detalleEtiqueta || 'Puto'}}</p>
+                <p>{{ etiquetaDetalle.etiquetaId || 'Vacio'}}</p>
+                <strong>nombreEtiqueta:</strong>
+                <p>{{ etiquetaDetalle.nombreEtiqueta || 'Vacio'}}</p>
+                <strong>detalleEtiqueta:</strong>
+                <p>{{ etiquetaDetalle.detalleEtiqueta || 'Vacio'}}</p>
  
               </div>
             </div>
@@ -36,7 +37,7 @@
   
     <div *ngIf="filteredProductos.length > 0; else noProducts">
       <div class="productos-container">
-        <div class="producto-card" *ngFor="let producto of filteredProductos">
+        <div class="producto-card" *ngFor="let producto of productos">
           <div *ngIf="producto?.imagen">
             <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
           </div>

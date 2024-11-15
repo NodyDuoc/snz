@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { Producto } from 'src/models/producto';
 import { EtiquetaService } from 'src/app/Service/EtiquetaService.service'; // Importa el servicio de Etiqueta
+import { EtiquetaProductoService } from 'src/app/Service/EtiquetaProductoService.service'; // Importa el servicio de Etiqueta
 import { Etiqueta } from 'src/models/etiqueta'; // Asegúrate de importar el modelo de Etiqueta
 
 @Component({
@@ -25,18 +26,19 @@ export class EtiquetaPage implements OnInit {
   constructor(
     private productoService: ProductoService,
     private etiquetaService: EtiquetaService, // Inyecta el servicio de Etiqueta
+    private etiquetaProductoService: EtiquetaProductoService, // Inyecta el servicio de Etiqueta
     private route: ActivatedRoute,
     private router: Router,
     private toastController: ToastController  // Inyectar ToastController
   ) { }
 
   ngOnInit() {
-    this.cargarProductos(); // Cargar los productos cuando el componente se inicie
     this.route.paramMap.subscribe(params => {
       this.etiquetaIdTemp = params.get('Id') || ''; // Obtén el ID de la etiqueta de los parámetros
       this.searchQuery = params.get('detalle') || ''; // Obtén el detalle de búsqueda
       this.obtenerEtiquetaDetalle(); // Llama al método para obtener la etiqueta por ID
-      this.realizarBusqueda();
+      this.obtenerProductosDetalle(); 
+
       
     });
   }
@@ -76,25 +78,23 @@ export class EtiquetaPage implements OnInit {
     // Aquí agregas la lógica para buscar productos basados en `this.searchQuery`
   }
 
-  cargarProductos() {
-    this.productoService.getAllProductos().subscribe(
-      (data: Producto[]) => {
-        this.productos = data;
-        this.ordenarProductos();
-        if (this.productos.length > 0) {
-          this.selectedProducto = this.productos[0];
-          if (this.selectedProducto.imagen) {
-            this.imagePreview = `data:image/png;base64,${this.selectedProducto.imagen}`;
-          }
-        } else {
-          this.errorMessage = 'No hay productos disponibles.';
+  obtenerProductosDetalle(): void {
+    const id = parseInt(this.etiquetaIdTemp); // Asegúrate de convertir el id a número
+    if (id) {
+      this.etiquetaProductoService.getProductosDetalleByEtiquetaId(id).subscribe(
+        (productostemp: Producto[]) => {
+          console.log('Todo bien con los productos:', this.etiquetaIdTemp);
+          this.productos = productostemp; // Asignar los productos asociados a la etiqueta
+        },
+        (error) => {
+          console.error('Error al obtener los productos de la etiqueta', error);
+          console.log('Error al buscar productos:', this.etiquetaIdTemp);
         }
-      },
-      (error) => {
-        console.error('Error al obtener los productos', error);
-        this.errorMessage = 'Hubo un problema al cargar los productos. Por favor, intenta más tarde.';
-      }
-    );
+      );
+    }
+    else{
+      console.log('No se encontro ningun producto:', this.etiquetaIdTemp);
+    }
   }
 
   ordenarProductos() {

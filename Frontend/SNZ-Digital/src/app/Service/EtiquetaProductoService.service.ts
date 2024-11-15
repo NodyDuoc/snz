@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EtiquetaProducto } from 'src/models/EtiquetaProducto';
+import { Producto } from 'src/models/producto';
 import { EtiquetaProductoEnvio } from 'src/models/EtiquetaProductoEnvio';
 
 @Injectable({
@@ -50,6 +51,11 @@ export class EtiquetaProductoService {
   eliminarEtiquetaProducto(productId: number, etiquetaId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/eliminar/${productId}/${etiquetaId}`);
   }
+
+    // Obtener los productos detallados por etiquetaId
+    getProductosDetalleByEtiquetaId(etiquetaId: number): Observable<Producto[]> {
+      return this.http.get<Producto[]>(`${this.baseUrl}/etiqueta/${etiquetaId}/detalles`);
+    }
   
 }
 
