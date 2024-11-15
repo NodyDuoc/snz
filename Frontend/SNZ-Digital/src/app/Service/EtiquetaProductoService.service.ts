@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EtiquetaProducto } from 'src/models/EtiquetaProducto';
+import { Etiqueta } from 'src/models/etiqueta';
 import { Producto } from 'src/models/producto';
 import { EtiquetaProductoEnvio } from 'src/models/EtiquetaProductoEnvio';
 
@@ -55,6 +56,11 @@ export class EtiquetaProductoService {
     // Obtener los productos detallados por etiquetaId
     getProductosDetalleByEtiquetaId(etiquetaId: number): Observable<Producto[]> {
       return this.http.get<Producto[]>(`${this.baseUrl}/etiqueta/${etiquetaId}/detalles`);
+    }
+
+    // Obtener las etiquetas detalladas por productId
+    getEtiquetaDetallesByProductId(productId: number): Observable<Etiqueta[]> {
+      return this.http.get<Etiqueta[]>(`${this.baseUrl}/producto/${productId}/detalles`);
     }
   
 }

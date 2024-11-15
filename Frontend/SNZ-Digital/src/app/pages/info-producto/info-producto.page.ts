@@ -4,7 +4,9 @@ import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { AuthService } from 'src/app/Service/auth.service';
 import { ValoracionService } from 'src/app/Service/valoracion.service';
 import { Valoracion } from 'src/models/valoracion';
+import { Etiqueta } from 'src/models/etiqueta';
 import { ToastController } from '@ionic/angular';
+import { EtiquetaProductoService } from 'src/app/Service/EtiquetaProductoService.service';
 
 @Component({
   selector: 'app-info-producto',
@@ -21,6 +23,7 @@ export class InfoProductoPage implements OnInit {
   comentario: string = '';
   userId: number | null = null;
   imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
+  etiquetas: Etiqueta[] = [];
 
   // Diccionario para valoraciones, asegurándonos de que cada producto tiene su propio arreglo de valoraciones
   valoracionesPorProducto: { [key: number]: { resena: Valoracion, nombreUsuario: string }[] } = {};
@@ -30,7 +33,8 @@ export class InfoProductoPage implements OnInit {
     private productoService: ProductoService,
     private authService: AuthService,
     private valoracionService: ValoracionService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private etiquetaProductoService: EtiquetaProductoService, // Nuevo servicio
   ) {}
 
   ngOnInit() {
@@ -40,8 +44,21 @@ export class InfoProductoPage implements OnInit {
       this.idProducto = +id;
       this.cargarProducto(this.idProducto);
       this.cargarValoraciones(this.idProducto);
+      this.cargarEtiquetasPorProducto(this.idProducto); // Cargar etiquetas
     }
     this.loadUser();
+  }
+
+  cargarEtiquetasPorProducto(productId: number) {
+    this.etiquetaProductoService.getEtiquetaDetallesByProductId(productId).subscribe(
+      (data) => {
+        this.etiquetas = data;
+      },
+      (error) => {
+        console.error('Error al cargar etiquetas del producto', error);
+        this.presentToast('Error al cargar las etiquetas.', 'danger');
+      }
+    );
   }
 
   async presentToast(message: string, color: string = 'success') {
