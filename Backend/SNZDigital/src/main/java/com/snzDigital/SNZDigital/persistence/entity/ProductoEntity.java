@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,8 +39,9 @@ public class ProductoEntity {
     @Column(name = "MARCA")
     private String marca;
 
-    @ManyToMany(mappedBy = "productos")
-    private List<PedidoEntity> pedidos;
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<PedidoProducto> pedidos = new ArrayList<>();
+
 
     public String getMarca() {
         return marca;
@@ -97,11 +99,11 @@ public class ProductoEntity {
         this.imagen = imagen;
     }
 
-    public List<PedidoEntity> getPedidos() {
+    public List<PedidoProducto> getPedidos() {
         return pedidos;
     }
 
-    public void setPedidos(List<PedidoEntity> pedidos) {
+    public void setPedidos(List<PedidoProducto> pedidos) {
         this.pedidos = pedidos;
     }
 }

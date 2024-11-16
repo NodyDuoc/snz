@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pedido } from 'src/models/pedido';
+import { CrearPedidoRequest } from 'src/models/CrearPedidoRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,10 @@ export class PedidoService {
   private baseUrl = 'http://localhost:8084/api/pedidos';
 
   constructor(private http: HttpClient) {}
+
+  crearPedido(request: CrearPedidoRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/crear`, request);
+  }
 
   getAllPedidos(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(`${this.baseUrl}/getall`);

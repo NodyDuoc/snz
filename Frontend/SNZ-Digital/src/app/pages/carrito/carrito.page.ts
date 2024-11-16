@@ -95,6 +95,22 @@ export class CarritoPage implements OnInit {
         direccion: this.selectedDireccion.direccion || 'No especificada',
     };
 
+    // Guarda los datos necesarios para el pedido en el local storage
+    const pedidoData = {
+        usuarioId: this.user.id,
+        comuna: this.selectedDireccion.comuna,
+        direccion: this.selectedDireccion.direccion,
+        detalle: 'Pedido con varios productos',
+        productoIds: this.detalles.map(detalle => detalle.productId),
+        cantidades: this.detalles.map(detalle => detalle.cantidad),
+        precio: totalCarrito,
+        currency: 'CLP',
+        estado: 'Pendiente',
+        urlReturn: 'http://localhost:8100/pago-exitoso',
+        urlNotify: 'http://localhost:8084/api/payku/response'
+    };
+    localStorage.setItem('pedidoData', JSON.stringify(pedidoData));
+
     // Realiza la solicitud de creación de transacción
     this.paykuService.createTransaction(pagoRequest).subscribe({
         next: async (response) => {
@@ -118,34 +134,6 @@ export class CarritoPage implements OnInit {
     });
 }
 
-
-  
-  
-  
-
-// Método para crear un pedido en el backend
-crearPedido(orderId: string, amount: number, estado: string, token: string) {
-  const pedido: Pedido = {
-    pedidoId: 0,
-    usuariosUserId: this.user.id,
-    productoProductId: this.detalles.map(d => d.productId),
-    comuna: this.selectedDireccion?.comuna || '',
-    direccion: this.selectedDireccion?.direccion || '',
-    detalle: 'Detalles adicionales del pedido',
-    precio: amount,
-    cantidad: this.detalles.reduce((total, d) => total + d.cantidad, 0),
-    estado: estado,
-    orderId: orderId,
-    currency: 'CLP', 
-    urlReturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
-    urlNotify: 'http://localhost:8084/api/payku/notificar',
-  };
-
-  this.pedidoService.createPedido(pedido).subscribe({
-    next: (nuevoPedido: Pedido) => this.presentToast('Pedido creado con éxito.'),
-    error: (error: any) => this.presentToast('Hubo un problema al crear el pedido.')
-  });
-}
 
 
   // Método para seleccionar dirección

@@ -19,7 +19,11 @@ public class PedidoProducto {
     @JoinColumn(name = "producto_id", nullable = false)
     private ProductoEntity producto;
 
-    // Getters y Setters
+    @Column(name = "CANTIDAD")
+    private Integer cantidad;
+
+    // Getters y Setters para todos los campos
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -28,4 +32,7 @@ public class PedidoProducto {
 
     public ProductoEntity getProducto() { return producto; }
     public void setProducto(ProductoEntity producto) { this.producto = producto; }
+
+    public Integer getCantidad() { return cantidad; }
+    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
 }

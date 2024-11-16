@@ -1,6 +1,8 @@
 package com.snzDigital.SNZDigital.persistence.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,13 +18,8 @@ public class PedidoEntity {
     @Column(name = "USUARIOS_USERID", nullable = false)
     private Long usuariosUserId;
 
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_producto",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id")
-    )
-    private List<ProductoEntity> productos;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PedidoProducto> productos = new ArrayList<>();
 
     @Column(name = "COMUNA", length = 100)
     private String comuna;
@@ -54,14 +51,16 @@ public class PedidoEntity {
     @Column(name = "URLNOTIFY", length = 200)
     private String urlNotify;
 
-    // Getter y Setter para productos
-    public List<ProductoEntity> getProductos() {
+    // Getters y Setters para todos los campos
+
+    public List<PedidoProducto> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<ProductoEntity> productos) {
+    public void setProductos(List<PedidoProducto> productos) {
         this.productos = productos;
     }
+
     public Long getPedidoId() {
         return pedidoId;
     }

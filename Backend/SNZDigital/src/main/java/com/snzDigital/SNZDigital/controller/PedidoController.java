@@ -1,5 +1,6 @@
 package com.snzDigital.SNZDigital.controller;
 
+import com.snzDigital.SNZDigital.controller.dto.CrearPedidoRequest;
 import com.snzDigital.SNZDigital.controller.dto.PedidoResponse;
 import com.snzDigital.SNZDigital.persistence.entity.PedidoEntity;
 import com.snzDigital.SNZDigital.service.PedidoService;
@@ -30,17 +31,6 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoActualizado);
     }
 
-    @PostMapping("/crear-pedido-con-productos")
-    public ResponseEntity<PedidoEntity> crearPedidoConProductos(
-            @RequestBody PedidoEntity pedido,
-            @RequestParam List<Long> productoIds) {
-
-        PedidoEntity nuevoPedido = pedidoService.createPedido(pedido, productoIds);
-        return ResponseEntity.ok(nuevoPedido);
-    }
-
-
-
     @GetMapping("/getall")
     public ResponseEntity<List<PedidoEntity>> getAllPedidos() {
         List<PedidoEntity> pedidos = pedidoService.getAllPedidos();
@@ -59,9 +49,22 @@ public class PedidoController {
     }
 
     @PostMapping("/crear")
-    public PedidoEntity crearPedido(@RequestBody PedidoEntity pedido, @RequestParam List<Long> productoIds) {
-        // Llama a createPedido con ambos argumentos
-        return pedidoService.createPedido(pedido, productoIds);
+    public ResponseEntity<PedidoEntity> crearPedido(@RequestBody CrearPedidoRequest request) {
+        PedidoEntity nuevoPedido = pedidoService.crearPedidoConProductos(
+                request.getUsuarioId(),
+                request.getComuna(),
+                request.getDireccion(),
+                request.getDetalle(),
+                request.getProductoIds(),
+                request.getCantidades(),
+                request.getPrecio(),
+                request.getCurrency(),
+                request.getEstado(),
+                request.getUrlReturn(),
+                request.getUrlNotify()
+        );
+
+        return ResponseEntity.ok(nuevoPedido);
     }
 
     @PutMapping("/update/{id}")
