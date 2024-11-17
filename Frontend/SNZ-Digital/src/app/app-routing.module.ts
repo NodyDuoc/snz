@@ -80,19 +80,27 @@ const routes: Routes = [
   },  
   {  
     path: 'maestro-producto',  
-    loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then(m => m.MaestroProductoPageModule)  
+    loadChildren: () => import('./pages/maestro-producto/maestro-producto.module').then(m => m.MaestroProductoPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },  
   {
     path: 'maestro-etiqueta',
-    loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then( m => m.MaestroEtiquetaPageModule)
+    loadChildren: () => import('./pages/maestro-etiqueta/maestro-etiqueta.module').then( m => m.MaestroEtiquetaPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'kardex',
-    loadChildren: () => import('./pages/kardex/kardex.module').then( m => m.KardexPageModule)
+    loadChildren: () => import('./pages/kardex/kardex.module').then( m => m.KardexPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'actualizar-despacho',
-    loadChildren: () => import('./pages/actualizar-despacho/actualizar-despacho.module').then( m => m.ActualizarDespachoPageModule)
+    loadChildren: () => import('./pages/actualizar-despacho/actualizar-despacho.module').then( m => m.ActualizarDespachoPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'busqueda/:detalle',
@@ -108,19 +116,27 @@ const routes: Routes = [
   },
   {
     path: 'maestro-categoria',
-    loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule)
+    loadChildren: () => import('./pages/maestro-categoria/maestro-categoria.module').then( m => m.MaestroCategoriaPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-categoria-editar/:id',
-    loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule)
+    loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-producto-editar/:id',
-    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then( m => m.MaestroProductoEditarPageModule)
+    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then( m => m.MaestroProductoEditarPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-etiqueta-editar',
-    loadChildren: () => import('./pages/maestro-etiqueta-editar/maestro-etiqueta-editar.module').then( m => m.MaestroEtiquetaEditarPageModule)
+    loadChildren: () => import('./pages/maestro-etiqueta-editar/maestro-etiqueta-editar.module').then( m => m.MaestroEtiquetaEditarPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'info-producto/:id',
@@ -136,7 +152,9 @@ const routes: Routes = [
   },
   {
     path: 'kardex-editar',
-    loadChildren: () => import('./pages/kardex-editar/kardex-editar.module').then( m => m.KardexEditarPageModule)
+    loadChildren: () => import('./pages/kardex-editar/kardex-editar.module').then( m => m.KardexEditarPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'crear-direccion',
@@ -144,19 +162,27 @@ const routes: Routes = [
   },
   {
     path: 'kardex-crear',
-    loadChildren: () => import('./pages/kardex-crear/kardex-crear.module').then( m => m.KardexCrearPageModule)
+    loadChildren: () => import('./pages/kardex-crear/kardex-crear.module').then( m => m.KardexCrearPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-etiqueta-crear',
-    loadChildren: () => import('./pages/maestro-etiqueta-crear/maestro-etiqueta-crear.module').then( m => m.MaestroEtiquetaCrearPageModule)
+    loadChildren: () => import('./pages/maestro-etiqueta-crear/maestro-etiqueta-crear.module').then( m => m.MaestroEtiquetaCrearPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-producto-crear/:categoryId',
-    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then(m => m.MaestroProductoCrearPageModule)
+    loadChildren: () => import('./pages/maestro-producto-crear/maestro-producto-crear.module').then(m => m.MaestroProductoCrearPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'maestro-despacho',
-    loadChildren: () => import('./pages/maestro-despacho/maestro-despacho.module').then( m => m.MaestroDespachoPageModule)
+    loadChildren: () => import('./pages/maestro-despacho/maestro-despacho.module').then( m => m.MaestroDespachoPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'necesidades-pc',
@@ -164,7 +190,9 @@ const routes: Routes = [
   },
   {
     path: 'maestro-producto-editar/:categoryId/:productId',
-    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then(m => m.MaestroProductoEditarPageModule)
+    loadChildren: () => import('./pages/maestro-producto-editar/maestro-producto-editar.module').then(m => m.MaestroProductoEditarPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'pago-exitoso',
@@ -176,7 +204,9 @@ const routes: Routes = [
   },
   {
     path: 'maestro-etiqueta-producto/:Id',
-    loadChildren: () => import('./pages/maestro-etiqueta-producto/maestro-etiqueta-producto.module').then( m => m.MaestroEtiquetaProductoPageModule)
+    loadChildren: () => import('./pages/maestro-etiqueta-producto/maestro-etiqueta-producto.module').then( m => m.MaestroEtiquetaProductoPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
     path: 'etiqueta/:Id',
