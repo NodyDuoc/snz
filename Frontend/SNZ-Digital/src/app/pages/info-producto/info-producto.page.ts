@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { AuthService } from 'src/app/Service/auth.service';
 import { ValoracionService } from 'src/app/Service/valoracion.service';
@@ -35,6 +35,7 @@ export class InfoProductoPage implements OnInit {
     private valoracionService: ValoracionService,
     private toastController: ToastController,
     private etiquetaProductoService: EtiquetaProductoService, // Nuevo servicio
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -48,7 +49,9 @@ export class InfoProductoPage implements OnInit {
     }
     this.loadUser();
   }
-
+  irADetalleEtiqueta(etiquetaId: any) {
+    this.router.navigate(['/etiqueta', etiquetaId]);
+  }
   cargarEtiquetasPorProducto(productId: number) {
     this.etiquetaProductoService.getEtiquetaDetallesByProductId(productId).subscribe(
       (data) => {

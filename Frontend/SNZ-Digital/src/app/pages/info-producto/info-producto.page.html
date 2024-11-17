@@ -49,17 +49,14 @@
       <p>Cargando detalles del producto...</p>
     </ng-template>
   </div>
-
-
-  
-
     <!-- Sección de Etiquetas -->
 <h2 class="titulo-valoraciones">Etiquetas</h2>
 <div *ngIf="idProducto !== undefined" class="valoraciones">
   <div class="reseñas-container">
     <div *ngFor="let etiquetas of etiquetas" class="reseña">
-      <strong>{{ etiquetas.nombreEtiqueta }}:</strong>
- 
+      <div (click)="irADetalleEtiqueta(etiquetas.etiquetaId)">
+        <strong>{{ etiquetas.nombreEtiqueta }}:</strong>
+      </div>
     </div>
   </div>
 </div>
