@@ -161,7 +161,6 @@ export class InfoProductoPage implements OnInit {
       valComentario: this.comentario,
       usuariosUserId: this.userId,
       productoProductId: this.idProducto || 0,
-      valid: 1
     };
 
     this.valoracionService.createValoracion(valoracionData).subscribe({
