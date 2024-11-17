@@ -24,7 +24,7 @@ export class InfoProductoPage implements OnInit {
   userId: number | null = null;
   imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
   etiquetas: Etiqueta[] = [];
-
+  yaComento: boolean = false; // Nueva bandera para controlar si el usuario ya comentó
   // Diccionario para valoraciones, asegurándonos de que cada producto tiene su propio arreglo de valoraciones
   valoracionesPorProducto: { [key: number]: { resena: Valoracion, nombreUsuario: string }[] } = {};
 
@@ -36,19 +36,20 @@ export class InfoProductoPage implements OnInit {
     private toastController: ToastController,
     private etiquetaProductoService: EtiquetaProductoService, // Nuevo servicio
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isAuthenticated();
     const id = this.route.snapshot.paramMap.get('id');
+    this.loadUser();
     if (id) {
       this.idProducto = +id;
       this.cargarProducto(this.idProducto);
       this.cargarValoraciones(this.idProducto);
       this.cargarEtiquetasPorProducto(this.idProducto); // Cargar etiquetas
     }
-    this.loadUser();
   }
+  
   irADetalleEtiqueta(etiquetaId: any) {
     this.router.navigate(['/etiqueta', etiquetaId]);
   }
@@ -75,19 +76,22 @@ export class InfoProductoPage implements OnInit {
   }
 
   loadUser() {
+
     const email = this.authService.getEmailFromToken();
     if (email) {
       this.authService.searchByEmail(email).subscribe(
         (user) => {
           this.userId = user.id;
+
         },
         (error) => {
           console.error('Error fetching user:', error);
-          this.presentToast('Error al cargar el usuario', 'danger');
+       
+
         }
       );
     } else {
-      this.presentToast('Debe iniciar sesión para ver y dejar valoraciones.', 'danger');
+   
     }
   }
 
@@ -122,15 +126,18 @@ export class InfoProductoPage implements OnInit {
           valoraciones.map(async (valoracion) => {
             try {
               const usuario = await this.authService.getUserById(valoracion.usuariosUserId).toPromise();
+              if (this.userId === valoracion.usuariosUserId) {
+                this.yaComento = true; // Usuario ya comentó
+              }
               return {
                 resena: valoracion,
-                nombreUsuario: usuario?.firstName || 'Usuario desconocido'
+                nombreUsuario: usuario?.firstName || 'Usuario desconocido',
               };
             } catch (userError) {
               console.error('Error al obtener usuario:', userError);
               return {
                 resena: valoracion,
-                nombreUsuario: 'Usuario desconocido'
+                nombreUsuario: 'Usuario desconocido',
               };
             }
           })
