@@ -38,7 +38,7 @@
               </div>
               <ion-card-header>
                 <ion-card-title>{{ producto.productName }}</ion-card-title>
-                <p>${{ producto.precio?.toFixed(2) }}</p>
+                <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
                 <p>Id: {{ producto.productId}}
                 </p>
               </ion-card-header>

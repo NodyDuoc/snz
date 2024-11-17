@@ -28,8 +28,8 @@
           </ion-thumbnail>
           <ion-label>
             <h2 class="product-title">{{ detalle.productName }}</h2>
-            <p>Costo Unitario: {{ detalle.costoUnitario | currency }}</p>
-            <p>Costo Total: {{ detalle.costoTotal | currency }}</p>
+            <p>Costo Unitario: {{ detalle.costoUnitario | currency:'CLP':'symbol':'1.0-0' }}</p>
+            <p>Costo Total: {{ detalle.costoTotal | currency:'CLP':'symbol':'1.0-0' }}</p>
           </ion-label>
           <div class="product-actions">
             <div class="cantidad-control">

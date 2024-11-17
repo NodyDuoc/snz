@@ -39,9 +39,10 @@
                    class="image-preview">  
             </div>
             <div class="producto-info">  
+              <p>{{ producto.marca }}</p>
               <h3>{{ producto.productName }}</h3>  
              <!-- <p>{{ producto.descripcion }}</p>  --> 
-              <p>Precio: {{ producto.precio | currency }}</p>  
+              <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>  
 
               <!-- Botones de acción -->  
               <div class="botones-container">

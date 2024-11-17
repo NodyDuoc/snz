@@ -38,7 +38,7 @@
     <div class="productos-container">
       <div *ngIf="(productosPorCategoria[1] ?? []).length > 0">
         <div class="product-scroll">
-          <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[1]">
+          <ion-card class="product-card" *ngFor="let producto of productosPorCategoria[1]" (click)="irADetalleProducto(producto.productId)">
             <!-- Imagen del producto -->
             <div class="image-container">
               <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
@@ -52,9 +52,9 @@
               <p class="product-id">ID {{ producto.productId }}</p>
             </ion-card-header>
             <ion-card-content>
-              <p class="product-price">${{ producto.precio?.toFixed(2) }} </p>  
+              <p class="product-price">Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
               <h2>Cualquier medio de pago</h2>
-              <button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</button>
+              <button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto); $event.stopPropagation();">Agregar al carrito</button>
             </ion-card-content>
           </ion-card>
         </div>

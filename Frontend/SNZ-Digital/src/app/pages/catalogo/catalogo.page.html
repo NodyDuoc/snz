@@ -34,7 +34,7 @@
               <p class="brand">{{ producto.marca || "No disponible" }}®</p>
               <h3>{{ producto.productName }}</h3>
               <p class="product-id">ID: {{ producto.productId }}</p>
-              <p class="product-price">Precio: {{ producto.precio | currency }}</p>  
+              <p class="product-price">Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
               <p class="payment-methods">Métodos de Pago: <span>Tarjeta, Transferencia, Efectivo</span></p>
     
               <!-- Botones de acción -->

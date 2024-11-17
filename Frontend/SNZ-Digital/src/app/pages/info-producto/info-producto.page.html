@@ -32,7 +32,7 @@
             <option *ngFor="let cantidad of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="cantidad">{{ cantidad }}</option>
           </select>
 
-          <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada | currency }}</p>
+          <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada | currency:'CLP':'symbol':'1.0-0' }}</p>
 
           <!-- Botones de acción -->
           <button class="custom-button12" (click)="agregarAlCarrito(producto)">
