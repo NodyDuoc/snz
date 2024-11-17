@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { validarSesionRolGuard } from './Guard/validar-sesion-rol.guard';
 
 const routes: Routes = [
   {
@@ -73,7 +74,9 @@ const routes: Routes = [
   },
   {  
     path: 'menu-trabajador',  
-    loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then(m => m.MenuTrabajadorPageModule)  
+    loadChildren: () => import('./pages/menu-trabajador/menu-trabajador.module').then(m => m.MenuTrabajadorPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR'] }
   },  
   {  
     path: 'maestro-producto',  
