@@ -74,7 +74,10 @@
             {{ '★'.repeat(resena.resena.valPuntuacion) }}
             {{ '☆'.repeat(5 - resena.resena.valPuntuacion) }}
           </span>
-          
+          <!-- Botón visible solo si el usuario autenticado creó la valoración -->
+          <button *ngIf="resena.resena.usuariosUserId === this.userId" (click)="onDelete(resena.resena.valid)">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>
