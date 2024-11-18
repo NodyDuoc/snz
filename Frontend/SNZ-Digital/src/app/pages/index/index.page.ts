@@ -74,9 +74,7 @@ export class IndexPage implements OnInit {
   cargarCategorias() {
     this.categoriaService.getCategorias().subscribe(
       (data: Categoria[]) => {
-        this.categorias = data.filter(categoria =>
-          ['Destacados', 'Celulares', 'Computación', 'Gaming'].includes(categoria.catName)
-        );
+        this.categorias = data; // Carga todas las categorías sin filtrar
         this.updateLoadingProgress(50); // Actualiza el progreso después de cargar categorías
       },
       (error) => {
@@ -86,6 +84,7 @@ export class IndexPage implements OnInit {
       }
     );
   }
+  
 
   loadProductos(): void {
     this.categoriaService.getCategorias().subscribe({
