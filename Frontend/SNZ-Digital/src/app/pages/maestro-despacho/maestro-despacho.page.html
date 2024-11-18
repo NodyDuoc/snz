@@ -31,10 +31,13 @@
                 <ion-card-title>Pedido ID: {{ pedido.pedidoId }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
-                <p>Producto ID: {{ pedido.productoProductId }}</p>
-                <p>Comuna: {{ pedido.comuna || 'No disponible' }}</p>
-                <p>Dirección: {{ pedido.direccion || 'No disponible' }}</p>
-                <p>Detalle: {{ pedido.detalle || 'No disponible' }}</p>
+                <div *ngFor="let producto of pedido.productos">
+                  <!-- Usa las propiedades correspondientes del producto -->
+                  <p>Producto ID: {{ producto.productoId }}</p>
+                  <p>Cantidad: {{ producto.cantidad }}</p>
+                  <p>Precio unitario: {{ producto.precioUnitario }}</p>
+                  <p>Total: {{ producto.totalPrecio }}</p>
+              </div>              
               </ion-card-content>
             </ion-card>
           </ion-col>

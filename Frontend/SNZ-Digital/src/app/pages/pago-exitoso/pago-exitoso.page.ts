@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { PaykuService } from 'src/app/Service/PaykuService.service';
+import { PedidoService } from 'src/app/Service/pedido.service';
+import { Pedido } from 'src/models/pedido';
 
 @Component({
     selector: 'app-pago-exitoso',
@@ -11,6 +13,7 @@ import { PaykuService } from 'src/app/Service/PaykuService.service';
 export class PagoExitosoPage implements OnInit {
     constructor(
         private paykuService: PaykuService,
+        private pedidoService: PedidoService,
         private toastController: ToastController,
         private router: Router
     ) {}
@@ -20,40 +23,101 @@ export class PagoExitosoPage implements OnInit {
         if (transactionId) {
             this.verificarEstadoPago(transactionId);
         } else {
+            this.limpiarLocalStorage();
             this.presentToast('No se encontró el ID de transacción');
-            this.router.navigate(['/carrito']);
+            this.router.navigate(['/pago-fallido']);
         }
     }
 
     async verificarEstadoPago(transactionId: string) {
-      this.paykuService.checkTransactionStatus(transactionId).subscribe({
-          next: async (response) => {
-              if (response.message === 'Transacción aprobada') {
-                  await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
-                  localStorage.removeItem('transactionId'); // Eliminar el ID después de su uso
-                  this.router.navigate(['/pago-exitoso']);
-              } else {
-                  await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
-                  localStorage.removeItem('transactionId'); // Eliminar el ID después de su uso
-                  this.router.navigate(['/pago-fallido']);
-              }
-          },
-          error: async (error) => {
-              console.error('Error al verificar el estado de la transacción:', error);
-              await this.presentToast('Error al verificar el estado de la transacción.');
-              localStorage.removeItem('transactionId'); // Eliminar el ID después de su uso
-              this.router.navigate(['/pago-fallido']);
-          }
-      });
-  }
-  
+        this.paykuService.checkTransactionStatus(transactionId).subscribe({
+            next: async (response) => {
+                const estado =
+                    response.message === 'Transacción aprobada'
+                        ? 'Pago Aprobado'
+                        : 'Pago Rechazado';
+
+                if (estado === 'Pago Aprobado') {
+                    await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
+                    this.crearPedido(transactionId, estado);
+                } else {
+                    await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
+                    this.router.navigate(['/carrito']);
+                }
+
+                localStorage.removeItem('transactionId');
+            },
+            error: async (error) => {
+                console.error('Error al verificar el estado de la transacción:', error);
+                await this.presentToast('Error al verificar el estado de la transacción.');
+                this.router.navigate(['/carrito']);
+            },
+        });
+    }
+
+    crearPedido(transactionId: string, estado: string) {
+        console.log('Iniciando creación del pedido...');
+        const pagoInfoString = localStorage.getItem('pagoInfo');
+        if (!pagoInfoString) {
+            this.presentToast('No se encontraron los datos del pedido en el localStorage');
+            return;
+        }
+    
+        const pagoInfo = JSON.parse(pagoInfoString);
+        console.log('PagoInfo:', pagoInfo);
+    
+        const productos = pagoInfo.detalles.map((detalle: any) => ({
+            productoId: detalle.productId || detalle.productid || detalle.productID,
+            cantidad: detalle.cantidad || 0,
+            precioUnitario: detalle.costoUnitario || detalle.costo_unitario || detalle.precioUnitario || 0,
+            totalPrecio: detalle.costoTotal || detalle.costo_total || detalle.totalPrecio || 0,
+        }));
+    
+        const pedido: Pedido = {
+            usuarioId: pagoInfo.usuarioId || 0,
+            comuna: pagoInfo.direccion?.comuna || 'Sin comuna',
+            direccion: pagoInfo.direccion?.direccion || 'Sin dirección',
+            detalle: 'Detalles del pedido',
+            precio: pagoInfo.total || 0,
+            cantidad: productos.reduce((total: number, producto: any) => total + producto.cantidad, 0),
+            estado: estado,
+            orderId: transactionId,
+            currency: 'CLP',
+            urlReturn: 'http://localhost:8100/pago-exitoso',
+            urlNotify: 'http://localhost:8084/api/payku/response',
+            productos: productos, // Cambiado a 'productos'
+        };
+    
+        console.log('Payload validado para backend:', JSON.stringify(pedido, null, 2));
+    
+        this.pedidoService.createPedido(pedido).subscribe({
+            next: async (nuevoPedido: Pedido) => {
+                console.log('Pedido creado con éxito:', nuevoPedido);
+                localStorage.removeItem('pagoInfo');
+                await this.presentToast('Pedido creado con éxito. Gracias por tu compra.');
+                this.router.navigate(['/confirmacion']);
+            },
+            error: async (error: any) => {
+                console.error('Error al crear el pedido:', error);
+                await this.presentToast('Hubo un problema al crear el pedido. Intenta nuevamente.');
+            },
+        });
+    }
+
+    
+    
 
     async presentToast(message: string) {
         const toast = await this.toastController.create({
             message: message,
             duration: 2000,
-            position: 'bottom'
+            position: 'bottom',
         });
         toast.present();
+    }
+
+    limpiarLocalStorage() {
+        localStorage.removeItem('transactionId');
+        localStorage.removeItem('pagoInfo');
     }
 }

@@ -50,7 +50,7 @@ export class PedidoPage implements OnInit {
 
   // Función para filtrar pedidos por usuarioId
   filtrarPorUsuarioId(): Pedido[] {
-    return this.pedidos.filter(pedido => pedido.usuariosUserId === this.user.id);
+    return this.pedidos.filter(pedido => pedido.usuarioId === this.user.id);
   }
 
 // Cargar pedidos desde el servicio

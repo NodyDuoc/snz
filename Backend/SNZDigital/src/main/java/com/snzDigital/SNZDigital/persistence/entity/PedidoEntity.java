@@ -1,67 +1,66 @@
 package com.snzDigital.SNZDigital.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "pedido")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PedidoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ped_seq")
-    @SequenceGenerator(name = "ped_seq", sequenceName = "PED_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PED_SEQ")
+    @SequenceGenerator(name = "PED_SEQ", sequenceName = "PED_SEQ", allocationSize = 1)
     @Column(name = "PEDIDOID")
     private Long pedidoId;
 
     @Column(name = "USUARIOS_USERID", nullable = false)
-    private Long usuariosUserId;
+    private Long usuarioId;
 
-    @ManyToMany
-    @JoinTable(
-            name = "pedido_producto",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id")
-    )
-    private List<ProductoEntity> productos;
-
-    @Column(name = "COMUNA", length = 100)
+    @Column(name = "COMUNA")
     private String comuna;
 
-    @Column(name = "DIRECCION", length = 100)
+    @Column(name = "DIRECCION")
     private String direccion;
 
-    @Column(name = "DETALLE", length = 100)
+    @Column(name = "DETALLE")
     private String detalle;
 
-    @Column(name = "PRECIO")
+    @Column(name = "PRECIO", nullable = false)
     private Double precio;
 
-    @Column(name = "CANTIDAD", nullable = false)
+    @Column(name = "CANTIDAD")
     private Integer cantidad;
 
-    @Column(name = "ESTADO", length = 100)
+    @Column(name = "ESTADO")
     private String estado;
 
-    @Column(name = "ORDERID", length = 40)
+    @Column(name = "ORDERID")
     private String orderId;
 
-    @Column(name = "CURRENCY", length = 10, columnDefinition = "VARCHAR2(10) DEFAULT 'CLP'")
+    @Column(name = "CURRENCY")
     private String currency;
 
-    @Column(name = "URLRETURN", length = 200)
+    @Column(name = "URLRETURN")
     private String urlReturn;
 
-    @Column(name = "URLNOTIFY", length = 200)
+    @Column(name = "URLNOTIFY")
     private String urlNotify;
 
-    // Getter y Setter para productos
-    public List<ProductoEntity> getProductos() {
-        return productos;
-    }
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<PedidoProductoEntity> detalles = new ArrayList<>();
 
-    public void setProductos(List<ProductoEntity> productos) {
-        this.productos = productos;
-    }
+
+
     public Long getPedidoId() {
         return pedidoId;
     }
@@ -70,12 +69,12 @@ public class PedidoEntity {
         this.pedidoId = pedidoId;
     }
 
-    public Long getUsuariosUserId() {
-        return usuariosUserId;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuariosUserId(Long usuariosUserId) {
-        this.usuariosUserId = usuariosUserId;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getComuna() {
@@ -94,36 +93,12 @@ public class PedidoEntity {
         this.direccion = direccion;
     }
 
-    public String getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
-    }
-
     public Double getPrecio() {
         return precio;
     }
 
     public void setPrecio(Double precio) {
         this.precio = precio;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public String getOrderId() {
@@ -158,6 +133,37 @@ public class PedidoEntity {
         this.urlNotify = urlNotify;
     }
 
-    // Getters y Setters
-    // Puedes eliminar los métodos getter y setter si estás utilizando Lombok
+
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public List<PedidoProductoEntity> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<PedidoProductoEntity> detalles) {
+        this.detalles = detalles;
+    }
 }

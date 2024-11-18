@@ -38,8 +38,6 @@ public class ProductoEntity {
     @Column(name = "MARCA")
     private String marca;
 
-    @ManyToMany(mappedBy = "productos")
-    private List<PedidoEntity> pedidos;
 
     public String getMarca() {
         return marca;
@@ -97,11 +95,4 @@ public class ProductoEntity {
         this.imagen = imagen;
     }
 
-    public List<PedidoEntity> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<PedidoEntity> pedidos) {
-        this.pedidos = pedidos;
-    }
 }

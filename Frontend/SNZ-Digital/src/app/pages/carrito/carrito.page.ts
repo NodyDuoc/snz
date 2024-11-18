@@ -95,6 +95,20 @@ export class CarritoPage implements OnInit {
         direccion: this.selectedDireccion.direccion || 'No especificada',
     };
 
+
+    // Guarda la información inicial del pedido en localStorage
+    const pagoInfo = {
+      usuarioId: this.user?.id,
+      detalles: this.detalles,
+      direccion: this.selectedDireccion,
+      total: totalCarrito,
+      orderId: orderValue,
+      estado: 'Pendiente',
+  };
+  
+  localStorage.setItem('pagoInfo', JSON.stringify(pagoInfo));
+  
+
     // Realiza la solicitud de creación de transacción
     this.paykuService.createTransaction(pagoRequest).subscribe({
         next: async (response) => {
@@ -103,6 +117,7 @@ export class CarritoPage implements OnInit {
 
                 // Guarda el transactionId en localStorage
                 localStorage.setItem('transactionId', this.transactionId);
+                localStorage.setItem('pagoInfo', JSON.stringify(pagoInfo));
 
                 // Redirige al usuario a la URL de pago de Payku
                 window.location.href = response.url;
@@ -119,41 +134,10 @@ export class CarritoPage implements OnInit {
 }
 
 
-  
-  
-  
-
-// Método para crear un pedido en el backend
-crearPedido(orderId: string, amount: number, estado: string, token: string) {
-  const pedido: Pedido = {
-    pedidoId: 0,
-    usuariosUserId: this.user.id,
-    productoProductId: this.detalles.map(d => d.productId),
-    comuna: this.selectedDireccion?.comuna || '',
-    direccion: this.selectedDireccion?.direccion || '',
-    detalle: 'Detalles adicionales del pedido',
-    precio: amount,
-    cantidad: this.detalles.reduce((total, d) => total + d.cantidad, 0),
-    estado: estado,
-    orderId: orderId,
-    currency: 'CLP', 
-    urlReturn: 'http://localhost:8100/pago-exitoso?token={TOKEN}',
-    urlNotify: 'http://localhost:8084/api/payku/notificar',
-  };
-
-  this.pedidoService.createPedido(pedido).subscribe({
-    next: (nuevoPedido: Pedido) => this.presentToast('Pedido creado con éxito.'),
-    error: (error: any) => this.presentToast('Hubo un problema al crear el pedido.')
-  });
-}
-
-
   // Método para seleccionar dirección
   seleccionarDireccion(direccion: Direccion) {
     this.selectedDireccion = direccion;
   }
-
-
 
   // Método auxiliar para mostrar un mensaje de notificación
   async presentToast(message: string) {

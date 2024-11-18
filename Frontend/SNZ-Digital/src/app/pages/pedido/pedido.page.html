@@ -36,7 +36,7 @@
             <tbody>
               <tr *ngFor="let pedido of pedidos">
                 <td>{{ pedido.pedidoId       || 'No disponible' }}</td>
-                <td>{{ pedido.usuariosUserId || 'No disponible' }}</td>
+                <td>{{ pedido.usuarioId      || 'No disponible' }}</td>
                 <td>{{ pedido.comuna         || 'No disponible' }}</td>
                 <td>{{ pedido.direccion      || 'No disponible' }}</td>
                 <td>{{ pedido.detalle        || 'No disponible' }}</td>
@@ -49,10 +49,10 @@
                 <!-- Columna de productos -->
                 <td>
                   <ul>
-                    <li *ngFor="let productId of pedido.productoProductId">
-                      Producto ID: {{ productId }}
+                    <li *ngFor="let producto of pedido.productos">
+                        Producto: {{ producto.productoId }} - Cantidad: {{ producto.cantidad }} - Total: {{ producto.totalPrecio }}
                     </li>
-                  </ul>
+                </ul>
                 </td>
 
                 <td>
