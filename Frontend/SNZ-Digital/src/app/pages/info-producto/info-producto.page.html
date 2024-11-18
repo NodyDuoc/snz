@@ -17,11 +17,10 @@
     <div *ngIf="producto; else loading">
       <div class="producto-detalle">
         <div>
-          <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
-               alt="Imagen del Producto" 
-               class="image-preview">  
+          <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'"
+            alt="Imagen del Producto" class="image-preview">
         </div>
-        
+
         <div class="producto-info">
           <h3>{{ producto.productName }}</h3>
           <p>{{ producto.descripcion }}</p>
@@ -32,7 +31,8 @@
             <option *ngFor="let cantidad of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="cantidad">{{ cantidad }}</option>
           </select>
 
-          <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada | currency:'CLP':'symbol':'1.0-0' }}</p>
+          <p *ngIf="cantidadSeleccionada">Precio total: {{ producto.precio * cantidadSeleccionada |
+            currency:'CLP':'symbol':'1.0-0' }}</p>
 
           <!-- Botones de acción -->
           <button class="custom-button12" (click)="agregarAlCarrito(producto)">
@@ -49,62 +49,72 @@
       <p>Cargando detalles del producto...</p>
     </ng-template>
   </div>
-    <!-- Sección de Etiquetas -->
-<h2 class="titulo-valoraciones">Etiquetas</h2>
-<div *ngIf="idProducto !== undefined" class="valoraciones">
-  <div class="reseñas-container">
-    <div *ngFor="let etiquetas of etiquetas" class="reseña">
-      <div (click)="irADetalleEtiqueta(etiquetas.etiquetaId)">
-        <strong>{{ etiquetas.nombreEtiqueta }}:</strong>
+  <!-- Sección de Etiquetas -->
+  <h2 class="titulo-valoraciones">Etiquetas</h2>
+  <div *ngIf="idProducto !== undefined" class="valoraciones">
+    <div class="reseñas-container">
+      <div *ngFor="let etiquetas of etiquetas" class="reseña">
+        <div (click)="irADetalleEtiqueta(etiquetas.etiquetaId)">
+          <strong>{{ etiquetas.nombreEtiqueta }}:</strong>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Sección de Valoraciones -->
-<h2 class="titulo-valoraciones">Valoraciones</h2>
-<div *ngIf="idProducto !== undefined && tieneValoraciones(); else sinValoraciones" class="valoraciones">
-  <h4>Reseñas de Usuarios</h4>
-  <div class="reseñas-container">
-    <div *ngFor="let resena of valoracionesPorProducto[idProducto]" class="reseña">
-      <strong>{{ resena.nombreUsuario }}:</strong>
-      <div class="detalles">
-        <span class="resena">{{ resena.resena.valComentario }}</span>
-        <span class="estrellas">
-          {{ '★'.repeat(resena.resena.valPuntuacion) }}
-          {{ '☆'.repeat(5 - resena.resena.valPuntuacion) }}
-        </span>
+  <h2 class="titulo-valoraciones">Valoraciones</h2>
+  <div *ngIf="idProducto !== undefined && tieneValoraciones(); else sinValoraciones" class="valoraciones">
+    <h4>Reseñas de Usuarios</h4>
+    <div class="reseñas-container">
+      <div *ngFor="let resena of valoracionesPorProducto[idProducto]" class="reseña">
+        <strong>{{ resena.nombreUsuario }}:</strong>
+        <div class="detalles">
+          <span class="resena">{{ resena.resena.valComentario }}</span>
+          <span class="estrellas">
+            {{ '★'.repeat(resena.resena.valPuntuacion) }}
+            {{ '☆'.repeat(5 - resena.resena.valPuntuacion) }}
+          </span>
+          <!-- Botón visible solo si el usuario autenticado creó la valoración -->
+          <button *ngIf="resena.resena.usuariosUserId === this.userId" (click)="onDelete(resena.resena.valid)">
+            Eliminar
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<ng-template #sinValoraciones>
-  <p>No hay valoraciones para este producto.</p>
-</ng-template>
-
-
-  <!-- Formulario de valoración visible solo para usuarios registrados -->
-  <div *ngIf="isLoggedIn">
-    <h4>Deja tu valoración</h4>
-    <form (ngSubmit)="enviarValoracion()">
-      <ion-item>
-        <ion-label>Calificación:</ion-label>
-        <ion-select placeholder="Selecciona una calificación" [(ngModel)]="valoracion" name="valoracion" required>
-          <ion-select-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">{{ star }} estrellas</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Comentario</ion-label>
-        <ion-textarea [(ngModel)]="comentario" name="comentario"></ion-textarea>
-      </ion-item>
-      <ion-button expand="full" type="submit">Enviar Valoración</ion-button>
-    </form>
-  </div>
-
-  <ng-template #sinAcceso>
-    <p>Inicia sesión para ver y dejar valoraciones.</p>
+  <ng-template #sinValoraciones>
+    <p>No hay valoraciones para este producto.</p>
   </ng-template>
+
+
+  <!-- Formulario de valoración visible solo si el usuario no ha comentado -->
+  <div *ngIf="isLoggedIn ; else sinAcceso">
+    <div *ngIf="!yaComento; else yaComentoMensaje">
+      <h4>Deja tu valoración</h4>
+      <form (ngSubmit)="enviarValoracion()">
+        <ion-item>
+          <ion-label>Calificación:</ion-label>
+          <ion-select placeholder="Selecciona una calificación" [(ngModel)]="valoracion" name="valoracion" required>
+            <ion-select-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">{{ star }}
+              estrellas</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Comentario</ion-label>
+          <ion-textarea [(ngModel)]="comentario" name="comentario"></ion-textarea>
+        </ion-item>
+        <ion-button expand="full" type="submit">Enviar Valoración</ion-button>
+      </form>
+    </div>
+  </div>
+  <ng-template #yaComentoMensaje>
+    <p>Cada usuario puede ingresar una valoracion por producto</p>
+  </ng-template>
+  <ng-template #sinAcceso>
+    <p>Para poder comentar debe estar registrado</p>
+  </ng-template>
+
 
   <app-footer></app-footer>
 </ion-content>

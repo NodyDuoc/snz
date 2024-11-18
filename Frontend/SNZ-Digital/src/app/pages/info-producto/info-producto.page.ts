@@ -24,9 +24,10 @@ export class InfoProductoPage implements OnInit {
   userId: number | null = null;
   imagePreview: string | ArrayBuffer | null = 'assets/img/default.jpg'; // Imagen por defecto
   etiquetas: Etiqueta[] = [];
-
+  yaComento: boolean = false; // Nueva bandera para controlar si el usuario ya comentó
   // Diccionario para valoraciones, asegurándonos de que cada producto tiene su propio arreglo de valoraciones
   valoracionesPorProducto: { [key: number]: { resena: Valoracion, nombreUsuario: string }[] } = {};
+  valoraciones: Valoracion[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,10 +37,11 @@ export class InfoProductoPage implements OnInit {
     private toastController: ToastController,
     private etiquetaProductoService: EtiquetaProductoService, // Nuevo servicio
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.loadUser();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.idProducto = +id;
@@ -47,8 +49,8 @@ export class InfoProductoPage implements OnInit {
       this.cargarValoraciones(this.idProducto);
       this.cargarEtiquetasPorProducto(this.idProducto); // Cargar etiquetas
     }
-    this.loadUser();
   }
+
   irADetalleEtiqueta(etiquetaId: any) {
     this.router.navigate(['/etiqueta', etiquetaId]);
   }
@@ -75,25 +77,52 @@ export class InfoProductoPage implements OnInit {
   }
 
   loadUser() {
+
     const email = this.authService.getEmailFromToken();
     if (email) {
       this.authService.searchByEmail(email).subscribe(
         (user) => {
           this.userId = user.id;
+
         },
         (error) => {
           console.error('Error fetching user:', error);
-          this.presentToast('Error al cargar el usuario', 'danger');
+
+
         }
       );
     } else {
-      this.presentToast('Debe iniciar sesión para ver y dejar valoraciones.', 'danger');
+
     }
   }
 
   actualizarPrecio() {
     if (this.producto && this.producto.precio) {
       this.precioTotal = this.producto.precio * this.cantidadSeleccionada;
+    }
+  }
+
+  onDelete(valoracionId?: number): void {
+    if (valoracionId === undefined) {
+      console.error('El ID de la valoración es indefinido.');
+      return;
+    }
+  
+    if (confirm('¿Estás seguro de que deseas eliminar esta valoración?')) {
+      this.valoracionService.deleteValoracion(valoracionId).subscribe({
+        next: () => {
+          this.presentToast('Valoración eliminada exitosamente.');
+          if (this.idProducto !== undefined) {
+            // Limpiar las valoraciones actuales antes de recargar
+            this.valoracionesPorProducto[this.idProducto] = [];
+            this.cargarValoraciones(this.idProducto); // Recargar valoraciones desde el backend
+          }
+        },
+        error: (err) => {
+          console.error('Error al eliminar la valoración:', err);
+          this.presentToast('Error al eliminar la valoración.', 'danger');
+        },
+      });
     }
   }
 
@@ -113,34 +142,36 @@ export class InfoProductoPage implements OnInit {
   cargarValoraciones(productoId: number) {
     this.valoracionService.getValoracionesByProductoId(productoId).subscribe(
       async (valoraciones) => {
-        if (!this.valoracionesPorProducto[productoId]) {
-          this.valoracionesPorProducto[productoId] = [];
-        }
-
-        // Aseguramos que no haya duplicados al asignar nuevas valoraciones
+        this.valoracionesPorProducto[productoId] = [];
+  
         const nuevasValoraciones = await Promise.all(
           valoraciones.map(async (valoracion) => {
             try {
               const usuario = await this.authService.getUserById(valoracion.usuariosUserId).toPromise();
+              // Verificar si el usuario actual ya comentó
+              if (this.userId === valoracion.usuariosUserId) {
+                this.yaComento = true;
+              }
               return {
                 resena: valoracion,
-                nombreUsuario: usuario?.firstName || 'Usuario desconocido'
+                nombreUsuario: usuario?.firstName || 'Usuario desconocido',
               };
             } catch (userError) {
               console.error('Error al obtener usuario:', userError);
               return {
                 resena: valoracion,
-                nombreUsuario: 'Usuario desconocido'
+                nombreUsuario: 'Usuario desconocido',
               };
             }
           })
         );
-
-        // Evitamos sobrescribir y solo añadimos valoraciones únicas
-        this.valoracionesPorProducto[productoId] = [
-          ...this.valoracionesPorProducto[productoId],
-          ...nuevasValoraciones,
-        ];
+  
+        this.valoracionesPorProducto[productoId] = nuevasValoraciones;
+  
+        // Si no se encontraron valoraciones del usuario actual, permitir comentar
+        if (valoraciones.every(v => v.usuariosUserId !== this.userId)) {
+          this.yaComento = false;
+        }
       },
       (error) => {
         console.error('Error al cargar valoraciones:', error);
@@ -155,15 +186,20 @@ export class InfoProductoPage implements OnInit {
       this.presentToast('Complete todos los campos para enviar su valoración.', 'danger');
       return;
     }
-
+  
+    // Verificar si el usuario ya ha comentado
+    if (this.yaComento) {
+      this.presentToast('Ya has enviado una valoración para este producto.', 'warning');
+      return;
+    }
+  
     const valoracionData: Valoracion = {
       valPuntuacion: this.valoracion,
       valComentario: this.comentario,
       usuariosUserId: this.userId,
       productoProductId: this.idProducto || 0,
-      valid: 1
     };
-
+  
     this.valoracionService.createValoracion(valoracionData).subscribe({
       next: (response: Valoracion) => {
         if (this.idProducto !== undefined) {
@@ -177,6 +213,7 @@ export class InfoProductoPage implements OnInit {
         }
         this.valoracion = undefined;
         this.comentario = '';
+        this.yaComento = true; // Actualiza la bandera para impedir nuevos comentarios
         this.presentToast('Valoración enviada exitosamente.');
       },
       error: (error: any) => {
