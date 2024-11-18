@@ -1,0 +1,112 @@
+.content-container {
+    max-width: 800px; /* Ajusta el ancho máximo */
+    margin: 0 auto; /* Centra horizontalmente */
+    padding: 20px; /* Añade espacio interno */
+  }
+  
+.estado-orden-grid {
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.estado-orden-grid ion-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.estado-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+  
+  ion-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  ion-card-subtitle {
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+  }
+  
+  ion-card-content p {
+    margin: 4px 0;
+  }
+  
+  ion-grid {
+    margin-top: 10px;
+  }
+  
+  ion-row {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  ion-col {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  ion-col:last-child {
+    text-align: right;
+  }
+  
+/* Animación de entrada */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animación para las imágenes */
+  .image-preview {
+    width: 400px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 0 auto;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .image-preview:hover {
+    transform: scale(1.05); /* Hace zoom al pasar el ratón */
+  }
+  
+
+  .custom-button12 {
+    padding: 1rem 2rem; /* Aumenta el tamaño del botón */
+    font-size: 1.2rem; /* Agranda el texto */
+    color: white;
+    border-radius: 8px; /* Botones más redondeados */
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: linear-gradient(45deg, #28a745, #218838); /* Gradiente de color */
+    cursor: pointer;
+  }
+  
+  .custom-button12:hover {
+    transform: translateY(-4px); /* Efecto hover más notorio */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  }
+  
+  /* Centramos el botón */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajusta el espacio superior */
+    padding-bottom: 20px;
+  }
+  

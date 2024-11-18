@@ -19,45 +19,30 @@
           <table class="pedido-table">
             <thead>
               <tr>
-                <th>Pedido ID</th>
-                <th>Usuario ID</th>
+                <th>Pedido N°</th>
                 <th>Comuna</th>
                 <th>Dirección</th>
                 <th>Detalle</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
                 <th>Estado</th>
-                <th>Order ID</th>
-                <th>Moneda</th>
-                <th>Productos</th> <!-- Nueva columna para los productos -->
+                <th>N° de Orden</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let pedido of pedidos">
                 <td>{{ pedido.pedidoId       || 'No disponible' }}</td>
-                <td>{{ pedido.usuarioId      || 'No disponible' }}</td>
                 <td>{{ pedido.comuna         || 'No disponible' }}</td>
                 <td>{{ pedido.direccion      || 'No disponible' }}</td>
                 <td>{{ pedido.detalle        || 'No disponible' }}</td>
-                <td>{{ pedido.precio         || 'No disponible' }}</td>
+                <td>{{ pedido.precio         | currency:'$':'symbol':'1.0-0' }}</td>
                 <td>{{ pedido.cantidad       || 'No disponible' }}</td>
                 <td>{{ pedido.estado         || 'No disponible' }}</td>
                 <td>{{ pedido.orderId        || 'No disponible' }}</td>
-                <td>{{ pedido.currency       || 'CLP' }}</td>
-
-                <!-- Columna de productos -->
                 <td>
-                  <ul>
-                    <li *ngFor="let producto of pedido.productos">
-                        Producto: {{ producto.productoId }} - Cantidad: {{ producto.cantidad }} - Total: {{ producto.totalPrecio }}
-                    </li>
-                </ul>
-                </td>
-
-                <td>
-                  <button class="btn-view">VER DETALLE</button>
-                </td>
+                  <button class="btn-view" (click)="seleccionarPedido(pedido)">VER DETALLE</button>
+                </td>                
               </tr>
             </tbody>
           </table>

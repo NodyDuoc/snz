@@ -212,6 +212,11 @@ const routes: Routes = [
     path: 'etiqueta/:Id',
     loadChildren: () => import('./pages/etiqueta/etiqueta.module').then( m => m.EtiquetaPageModule)
   },
+  {
+    path: 'pedido-detalle/:pedidoId',
+    loadChildren: () => import('./pages/pedido-detalle/pedido-detalle.module').then( m => m.PedidoDetallePageModule)
+  },
+
 
 
 ];

@@ -17,6 +17,7 @@ export class PedidoPage implements OnInit {
   toastMessage: string | null = null;
   toastColor: string = 'success';
   user: any = null; // Almacenar toda la información del usuario
+  detallesPedido: any[] = []; // Para almacenar los detalles del pedido seleccionado
 
   constructor(
     private pedidoService: PedidoService, // Servicio de pedidos
@@ -55,40 +56,46 @@ export class PedidoPage implements OnInit {
 
 // Cargar pedidos desde el servicio
 cargarPedidos() {
-  if (!this.user) {
+  if (!this.user || !this.user.id) {
     this.pedidos = []; // No muestra pedidos si no hay usuario
     this.errorMessage = 'Debes iniciar sesión para ver los pedidos.';
     return;
   }
 
-  this.pedidoService.getAllPedidos().subscribe(
-    (data: Pedido[]) => {
-      console.log('Pedidos obtenidos del servicio:', data); // Mostrar todos los pedidos obtenidos
-      this.pedidos = data;
-
-      // Filtra los pedidos para que solo incluya los del usuario logeado
-      this.pedidos = this.filtrarPorUsuarioId();
-      console.log('Pedidos filtrados por usuario:', this.pedidos); // Mostrar los pedidos después de filtrar por usuario
-
-      if (this.pedidos.length > 0) {
-        this.selectedPedido = this.pedidos[0]; // Selecciona el primer pedido
-        console.log('Primer pedido seleccionado:', this.selectedPedido); // Mostrar el primer pedido seleccionado
-      } else {
-        this.errorMessage = 'No hay pedidos disponibles para este usuario.';
-        console.log(this.errorMessage);
-      }
+  this.pedidoService.getPedidosByUsuarioId(this.user.id).subscribe(
+    (pedidos) => {
+      console.log('Pedidos del usuario:', pedidos);
+      this.pedidos = pedidos; // Asigna los pedidos a tu variable en el componente
     },
     (error) => {
-      console.error('Error al obtener los pedidos', error);
-      this.errorMessage = 'Hubo un problema al cargar los pedidos. Por favor, intenta más tarde.';
+      console.error('Error al obtener los pedidos del usuario:', error);
+      this.showToast('Error al cargar los pedidos.', 'danger');
     }
   );
 }
 
 
-  seleccionarPedido(pedido: Pedido) {
-    this.selectedPedido = pedido; // Método para cambiar el pedido seleccionado
+cargarDetalles(pedidoId: number) {
+  this.pedidoService.getDetallesByPedidoId(pedidoId).subscribe(
+    (detalles) => {
+      console.log('Detalles del pedido:', detalles);
+      this.detallesPedido = detalles.productos || []; // Asigna los productos al array de detalles
+      this.showToast('Detalles cargados correctamente', 'success');
+    },
+    (error) => {
+      console.error('Error al obtener los detalles del pedido:', error);
+      this.showToast('Error al cargar los detalles del pedido', 'danger');
+    }
+  );
+}
+
+
+seleccionarPedido(pedido: Pedido) {
+  if (pedido.pedidoId) {
+    this.router.navigate(['/pedido-detalle', pedido.pedidoId]); // Redirige a pedido-detalle con el pedidoId
   }
+}
+
 
   async presentToast() {
     const toast = await this.toastController.create({

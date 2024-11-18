@@ -43,6 +43,22 @@ public class PedidoController {
         return ResponseEntity.ok(pedidos);
     }
 
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<PedidoEntity>> obtenerPedidosPorUsuario(@PathVariable Long usuarioId) {
+        List<PedidoEntity> pedidos = pedidoService.obtenerPedidosPorUsuario(usuarioId);
+        return ResponseEntity.ok(pedidos);
+    }
 
+    @GetMapping("/{pedidoId}/detalles")
+    public ResponseEntity<List<PedidoProductoEntity>> obtenerDetallesPorPedido(@PathVariable Long pedidoId) {
+        List<PedidoProductoEntity> detalles = pedidoService.obtenerDetallesPorPedidoId(pedidoId);
+        return ResponseEntity.ok(detalles);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<PedidoEntity> obtenerPedidoPorId(@PathVariable Long id) {
+        PedidoEntity pedido = pedidoService.obtenerPedidoPorId(id);
+        return ResponseEntity.ok(pedido);
+    }
 
 }

@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+
+  <div class="content-container">
+
+    <!-- Información General del Pedido -->
+    <ion-card *ngIf="pedido" class="fade-in">
+      <ion-card-header>
+        <ion-card-title>Compra N° {{ pedido.pedidoId }}</ion-card-title>
+        <ion-card-subtitle>
+          <strong>Número de orden: </strong>{{ pedido.orderId }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Total:</strong> {{ pedido.precio | currency:'CLP' }}</p>
+        <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+        <p><strong>Dirección de Despacho:</strong></p>
+        <p>{{ pedido.direccion }}</p>
+        <p>{{ pedido.comuna }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Información de Envío -->
+    <ion-card class="fade-in">
+      <ion-card-header>
+        <ion-card-title>Información de Envío</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Método de Envío:</strong> Blue Express</p>
+        <p><strong>N° de Seguimiento:</strong> 7626158282</p>
+        <p><strong>Fecha Estimada de Entrega:</strong> 5-6 de Septiembre de 2023</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Detalles del Pedido -->
+    <ion-card *ngIf="detallesPedido.length > 0" class="fade-in">
+      <ion-card-header>
+        <ion-card-title>Paquete N°1</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col><strong>Imagen</strong></ion-col>
+            <ion-col><strong>Producto</strong></ion-col>
+            <ion-col><strong>Cantidad</strong></ion-col>
+            <ion-col><strong>Precio Unitario</strong></ion-col>
+            <ion-col><strong>Total</strong></ion-col>
+          </ion-row>
+          <ion-row *ngFor="let detalle of detallesPedido" class="fade-in">
+            <ion-col>
+              <img [src]="detalle.producto.imagen ? 'data:image/png;base64,' + detalle.producto.imagen : 'assets/img/default.jpg'" 
+                   alt="Imagen del Producto" 
+                   class="image-preview">
+            </ion-col>
+            <ion-col>{{ detalle.producto.productName }}</ion-col>
+            <ion-col>{{ detalle.cantidad }}</ion-col>
+            <ion-col>{{ detalle.precioUnitario | currency:'CLP' }}</ion-col>
+            <ion-col>{{ detalle.totalPrecio | currency:'CLP' }}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Notas del Pedido -->
+    <ion-card class="fade-in">
+      <ion-card-header>
+        <ion-card-title>Notas del Pedido</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Gracias por tu compra. Si tienes dudas o consultas, contáctanos al soporte.</p>
+        <p><strong>Teléfono:</strong> +56 9 8765 4321</p>
+        <p><strong>Email:</strong> contacto&#64;snzdigital.cl</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="button-container">
+    <button class="custom-button12" (click)="volver()">Volver</button>
+  </div>
+
+  
+  <app-footer></app-footer>
+</ion-content>

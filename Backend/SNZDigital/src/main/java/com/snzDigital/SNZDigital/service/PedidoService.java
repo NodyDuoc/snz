@@ -100,4 +100,45 @@ public class PedidoService {
         logger.info("Se encontraron {} pedidos.", pedidos.size());
         return pedidos;
     }
+
+    public List<PedidoEntity> obtenerPedidosPorUsuario(Long usuarioId) {
+        logger.info("Obteniendo pedidos para el usuario con ID: {}", usuarioId);
+        List<PedidoEntity> pedidos = pedidoRepository.findByUsuarioId(usuarioId);
+        if (pedidos.isEmpty()) {
+            logger.warn("No se encontraron pedidos para el usuario con ID: {}", usuarioId);
+        }
+        return pedidos;
+    }
+
+    public List<PedidoProductoEntity> obtenerDetallesPorPedidoId(Long pedidoId) {
+        logger.info("Obteniendo detalles del pedido con ID: {}", pedidoId);
+        List<PedidoProductoEntity> detalles = pedidoProductoRepository.findByPedido_PedidoId(pedidoId);
+        if (detalles.isEmpty()) {
+            logger.warn("No se encontraron detalles para el pedido con ID: {}", pedidoId);
+        }
+        return detalles;
+    }
+
+    public PedidoEntity obtenerPedidoPorId(Long pedidoId) {
+        logger.info("Buscando el pedido con ID: {}", pedidoId);
+
+        // Buscar el pedido principal
+        PedidoEntity pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> {
+                    logger.error("Pedido no encontrado con ID: {}", pedidoId);
+                    return new ResourceNotFoundException("Pedido no encontrado con ID: " + pedidoId);
+                });
+
+        // Cargar los detalles asociados al pedido
+        List<PedidoProductoEntity> detalles = pedidoProductoRepository.findByPedido_PedidoId(pedidoId);
+        if (detalles.isEmpty()) {
+            logger.warn("El pedido con ID {} no tiene detalles asociados.", pedidoId);
+        }
+        pedido.setDetalles(detalles); // Asignar los detalles al pedido
+
+        logger.info("Pedido con ID {} cargado correctamente.", pedidoId);
+        return pedido;
+    }
+
+
 }

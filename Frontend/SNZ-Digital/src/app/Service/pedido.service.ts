@@ -22,4 +22,20 @@ export class PedidoService {
   getAllPedidos(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(`${this.baseUrl}`);
   }
+
+  // Método para obtener los pedidos de un usuario por ID
+  getPedidosByUsuarioId(usuarioId: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.baseUrl}/usuario/${usuarioId}`);
+  }
+
+  // Método para obtener los detalles de un pedido por ID
+  getDetallesByPedidoId(pedidoId: number): Observable<Pedido> {
+    return this.http.get<Pedido>(`${this.baseUrl}/${pedidoId}/detalles`);
+  }
+  
+  // Método para obtener un pedido por ID
+  getPedidoById(pedidoId: number): Observable<Pedido> {
+    return this.http.get<Pedido>(`${this.baseUrl}/get/${pedidoId}`);
+  }
+  
 }

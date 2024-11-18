@@ -133,6 +133,10 @@ public class SecurityConfig {
                     // Endpoints de pedidos
                     http.requestMatchers(HttpMethod.POST, "/api/pedidos/crear").permitAll(); // Permitir acceso público
                     http.requestMatchers(HttpMethod.GET, "/api/pedidos/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/pedidos/usuario/{usuarioId}").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/pedidos/{pedidoId}/detalles").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/pedidos/get/{id}").permitAll(); // Permitir acceso público
+
 
 
                     http.requestMatchers(HttpMethod.POST, "/api/pedidos/crear-pedido-con-pago").permitAll();
