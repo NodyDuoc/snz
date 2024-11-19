@@ -54,25 +54,34 @@ export class PedidoPage implements OnInit {
     return this.pedidos.filter(pedido => pedido.usuarioId === this.user.id);
   }
 
-// Cargar pedidos desde el servicio
-cargarPedidos() {
-  if (!this.user || !this.user.id) {
-    this.pedidos = []; // No muestra pedidos si no hay usuario
-    this.errorMessage = 'Debes iniciar sesión para ver los pedidos.';
-    return;
-  }
-
-  this.pedidoService.getPedidosByUsuarioId(this.user.id).subscribe(
-    (pedidos) => {
-      console.log('Pedidos del usuario:', pedidos);
-      this.pedidos = pedidos; // Asigna los pedidos a tu variable en el componente
-    },
-    (error) => {
-      console.error('Error al obtener los pedidos del usuario:', error);
-      this.showToast('Error al cargar los pedidos.', 'danger');
+  cargarPedidos() {
+    if (!this.user || !this.user.id) {
+      this.pedidos = []; // No muestra pedidos si no hay usuario
+      this.errorMessage = 'Debes iniciar sesión para ver los pedidos.';
+      return;
     }
-  );
-}
+  
+    this.pedidoService.getPedidosByUsuarioId(this.user.id).subscribe(
+      (pedidos) => {
+        console.log('Pedidos del usuario antes de ordenar:', pedidos);
+  
+        // Ordenar los pedidos por pedidoId de forma descendente, manejando undefined
+        this.pedidos = pedidos.sort((a, b) => {
+          const idA = a.pedidoId || 0; // Usa 0 si pedidoId es undefined
+          const idB = b.pedidoId || 0; // Usa 0 si pedidoId es undefined
+          return idB - idA; // Orden descendente
+        });
+  
+        console.log('Pedidos del usuario después de ordenar:', this.pedidos);
+      },
+      (error) => {
+        console.error('Error al obtener los pedidos del usuario:', error);
+        this.showToast('Error al cargar los pedidos.', 'danger');
+      }
+    );
+  }
+  
+  
 
 
 cargarDetalles(pedidoId: number) {
