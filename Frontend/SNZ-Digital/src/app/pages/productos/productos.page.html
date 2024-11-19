@@ -4,56 +4,37 @@
 
   <app-carrusel></app-carrusel>
 
-  <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Bienvenido a Nuestra Tienda!</ion-title>
-      <p class="sub-title">Explora nuestros productos y ofertas exclusivas</p>
-    </div>
-  
+
+
+  <div class="product-section">
     <ion-grid>
       <ion-row>
-        <ion-col size="12" class="ion-text-start">
-          <ion-button 
-          expand="full" 
-          fill="solid" 
-          routerLink="/categoria" 
-          class="custom-button">
-        <ion-icon name="arrow-back" slot="start"></ion-icon>
-        Volver a la categoría
-      </ion-button>
-      
-            </ion-col>
+        <ion-col size="12" size-md="3" *ngFor="let producto of productos">
+          <ion-card class="centered-card">
+            <img 
+              [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
+              alt="Imagen del Producto" 
+              class="image-full">
+            <ion-card-header class="card-header">
+              <ion-card-title class="card-title">{{ producto.productName }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="product-price">Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
+              <p class="product-payment">Otros medios de pago: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
+              <div class="button-container">
+                <ion-button class="elegant-button" expand="full" (click)="agregarAlCarrito(producto)">
+                  Agregar al carrito
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
       </ion-row>
     </ion-grid>
-  
-    <div class="product-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="3" *ngFor="let producto of productos">
-            <ion-card>
-              <div>
-                <img [src]="producto.imagen ? 'data:image/png;base64,' + producto.imagen : 'assets/img/default.jpg'" 
-                     alt="Imagen del Producto" 
-                     class="image-preview">  
-              </div>
-              <ion-card-header>
-                <ion-card-title>{{ producto.productName }}</ion-card-title>
-                <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
-                <p>Id: {{ producto.productId}}
-                </p>
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{ producto.descripcion || 'Descripción no disponible' }}</p>
-                <ion-button class="custom-button12" expand="full" (click)="agregarAlCarrito(producto)">Agregar al carrito</ion-button>
-                <ion-button class="custom-button" expand="full" (click)="comprarAhora(producto)">Comprar ahora</ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
   </div>
+  
+  
+  
 
   <app-footer></app-footer>
 </ion-content>

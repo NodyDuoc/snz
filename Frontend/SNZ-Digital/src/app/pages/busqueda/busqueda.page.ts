@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/Service/auth.service';
+import { CarritoService } from 'src/app/Service/carrito.service';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
+import { DetalleCarrito } from 'src/models/detalleCarrito';
 import { Producto } from 'src/models/producto';
 
 @Component({
@@ -17,12 +20,17 @@ export class BusquedaPage implements OnInit {
   toastMessage: string | null = null;
   toastColor: string = 'success';
   searchQuery: string = '';
+  user: any = null; // Agrega una propiedad para almacenar el usuario
 
   constructor(
     private productoService: ProductoService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastController: ToastController  // Inyectar ToastController
+    private toastController: ToastController,  // Inyectar ToastController
+    private carritoService: CarritoService, // Inyecta el servicio del carrito
+    private authService: AuthService,
+
+
   ) { }
 
   ngOnInit() {
@@ -31,6 +39,7 @@ export class BusquedaPage implements OnInit {
       this.searchQuery = params.get('detalle') || '';
       this.realizarBusqueda();
     });
+    this.loadUser(); // Carga el usuario
   }
 
   // Agrega este método en tu componente TypeScript
@@ -40,6 +49,23 @@ export class BusquedaPage implements OnInit {
       producto?.productName?.toLowerCase().includes(query) || 
       producto?.descripcion?.toLowerCase().includes(query)
     );
+  }
+
+  loadUser() {
+    const email = this.authService.getEmailFromToken();
+    if (email) {
+      this.authService.searchByEmail(email).subscribe(
+        (user) => {
+          this.user = user;
+          console.log('Usuario cargado en BusquedaPage:', this.user);
+        },
+        (error) => {
+          console.error('Error al obtener el usuario en BusquedaPage:', error);
+        }
+      );
+    } else {
+      console.warn('No se encontró un token válido. El usuario debe iniciar sesión.');
+    }
   }
   
 
@@ -120,9 +146,38 @@ export class BusquedaPage implements OnInit {
   }
 
   agregarAlCarrito(producto: Producto) {
-    // Lógica para agregar el producto al carrito
-    console.log('Producto agregado al carrito:', producto);
+    if (!producto.productId) {
+      this.showToast('El producto no tiene un ID válido y no se puede agregar al carrito.', 'danger');
+      return;
+    }
+  
+    if (!this.user || !this.user.id) {
+      this.showToast('Debes iniciar sesión para agregar productos al carrito.', 'warning');
+      return;
+    }
+  
+    const detalle: DetalleCarrito = {
+      idDetalleCarrito: 0,
+      cantidad: 1,
+      costoUnitario: producto.precio || 0,
+      costoTotal: (producto.precio || 0) * 1,
+      productId: producto.productId,
+      usuarioIdUser: this.user.id, // Usa el ID del usuario cargado
+    };
+  
+    this.carritoService.agregarAlCarrito(detalle).subscribe({
+      next: () => {
+        this.showToast('Producto agregado al carrito', 'success');
+        console.log('Producto agregado al carrito:', producto);
+      },
+      error: (err) => {
+        console.error('Error al agregar el producto al carrito:', err);
+        this.showToast('Hubo un problema al agregar el producto al carrito.', 'danger');
+      },
+    });
   }
+  
+  
 
   comprarAhora(producto: Producto) {
     // Lógica para realizar la compra del producto

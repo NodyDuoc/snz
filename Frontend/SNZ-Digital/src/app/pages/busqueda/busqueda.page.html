@@ -36,13 +36,10 @@
           </div>
           <div class="producto-info">
             <h3>{{ producto?.productName || 'Nombre no disponible' }}</h3>
-            <p>Precio: ${{ producto?.precio?.toFixed(2) || '0.00' }}</p>
+            <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
             <p>Id: {{ producto?.productId || 'No disponible' }}</p>
-            <button class="custom-button12" (click)="agregarAlCarrito(producto)">
+            <button class="custom-button" (click)="agregarAlCarrito(producto)">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
-            </button>
-            <button class="custom-button" (click)="comprarAhora(producto)">
-              <i class="fas fa-money-bill-wave"></i> Comprar ahora
             </button>
           </div>
         </div>

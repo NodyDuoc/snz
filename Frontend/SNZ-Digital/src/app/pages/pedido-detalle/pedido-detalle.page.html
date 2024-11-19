@@ -12,7 +12,7 @@
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p><strong>Total:</strong> {{ pedido.precio | currency:'CLP' }}</p>
+        <p><strong>Total:</strong> {{ pedido.precio | currency:'$ ':'symbol':'1.0-0' }}</p>
         <p><strong>Estado:</strong> {{ pedido.estado }}</p>
         <p><strong>Dirección de Despacho:</strong></p>
         <p>{{ pedido.direccion }}</p>
@@ -30,7 +30,7 @@
       <ion-card-content>
         <p><strong>Método de Envío:</strong> Blue Express</p>
         <p><strong>N° de Seguimiento:</strong> 7626158282</p>
-        <p><strong>Fecha Estimada de Entrega:</strong> 5-6 de Septiembre de 2023</p>
+        <p><strong>Fecha Estimada de Entrega:</strong> {{ fechaEstimadaEntrega }}</p>
       </ion-card-content>
     </ion-card>
 

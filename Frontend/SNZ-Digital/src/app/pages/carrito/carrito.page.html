@@ -21,8 +21,14 @@
 
     <div class="detalle-pedido">
       <h3>Detalle del Pedido</h3>
-      <ion-textarea placeholder="Añade un detalle o comentario para tu pedido" [(ngModel)]="detallePedido"></ion-textarea>
+      <ion-textarea
+        placeholder="Añade un detalle o comentario para tu pedido (máx. 200 caracteres)"
+        [(ngModel)]="detallePedido"
+        maxlength="200">
+      </ion-textarea>
+      <p class="char-counter">{{ detallePedido?.length || 0 }}/200</p>
     </div>
+    
 
     <!-- Lista de Productos en el Carrito -->
     <ion-grid>

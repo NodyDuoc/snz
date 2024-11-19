@@ -11,6 +11,7 @@ import { Pedido } from 'src/models/pedido';
 export class PedidoDetallePage implements OnInit {
   pedido: Pedido | null = null; // Objeto que contiene el pedido completo
   detallesPedido: any[] = [];   // Detalles del pedido
+  fechaEstimadaEntrega: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,17 @@ export class PedidoDetallePage implements OnInit {
   ngOnInit() {
     this.cargarSoloPedido(); // Cargar solo el pedido
     this.cargarPedido();     // Cargar el pedido y sus detalles
+    this.calcularFechaEntrega();
+
+  }
+
+  calcularFechaEntrega() {
+    const hoy = new Date();
+    const fechaEntrega = new Date(hoy);
+    fechaEntrega.setDate(hoy.getDate() + 7); // Sumar 7 días a la fecha actual
+
+    const opciones = { day: 'numeric', month: 'long', year: 'numeric' } as const;
+    this.fechaEstimadaEntrega = fechaEntrega.toLocaleDateString('es-ES', opciones);
   }
 
   // Cargar solo el pedido por su ID
