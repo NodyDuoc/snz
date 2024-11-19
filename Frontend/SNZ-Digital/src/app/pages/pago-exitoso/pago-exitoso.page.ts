@@ -92,7 +92,7 @@ export class PagoExitosoPage implements OnInit {
             usuarioId: pagoInfo.usuarioId || 0,
             comuna: pagoInfo.direccion?.comuna || 'Sin comuna',
             direccion: pagoInfo.direccion?.direccion || 'Sin dirección',
-            detalle: 'Detalles del pedido',
+            detalle: pagoInfo.detallePedido || 'Sin detalles', // Recupera el detalle ingresado por el usuario
             precio: pagoInfo.total || 0,
             cantidad: productos.reduce((total: number, producto: any) => total + producto.cantidad, 0),
             estado: estado,

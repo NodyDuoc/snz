@@ -26,6 +26,7 @@ export class CarritoPage implements OnInit {
   selectedDireccion?: Direccion; // Dirección seleccionada
   errorMessage: string = '';
   user: any = null;
+  detallePedido: string = ''; // Contiene el detalle del pedido ingresado por el usuario
 
   constructor(
     private carritoService: CarritoService,
@@ -104,6 +105,7 @@ export class CarritoPage implements OnInit {
       total: totalCarrito,
       orderId: orderValue,
       estado: 'Pendiente',
+      detallePedido: this.detallePedido, // Incluye el detalle ingresado por el usuario
   };
   
   localStorage.setItem('pagoInfo', JSON.stringify(pagoInfo));
