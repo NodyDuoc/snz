@@ -1,15 +1,13 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
   <app-carrusel></app-carrusel>  
-
+  
   <ion-header>
     <ion-toolbar>
+      <ion-title>Ver Perfil Empleado</ion-title>
       <ion-buttons slot="start">
-        <ion-button (click)="goToMenu()">
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-        </ion-button>
+        <ion-back-button defaultHref="/menu-trabajador"></ion-back-button>
       </ion-buttons>
-      <ion-title>¡Gestión de Etiquetas!</ion-title>
     </ion-toolbar>
   </ion-header>
   

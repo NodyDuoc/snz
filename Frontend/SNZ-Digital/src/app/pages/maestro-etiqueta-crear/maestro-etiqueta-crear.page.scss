@@ -1,21 +1,49 @@
 .register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    background-color: #f5f7fa; // Fondo general
-  }
-  
-  .register-card {
-    background: white;
-    padding: 3rem; // Aumenta el relleno para hacer que el formulario se vea más grande
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra suave
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative; // Para permitir el uso de pseudo-elementos
+
+  // Imagen de fondo
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 600px; // Aumenta el ancho máximo para hacer el formulario más grande
-    box-sizing: border-box;
+    height: 100%;
+    background-image: url('/assets/img/fondo-pantalla.jpg'); // Asegúrate de que la ruta sea correcta
+    background-size: cover;
+    background-position: center;
+    z-index: -1; // Coloca la imagen detrás de los elementos
   }
+
+  // Superposición de color (opcional)
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 62, 80, 0.3); // Color de la superposición gris  
+    z-index: -1; // Coloca la superposición detrás de los elementos
+  }
+}
+  
+.register-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 2); /* Sombra estática suave */
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  position: relative; // Para que el contenido esté en la capa superior
+  z-index: 1; // Asegura que la tarjeta esté encima de la imagen de fondo
+}
   
   .register-header {
     text-align: center;
