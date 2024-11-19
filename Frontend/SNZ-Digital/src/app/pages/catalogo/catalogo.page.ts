@@ -55,7 +55,7 @@ export class CatalogoPage implements OnInit {
     }
 
   cargarCategorias() {
-    this.categoriaService.getCategorias().subscribe({
+    this.categoriaService.getActiveCategorias().subscribe({
       next: (data) => {
         this.categorias = data;
       },

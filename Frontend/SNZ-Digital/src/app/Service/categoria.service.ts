@@ -48,6 +48,8 @@ export class CategoriaService {
     return this.http.patch<string>(`${this.baseUrl}/updateStatus/${id}`, {}, { params });
 }
 
-  
+  getActiveCategorias(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.baseUrl}/getall/activos`);
+  }
 
 }

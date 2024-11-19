@@ -62,5 +62,8 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
+    public List<CategoriaEntity> getActiveCategories() {
+        return categoriaRepository.findActiveCategories();
+    }
 
 }

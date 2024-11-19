@@ -83,6 +83,7 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.DELETE, "/api/categorias/delete/{id}").permitAll();
 
                     // Endpoints de productos
+                    http.requestMatchers(HttpMethod.GET, "/api/productos/getall/activos").permitAll(); // Permitir acceso público
                     http.requestMatchers(HttpMethod.GET, "/api/productos/getall").permitAll(); // Permitir acceso público
                     http.requestMatchers(HttpMethod.GET, "/api/productos/get/{id}").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/api/productos/create").permitAll();

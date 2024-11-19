@@ -1,57 +1,65 @@
-<ion-content [fullscreen]="true">
-  <app-header></app-header>
+<ion-content [fullscreen]="true">  
+  <app-header></app-header>  
+  <app-carrusel></app-carrusel>  
 
-  <div class="register-container">
-    <div class="register-card">
-      <div class="register-header">
-        <h1>Registrar Categoría</h1>
-        <p>Por favor, completa los detalles de la categoría</p>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Nueva Categoría</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/maestro-categoria"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()" class="form-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Información de la Categoría</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                <!-- Imagen de la categoría -->
+                <div class="image-upload">
+                  <ion-item class="upload-item">
+                    <input type="file" (change)="onFileSelected($event)" accept="image/png, image/jpeg" />
+                  </ion-item>
+                  <ion-item *ngIf="imagePreview">
+                    <img [src]="imagePreview" alt="Imagen de la Categoría" class="image-preview">
+                  </ion-item>
+                </div>
+              </ion-col>
+  
+              <ion-col size="8">
+                <!-- Campos del formulario --> 
+                <ion-item>
+                  <ion-label class="input-label" position="stacked">Nombre</ion-label>
+                  <ion-input class="input-field" formControlName="catName"></ion-input>
+                </ion-item>
+  
+                <ion-item>
+                  <ion-label class="input-label" position="stacked">Descripción</ion-label>
+                  <ion-textarea class="textarea-descripcion" formControlName="catDetalle"></ion-textarea>
+                </ion-item>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+  
+      <!-- Botones de acción -->
+      <div class="button-container">
+        <button class="btn btn-primary" type="submit" expand="block" [disabled]="!categoriaForm.valid">Crear Categoría</button>
       </div>
-
-      <!-- Formulario de registro de Categoría -->
-      <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="catName"
-            placeholder="Nombre de la Categoría"
-            maxlength="100"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="catDetalle"
-            placeholder="Detalle de la Categoría"
-            maxlength="255"
-            required
-          >
-        </div>
-
-        <!-- Campo para seleccionar imagen -->
-        <div class="form-group">
-          <input
-            type="file"
-            class="form-control"
-            (change)="onImageChange($event)"
-          >
-        </div>
-
-        <!-- Botón para enviar los datos -->
-        <button type="submit" class="btn btn-primary">
-          Registrar Categoría
-        </button>
-
-        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/perfil'])">
-          Cancelar
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <app-footer class="app-footer"></app-footer>
+    </form>
+  
+    <!-- Toast para mostrar mensajes de confirmación -->
+    <ion-toast [message]="toastMessage" [color]="toastColor" [duration]="3000" position="top" *ngIf="toastMessage">
+    </ion-toast>
+  </ion-content>
+  
+  <app-footer></app-footer>  
 </ion-content>
