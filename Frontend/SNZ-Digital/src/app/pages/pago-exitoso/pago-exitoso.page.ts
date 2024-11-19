@@ -32,28 +32,43 @@ export class PagoExitosoPage implements OnInit {
     async verificarEstadoPago(transactionId: string) {
         this.paykuService.checkTransactionStatus(transactionId).subscribe({
             next: async (response) => {
-                const estado =
-                    response.message === 'Transacción aprobada'
-                        ? 'Pago Aprobado'
-                        : 'Pago Rechazado';
-
+                const estado = response.message === 'Transacción aprobada' 
+                    ? 'Pago Aprobado' 
+                    : 'Pago Rechazado';
+    
+                // Crear el pedido independientemente del estado
+                this.crearPedido(transactionId, estado);
+    
                 if (estado === 'Pago Aprobado') {
                     await this.presentToast('Pago aprobado. ¡Gracias por tu compra!');
-                    this.crearPedido(transactionId, estado);
                 } else {
-                    await this.presentToast('Pago rechazado. Por favor, intenta nuevamente.');
-                    this.router.navigate(['/carrito']);
+                    await this.presentToast('Pago rechazado. Por favor, verifica tu información.');
+                    this.router.navigate(['/pago-fallido']);
                 }
-
+    
                 localStorage.removeItem('transactionId');
             },
             error: async (error) => {
-                console.error('Error al verificar el estado de la transacción:', error);
-                await this.presentToast('Error al verificar el estado de la transacción.');
-                this.router.navigate(['/carrito']);
+                console.warn('Error recibido al verificar estado:', error);
+    
+                // Manejo del error y creación del pedido
+                if (error.error && error.error.error === 'Transacción rechazada') {
+                    const estado = 'Pago Rechazado';
+                    this.crearPedido(transactionId, estado);
+                    await this.presentToast('Pago rechazado. Por favor, verifica tu información.');
+                    this.router.navigate(['/pago-fallido']);
+                } else {
+                    await this.presentToast('Error inesperado al verificar la transacción.');
+                    this.router.navigate(['/carrito']);
+                }
+    
+                localStorage.removeItem('transactionId');
             },
         });
     }
+    
+    
+    
 
     crearPedido(transactionId: string, estado: string) {
         console.log('Iniciando creación del pedido...');
