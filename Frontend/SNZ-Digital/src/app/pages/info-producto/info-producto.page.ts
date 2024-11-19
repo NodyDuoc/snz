@@ -7,6 +7,8 @@ import { Valoracion } from 'src/models/valoracion';
 import { Etiqueta } from 'src/models/etiqueta';
 import { ToastController } from '@ionic/angular';
 import { EtiquetaProductoService } from 'src/app/Service/EtiquetaProductoService.service';
+import { CarritoService } from 'src/app/Service/carrito.service';
+import { DetalleCarrito } from 'src/models/detalleCarrito';
 
 @Component({
   selector: 'app-info-producto',
@@ -37,6 +39,8 @@ export class InfoProductoPage implements OnInit {
     private toastController: ToastController,
     private etiquetaProductoService: EtiquetaProductoService, // Nuevo servicio
     private router: Router,
+    private carritoService: CarritoService,
+
   ) { }
 
   ngOnInit() {
@@ -227,13 +231,47 @@ export class InfoProductoPage implements OnInit {
     return this.idProducto !== undefined && !!this.valoracionesPorProducto[this.idProducto]?.length;
   }
 
-  agregarAlCarrito(producto: any) {
-    console.log('Producto agregado al carrito:', producto);
-    this.presentToast('Producto agregado al carrito.');
+  agregarAlCarrito() {
+    if (!this.producto || !this.producto.productId) {
+      console.error('No se puede agregar al carrito: El productId es indefinido');
+      this.mostrarToast('Este producto no tiene un ID válido y no se puede agregar al carrito.', 'warning');
+      return;
+    }
+  
+    if (!this.userId) {
+      this.mostrarToast('Debes iniciar sesión para agregar productos al carrito.', 'warning');
+      return;
+    }
+  
+    const detalle: DetalleCarrito = {
+      idDetalleCarrito: 0,
+      cantidad: this.cantidadSeleccionada,
+      costoUnitario: this.producto.precio ?? 0,
+      costoTotal: (this.producto.precio ?? 0) * this.cantidadSeleccionada,
+      productId: this.producto.productId,
+      usuarioIdUser: this.userId,
+    };
+  
+    this.carritoService.agregarAlCarrito(detalle).subscribe({
+      next: () => {
+        console.log('Producto agregado al carrito:', this.producto);
+        this.mostrarToast('Producto agregado al carrito');
+      },
+      error: (err) => {
+        console.error('Error al agregar el producto al carrito:', err);
+        this.mostrarToast('Hubo un problema al agregar el producto al carrito', 'danger');
+      }
+    });
   }
-
-  comprarAhora(producto: any) {
-    console.log('Compra directa:', producto);
-    this.presentToast('Iniciando compra.');
+  
+  async mostrarToast(mensaje: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,
+      color,
+      position: 'top',
+    });
+    await toast.present();
   }
+  
 }
