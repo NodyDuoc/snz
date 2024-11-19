@@ -121,6 +121,12 @@ const routes: Routes = [
     data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
   {
+    path: 'maestro-categoria-crear',
+    loadChildren: () => import('./pages/maestro-categoria-crear/maestro-categoria-crear.module').then(m => m.MaestroCategoriaCrearPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR'] }
+  },  
+  {
     path: 'maestro-categoria-editar/:id',
     loadChildren: () => import('./pages/maestro-categoria-editar/maestro-categoria-editar.module').then( m => m.MaestroCategoriaEditarPageModule),
     canActivate: [validarSesionRolGuard],
