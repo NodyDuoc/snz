@@ -95,3 +95,25 @@
     font-size: 22px;  
   }  
 }
+
+.empty-cart-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-cart-image {
+  width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.empty-cart-container h2 {
+  color: #4b0082; /* Color destacado */
+  margin-bottom: 10px;
+}
+
+.empty-cart-container p {
+  color: #666;
+  margin-bottom: 20px;
+}

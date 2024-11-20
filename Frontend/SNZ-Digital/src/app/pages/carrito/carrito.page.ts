@@ -273,5 +273,10 @@ export class CarritoPage implements OnInit {
     });
 }
 
+irAlCatalogo() {
+  this.router.navigate(['/catalogo']);
+}
+
+
   
 }

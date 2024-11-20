@@ -28,7 +28,6 @@
       </ion-textarea>
       <p class="char-counter">{{ detallePedido.length || 0 }}/200</p>
     </div>
-    
 
     <!-- Lista de Productos en el Carrito -->
     <ion-grid>
@@ -71,8 +70,12 @@
     </ion-row>
   </div>
 
-  <div *ngIf="detalles.length === 0">
-    <p>{{ errorMessage }}</p>
+  <!-- Mensaje e Imagen de Carrito Vacío -->
+  <div class="empty-cart-container" *ngIf="detalles.length === 0">
+    <img src="/assets/img/carrito.jpg" alt="Carrito Vacío" class="empty-cart-image">
+    <h2>¡Tu carrito está vacío!</h2>
+    <p>Explora nuestros productos y añade algo al carrito.</p>
+    <ion-button color="primary" (click)="irAlCatalogo()">Ir al Catálogo</ion-button>
   </div>
 
   <app-footer></app-footer>
