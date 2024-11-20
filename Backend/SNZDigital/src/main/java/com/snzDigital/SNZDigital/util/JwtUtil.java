@@ -41,7 +41,7 @@ public class JwtUtil {
                 .withSubject(email)  // Usar el email como el sujeto
                 .withClaim("authorities", authorities)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1800000))  // Expiración en 30 minutos
+                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))  // Expiración en 1 día
                 .withJWTId(UUID.randomUUID().toString())
                 .withNotBefore(new Date(System.currentTimeMillis()))
                 .sign(algorithm);

@@ -5,7 +5,11 @@
   justify-content: center;
   padding: 20px; /* Espacio alrededor del contenido */
   padding-top: 20px;
+  background: linear-gradient(rgb(255 255 255 / 6%), rgba(255, 255, 255, 0.144)), 
+              url('/assets/img/fondo-pantalla.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
+
 
 .user-card {
   width: 100%;
