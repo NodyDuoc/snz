@@ -34,6 +34,7 @@
           <div *ngIf="producto?.imagen">
             <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
           </div>
+          <p class="producto-marca">{{ producto?.marca || 'Marca no disponible' }}®</p>
           <div class="producto-info">
             <h3>{{ producto?.productName || 'Nombre no disponible' }}</h3>
             <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>

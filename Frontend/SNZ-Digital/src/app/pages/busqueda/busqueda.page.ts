@@ -77,15 +77,20 @@ export class BusquedaPage implements OnInit {
   cargarProductos() {
     this.productoService.getAllProductos().subscribe(
       (data: Producto[]) => {
-        this.productos = data;
-
+        // Filtrar productos para eliminar duplicados por nombre
+        const uniqueProducts = data.filter((producto, index, self) =>
+          index === self.findIndex(p => p.productName === producto.productName)
+        );
+  
+        this.productos = uniqueProducts;
+  
         // Llama al método para ordenar después de cargar los productos
         this.ordenarProductos();
-
+  
         // Selecciona el primer producto por defecto si hay productos disponibles
         if (this.productos.length > 0) {
           this.selectedProducto = this.productos[0];
-
+  
           // Si el producto tiene imagen, se crea la vista previa
           if (this.selectedProducto.imagen) {
             this.imagePreview = `data:image/png;base64,${this.selectedProducto.imagen}`;
@@ -100,7 +105,7 @@ export class BusquedaPage implements OnInit {
       }
     );
   }
-
+  
 
   onImageChange(event: Event) {
     const input = event.target as HTMLInputElement;
