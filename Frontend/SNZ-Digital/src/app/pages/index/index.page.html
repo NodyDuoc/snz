@@ -73,7 +73,7 @@
   
   <div class="category-section">
     <div class="category-grid">
-      <div class="category-card" *ngFor="let categoria of categorias">
+      <div class="category-card" *ngFor="let categoria of categorias" (click)="irAlCatalogo()">
         <div class="image-wrapper">
           <img [src]="categoria.imagen ? 'data:image/png;base64,' + categoria.imagen : 'assets/img/default.jpg'" alt="Imagen de la Categoría" />
           <div class="overlay">

@@ -54,16 +54,21 @@ export class CatalogoPage implements OnInit {
       }
     }
 
-  cargarCategorias() {
-    this.categoriaService.getActiveCategorias().subscribe({
-      next: (data) => {
-        this.categorias = data;
-      },
-      error: (err) => {
-        console.error('Error al cargar categorías:', err);
-      }
-    });
-  }
+    cargarCategorias() {
+      this.categoriaService.getActiveCategorias().subscribe({
+        next: (data) => {
+          this.categorias = data;
+          if (this.categorias.length > 0) {
+            // Selecciona la primera categoría automáticamente
+            this.seleccionarCategoria(this.categorias[0]);
+          }
+        },
+        error: (err) => {
+          console.error('Error al cargar categorías:', err);
+        }
+      });
+    }
+    
 
   seleccionarCategoria(categoria: Categoria) {
     this.selectedCategory = categoria;

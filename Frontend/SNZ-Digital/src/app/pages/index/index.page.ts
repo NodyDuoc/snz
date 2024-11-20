@@ -167,4 +167,9 @@ export class IndexPage implements OnInit {
     });
     await toast.present();
   }
+
+  irAlCatalogo() {
+    this.router.navigate(['/catalogo']);
+  }
+  
 }
