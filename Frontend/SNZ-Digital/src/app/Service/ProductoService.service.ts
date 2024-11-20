@@ -53,6 +53,7 @@ export class ProductoService {
     
     formData.append('productName', producto.productName || '');
     formData.append('descripcion', producto.descripcion || '');
+    formData.append('status', producto.status?.toString() || '');
     formData.append('precio', producto.precio?.toString() || '0');
     formData.append('marca', producto.marca || ''); // Agrega la marca
 

@@ -35,8 +35,8 @@ public class ProductoEntity {
     @Column(name = "MARCA")
     private String marca;
 
-    @Column(name = "STATUS", nullable = false, columnDefinition = "NUMBER(1) DEFAULT 1")
-    private Integer status = 1; //
+    @Column(name = "STATUS", columnDefinition = "NUMBER(1) DEFAULT 1")
+    private Integer status = 1;
 
     @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;

@@ -39,6 +39,7 @@ export class MaestroProductoEditarPage implements OnInit {
     this.productoForm = this.formBuilder.group({
       productName: ['', Validators.required],
       descripcion: [''],
+      status: [''],
       precio: ['', [Validators.required, Validators.min(0.01)]],
       imagen: [''],
       marca: ['']
@@ -59,6 +60,7 @@ export class MaestroProductoEditarPage implements OnInit {
         this.productoForm.patchValue({
           productName: producto.productName,
           descripcion: producto.descripcion,
+          status: producto.status,
           precio: producto.precio,
           marca: producto.marca,
         });
@@ -81,6 +83,7 @@ export class MaestroProductoEditarPage implements OnInit {
       const formData = new FormData();
       formData.append('productName', this.productoForm.get('productName')?.value);
       formData.append('descripcion', this.productoForm.get('descripcion')?.value);
+      formData.append('status', this.productoForm.get('status')?.value);
       formData.append('precio', this.productoForm.get('precio')?.value.toString());
       formData.append('marca', this.productoForm.get('marca')?.value);
 

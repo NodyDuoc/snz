@@ -38,10 +38,11 @@ public class ProductoService {
         return productoRepository.findByCategoriaCatId(categoriaCatId);
     }
 
-    public ProductoResponse createProducto(String productName, String descripcion, Double precio, Long categoriaCatId, MultipartFile imagen, String marca) {
+    public ProductoResponse createProducto(String productName, String descripcion, Integer status, Double precio, Long categoriaCatId, MultipartFile imagen, String marca) {
         ProductoEntity producto = new ProductoEntity();
         producto.setProductName(productName);
         producto.setDescripcion(descripcion);
+        producto.setStatus(status);
         producto.setPrecio(precio);
         producto.setCategoriaCatId(categoriaCatId);
         producto.setMarca(marca); // Establece la marca
@@ -77,6 +78,8 @@ public class ProductoService {
         productoExistente.setDescripcion(productoDTO.getDescripcion());
         productoExistente.setPrecio(productoDTO.getPrecio());
         productoExistente.setMarca(productoDTO.getMarca()); // Actualiza la marca
+        productoExistente.setStatus(productoDTO.getStatus()); // Actualiza la marca
+        
 
         if (productoDTO.getImagen() != null) {
             productoExistente.setImagen(productoDTO.getImagen());
@@ -98,6 +101,7 @@ public class ProductoService {
                         producto.getProductId(),
                         producto.getProductName(),
                         producto.getDescripcion(),
+                        producto.getStatus(),
                         producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
                         "Productos listados correctamente",
                         producto.getCategoriaCatId(),

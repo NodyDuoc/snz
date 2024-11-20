@@ -6,5 +6,6 @@ export interface Producto {
     imagen?: string; // Cambia a string para la representación Base64
     marca?: string; 
     categoriaCatId: number;    // ID de la categoría
+    status?: number; 
   }
   

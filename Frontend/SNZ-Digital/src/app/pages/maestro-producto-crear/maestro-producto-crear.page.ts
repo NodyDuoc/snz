@@ -35,6 +35,7 @@ ngOnInit() {
     this.productoForm = this.formBuilder.group({
       productName: ['', Validators.required],
       descripcion: [''],
+      status: [''],
       precio: ['', [Validators.required, Validators.min(0.01)]],
       imagen: [''],
       marca: [''] // Campo de marca

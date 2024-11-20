@@ -3,9 +3,21 @@ package com.snzDigital.SNZDigital.controller.dto;
 public class ProductoUpdateDTO {
     private String productName;
     private String descripcion;
+    private Integer status;
     private Double precio;
     private byte[] imagen; // Almacena la imagen como un arreglo de bytes
     private String marca;
+
+
+    // Getters y Setters
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getMarca() {
         return marca;
@@ -46,6 +58,4 @@ public class ProductoUpdateDTO {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
-
-    // Getters y Setters
 }

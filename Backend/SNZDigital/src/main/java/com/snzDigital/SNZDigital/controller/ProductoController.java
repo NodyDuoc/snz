@@ -52,13 +52,14 @@ public class ProductoController {
     public ResponseEntity<ProductoResponse> createProducto(
             @RequestParam("productName") String productName,
             @RequestParam("descripcion") String descripcion,
+            @RequestParam(value = "status", required = false) Integer status,
             @RequestParam("precio") Double precio,
             @RequestParam(value = "categoriaCatId", required = false) Long categoriaCatId,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam("marca") String marca) { // Nuevo parámetro marca
 
         // Llamar al servicio para crear el producto, incluyendo la marca
-        ProductoResponse productoResponse = productoService.createProducto(productName, descripcion, precio, categoriaCatId, imagen, marca);
+        ProductoResponse productoResponse = productoService.createProducto(productName, descripcion, status, precio, categoriaCatId, imagen, marca);
 
         // Retornar la respuesta
         return new ResponseEntity<>(productoResponse, HttpStatus.CREATED);
@@ -73,13 +74,20 @@ public class ProductoController {
             @RequestParam("descripcion") String descripcion,
             @RequestParam("precio") Double precio,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen,
-            @RequestParam("marca") String marca) { // Nuevo parámetro marca
+            @RequestParam("marca") String marca,
+            @RequestParam(value = "status", required = false) Integer status) {
+
+        // Asignar valor predeterminado si 'status' es null
+
+
 
         ProductoUpdateDTO productoDTO = new ProductoUpdateDTO();
         productoDTO.setProductName(productName);
         productoDTO.setDescripcion(descripcion);
         productoDTO.setPrecio(precio);
-        productoDTO.setMarca(marca); // Asigna la marca al DTO
+        productoDTO.setMarca(marca);
+        productoDTO.setStatus(status); // Asignar el valor de 'status' al DTO
+
 
         if (imagen != null && !imagen.isEmpty()) {
             try {
@@ -92,6 +100,8 @@ public class ProductoController {
         ProductoEntity updatedProducto = productoService.updateProducto(id, productoDTO);
         return ResponseEntity.ok(new ProductoResponse("Producto actualizado con éxito", HttpStatus.OK.value(), updatedProducto));
     }
+
+
 
 
     @DeleteMapping("/delete/{id}")
