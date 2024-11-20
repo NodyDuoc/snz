@@ -32,12 +32,14 @@ public class ProductoEntity {
     @Column(name = "CATEGORIA_CATID")
     private Long categoriaCatId;
 
-    @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
-    private byte[] imagen;
-
     @Column(name = "MARCA")
     private String marca;
 
+    @Column(name = "STATUS", nullable = false, columnDefinition = "NUMBER(1) DEFAULT 1")
+    private Integer status = 1; //
+
+    @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
+    private byte[] imagen;
 
     public String getMarca() {
         return marca;
@@ -45,6 +47,14 @@ public class ProductoEntity {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Long getProductId() {
