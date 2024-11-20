@@ -1,27 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{ isEditing ? 'Editar Etiqueta' : 'Detalles de Etiqueta' }}</ion-title>
-    <ion-buttons slot="end">
-      <button class="btn btn-primary" (click)="close()">Cerrar</button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<div class="custom-header">
+  <h1 class="custom-title">{{ isEditing ? 'Editar Etiqueta' : 'Detalles de Etiqueta' }}</h1>
+  <button class="custom-close-button" (click)="close()">Cerrar</button>
+</div>
 
 <ion-content>
-  <div *ngIf="etiqueta">
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Nombre de Etiqueta</ion-label>
-        <ion-input [(ngModel)]="etiqueta.nombreEtiqueta" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Descripción</ion-label>
-        <ion-input [(ngModel)]="etiqueta.detalleEtiqueta" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-    </ion-list>
+  <div *ngIf="etiqueta" class="content-container">
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label position="stacked">Nombre de Etiqueta</ion-label>
+            <ion-input
+              [(ngModel)]="etiqueta.nombreEtiqueta"
+              [readonly]="!isEditing"
+              placeholder="Ingrese nombre de la etiqueta"
+              class="styled-input"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Descripción</ion-label>
+            <ion-input
+              [(ngModel)]="etiqueta.detalleEtiqueta"
+              [readonly]="!isEditing"
+              placeholder="Ingrese descripción"
+              class="styled-input"
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
 
-    <ion-footer *ngIf="isEditing">
-      <button class="btn btn-primary" (click)="saveChanges()">Guardar Cambios</button>
-    </ion-footer>
+    <button type="submit" class="btn btn-primary" (click)="saveChanges()">  
+      Guardar Cambios  
+    </button>  
   </div>
 </ion-content>
