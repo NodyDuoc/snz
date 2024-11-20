@@ -134,7 +134,12 @@ export class InfoProductoPage implements OnInit {
     this.productoService.getProductoById(id).subscribe(
       (data) => {
         this.producto = data.data;
-        this.actualizarPrecio();
+        // Verificar que el producto tenga un status y es un número
+        if (this.producto && this.producto.status !== undefined) {
+          this.actualizarPrecio();
+        } else {
+          console.error('El producto no tiene un status definido.');
+        }
       },
       (error) => {
         console.error('Error al cargar el producto', error);
@@ -142,6 +147,7 @@ export class InfoProductoPage implements OnInit {
       }
     );
   }
+  
 
   cargarValoraciones(productoId: number) {
     this.valoracionService.getValoracionesByProductoId(productoId).subscribe(
