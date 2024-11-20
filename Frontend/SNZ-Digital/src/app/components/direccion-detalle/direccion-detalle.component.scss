@@ -1,140 +1,152 @@
-/* Estilos generales para ion-content */
+/* Estilos generales para el contenido */
 ion-content {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background: #f5f7fa; /* Fondo claro */
-  }
-  
-  /* Encabezado con fondo gris claro */
-  ion-header {
-    --background: #dadada; /* Fondo gris claro */
-    color: #333333; /* Texto oscuro para mejor contraste */
-    border-radius: 0 0 1rem 1rem; /* Bordes redondeados solo en la parte inferior */
-  }
-  
-  ion-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    border-radius: 0 0 1rem 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  ion-title {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-  
-  /* Contenedor para lista de direcciones */
-  .table-card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    margin: 16px 0;
-  }
-  
-  /* Estilos para la tabla de direcciones */
-  .direccion-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 1rem;
-    overflow: hidden;
-  
-    thead {
-      background-color: #e6e6fa;
-      color: #4a4a4a;
-      th {
-        padding: 12px;
-        font-size: 14px;
-        color: #4a4a4a;
-        text-align: left;
-      }
-    }
-  
-    tbody {
-      tr {
-        transition: background-color 0.3s;
-        border-bottom: 1px solid #ececec;
-  
-        td {
-          padding: 12px;
-          font-size: 14px;
-          color: #555;
-          text-align: left;
-        }
-  
-        &:hover {
-          background-color: #f7f8fc;
-        }
-      }
-    }
-  }
-  
-  /* Botones redondeados */
-  .btn, .btn-primary {
-    padding: 0.75rem 1.25rem;
-    border: none;
-    border-radius: 1.5rem; /* Bordes totalmente redondeados */
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #6a5acd, #8a2be2);
-    color: #ffffff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-  
-    &:hover {
-      opacity: 0.9;
-      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-    }
-  }
-  
-  /* Input y toggle estilizados */
-  ion-input, ion-toggle {
-    --background: #ffffff;
-    --padding-start: 1rem;
-    --padding-end: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 0.5rem;
-  }
-  
-  ion-item {
-    border-radius: 1rem;
-    background-color: #ffffff;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Estilo de selección en la tabla */
-  .selected {
-    background-color: #e6f7ff;
-    font-weight: bold;
-    border-radius: 1rem;
-  }
-  
-  /* Estilos del footer */
-  ion-footer {
-    background: transparent; /* Fondo transparente para el footer */
-    box-shadow: none; /* Sin sombra ni borde */
-    padding: 1rem;
-    display: flex;
-    justify-content: center; /* Centra el botón */
-    align-items: center;
-  }
-  
-  ion-footer .btn-primary {
-    width: auto; /* Botón no ocupa todo el ancho */
-    padding: 0.75rem 2rem;
-    border-radius: 1.5rem;
-  }
-  
+  --padding-start: 16px;
+  --padding-end: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  --background: linear-gradient(rgb(255 255 255 / 6%), rgb(255 255 255 / 27%)), url(/assets/img/fondo-pantalla.jpg) no-repeat center center fixed;
+  --background-size: cover;
+}
+
+
+
+/* Encabezado */
+ion-header {
+  --background: #ffffff;
+  border-bottom: 1px solid #e0e0e0; /* Línea de separación */
+  color: #333333;
+}
+
+ion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+ion-title {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #444;
+}
+
+/* Contenedor del contenido principal */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+/* Tarjetas */
+ion-card {
+  background: white;  
+  border-radius: 1rem;  
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 2); /* Sombra estática suave */
+}
+
+ion-card-content {
+  padding: 16px;
+}
+
+/* Inputs estilizados */
+.styled-input {
+  --background: #ffffff;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+
+
+/* Toggle estilizado */
+.styled-toggle {
+  --handle-background: #d040dd;
+  --handle-border-radius: 50%;
+  --background: #e0e0e0;
+}
+
+/* Botones */
+ion-button {
+  padding-top: 10px;
+  --border-radius: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+ion-footer {
+  background: transparent;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-footer ion-button {
+  width: 80%; /* Botón centrado y amplio */
+}
+
+.btn {  
+  border: 2px solid black; /* Borde negro con un grosor de 2px */
+  border-radius: 12px; /* Bordes redondeados para un diseño más moderno */
+  margin-top: 20px;
+  width: 100%;  
+  padding: 0.75rem;  
+  border: none;  
+  border-radius: 0.5rem;  
+  font-size: 1rem;  
+  font-weight: 600;  
+  cursor: pointer;  
+  transition: all 0.3s ease;  
+}  
+
+.btn-primary {  
+  border: 2px solid black; /* Borde negro con un grosor de 2px */
+  border-radius: 12px; /* Bordes redondeados para un diseño más moderno */
+  background: linear-gradient(135deg, #6a5acd, #8a2be2); /* Degradado morado */  
+  color: white;  
+
+  &:hover {  
+    opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
+  }  
+}  
+
+/* Contenedor principal del header */
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff; /* Fondo blanco */
+  border-bottom: 2px solid black; /* Borde negro */
+  border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
+  padding: 16px; /* Espaciado interno */
+}
+
+/* Título estilizado */
+.custom-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #222; /* Negro intenso */
+  margin: 0; /* Elimina margen predeterminado */
+}
+
+/* Botón de cierre estilizado */
+.custom-close-button {
+  background: transparent; /* Sin fondo */
+  border: 2px solid black; /* Borde negro */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 8px 16px; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: black; /* Texto negro */
+  cursor: pointer; /* Cursor de mano */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.custom-close-button:hover {
+  background: #eaeaea; /* Fondo gris claro al pasar el cursor */
+  color: #444; /* Texto gris oscuro al pasar el cursor */
+}

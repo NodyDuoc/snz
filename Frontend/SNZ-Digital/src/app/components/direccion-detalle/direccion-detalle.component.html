@@ -1,35 +1,56 @@
-<ion-header >
-  <ion-toolbar>
-    <ion-title>{{ isEditing ? 'Editar Dirección' : 'Detalles de Dirección' }}</ion-title>
-    <ion-buttons slot="end">
-      <button class="btn btn-primary" (click)="close()">Cerrar</button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<div class="custom-header">
+  <h1 class="custom-title">{{ isEditing ? 'Editar Dirección' : 'Detalles de Dirección' }}</h1>
+  <button class="custom-close-button" (click)="close()">Cerrar</button>
+</div>
+
 
 <ion-content>
-  <div *ngIf="direccion">
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Dirección</ion-label>
-        <ion-input [(ngModel)]="direccion.direccion" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Comuna</ion-label>
-        <ion-input [(ngModel)]="direccion.comuna" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Detalle</ion-label>
-        <ion-input [(ngModel)]="direccion.detalle" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Principal</ion-label>
-        <ion-toggle [(ngModel)]="direccion.dirPrincipal" [disabled]="!isEditing"></ion-toggle>
-      </ion-item>
-    </ion-list>
-    
-    <ion-footer *ngIf="isEditing">
-          <button class="btn btn-primary" (click)="saveChanges()">Guardar Cambios</button>
-    </ion-footer>
+  <div *ngIf="direccion" class="content-container">
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label position="stacked">Dirección</ion-label>
+            <ion-input
+              [(ngModel)]="direccion.direccion"
+              [readonly]="!isEditing"
+              placeholder="Ingrese dirección"
+              class="styled-input"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Comuna</ion-label>
+            <ion-input
+              [(ngModel)]="direccion.comuna"
+              [readonly]="!isEditing"
+              placeholder="Ingrese comuna"
+              class="styled-input"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Detalle</ion-label>
+            <ion-input
+              [(ngModel)]="direccion.detalle"
+              [readonly]="!isEditing"
+              placeholder="Ingrese detalle"
+              class="styled-input"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Principal</ion-label>
+            <ion-toggle
+              [(ngModel)]="direccion.dirPrincipal"
+              [disabled]="!isEditing"
+              class="styled-toggle"
+            ></ion-toggle>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <button type="submit" class="btn btn-primary" (click)="saveChanges()">  
+      Guardar Cambios  
+    </button>  
+
   </div>
 </ion-content>
