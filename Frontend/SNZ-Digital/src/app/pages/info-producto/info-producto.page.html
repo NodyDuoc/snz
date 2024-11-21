@@ -70,53 +70,91 @@
     <h4>Reseñas de Usuarios</h4>
     <div class="reseñas-container">
       <div *ngFor="let resena of valoracionesPorProducto[idProducto]" class="reseña">
-        <strong>{{ resena.nombreUsuario }}:</strong>
-        <div class="detalles">
-          <span class="resena">{{ resena.resena.valComentario }}</span>
-          <span class="estrellas">
-            {{ '★'.repeat(resena.resena.valPuntuacion) }}
-            {{ '☆'.repeat(5 - resena.resena.valPuntuacion) }}
-          </span>
+        <div class="reseña-header">
+          <div class="usuario-avatar">
+            <div 
+              class="avatar-placeholder" 
+              [style.background-color]="getColorForUser(resena.nombreUsuario)"
+            >
+              {{ resena.nombreUsuario.charAt(0).toUpperCase() }}
+            </div>
+          </div>
+          
+          
+          <div class="usuario-detalles">
+            <strong class="usuario-nombre">{{ resena.nombreUsuario }}</strong>
+            <div class="estrellas">
+              <ion-icon name="star" *ngFor="let star of [].constructor(resena.resena.valPuntuacion)"></ion-icon>
+              <ion-icon name="star-outline" *ngFor="let star of [].constructor(5 - resena.resena.valPuntuacion)"></ion-icon>
+            </div>
+          </div>
           <!-- Botón visible solo si el usuario autenticado creó la valoración -->
           <button *ngIf="resena.resena.usuariosUserId === this.userId" (click)="onDelete(resena.resena.valid)">
-            Eliminar
+            <ion-icon name="trash-outline"></ion-icon>
           </button>
+        </div>
+        <div class="reseña-detalle">
+          <p class="resena-texto">{{ resena.resena.valComentario }}</p>
         </div>
       </div>
     </div>
   </div>
-
+  
   <ng-template #sinValoraciones>
     <p>No hay valoraciones para este producto.</p>
   </ng-template>
+  
 
 
   <!-- Formulario de valoración visible solo si el usuario no ha comentado -->
-  <div *ngIf="isLoggedIn ; else sinAcceso">
-    <div *ngIf="!yaComento; else yaComentoMensaje">
-      <h4>Deja tu valoración</h4>
-      <form (ngSubmit)="enviarValoracion()">
-        <ion-item>
-          <ion-label>Calificación:</ion-label>
-          <ion-select placeholder="Selecciona una calificación" [(ngModel)]="valoracion" name="valoracion" required>
-            <ion-select-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">{{ star }}
-              estrellas</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Comentario</ion-label>
-          <ion-textarea [(ngModel)]="comentario" name="comentario"></ion-textarea>
-        </ion-item>
-        <ion-button expand="full" type="submit">Enviar Valoración</ion-button>
-      </form>
+  <div class="formulario-valoracion">
+    <!-- Mostrar el formulario si el usuario está logueado -->
+    <div *ngIf="isLoggedIn; else sinAcceso">
+      <!-- Mostrar formulario si no ha comentado -->
+      <div *ngIf="!yaComento; else yaComentoMensaje">
+        <h4 class="titulo-formulario">Deja tu valoración</h4>
+        <form (ngSubmit)="enviarValoracion()" class="valoracion-form">
+          <!-- Calificación -->
+          <div class="input-group">
+            <label for="valoracion" class="input-label">Calificación:</label>
+            <ion-select 
+              id="valoracion" 
+              placeholder="Selecciona una calificación" 
+              [(ngModel)]="valoracion" 
+              name="valoracion" 
+              class="select-estrellas"
+              required
+            >
+              <ion-select-option *ngFor="let star of [5, 4, 3, 2, 1]" [value]="star">
+                {{ star }} {{ star === 1 ? 'estrella' : 'estrellas' }}
+              </ion-select-option>
+            </ion-select>
+          </div>
+          <!-- Comentario -->
+          <div class="input-group">
+            <label for="comentario" class="input-label">Comentario:</label>
+            <ion-textarea 
+              id="comentario" 
+              [(ngModel)]="comentario" 
+              name="comentario" 
+              placeholder="Escribe tu comentario aquí..." 
+              class="input-textarea"
+            ></ion-textarea>
+          </div>
+          <!-- Botón de Enviar -->
+          <ion-button expand="block" type="submit" class="boton-enviar">Enviar Valoración</ion-button>
+        </form>
+      </div>
     </div>
+    <!-- Mensajes de Estado -->
+    <ng-template #yaComentoMensaje>
+      <p class="mensaje-informativo">Ya has ingresado una valoración para este producto.</p>
+    </ng-template>
+    <ng-template #sinAcceso>
+      <p class="mensaje-informativo">Debes estar registrado para dejar una valoración.</p>
+    </ng-template>
   </div>
-  <ng-template #yaComentoMensaje>
-    <p>Cada usuario puede ingresar una valoracion por producto</p>
-  </ng-template>
-  <ng-template #sinAcceso>
-    <p>Para poder comentar debe estar registrado</p>
-  </ng-template>
+  
 
 
   <app-footer></app-footer>

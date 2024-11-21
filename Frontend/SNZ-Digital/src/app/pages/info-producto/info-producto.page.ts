@@ -279,5 +279,20 @@ export class InfoProductoPage implements OnInit {
     });
     await toast.present();
   }
+
+  getColorForUser(nombreUsuario: string): string {
+    const colors = [
+      '#FF5733', // Naranja
+      '#33FF57', // Verde
+      '#3357FF', // Azul
+      '#FF33A1', // Rosa
+      '#FF8C33', // Amarillo
+      '#33FFF5', // Turquesa
+      '#A833FF'  // Morado
+    ]; // Paleta de colores
+    const hash = Array.from(nombreUsuario).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return colors[hash % colors.length];
+  }
+  
   
 }

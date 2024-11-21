@@ -158,56 +158,212 @@ $hover-shadow-color: rgba(0, 0, 0, 0.2);
   font-weight: bold;  
 }  
 
-.valoraciones {  
-  margin: 20px auto;  
-  max-width: 800px;  
+.valoraciones {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 
-  h4 {  
-    font-size: 18px;  
-    color: #666; // Color del texto secundario  
-    margin-top: 12px;  
-  }  
+  h4 {
+    font-size: 22px;
+    color: #555;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: bold;
+  }
 
-  .reseñas-container {  
-    display: flex;              
-    flex-direction: column;     
-    gap: 10px;                  
-    margin-top: 10px;          
-  }  
+  .reseñas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-  .reseña {  
-    padding: 10px;             
-    background-color: transparent;   
-    color: #333;               
-    border-left: 4px solid #4a90e2;   
-    margin-left: 20px;         
-  
-    .usuario {  
-      color: #999; // Color predeterminado para el texto de usuario  
+  .reseña {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
 
-      &.usuario-1 { color: #e74c3c; }   
-      &.usuario-2 { color: #3498db; }   
-      &.usuario-3 { color: #2ecc71; }   
-      &.usuario-4 { color: #9b59b6; }   
-      &.usuario-5 { color: #f39c12; }   
-    }  
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
 
-    .detalles {  
-      margin-top: 5px;            /* Espacio entre el nombre y el comentario */  
-      display: flex;              /* Alinear en fila */  
-      justify-content: space-between; /* Espacio uniforme entre resena y estrellas */  
-      align-items: center;        
-    
-      .resena {  
-        flex: 1;                   /* Espacio para la reseña */  
-        margin-right: 10px;       /* Espacio entre la reseña y las estrellas */  
-        padding-left: 30px;
-      }  
+    .reseña-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
 
-      .estrellas {  
-        color: #f39c12;           /* Color de las estrellas */  
-        white-space: nowrap;      /* Evitar que se rompa la línea */  
-      }  
-    }  
-  }  
+      .usuario-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+      
+        .avatar-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: bold;
+          border-radius: 50%;
+          color: white;
+        }
+      
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+
+      .usuario-detalles {
+        display: flex;
+        flex-direction: column;
+
+        .usuario-nombre {
+          font-size: 16px;
+          font-weight: bold;
+          color: #333;
+        }
+
+        .estrellas {
+          display: flex;
+          margin-top: 4px;
+
+          ion-icon {
+            font-size: 18px;
+            color: #ffd700;
+            margin-right: 2px;
+          }
+        }
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: #e74c3c;
+        cursor: pointer;
+        font-size: 20px;
+
+        &:hover {
+          color: #c0392b;
+        }
+
+        ion-icon {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .reseña-detalle {
+      margin-top: 10px;
+      padding-left: 60px;
+
+      .resena-texto {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+
+.formulario-valoracion {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+
+  .titulo-formulario {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333;
+    background: linear-gradient(to right, #76378f, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .valoracion-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .input-label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    ion-select, ion-textarea {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #8e44ad;
+        outline: none;
+      }
+    }
+
+    .input-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .select-estrellas {
+      font-size: 14px;
+    }
+  }
+
+  .boton-enviar {
+    background-color: #8e44ad;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(#8e44ad, 10%);
+    }
+  }
+
+  .mensaje-informativo {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 16px;
+  }
 }
