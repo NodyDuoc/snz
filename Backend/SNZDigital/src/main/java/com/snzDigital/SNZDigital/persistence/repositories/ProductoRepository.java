@@ -16,4 +16,9 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Long> 
     // Método para obtener productos por categoría con paginación
     Page<ProductoEntity> findByCategoriaCatId(Long categoriaCatId, Pageable pageable);
 
+    List<ProductoEntity> findByCategoriaCatIdAndStatus(Long categoriaCatId, Integer status);
+
+    Page<ProductoEntity> findByCategoriaCatIdAndStatus(Long categoriaCatId, Integer status, Pageable pageable);
+
+    List<ProductoEntity> findByStatus(Integer status); // Para obtener todos los productos activos
 }

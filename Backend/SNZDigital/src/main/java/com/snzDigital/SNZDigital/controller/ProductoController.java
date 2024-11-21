@@ -22,10 +22,11 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping("/getall")
-    public ResponseEntity<ProductoResponse> getAllProductos() {
-        List<ProductoEntity> productos = productoService.getAllProductos();
+    public ResponseEntity<ProductoResponse> getAllProductosActivos() {
+        List<ProductoEntity> productos = productoService.getAllProductosActivos();
         return ResponseEntity.ok(new ProductoResponse("Productos obtenidos con éxito", HttpStatus.OK.value(), productos));
     }
+
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ProductoResponse> getProductoById(@PathVariable Long id) {
@@ -86,7 +87,7 @@ public class ProductoController {
         productoDTO.setDescripcion(descripcion);
         productoDTO.setPrecio(precio);
         productoDTO.setMarca(marca);
-        productoDTO.setStatus(status); // Asignar el valor de 'status' al DTO
+        productoDTO.setStatus(status != null ? status : 0); // Por defecto, 0 si es null
 
 
         if (imagen != null && !imagen.isEmpty()) {

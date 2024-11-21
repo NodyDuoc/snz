@@ -114,7 +114,31 @@ public class ProductoService {
         return new ProductoResponse("Productos listados correctamente", 200, productosResponse);
     }
 
+    public List<ProductoEntity> getAllProductosActivos() {
+        return productoRepository.findByStatus(1); // Solo productos activos
+    }
 
+    public List<ProductoEntity> getProductosActivosByCategoria(Long categoriaCatId) {
+        return productoRepository.findByCategoriaCatIdAndStatus(categoriaCatId, 1);
+    }
 
+    public ProductoResponse getProductosActivosByCategoria(Long categoriaCatId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductoEntity> productosPage = productoRepository.findByCategoriaCatIdAndStatus(categoriaCatId, 1, pageable);
 
+        List<ProductoResponse> productosResponse = productosPage.getContent().stream()
+                .map(producto -> new ProductoResponse(
+                        producto.getProductId(),
+                        producto.getProductName(),
+                        producto.getDescripcion(),
+                        producto.getStatus(),
+                        producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
+                        "Productos listados correctamente",
+                        producto.getCategoriaCatId(),
+                        producto.getMarca()
+                ))
+                .collect(Collectors.toList());
+
+        return new ProductoResponse("Productos listados correctamente", 200, productosResponse);
+    }
 }

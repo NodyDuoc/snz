@@ -50,21 +50,21 @@ export class MaestroProductoEditarPage implements OnInit {
 
   loadProducto() {
     console.log('Cargando datos del producto con ID:', this.productId);
-    
+  
     this.productoService.getProductoById(this.productId).subscribe({
       next: (productoResponse) => {
         const producto = productoResponse.data;
-        
+  
         console.log('Producto cargado:', producto);
-        
+  
         this.productoForm.patchValue({
           productName: producto.productName,
           descripcion: producto.descripcion,
-          status: producto.status,
+          status: producto.status === 1, // Convertir 1/0 a true/false
           precio: producto.precio,
           marca: producto.marca,
         });
-
+  
         this.imagePreview = producto.imagen ? `data:image/png;base64,${producto.imagen}` : 'assets/images/default.jpg';
         this.isLoading = false;
       },
@@ -78,14 +78,18 @@ export class MaestroProductoEditarPage implements OnInit {
     });
   }
   
+  
   onSubmit() {
     if (this.productoForm.valid) {
       const formData = new FormData();
       formData.append('productName', this.productoForm.get('productName')?.value);
       formData.append('descripcion', this.productoForm.get('descripcion')?.value);
-      formData.append('status', this.productoForm.get('status')?.value);
       formData.append('precio', this.productoForm.get('precio')?.value.toString());
       formData.append('marca', this.productoForm.get('marca')?.value);
+
+      // Convertir el valor del toggle (booleano) a 1 o 0
+      const statusValue = this.productoForm.get('status')?.value ? 1 : 0;
+      formData.append('status', statusValue.toString());
 
       if (this.imagenFile) {
         formData.append('imagen', this.imagenFile);

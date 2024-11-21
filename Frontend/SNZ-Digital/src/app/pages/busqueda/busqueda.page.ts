@@ -45,11 +45,15 @@ export class BusquedaPage implements OnInit {
   // Agrega este método en tu componente TypeScript
   get filteredProductos() {
     const query = this.searchQuery?.toLowerCase() || ''; // Convierte la consulta a minúsculas para coincidencias parciales
+  
+    // Filtrar productos activos y por búsqueda
     return this.productos.filter(producto =>
-      producto?.productName?.toLowerCase().includes(query) || 
-      producto?.descripcion?.toLowerCase().includes(query)
+      producto.status === 1 && // Solo productos activos
+      (producto.productName?.toLowerCase().includes(query) || 
+       producto.descripcion?.toLowerCase().includes(query))
     );
   }
+  
 
   loadUser() {
     const email = this.authService.getEmailFromToken();
@@ -77,8 +81,11 @@ export class BusquedaPage implements OnInit {
   cargarProductos() {
     this.productoService.getAllProductos().subscribe(
       (data: Producto[]) => {
+        // Filtrar productos activos
+        const activeProducts = data.filter(producto => producto.status === 1);
+  
         // Filtrar productos para eliminar duplicados por nombre
-        const uniqueProducts = data.filter((producto, index, self) =>
+        const uniqueProducts = activeProducts.filter((producto, index, self) =>
           index === self.findIndex(p => p.productName === producto.productName)
         );
   
@@ -105,6 +112,7 @@ export class BusquedaPage implements OnInit {
       }
     );
   }
+  
   
 
   onImageChange(event: Event) {
@@ -137,10 +145,17 @@ export class BusquedaPage implements OnInit {
       return (b.precio || 0) - (a.precio || 0);
     });
   }
-
-  seleccionarProducto(producto: Producto) {
-    this.selectedProducto = producto; // Método para cambiar el producto seleccionado
+  verProducto(productoId?: number) {
+    if (productoId === undefined) {
+      this.showToast('El producto no tiene un ID válido para ver.', 'danger');
+      return;
+    }
+  
+    // Redirige a la página de detalles
+    this.router.navigate(['/info-producto', productoId]);
   }
+  
+  
 
   // Función para hacer scroll suave a la sección con el id proporcionado
   scrollToSection(sectionId: string) {

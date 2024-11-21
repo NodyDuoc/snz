@@ -70,17 +70,20 @@ export class CatalogoPage implements OnInit {
     }
     
 
-  seleccionarCategoria(categoria: Categoria) {
-    this.selectedCategory = categoria;
-    this.productoService.getProductosByCategoria(categoria.catId).subscribe({
-      next: (productos) => {
-        this.productosSeleccionados = productos;
-      },
-      error: (err) => {
-        console.error(`Error al cargar los productos de la categoría ${categoria.catId}:`, err);
-      }
-    });
-  }
+    seleccionarCategoria(categoria: Categoria) {
+      this.selectedCategory = categoria;
+    
+      this.productoService.getProductosByCategoria(categoria.catId).subscribe({
+        next: (productos) => {
+          // Filtrar productos activos (por si el backend no lo hace)
+          this.productosSeleccionados = productos.filter(producto => producto.status === 1);
+        },
+        error: (err) => {
+          console.error(`Error al cargar los productos de la categoría ${categoria.catId}:`, err);
+        }
+      });
+    }
+    
 
   irADetalleProducto(productId: any) {
     this.router.navigate(['/info-producto', productId]);

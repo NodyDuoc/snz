@@ -30,7 +30,11 @@
   
     <div *ngIf="filteredProductos.length > 0; else noProducts">
       <div class="productos-container">
-        <div class="producto-card" *ngFor="let producto of filteredProductos">
+        <div 
+          class="producto-card" 
+          *ngFor="let producto of filteredProductos" 
+          (click)="producto?.productId ? verProducto(producto.productId) : null"
+          >
           <div *ngIf="producto?.imagen">
             <img [src]="'data:image/png;base64,' + producto.imagen" alt="Imagen del Producto" class="image-preview">
           </div>
@@ -39,13 +43,16 @@
             <h3>{{ producto?.productName || 'Nombre no disponible' }}</h3>
             <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
             <p>Id: {{ producto?.productId || 'No disponible' }}</p>
-            <button class="custom-button" (click)="agregarAlCarrito(producto)">
+            <button 
+              class="custom-button" 
+              (click)="agregarAlCarrito(producto); $event.stopPropagation()">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
           </div>
         </div>
       </div>
     </div>
+    
 
     <ng-template #noProducts>
       <p>No hay productos disponibles en este momento.</p>

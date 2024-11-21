@@ -80,4 +80,9 @@ export class ProductoService {
     );
   }
 
+  getProductosActivos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>('http://localhost:8084/api/productos/getall');
+  }
+  
+
 }

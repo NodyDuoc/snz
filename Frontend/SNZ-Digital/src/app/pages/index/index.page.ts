@@ -91,21 +91,22 @@ export class IndexPage implements OnInit {
       next: (data: Categoria[]) => {
         this.categorias = data;
         this.categoriasIds = [];
-        const categoria5 = this.categorias.find(categoria => categoria.catId === 1);
-        if (categoria5) {
-          this.categoriasIds.push(categoria5.catId);
-          this.productoService.getProductosByCategoria(categoria5.catId).subscribe({
+        const categoria1 = this.categorias.find(categoria => categoria.catId === 1);
+        if (categoria1) {
+          this.categoriasIds.push(categoria1.catId);
+          this.productoService.getProductosByCategoria(categoria1.catId).subscribe({
             next: (productos) => {
-              this.productosPorCategoria[categoria5.catId] = productos;
-              this.updateLoadingProgress(100); // Finaliza la carga
+              // Asegúrate de que solo los productos activos se carguen
+              this.productosPorCategoria[categoria1.catId] = productos.filter(producto => producto.status === 1);
+              this.updateLoadingProgress(100);
             },
             error: (err) => {
-              console.error(`Error al cargar los productos de la categoría ${categoria5.catId}:`, err);
+              console.error(`Error al cargar los productos de la categoría ${categoria1.catId}:`, err);
               this.updateLoadingProgress(100);
             }
           });
         } else {
-          console.log('No se encontró la categoría 5');
+          console.log('No se encontró la categoría con ID 1');
           this.updateLoadingProgress(100);
         }
       },
@@ -115,6 +116,7 @@ export class IndexPage implements OnInit {
       }
     });
   }
+  
 
   irADetalleProducto(productId: any) {
     console.log(productId)
