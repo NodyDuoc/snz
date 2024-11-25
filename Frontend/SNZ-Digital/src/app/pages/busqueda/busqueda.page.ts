@@ -6,7 +6,8 @@ import { CarritoService } from 'src/app/Service/carrito.service';
 import { ProductoService } from 'src/app/Service/ProductoService.service';
 import { DetalleCarrito } from 'src/models/detalleCarrito';
 import { Producto } from 'src/models/producto';
-
+import { Etiqueta } from 'src/models/etiqueta';
+import { EtiquetaService } from 'src/app/Service/EtiquetaService.service';
 @Component({
   selector: 'app-busqueda',
   templateUrl: './busqueda.page.html',
@@ -14,6 +15,7 @@ import { Producto } from 'src/models/producto';
 })
 export class BusquedaPage implements OnInit {
   productos: Producto[] = []; // Inicializa como un array vacío
+  etiquetas: Etiqueta[] = []; // Inicializa como un array vacío
   selectedProducto?: Producto; // Producto seleccionado
   errorMessage: string = ''; // Variable para almacenar mensajes de error
   imagePreview: string | ArrayBuffer | null = null;
@@ -24,6 +26,7 @@ export class BusquedaPage implements OnInit {
 
   constructor(
     private productoService: ProductoService,
+    private etiquetaService: EtiquetaService,
     private route: ActivatedRoute,
     private router: Router,
     private toastController: ToastController,  // Inyectar ToastController
@@ -35,12 +38,36 @@ export class BusquedaPage implements OnInit {
 
   ngOnInit() {
     this.cargarProductos(); // Cargar los productos cuando el componente se inicie
+    this.cargarEtiquetas(); // Cargar las etiquetas cuando el componente se inicie
     this.route.paramMap.subscribe(params => {
       this.searchQuery = params.get('detalle') || '';
       this.realizarBusqueda();
     });
     this.loadUser(); // Carga el usuario
   }
+  
+  cargarEtiquetas() {
+    this.etiquetaService.getAllEtiquetas().subscribe(
+      (data: Etiqueta[]) => {
+        this.etiquetas = data; // Almacenar todas las etiquetas
+        console.log('Etiquetas cargadas:', this.etiquetas);
+      },
+      (error) => {
+        console.error('Error al obtener las etiquetas:', error);
+        this.etiquetas = []; // Vaciar en caso de error
+      }
+    );
+  }
+  
+  get filteredEtiquetas() {
+    const query = this.searchQuery?.toLowerCase() || ''; // Convierte la consulta a minúsculas para coincidencias parciales
+  
+    // Filtrar etiquetas por nombreEtiqueta que coincidan parcialmente con la búsqueda
+    return this.etiquetas.filter(etiqueta =>
+      etiqueta.nombreEtiqueta?.toLowerCase().includes(query)
+    );
+  }
+  
 
   // Agrega este método en tu componente TypeScript
   get filteredProductos() {
