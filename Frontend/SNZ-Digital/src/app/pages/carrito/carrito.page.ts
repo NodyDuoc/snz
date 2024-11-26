@@ -172,17 +172,17 @@ export class CarritoPage implements OnInit {
   
 
   cargarDetallesCarrito(usuarioId: number) {
-    this.carritoService.getAllDetallesCarrito().subscribe(
-      (detalles) => {
-        this.detalles = detalles.filter(d => d.usuarioIdUser === usuarioId);
-        console.log("Detalles del carrito cargados:", this.detalles);
-        this.cargarNombresProductos();
-      },
-      (error) => {
-        console.error('Error al obtener los detalles del carrito:', error);
-      }
-    );
-  }
+  this.carritoService.getDetallesCarritoByUser(usuarioId).subscribe(
+    (detalles) => {
+      this.detalles = detalles;
+      console.log("Detalles del carrito cargados:", this.detalles);
+      this.cargarNombresProductos();
+    },
+    (error) => {
+      console.error('Error al obtener los detalles del carrito:', error);
+    }
+  );
+}
 
   cargarNombresProductos() {
     const requests = this.detalles.map(detalle => {

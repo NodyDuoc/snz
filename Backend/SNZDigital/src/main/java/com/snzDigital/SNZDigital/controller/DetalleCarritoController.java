@@ -24,6 +24,15 @@ public class DetalleCarritoController {
         return ResponseEntity.ok(detalles);
     }
 
+    @GetMapping("/getbyuser/{id}")
+    public ResponseEntity<List<DetalleCarritoEntity>> getDetallesCarritoByUsuarioId(@PathVariable Integer id) {
+        List<DetalleCarritoEntity> detalles = detalleCarritoService.getDetallesCarritoByUsuarioId(id);
+        if (detalles.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(detalles);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<DetalleCarritoResponse> getDetalleCarritoById(@PathVariable Integer id) {
         Optional<DetalleCarritoEntity> detalle = detalleCarritoService.getDetalleCarritoById(id);
@@ -50,4 +59,6 @@ public class DetalleCarritoController {
         detalleCarritoService.deleteDetalleCarrito(id);
         return ResponseEntity.ok(new DetalleCarritoResponse(id, "Detalle eliminado con éxito", true));
     }
+
+
 }

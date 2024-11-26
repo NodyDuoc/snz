@@ -57,5 +57,10 @@ export class CarritoService {
   deleteDetalleCarrito(idDetalleCarrito: number): Observable<void> {
     return this.http.delete<void>(`${this.detalleCarritoUrl}/delete/${idDetalleCarrito}`);
   }
+
+  getDetallesCarritoByUser(userId: number): Observable<DetalleCarrito[]> {
+    return this.http.get<DetalleCarrito[]>(`${this.detalleCarritoUrl}/getbyuser/${userId}`);
+}
+
   
 }

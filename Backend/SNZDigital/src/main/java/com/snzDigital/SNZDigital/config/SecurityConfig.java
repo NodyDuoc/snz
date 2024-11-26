@@ -115,6 +115,8 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/detallecarritos/create").permitAll();
                     http.requestMatchers(HttpMethod.PUT, "/api/detallecarritos/update/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/detallecarritos/delete/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/detallecarritos/getbyuser/{id}").permitAll();
+
 
                     // Endpoints de movimientos de kardex
                     http.requestMatchers(HttpMethod.GET, "/api/movimientos/getall").permitAll(); // Permitir acceso público

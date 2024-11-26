@@ -34,4 +34,9 @@ public class DetalleCarritoService {
     public void deleteDetalleCarrito(Integer id) {
         detalleCarritoRepository.deleteById(id);
     }
+
+    public List<DetalleCarritoEntity> getDetallesCarritoByUsuarioId(Integer id) {
+        return detalleCarritoRepository.findByUsuarioIdUser(id);
+    }
+
 }
