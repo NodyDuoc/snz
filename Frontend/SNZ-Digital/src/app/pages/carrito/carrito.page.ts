@@ -12,6 +12,7 @@ import { PagoRequest } from 'src/models/PagoRequest';
 import { DireccionService } from 'src/app/Service/DireccionService.service';
 import { Direccion } from 'src/models/direccion';
 import { PedidoService } from 'src/app/Service/pedido.service';
+import { EtiquetaProductoService } from 'src/app/Service/EtiquetaProductoService.service';
 import { Pedido } from 'src/models/pedido';
 
 @Component({
@@ -27,9 +28,13 @@ export class CarritoPage implements OnInit {
   errorMessage: string = '';
   user: any = null;
   detallePedido: string = ''; // Contiene el detalle del pedido ingresado por el usuario
-
+  c12: number = 0;
+  c13: number = 0;
+  c15: number = 0;
+  c16: number = 0;
   constructor(
     private carritoService: CarritoService,
+    private etiquetaProductoService: EtiquetaProductoService,
     private router: Router,
     private userService: AuthService,
     private productoService: ProductoService,
@@ -46,7 +51,7 @@ export class CarritoPage implements OnInit {
   ngOnInit() {
     this.loadUser();
     this.cargarDirecciones();
-  
+    
     // Solo llama a verificarEstadoPago si transactionId tiene un valor
     if (this.transactionId) {
       this.verificarEstadoPago(this.transactionId);
@@ -172,17 +177,58 @@ export class CarritoPage implements OnInit {
   
 
   cargarDetallesCarrito(usuarioId: number) {
-  this.carritoService.getDetallesCarritoByUser(usuarioId).subscribe(
-    (detalles) => {
-      this.detalles = detalles;
-      console.log("Detalles del carrito cargados:", this.detalles);
-      this.cargarNombresProductos();
-    },
-    (error) => {
-      console.error('Error al obtener los detalles del carrito:', error);
-    }
-  );
-}
+    this.carritoService.getDetallesCarritoByUser(usuarioId).subscribe(
+      (detalles) => {
+        this.detalles = detalles;
+        console.log("Detalles del carrito cargados:", this.detalles);
+  
+        // Verificar las etiquetas para cada producto
+        this.verificarEtiquetasPorProducto();
+        
+        this.cargarNombresProductos();
+      },
+      (error) => {
+        console.error('Error al obtener los detalles del carrito:', error);
+      }
+    );
+  }
+  
+  verificarEtiquetasPorProducto() {
+    // Lista de los ID de etiquetas que queremos verificar
+    const etiquetasBuscadas = [12, 13, 15, 16];
+  
+    // Iterar sobre los detalles del carrito
+    this.detalles.forEach(detalle => {
+      // Obtener las etiquetas para el producto con el productId del detalle
+      this.etiquetaProductoService.getEtiquetaDetallesByProductId(detalle.productId).subscribe(
+        (etiquetas) => {
+          // Filtrar las etiquetas que coinciden con los IDs buscados
+          const etiquetasEncontradas = etiquetas.filter(etiqueta => etiquetasBuscadas.includes(etiqueta.etiquetaId));
+          const cantidadEtiquetas = etiquetasEncontradas.length;
+  
+          // Contar cuántas veces aparece cada etiqueta
+          etiquetasEncontradas.forEach(etiqueta => {
+            if (etiqueta.etiquetaId === 12) {
+              this.c12++;
+            } else if (etiqueta.etiquetaId === 13) {
+              this.c13++;
+            } else if (etiqueta.etiquetaId === 15) {
+              this.c15++;
+            } else if (etiqueta.etiquetaId === 16) {
+              this.c16++;
+            }
+          });
+  
+          // Mostrar el resultado o hacer lo que se necesite con el conteo
+          console.log(`Producto ${detalle.productId} tiene ${cantidadEtiquetas} etiquetas con los IDs buscados.`);
+        },
+        (error) => {
+          console.error('Error al obtener las etiquetas del producto:', error);
+        }
+      );
+    });
+  }
+  
 
   cargarNombresProductos() {
     const requests = this.detalles.map(detalle => {
