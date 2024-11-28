@@ -169,6 +169,15 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/api/etiqueta_producto/etiqueta/{etiquetaId}/detalles").permitAll(); // Nuevo endpoint
 
 
+                    // Endpoints de guias
+                    http.requestMatchers(HttpMethod.GET, "/api/guias/getall").permitAll(); // Permitir acceso público
+                    http.requestMatchers(HttpMethod.GET, "/api/guias/get/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/guias/create").permitAll();
+                    http.requestMatchers(HttpMethod.PUT, "/api/guias/update/{id}").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/guias/delete/{id}").permitAll();
+
+
+
                     http.anyRequest().permitAll(); // Requiere autenticación para cualquier otra solicitud
 
 
