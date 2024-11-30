@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+
+  <div class="container-card">
+    <div class="header-title">
+      <ion-title class="main-title">¡Bienvenido a la Sección de Guías!</ion-title>
+      <p class="sub-title">Encuentra información útil para aprender y tomar decisiones informadas</p>
+    </div>
+
+    <!-- Contenedor de guías -->
+    <div class="guides-container">
+      <div class="guide-card" *ngFor="let guia of filteredGuides">
+
+        
+        <div class="guide-info"  (click)="verGuia(guia.guiaId)"           >
+          <p>{{ guia?.detalle || 'Descripción no disponible' }}</p>
+          <button class="custom-button">
+            <i class="fas fa-book-open"></i> Leer más
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noGuides>
+      <p>No hay guías disponibles en este momento.</p>
+    </ng-template>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

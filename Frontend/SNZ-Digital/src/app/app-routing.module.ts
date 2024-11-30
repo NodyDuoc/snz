@@ -222,6 +222,15 @@ const routes: Routes = [
     path: 'pedido-detalle/:pedidoId',
     loadChildren: () => import('./pages/pedido-detalle/pedido-detalle.module').then( m => m.PedidoDetallePageModule)
   },
+  {
+    path: 'guias',
+    loadChildren: () => import('./pages/guias/guias.module').then( m => m.GuiasPageModule)
+  },
+  {
+    path: 'guia/:Id',
+    loadChildren: () => import('./pages/guia/guia.module').then( m => m.GuiaPageModule)
+  },
+
 
 
 
