@@ -57,14 +57,21 @@ public class ProductoController {
             @RequestParam("precio") Double precio,
             @RequestParam(value = "categoriaCatId", required = false) Long categoriaCatId,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen,
-            @RequestParam("marca") String marca) { // Nuevo parámetro marca
+            @RequestParam("marca") String marca) {
 
-        // Llamar al servicio para crear el producto, incluyendo la marca
-        ProductoResponse productoResponse = productoService.createProducto(productName, descripcion, status, precio, categoriaCatId, imagen, marca);
+        // Establecer el valor predeterminado de 'status' a 1 (activo/true) si es nulo
+        if (status == null) {
+            status = 1; // Visible por defecto
+        }
+
+        // Llamar al servicio para crear el producto
+        ProductoResponse productoResponse = productoService.createProducto(
+                productName, descripcion, status, precio, categoriaCatId, imagen, marca);
 
         // Retornar la respuesta
         return new ResponseEntity<>(productoResponse, HttpStatus.CREATED);
     }
+
 
 
 

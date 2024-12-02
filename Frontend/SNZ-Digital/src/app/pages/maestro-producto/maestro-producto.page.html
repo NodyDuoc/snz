@@ -40,6 +40,12 @@
             </div>
             <div class="producto-info">  
               <p>{{ producto.marca }}</p>
+              <p>
+                Estado: 
+                <span [ngClass]="{'active-status': producto.status === 1, 'inactive-status': producto.status === 0}">
+                  {{ producto.status === 1 ? 'Activo' : 'Inactivo' }}
+                </span>
+              </p>
               <h3>{{ producto.productName }}</h3>  
              <!-- <p>{{ producto.descripcion }}</p>  --> 
               <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>  
