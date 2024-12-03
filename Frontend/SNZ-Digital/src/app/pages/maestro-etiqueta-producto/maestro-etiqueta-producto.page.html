@@ -35,7 +35,7 @@
               <tr *ngFor="let etiqueta of etiquetas">
                 <td>{{ etiqueta?.etiquetaId || 'No disponible' }}</td>
                 <td>{{ etiqueta?.nombreEtiqueta || 'No disponible' }}</td>
-                <td>{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
+                <td class="detalle">{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
                 <td>{{ etiqueta?.conexion || 'false' }}</td>
 
                 <ion-item *ngIf="etiqueta.conexion === true">
