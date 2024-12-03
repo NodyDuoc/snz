@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/productos")
 public class ProductoController {
@@ -26,7 +25,6 @@ public class ProductoController {
         List<ProductoEntity> productos = productoService.getAllProductosActivos();
         return ResponseEntity.ok(new ProductoResponse("Productos obtenidos con éxito", HttpStatus.OK.value(), productos));
     }
-
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ProductoResponse> getProductoById(@PathVariable Long id) {
@@ -44,8 +42,8 @@ public class ProductoController {
     @GetMapping("/categoria/paginado/{categoriaCatId}")
     public ProductoResponse getProductosByCategoria(
             @PathVariable Long categoriaCatId,
-            @RequestParam(defaultValue = "0") int page, // Página por defecto 0
-            @RequestParam(defaultValue = "6") int size) { // Tamaño por defecto 6
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size) {
         return productoService.getProductosByCategoria(categoriaCatId, page, size);
     }
 
@@ -57,23 +55,19 @@ public class ProductoController {
             @RequestParam("precio") Double precio,
             @RequestParam(value = "categoriaCatId", required = false) Long categoriaCatId,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen,
-            @RequestParam("marca") String marca) {
+            @RequestParam("marca") String marca,
+            @RequestParam(value = "inventario", required = false) Integer inventario,
+            @RequestParam(value = "inventarioDisponible", required = false) Integer inventarioDisponible,
+            @RequestParam(value = "reserva", required = false) Integer reserva) {
 
-        // Establecer el valor predeterminado de 'status' a 1 (activo/true) si es nulo
-        if (status == null) {
-            status = 1; // Visible por defecto
-        }
-
-        // Llamar al servicio para crear el producto
         ProductoResponse productoResponse = productoService.createProducto(
-                productName, descripcion, status, precio, categoriaCatId, imagen, marca);
+                productName, descripcion, status, precio, categoriaCatId, imagen, marca,
+                inventario != null ? inventario : 0,
+                inventarioDisponible != null ? inventarioDisponible : 0,
+                reserva != null ? reserva : 0);
 
-        // Retornar la respuesta
         return new ResponseEntity<>(productoResponse, HttpStatus.CREATED);
     }
-
-
-
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductoResponse> updateProducto(
@@ -83,19 +77,20 @@ public class ProductoController {
             @RequestParam("precio") Double precio,
             @RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam("marca") String marca,
-            @RequestParam(value = "status", required = false) Integer status) {
-
-        // Asignar valor predeterminado si 'status' es null
-
-
+            @RequestParam(value = "status", required = false) Integer status,
+            @RequestParam(value = "inventario", required = false) Integer inventario,
+            @RequestParam(value = "inventarioDisponible", required = false) Integer inventarioDisponible,
+            @RequestParam(value = "reserva", required = false) Integer reserva) {
 
         ProductoUpdateDTO productoDTO = new ProductoUpdateDTO();
         productoDTO.setProductName(productName);
         productoDTO.setDescripcion(descripcion);
         productoDTO.setPrecio(precio);
         productoDTO.setMarca(marca);
-        productoDTO.setStatus(status != null ? status : 0); // Por defecto, 0 si es null
-
+        productoDTO.setStatus(status != null ? status : 0);
+        productoDTO.setInventario(inventario != null ? inventario : 0);
+        productoDTO.setInventarioDisponible(inventarioDisponible != null ? inventarioDisponible : 0);
+        productoDTO.setReserva(reserva != null ? reserva : 0);
 
         if (imagen != null && !imagen.isEmpty()) {
             try {
@@ -108,9 +103,6 @@ public class ProductoController {
         ProductoEntity updatedProducto = productoService.updateProducto(id, productoDTO);
         return ResponseEntity.ok(new ProductoResponse("Producto actualizado con éxito", HttpStatus.OK.value(), updatedProducto));
     }
-
-
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ProductoResponse> deleteProducto(@PathVariable Long id) {

@@ -8,7 +8,6 @@ import com.snzDigital.SNZDigital.controller.dto.ProductoResponse;
 import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
 import com.snzDigital.SNZDigital.persistence.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,11 +15,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import com.snzDigital.SNZDigital.util.ResourceNotFoundException;
 import java.util.Base64;
+
 @Service
 public class ProductoService {
-
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -38,7 +36,7 @@ public class ProductoService {
         return productoRepository.findByCategoriaCatId(categoriaCatId);
     }
 
-    public ProductoResponse createProducto(String productName, String descripcion, Integer status, Double precio, Long categoriaCatId, MultipartFile imagen, String marca) {
+    public ProductoResponse createProducto(String productName, String descripcion, Integer status, Double precio, Long categoriaCatId, MultipartFile imagen, String marca, Integer inventario, Integer inventarioDisponible, Integer reserva) {
         ProductoEntity producto = new ProductoEntity();
         producto.setProductName(productName);
         producto.setDescripcion(descripcion);
@@ -46,6 +44,9 @@ public class ProductoService {
         producto.setPrecio(precio);
         producto.setCategoriaCatId(categoriaCatId);
         producto.setMarca(marca); // Establece la marca
+        producto.setInventario(inventario); // Establece el inventario
+        producto.setInventarioDisponible(inventarioDisponible); // Establece el inventario disponible
+        producto.setReserva(reserva); // Establece la reserva
 
         // Convertir MultipartFile a byte[]
         if (imagen != null && !imagen.isEmpty()) {
@@ -78,8 +79,10 @@ public class ProductoService {
         productoExistente.setDescripcion(productoDTO.getDescripcion());
         productoExistente.setPrecio(productoDTO.getPrecio());
         productoExistente.setMarca(productoDTO.getMarca()); // Actualiza la marca
-        productoExistente.setStatus(productoDTO.getStatus()); // Actualiza la marca
-        
+        productoExistente.setStatus(productoDTO.getStatus()); // Actualiza el status
+        productoExistente.setInventario(productoDTO.getInventario()); // Actualiza el inventario
+        productoExistente.setInventarioDisponible(productoDTO.getInventarioDisponible()); // Actualiza el inventario disponible
+        productoExistente.setReserva(productoDTO.getReserva()); // Actualiza la reserva
 
         if (productoDTO.getImagen() != null) {
             productoExistente.setImagen(productoDTO.getImagen());
@@ -105,8 +108,10 @@ public class ProductoService {
                         producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
                         "Productos listados correctamente",
                         producto.getCategoriaCatId(),
-                        producto.getMarca() // Incluye la marca en la respuesta
-
+                        producto.getMarca(),
+                        producto.getInventario(),
+                        producto.getInventarioDisponible(),
+                        producto.getReserva()
                 ))
                 .collect(Collectors.toList());
 
@@ -135,7 +140,10 @@ public class ProductoService {
                         producto.getImagen() != null ? Base64.getEncoder().encodeToString(producto.getImagen()) : "",
                         "Productos listados correctamente",
                         producto.getCategoriaCatId(),
-                        producto.getMarca()
+                        producto.getMarca(),
+                        producto.getInventario(),
+                        producto.getInventarioDisponible(),
+                        producto.getReserva()
                 ))
                 .collect(Collectors.toList());
 

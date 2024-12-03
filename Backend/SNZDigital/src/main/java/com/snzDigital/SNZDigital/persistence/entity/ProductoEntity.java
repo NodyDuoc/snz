@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Table(name = "producto")
 @Data
@@ -41,22 +39,16 @@ public class ProductoEntity {
     @Column(name = "IMAGEN", columnDefinition = "bytea", nullable = true)
     private byte[] imagen;
 
-    public String getMarca() {
-        return marca;
-    }
+    @Column(name = "INVENTARIO", nullable = false)
+    private Integer inventario;
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
+    @Column(name = "INVENTARIO_DISPONIBLE", nullable = false)
+    private Integer inventarioDisponible;
 
-    public Integer getStatus() {
-        return status;
-    }
+    @Column(name = "RESERVA", nullable = false)
+    private Integer reserva;
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
+    // Getters y Setters
     public Long getProductId() {
         return productId;
     }
@@ -97,6 +89,22 @@ public class ProductoEntity {
         this.categoriaCatId = categoriaCatId;
     }
 
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public byte[] getImagen() {
         return imagen;
     }
@@ -105,4 +113,27 @@ public class ProductoEntity {
         this.imagen = imagen;
     }
 
+    public Integer getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
+    }
+
+    public Integer getInventarioDisponible() {
+        return inventarioDisponible;
+    }
+
+    public void setInventarioDisponible(Integer inventarioDisponible) {
+        this.inventarioDisponible = inventarioDisponible;
+    }
+
+    public Integer getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Integer reserva) {
+        this.reserva = reserva;
+    }
 }

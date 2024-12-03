@@ -7,25 +7,11 @@ public class ProductoUpdateDTO {
     private Double precio;
     private byte[] imagen; // Almacena la imagen como un arreglo de bytes
     private String marca;
-
+    private Integer inventario;
+    private Integer inventarioDisponible;
+    private Integer reserva;
 
     // Getters y Setters
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
 
     public String getProductName() {
         return productName;
@@ -43,6 +29,14 @@ public class ProductoUpdateDTO {
         this.descripcion = descripcion;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Double getPrecio() {
         return precio;
     }
@@ -57,5 +51,37 @@ public class ProductoUpdateDTO {
 
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public Integer getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
+    }
+
+    public Integer getInventarioDisponible() {
+        return inventarioDisponible;
+    }
+
+    public void setInventarioDisponible(Integer inventarioDisponible) {
+        this.inventarioDisponible = inventarioDisponible;
+    }
+
+    public Integer getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Integer reserva) {
+        this.reserva = reserva;
     }
 }
