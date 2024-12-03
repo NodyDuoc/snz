@@ -127,3 +127,35 @@ ion-content {
     }
   }
   
+  .direccion-table tbody tr td.detalle {
+    padding: 12px;
+    font-size: 14px;
+    color: #555;
+    max-width: 300px; /* Ajusta el ancho máximo según tus necesidades */
+    overflow-y: auto; /* Agrega barra de desplazamiento si es necesario */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limita a 3 líneas */
+    -webkit-box-orient: vertical;
+    white-space: normal; /* Permite el salto de línea dentro del contenido */
+  }
+
+  /* Estilo personalizado para el scrollbar */
+.direccion-table tbody tr td.detalle::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra */
+  background-color: #f5f5f5; /* Color del fondo del scrollbar */
+}
+
+.direccion-table tbody tr td.detalle::-webkit-scrollbar-thumb {
+  background: #d3d3d3; /* Color del "pulgar" del scrollbar */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.direccion-table tbody tr td.detalle::-webkit-scrollbar-thumb:hover {
+  background: #a9a9a9; /* Color del "pulgar" al pasar el mouse */
+}
+
+.direccion-table tbody tr td.detalle::-webkit-scrollbar-track {
+  background: #f9f9f9; /* Fondo del track del scrollbar */
+  border-radius: 4px;
+}
