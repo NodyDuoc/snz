@@ -36,7 +36,7 @@
               <tr *ngFor="let etiqueta of etiquetas">
                 <td>{{ etiqueta?.etiquetaId || 'No disponible' }}</td>
                 <td>{{ etiqueta?.nombreEtiqueta || 'No disponible' }}</td>
-                <td>{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
+                <td class="detalle">{{ etiqueta?.detalleEtiqueta || 'No disponible' }}</td>
                 <td><button class="btn btn-primary" (click)="editarEtiqueta(etiqueta.etiquetaId)">EDITAR</button></td>
               </tr>
             </tbody>
