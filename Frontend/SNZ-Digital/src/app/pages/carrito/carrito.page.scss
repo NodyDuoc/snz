@@ -117,3 +117,37 @@
   color: #666;
   margin-bottom: 20px;
 }
+
+.etiquetas-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.etiquetas-container h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.conteo p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.alert {
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}

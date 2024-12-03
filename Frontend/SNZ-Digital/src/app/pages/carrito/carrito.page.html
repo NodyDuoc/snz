@@ -19,13 +19,27 @@
       </ion-item>
     </div>
 
-    <div>
-      <h2>Conteo de etiquetas encontradas:</h2>
-      <p>Etiqueta 12: {{ c12 }}</p>
-      <p>Etiqueta 13: {{ c13 }}</p>
-      <p>Etiqueta 15: {{ c15 }}</p>
-      <p>Etiqueta 16: {{ c16 }}</p>
+    <div class="etiquetas-container">
+      <!--<h2>Conteo de Etiquetas Encontradas</h2>
+      <div class="conteo">
+        <p><strong>Etiqueta 12:</strong> {{ c12 }}</p>
+        <p><strong>Etiqueta 13:</strong> {{ c13 }}</p>
+        <p><strong>Etiqueta 15:</strong> {{ c15 }}</p>
+        <p><strong>Etiqueta 16:</strong> {{ c16 }}</p>
+      </div> -->
+    
+      <div *ngIf="incompatibles.length > 0" class="alert alert-danger">
+        <h3>Productos incompatibles encontrados:</h3>
+        <ul>
+          <li *ngFor="let mensaje of incompatibles">{{ mensaje }}</li>
+        </ul>
+      </div>
+    
+      <div *ngIf="incompatibles.length === 0" class="alert alert-success">
+        <h3>Todos los productos son compatibles</h3>
+      </div>
     </div>
+    
 
     <div class="detalle-pedido">
       <h3>Detalle del Pedido</h3>
