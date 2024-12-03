@@ -1,5 +1,6 @@
 package com.snzDigital.SNZDigital.controller;
 
+import com.snzDigital.SNZDigital.controller.dto.ProductoInventarioResponse;
 import com.snzDigital.SNZDigital.controller.dto.ProductoResponse;
 import com.snzDigital.SNZDigital.controller.dto.ProductoUpdateDTO;
 import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
@@ -103,6 +104,31 @@ public class ProductoController {
         ProductoEntity updatedProducto = productoService.updateProducto(id, productoDTO);
         return ResponseEntity.ok(new ProductoResponse("Producto actualizado con éxito", HttpStatus.OK.value(), updatedProducto));
     }
+
+    // Endpoint para actualizar inventario, inventarioDisponible y reserva
+    @PutMapping("/actualizarInventario/{id}")
+    public ResponseEntity<?> updateInventarioById(@PathVariable Long id,
+                                                  @RequestParam Integer inventario,
+                                                  @RequestParam Integer inventarioDisponible,
+                                                  @RequestParam Integer reserva) {
+        try {
+            // Llamamos al servicio para actualizar los campos de inventario
+            productoService.updateInventarioById(id, inventario, inventarioDisponible, reserva);
+
+            // Retornar una respuesta exitosa
+            return ResponseEntity.ok("Inventario, inventarioDisponible y reserva actualizados correctamente.");
+        } catch (RuntimeException e) {
+            // Si ocurre algún error (producto no encontrado), retornamos un error
+            return ResponseEntity.status(404).body("Producto no encontrado con ID: " + id);
+        }
+    }
+
+    @GetMapping("/inventario/{id}")
+    public ResponseEntity<ProductoInventarioResponse> getProductoInventario(@PathVariable Long id) {
+        ProductoInventarioResponse inventarioResponse = productoService.getProductoInventarioById(id);
+        return new ResponseEntity<>(inventarioResponse, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ProductoResponse> deleteProducto(@PathVariable Long id) {

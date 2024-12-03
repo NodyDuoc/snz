@@ -1,6 +1,8 @@
 package com.snzDigital.SNZDigital.service;
 
+import com.snzDigital.SNZDigital.controller.dto.ProductoInventarioResponse;
 import com.snzDigital.SNZDigital.controller.dto.ProductoUpdateDTO;
+import com.snzDigital.SNZDigital.util.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -149,4 +151,34 @@ public class ProductoService {
 
         return new ProductoResponse("Productos listados correctamente", 200, productosResponse);
     }
+
+    // Método para actualizar solo inventario, inventarioDisponible y reserva por el ID del producto
+    public ProductoEntity updateInventarioById(Long id, Integer inventario, Integer inventarioDisponible, Integer reserva) {
+        // Buscar el producto por su ID
+        ProductoEntity productoExistente = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+
+        // Actualizar solo los campos inventario, inventarioDisponible y reserva
+        productoExistente.setInventario(inventario);
+        productoExistente.setInventarioDisponible(inventarioDisponible);
+        productoExistente.setReserva(reserva);
+
+        // Guardar los cambios en la base de datos
+        return productoRepository.save(productoExistente);
+    }
+
+    public ProductoInventarioResponse getProductoInventarioById(Long id) {
+        ProductoEntity producto = productoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + id));
+
+        // Crear el response con solo los tres valores
+        ProductoInventarioResponse response = new ProductoInventarioResponse(
+                producto.getInventario(),
+                producto.getInventarioDisponible(),
+                producto.getReserva()
+        );
+
+        return response;
+    }
+
 }
