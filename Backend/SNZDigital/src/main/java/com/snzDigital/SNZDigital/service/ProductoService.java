@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -82,9 +83,12 @@ public class ProductoService {
         productoExistente.setPrecio(productoDTO.getPrecio());
         productoExistente.setMarca(productoDTO.getMarca()); // Actualiza la marca
         productoExistente.setStatus(productoDTO.getStatus()); // Actualiza el status
-        productoExistente.setInventario(productoDTO.getInventario()); // Actualiza el inventario
-        productoExistente.setInventarioDisponible(productoDTO.getInventarioDisponible()); // Actualiza el inventario disponible
         productoExistente.setReserva(productoDTO.getReserva()); // Actualiza la reserva
+        productoExistente.setInventarioDisponible(
+                BigDecimal.valueOf(productoExistente.getInventario())
+                        .subtract(BigDecimal.valueOf(productoExistente.getReserva()))
+                        .intValue()
+        );
 
         if (productoDTO.getImagen() != null) {
             productoExistente.setImagen(productoDTO.getImagen());
