@@ -14,4 +14,10 @@ export class KardexService {
   getAllKardex(): Observable<Kardex[]> {
     return this.http.get<Kardex[]>(`${this.apiUrl}/getall`);
   }
+
+  // Crear un nuevo kardex
+  createKardex(kardex: Kardex): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, kardex);
+  }
+
 }

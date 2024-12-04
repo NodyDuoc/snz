@@ -4,7 +4,9 @@ import com.snzDigital.SNZDigital.controller.dto.PedidoRequest;
 import com.snzDigital.SNZDigital.controller.dto.ProductoDetalleRequest;
 import com.snzDigital.SNZDigital.persistence.entity.PedidoEntity;
 import com.snzDigital.SNZDigital.persistence.entity.PedidoProductoEntity;
+import com.snzDigital.SNZDigital.persistence.entity.KardexEntity;
 import com.snzDigital.SNZDigital.persistence.entity.ProductoEntity;
+import com.snzDigital.SNZDigital.persistence.repositories.KardexRepository;
 import com.snzDigital.SNZDigital.persistence.repositories.PedidoProductoRepository;
 import com.snzDigital.SNZDigital.persistence.repositories.PedidoRepository;
 import com.snzDigital.SNZDigital.persistence.repositories.ProductoRepository;
@@ -15,6 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +38,9 @@ public class PedidoService {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private KardexService kardexService;
 
     @Transactional
     public PedidoEntity crearPedido(PedidoRequest pedidoRequest) {
@@ -76,6 +86,28 @@ public class PedidoService {
             detalle.setCantidad(detalleRequest.getCantidad());
             detalle.setPrecioUnitario(detalleRequest.getPrecioUnitario());
             detalle.setTotalPrecio(detalleRequest.getTotalPrecio());
+
+
+
+            KardexEntity kardex = new KardexEntity();
+
+
+            kardex.setEntrada(BigDecimal.valueOf(0));
+            kardex.setSalida(BigDecimal.valueOf(detalleRequest.getCantidad()));
+            kardex.setPrecioUnitario(BigDecimal.valueOf(0));
+            kardex.setMovimientoKarMovId(1);
+            kardex.setProductoProductId(producto.getProductId().intValue());
+            kardex.setSaldo(BigDecimal.valueOf(0));
+            kardex.setPrecioActualizado(BigDecimal.valueOf(0));
+            // Establecer la fecha actual
+            kardex.setFecha(new Date());
+            // Establecer la hora actual
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String horaActual = LocalTime.now().format(timeFormatter);
+
+            kardex.setHora(horaActual);
+
+            kardexService.createKardex(kardex);
 
             logger.info("Creando detalle del pedido para producto ID: {}, cantidad: {}, precio unitario: {}, precio total: {}",
                     detalleRequest.getProductoId(), detalleRequest.getCantidad(), detalleRequest.getPrecioUnitario(), detalleRequest.getTotalPrecio());
