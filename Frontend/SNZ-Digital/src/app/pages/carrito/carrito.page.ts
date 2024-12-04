@@ -182,10 +182,11 @@ export class CarritoPage implements OnInit {
         this.detalles = detalles;
         console.log("Detalles del carrito cargados:", this.detalles);
   
-        // Verificar las etiquetas para cada producto
-        this.verificarEtiquetasPorProducto();
-        
-        this.cargarNombresProductos();
+        // Cargar nombres de productos antes de verificar etiquetas
+        this.cargarNombresProductos().then(() => {
+          // Verificar las etiquetas para cada producto
+          this.verificarEtiquetasPorProducto();
+        });
       },
       (error) => {
         console.error('Error al obtener los detalles del carrito:', error);
@@ -195,92 +196,100 @@ export class CarritoPage implements OnInit {
   
   incompatibles: string[] = [];
 
-verificarEtiquetasPorProducto() {
-  const etiquetasBuscadas = [12, 13, 15, 16];
-  this.incompatibles = []; // Reiniciar la lista de incompatibles
-
-  const productosConEtiqueta: { [key: number]: number[] } = {}; // Mapa para almacenar etiquetas por producto
-
-  this.detalles.forEach(detalle => {
-    this.etiquetaProductoService.getEtiquetaDetallesByProductId(detalle.productId).subscribe(
-      (etiquetas) => {
-        console.log(`Etiquetas para el producto ${detalle.productId}:`, etiquetas);
-
-        // Guardar las etiquetas encontradas para este producto
-        productosConEtiqueta[detalle.productId] = etiquetas.map(e => e.etiquetaId);
-
-        // Contar etiquetas globalmente
-        etiquetas.forEach(etiqueta => {
-          if (etiqueta.etiquetaId === 12) this.c12++;
-          if (etiqueta.etiquetaId === 13) this.c13++;
-          if (etiqueta.etiquetaId === 15) this.c15++;
-          if (etiqueta.etiquetaId === 16) this.c16++;
-        });
-
-        // Verificar incompatibilidades después de procesar todos los productos
-        this.detectarIncompatibilidades(productosConEtiqueta);
-      },
-      (error) => {
-        console.error(`Error al obtener etiquetas para el producto ${detalle.productId}:`, error);
-      }
-    );
-  });
-}
-
-detectarIncompatibilidades(productosConEtiqueta: { [key: number]: number[] }) {
-  const productosCon12 = Object.keys(productosConEtiqueta).filter(productId =>
-    productosConEtiqueta[Number(productId)].includes(12)
-  );
-  const productosCon16 = Object.keys(productosConEtiqueta).filter(productId =>
-    productosConEtiqueta[Number(productId)].includes(16)
-  );
-  const productosCon13 = Object.keys(productosConEtiqueta).filter(productId =>
-    productosConEtiqueta[Number(productId)].includes(13)
-  );
-  const productosCon15 = Object.keys(productosConEtiqueta).filter(productId =>
-    productosConEtiqueta[Number(productId)].includes(15)
-  );
-
-  // Detectar incompatibilidades entre productos
-  if (productosCon12.length > 0 && productosCon16.length > 0) {
-    this.incompatibles.push(
-      `Hay productos incompatibles: Producto con ID ${productosCon12.join(', ')} y Producto con ID ${productosCon16.join(', ')}.`
-    );
+  verificarEtiquetasPorProducto() {
+    const etiquetasBuscadas = [12, 13, 15, 16];
+    this.incompatibles = []; // Reiniciar la lista de incompatibles
+  
+    const productosConEtiqueta: { [key: number]: { etiquetas: number[], nombre: string } } = {}; // Mapa para almacenar etiquetas y nombres por producto
+  
+    this.detalles.forEach(detalle => {
+      this.etiquetaProductoService.getEtiquetaDetallesByProductId(detalle.productId).subscribe(
+        (etiquetas) => {
+          console.log(`Etiquetas para el producto ${detalle.productId}:`, etiquetas);
+  
+          // Guardar las etiquetas encontradas y el nombre del producto para este producto
+          productosConEtiqueta[detalle.productId] = {
+            etiquetas: etiquetas.map(e => e.etiquetaId),
+            nombre: detalle.productName || 'Nombre desconocido' // Valor predeterminado
+          };
+          
+  
+          // Contar etiquetas globalmente
+          etiquetas.forEach(etiqueta => {
+            if (etiqueta.etiquetaId === 12) this.c12++;
+            if (etiqueta.etiquetaId === 13) this.c13++;
+            if (etiqueta.etiquetaId === 15) this.c15++;
+            if (etiqueta.etiquetaId === 16) this.c16++;
+          });
+  
+          // Verificar incompatibilidades después de procesar todos los productos
+          this.detectarIncompatibilidades(productosConEtiqueta);
+        },
+        (error) => {
+          console.error(`Error al obtener etiquetas para el producto ${detalle.productId}:`, error);
+        }
+      );
+    });
   }
+  
 
-  if (productosCon13.length > 0 && productosCon15.length > 0) {
-    this.incompatibles.push(
-      `Hay productos con etiquetas incompatibles: 13 (Producto con ID ${productosCon13.join(', ')}) y 15 ( Producto con ID${productosCon15.join(', ')}).`
-    );
+  detectarIncompatibilidades(productosConEtiqueta: { [key: number]: { etiquetas: number[], nombre: string } }) {
+    const productosCon12 = Object.values(productosConEtiqueta).filter(producto =>
+      producto.etiquetas.includes(12)
+    ).map(producto => producto.nombre);
+  
+    const productosCon16 = Object.values(productosConEtiqueta).filter(producto =>
+      producto.etiquetas.includes(16)
+    ).map(producto => producto.nombre);
+  
+    const productosCon13 = Object.values(productosConEtiqueta).filter(producto =>
+      producto.etiquetas.includes(13)
+    ).map(producto => producto.nombre);
+  
+    const productosCon15 = Object.values(productosConEtiqueta).filter(producto =>
+      producto.etiquetas.includes(15)
+    ).map(producto => producto.nombre);
+  
+    // Detectar incompatibilidades entre productos
+    if (productosCon12.length > 0 && productosCon16.length > 0) {
+      this.incompatibles.push(
+        `Hay productos incompatibles: ${productosCon12.join(', ')} y ${productosCon16.join(', ')}.`
+      );
+    }
+  
+    if (productosCon13.length > 0 && productosCon15.length > 0) {
+      this.incompatibles.push(
+        `Hay productos con etiquetas incompatibles: 13 (${productosCon13.join(', ')}) y 15 (${productosCon15.join(', ')}).`
+      );
+    }
+  
+    console.log('Incompatibles detectados:', this.incompatibles);
   }
-
-  console.log('Incompatibles detectados:', this.incompatibles);
-}
-
-  
-  
-  
   
 
-  cargarNombresProductos() {
+  cargarNombresProductos(): Promise<void> {
     const requests = this.detalles.map(detalle => {
       return this.productoService.getProductoById(detalle.productId).pipe(
         map(data => {
           return {
             ...detalle,
-            productName: data.data.productName,
+            productName: data.data.productName || 'Nombre desconocido', // Valor predeterminado
             imagen: data.data.imagen
           };
         }),
         catchError(error => {
-          return of(detalle);
+          console.warn(`Error al obtener el nombre del producto con ID ${detalle.productId}:`, error);
+          return of(detalle); // Devuelve el detalle original si falla
         })
       );
     });
-
-    forkJoin(requests).subscribe(updatedDetalles => {
-      this.detalles = updatedDetalles;
-      console.log("Detalles del carrito con nombres de productos:", this.detalles);
+  
+    return new Promise((resolve) => {
+      forkJoin(requests).subscribe(updatedDetalles => {
+        this.detalles = updatedDetalles;
+        console.log("Detalles del carrito con nombres de productos:", this.detalles);
+        resolve(); // Resuelve la promesa cuando se hayan cargado los nombres
+      });
     });
   }
 
