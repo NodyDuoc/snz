@@ -22,6 +22,7 @@ export class EtiquetaPage implements OnInit {
   searchQuery: string = '';
   etiquetaIdTemp: string = '';
   etiquetaDetalle?: Etiqueta; // Variable para almacenar los detalles de la etiqueta
+  detalleEtiquetas: string[] = []; // Array para almacenar las frases separadas
 
   constructor(
     private productoService: ProductoService,
@@ -51,16 +52,15 @@ export class EtiquetaPage implements OnInit {
         (data: Etiqueta) => {
           this.etiquetaDetalle = data; // Asigna la respuesta a la variable de detalles de la etiqueta
           console.log('Detalles de la etiqueta:', this.etiquetaDetalle);
+          this.procesarDetalleEtiqueta(); // Llama al método para dividir el texto en frases
         },
         (error) => {
           console.error('Error al obtener los detalles de la etiqueta', error);
           this.errorMessage = 'Hubo un problema al cargar los detalles de la etiqueta. Por favor, intenta más tarde.';
-          console.log('Hubo un problema al cargar los detalles de la etiqueta. Por favor, intenta más tarde.', this.searchQuery);
         }
       );
-    }
-    else{
-      console.log('Nisiquiera encontro 1', this.etiquetaIdTemp);
+    } else {
+      console.log('Nisiquiera encontró 1', this.etiquetaIdTemp);
     }
   }
 
@@ -72,6 +72,19 @@ export class EtiquetaPage implements OnInit {
       producto?.descripcion?.toLowerCase().includes(query)
     );
   }
+
+    // Método para dividir el texto de detalle en frases
+    procesarDetalleEtiqueta(): void {
+      if (this.etiquetaDetalle?.detalleEtiqueta) {
+        // Divide el texto usando un punto seguido de un espacio o fin de línea, pero no puntos en números o siglas
+        this.detalleEtiquetas = this.etiquetaDetalle.detalleEtiqueta
+          .split(/(?<!\d)\. /) // División basada en un punto que no siga un número
+          .map(frase => frase.trim()) // Elimina espacios extra
+          .filter(frase => frase !== '') // Filtra frases vacías
+          .map(frase => frase.endsWith('.') ? frase : `${frase}.`); // Asegura que todas las frases terminen en punto
+      }
+    }
+    
 
   realizarBusqueda(): void {
     console.log('Realizando búsqueda para:', this.searchQuery);
@@ -88,12 +101,10 @@ export class EtiquetaPage implements OnInit {
         },
         (error) => {
           console.error('Error al obtener los productos de la etiqueta', error);
-          console.log('Error al buscar productos:', this.etiquetaIdTemp);
         }
       );
-    }
-    else{
-      console.log('No se encontro ningun producto:', this.etiquetaIdTemp);
+    } else {
+      console.log('No se encontró ningún producto:', this.etiquetaIdTemp);
     }
   }
 

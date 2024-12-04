@@ -18,14 +18,15 @@
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Descripción</ion-label>
-            <ion-input
+            <ion-label  style="margin-bottom: 10px;"  position="stacked">Descripción</ion-label>
+            <ion-textarea
               [(ngModel)]="etiqueta.detalleEtiqueta"
               [readonly]="!isEditing"
               placeholder="Ingrese descripción"
-              class="styled-input"
-            ></ion-input>
-          </ion-item>
+              auto-grow="false"
+              class="styled-textarea"
+            ></ion-textarea>
+          </ion-item>          
         </ion-list>
       </ion-card-content>
     </ion-card>

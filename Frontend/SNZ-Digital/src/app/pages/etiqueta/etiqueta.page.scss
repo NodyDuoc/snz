@@ -108,3 +108,72 @@
     margin-top: 5px; 
   }
   
+
+  //ETIQUETAS
+
+/* SCSS elegante para las etiquetas */
+.etiquetas-container {
+  background-color: #f9f9f9; /* Fondo gris claro */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem 0;
+
+  h2 {
+    font-size: 2rem;
+    color: #333; /* Negro elegante */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+  }
+
+  .detalle-lista {
+    list-style-type: disc; /* Puntos para la lista */
+    margin: 1rem 0;
+    padding-left: 2rem;
+
+    li {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+  }
+
+
+
+  .etiqueta-item {
+    margin-bottom: 1.5rem;
+
+    strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #555; /* Gris oscuro */
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666; /* Gris intermedio */
+      background: #fff; /* Fondo blanco */
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0; /* Borde sutil */
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin: 0;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: #f0f0f0; /* Fondo más oscuro al pasar el mouse */
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  .etiqueta-item:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,40 +1,33 @@
 <ion-content [fullscreen]="true">
-
   <app-header></app-header>
-
   <app-carrusel></app-carrusel>
 
-  <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Bienvenido a Nuestra Tienda!</ion-title>
-      <p class="sub-title">Explora nuestros productos y ofertas exclusivas</p>
-    </div>
-  
-    <div class="category-menu-container">
-      <ion-grid>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/catalogo"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Volver al Catálogo</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-        
-        <ion-row>
-          
-          <div *ngIf="etiquetaDetalle">
-            <h2 class="card-title">Etiquetas</h2>
-            <div class="card-content">
-              <div class="user-info-item">
-                <strong>etiquetaId:</strong>
-                <p>{{ etiquetaDetalle.etiquetaId || 'Vacio'}}</p>
-                <strong>nombreEtiqueta:</strong>
-                <p>{{ etiquetaDetalle.nombreEtiqueta || 'Vacio'}}</p>
-                <strong>detalleEtiqueta:</strong>
-                <p>{{ etiquetaDetalle.detalleEtiqueta || 'Vacio'}}</p>
- 
-              </div>
-            </div>
-          </div>
-      
-        </ion-row>
-      </ion-grid>
+  <div class="etiquetas-container" *ngIf="etiquetaDetalle">
+    <h2>Detalles de la Etiqueta</h2>
+    <div class="etiqueta-item">
+      <strong>Nombre:</strong>
+      <p>{{ etiquetaDetalle.nombreEtiqueta || 'Vacio' }}</p>
     </div>
+    <div class="etiqueta-item">
+      <strong>Detalle:</strong>
+      <ul class="detalle-lista">
+        <li *ngFor="let frase of detalleEtiquetas">{{ frase }}</li>
+      </ul>
+    </div>
+  </div>
   
+  
+  
+
     <div *ngIf="filteredProductos.length > 0; else noProducts">
       <div class="productos-container">
         <div class="producto-card" *ngFor="let producto of productos">
@@ -59,8 +52,6 @@
     <ng-template #noProducts>
       <p>No hay productos disponibles en este momento.</p>
     </ng-template>
-
-  </div>
 
   <app-footer></app-footer>
 </ion-content>

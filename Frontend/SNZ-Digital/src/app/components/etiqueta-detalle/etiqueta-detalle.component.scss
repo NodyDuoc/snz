@@ -1,4 +1,5 @@
 /* Fondo del contenido */
+/* Fondo del contenido */
 ion-content {
   --padding-start: 16px;
   --padding-end: 16px;
@@ -9,12 +10,49 @@ ion-content {
   --background-size: cover;
 }
 
+:host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md {
+  height: 200px !important; /* Incrementa la altura del contenedor */
+  max-height: 200px !important; /* Permite un área más grande */
+  overflow-y: auto !important; /* Activa el desplazamiento si es necesario */
+}
+
+:host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea {
+  height: 200px !important; /* Asegura que el textarea se ajuste al contenedor */
+  min-height: 200px; /* El área mínima siempre será igual al contenedor */
+  overflow-y: auto !important; /* Scroll si el contenido excede */
+  resize: none; /* Desactiva el redimensionamiento manual */
+}
+
+:host ::ng-deep ion-textarea {
+  display: block !important;
+}
+
+
+:host ::ng-deep ion-textarea textarea {
+  overflow-y: auto !important; /* Asegura el scroll en el texto */
+}
+
+/* Estilo del scrollbar */
+:host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar {
+  width: 10px; /* Tamaño de la barra */
+}
+
+:host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar-thumb {
+  background-color: #b0b0b0; /* Color del "pulgar" */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+:host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Color del fondo del track */
+}
+
+
+
 /* Contenedor principal del header */
 .custom-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff; /* Fondo blanco */
   border-bottom: 2px solid black; /* Borde negro */
   border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
   padding: 16px; /* Espaciado interno */
@@ -48,7 +86,6 @@ ion-content {
 
 /* Tarjetas */
 ion-card {
-  background: white;  
   border-radius: 1rem;  
   box-shadow: 0 10px 10px rgba(0, 0, 0, 2); /* Sombra estática suave */
 }
@@ -59,7 +96,6 @@ ion-card-content {
 
 /* Inputs estilizados */
 .styled-input {
-  --background: #ffffff;
   --padding-start: 12px;
   --padding-end: 12px;
   --border-radius: 8px;
