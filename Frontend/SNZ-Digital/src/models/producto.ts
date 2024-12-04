@@ -7,5 +7,8 @@ export interface Producto {
     marca?: string; 
     categoriaCatId: number;    // ID de la categoría
     status?: number; 
+    inventario?: number;
+    inventarioDisponible?: number;
+    reserva?: number;
   }
   
