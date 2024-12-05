@@ -1,60 +1,73 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
-  
-  <div class="container-card">
-    <div class="header-title">
-      <ion-title class="main-title">¡Gestión de Kardex!</ion-title>
-      <p class="sub-title">Aquí puedes gestionar los registros de kardex de los productos</p>
-    </div>
+  <app-carrusel></app-carrusel>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Gestión de Kardex</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/index"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" class="ion-text-start">
-          <ion-button 
-            expand="full" 
-            fill="solid" 
-            routerLink="/index" 
-            class="custom-button">
-            <ion-icon name="arrow-back" slot="start"></ion-icon>
-            Volver a la página principal
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div class="container-card">
+  
 
     <div class="kardex-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <a href="/kardex-crear">
-            <ion-button expand="full" class="custom-button">
-              Agregar Nuevo Registro de Kardex
-            </ion-button>
-          </a>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" *ngFor="let kardex of kardexRecords">
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>Producto ID: {{ kardex?.productoProductId || 'No disponible' }}</ion-card-title>
-                <p>ID de Kardex: {{ kardex?.kardexId || 'No disponible' }}</p>
-              </ion-card-header>
-              <ion-card-content>
-                <p>Fecha: {{ kardex?.fecha | date:'yyyy-MM-dd' }}</p>
-                <p>Hora: {{ kardex?.hora || 'No disponible' }}</p>
-                <p>Entrada: {{ kardex?.entrada || 0 }}</p>
-                <p>Salida: {{ kardex?.salida || 0 }}</p>
-                <p>Saldo: {{ kardex?.saldo || 0 }}</p>
-                <p>Precio Unitario: {{ kardex?.precioUnitario || 0 | currency }}</p>
-                <p>Precio Actualizado: {{ kardex?.precioActualizado || 0 | currency }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <div class="btn-container">
+        <a href="/kardex-crear">
+        <button class="btn btn-primary">
+          Agregar Nuevo Registro de Kardex
+        </button>
+      </a>
+      </div>
+       </div>
     </div>
-  </div>
 
-  <app-footer></app-footer>
+    <div class="container-card">
+
+
+
+      <div class="kardex-section">
+
+
+        <!-- Tabla de registros de kardex -->
+        <div class="table-card">
+          <ion-card-content>
+            <table class="direccion-table">
+              <thead>
+                <tr>
+                  <th>Kardex ID</th>
+                  <th>Producto ID</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+            
+                 
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let kardex of kardexRecords">
+                  <td>{{ kardex?.kardexId || 'No disponible' }}</td>
+                  <td>{{ kardex?.productoProductId || 'No disponible' }}</td>
+                  <td>{{ kardex?.fecha | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ kardex?.hora || 'No disponible' }}</td>
+                  <td>{{ kardex?.entrada || 0 }}</td>
+                  <td>{{ kardex?.salida || 0 }}</td>
+     
+                </tr>
+              </tbody>
+            </table>
+          </ion-card-content>
+        </div>
+
+        <!-- Mensaje si no hay registros de kardex -->
+        <ion-item *ngIf="kardexRecords.length === 0">
+          <ion-label class="noAhi">No se encontraron registros de kardex guardados.</ion-label>
+        </ion-item>
+      </div>
+    </div>
+    <app-footer></app-footer>
 </ion-content>

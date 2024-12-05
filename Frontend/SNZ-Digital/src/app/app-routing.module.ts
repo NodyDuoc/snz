@@ -229,9 +229,12 @@ const routes: Routes = [
   {
     path: 'guia/:Id',
     loadChildren: () => import('./pages/guia/guia.module').then( m => m.GuiaPageModule)
-  },  {
+  },
+  {
     path: 'maestro-guia',
-    loadChildren: () => import('./pages/maestro-guia/maestro-guia.module').then( m => m.MaestroGuiaPageModule)
+    loadChildren: () => import('./pages/maestro-guia/maestro-guia.module').then( m => m.MaestroGuiaPageModule),
+    canActivate: [validarSesionRolGuard],
+    data: { roles: ['ROLE_ADMINISTRADOR']}  
   },
 
 
