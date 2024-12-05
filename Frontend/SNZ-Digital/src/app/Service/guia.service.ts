@@ -18,4 +18,18 @@ export class GuideService {
   getGuideById(guideId: number): Observable<Guia> {
     return this.http.get<Guia>(`${this.baseUrl}/get/${guideId}`);
   }
+
+  createGuide(guia: Guia): Observable<Guia> {
+    return this.http.post<Guia>(`${this.baseUrl}/create`, guia);
+  }
+  
+
+  updateGuia(guideId: number, guia: Guia): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update/${guideId}`, guia);
+  }
+
+  deleteGuia(guideId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${guideId}`);
+  }
+
 }

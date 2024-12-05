@@ -229,7 +229,11 @@ const routes: Routes = [
   {
     path: 'guia/:Id',
     loadChildren: () => import('./pages/guia/guia.module').then( m => m.GuiaPageModule)
+  },  {
+    path: 'maestro-guia',
+    loadChildren: () => import('./pages/maestro-guia/maestro-guia.module').then( m => m.MaestroGuiaPageModule)
   },
+
 
 
 

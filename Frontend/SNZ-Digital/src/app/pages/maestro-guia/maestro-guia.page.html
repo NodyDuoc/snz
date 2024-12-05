@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+  <app-carrusel></app-carrusel>  
+  
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Ver Perfil Empleado</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/menu-trabajador"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <div class="container-card">
+
+    <ion-item>
+      <ion-label position="stacked">Detalle de la nueva guía</ion-label>
+      <ion-textarea
+        placeholder="Escribe aquí el detalle de la nueva guía..."
+        [(ngModel)]="nuevoDetalle"
+      ></ion-textarea>
+    </ion-item>
+    
+    <div class="direccion-section">
+      <div class="btn-container">
+        <button class="btn btn-primary" (click)="agregarNuevaGuia()">
+          Agregar Nueva Guia
+        </button>
+      </div>
+
+      <!-- Tabla de direcciones -->
+      <div class="table-card">
+        <ion-card-content>
+          <table class="direccion-table">
+            <thead>
+              <tr>
+                <th>Guia</th>
+                <th>Detalle</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let guia of guias">
+                <td>{{ guia?.guiaId || 'No disponible' }}</td>
+                <td>{{ guia?.detalle || 'No disponible' }}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="editarGuia(guia.guiaId)">EDITAR</button>
+                  <button class="btn btn-danger" (click)="eliminarGuia(guia.guiaId)">ELIMINAR</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </div>
+
+      <!-- Mensaje si no hay direcciones -->
+      <ion-item *ngIf="guias.length === 0">
+        <ion-label class="noAhi">No se encontraron etiquetas guardadas.</ion-label>
+      </ion-item>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

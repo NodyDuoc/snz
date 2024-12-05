@@ -1,0 +1,128 @@
+/* Fondo del contenido */
+/* Fondo del contenido */
+ion-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    --background: linear-gradient(rgb(255 255 255 / 6%), rgb(255 255 255 / 27%)), url(/assets/img/fondo-pantalla.jpg) no-repeat center center fixed;
+    --background-size: cover;
+  }
+  
+  :host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md {
+    height: 200px !important; /* Incrementa la altura del contenedor */
+    max-height: 200px !important; /* Permite un área más grande */
+    overflow-y: auto !important; /* Activa el desplazamiento si es necesario */
+  }
+  
+  :host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea {
+    height: 200px !important; /* Asegura que el textarea se ajuste al contenedor */
+    min-height: 200px; /* El área mínima siempre será igual al contenedor */
+    overflow-y: auto !important; /* Scroll si el contenido excede */
+    resize: none; /* Desactiva el redimensionamiento manual */
+  }
+  
+  :host ::ng-deep ion-textarea {
+    display: block !important;
+  }
+  
+  
+  :host ::ng-deep ion-textarea textarea {
+    overflow-y: auto !important; /* Asegura el scroll en el texto */
+  }
+  
+  /* Estilo del scrollbar */
+  :host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar {
+    width: 10px; /* Tamaño de la barra */
+  }
+  
+  :host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0; /* Color del "pulgar" */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  :host ::ng-deep ion-textarea .textarea-wrapper.sc-ion-textarea-md textarea::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Color del fondo del track */
+  }
+  
+  
+  
+  /* Contenedor principal del header */
+  .custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black; /* Borde negro */
+    border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
+    padding: 16px; /* Espaciado interno */
+  }
+  
+  /* Título estilizado */
+  .custom-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #222; /* Negro intenso */
+    margin: 0; /* Elimina margen predeterminado */
+  }
+  
+  /* Botón de cierre estilizado */
+  .custom-close-button {
+    background: transparent; /* Sin fondo */
+    border: 2px solid black; /* Borde negro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 8px 16px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    color: black; /* Texto negro */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+  }
+  
+  .custom-close-button:hover {
+    background: #eaeaea; /* Fondo gris claro al pasar el cursor */
+    color: #444; /* Texto gris oscuro al pasar el cursor */
+  }
+  
+  /* Tarjetas */
+  ion-card {
+    border-radius: 1rem;  
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 2); /* Sombra estática suave */
+  }
+  
+  ion-card-content {
+    padding: 16px;
+  }
+  
+  /* Inputs estilizados */
+  .styled-input {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 8px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Botones generales */
+  .btn {  
+    border: 2px solid black; /* Borde negro con un grosor de 2px */
+    border-radius: 12px; /* Bordes redondeados */
+    margin-top: 20px;
+    width: 100%;  
+    padding: 0.75rem;  
+    font-size: 1rem;  
+    font-weight: 600;  
+    cursor: pointer;  
+    transition: all 0.3s ease;  
+  }  
+  
+  .btn-primary {  
+    background: linear-gradient(135deg, #6a5acd, #8a2be2); /* Degradado morado */  
+    color: white;  
+    border: 2px solid black; /* Borde negro */
+    &:hover {  
+      opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
+    }  
+  }
+  

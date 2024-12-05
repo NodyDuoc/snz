@@ -1,0 +1,29 @@
+<div class="custom-header">
+  <h1 class="custom-title">{{ isEditing ? 'Editar Guia' : 'Detalles de Guai' }}</h1>
+  <button class="custom-close-button" (click)="close()">Cerrar</button>
+</div>
+
+<ion-content>
+  <div *ngIf="guia" class="content-container">
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label  style="margin-bottom: 10px;"  position="stacked">Detalle</ion-label>
+            <ion-textarea
+              [(ngModel)]="guia.detalle"
+              [readonly]="!isEditing"
+              placeholder="Ingrese descripción"
+              auto-grow="false"
+              class="styled-textarea"
+            ></ion-textarea>
+          </ion-item>          
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <button type="submit" class="btn btn-primary" (click)="saveChanges()">  
+      Guardar Cambios  
+    </button>  
+  </div>
+</ion-content>

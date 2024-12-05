@@ -152,7 +152,7 @@ async editarEtiqueta(etiquetaId: number) {
     // Actualiza la dirección en la lista si fue editada
     const index = this.etiquetas.findIndex(e => e.detalleEtiqueta === data.updatedEtiqueta.dirId);
     if (index !== -1) {
-      this.direcciones[index] = data.updatedDireccion;
+      this.etiquetas[index] = data.updatedEtiqueta;
     }
     
     // Redirige al perfil después de guardar los cambios
