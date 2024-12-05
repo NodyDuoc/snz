@@ -38,3 +38,9 @@ ion-toolbar {
       opacity: 0.9; /* Ligera opacidad al pasar el cursor */  
     }  
   }
+  .read-only-label {
+    font-size: 1rem;
+    color: var(--ion-text-color);
+    padding: 4px 0;
+  }
+  

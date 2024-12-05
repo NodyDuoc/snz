@@ -18,8 +18,11 @@ export class MaestroProductoEditarPage implements OnInit {
   imagenFile: File | null = null;
   isLoading: boolean = true;
 
-  productId!: number;
-  categoryId!: number;
+  inventario!: number;
+  inventarioDisponible!: number;
+
+  productId!: any;
+  categoryId!: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +37,8 @@ export class MaestroProductoEditarPage implements OnInit {
     this.productId = +this.route.snapshot.paramMap.get('productId')!;
     this.categoryId = +this.route.snapshot.paramMap.get('categoryId')!;
 
+    
+
     console.log('ID del producto recibido para edición:', this.productId);
 
     this.productoForm = this.formBuilder.group({
@@ -42,8 +47,10 @@ export class MaestroProductoEditarPage implements OnInit {
       status: [''],
       precio: ['', [Validators.required, Validators.min(0.01)]],
       imagen: [''],
-      marca: ['']
+      marca: [''],
+      reserva: [''],
     });
+    
     
     this.loadProducto();
   }
@@ -63,7 +70,26 @@ export class MaestroProductoEditarPage implements OnInit {
           status: producto.status === 1, // Convertir 1/0 a true/false
           precio: producto.precio,
           marca: producto.marca,
+          reserva: producto.reserva,
         });
+
+          if  (producto.inventario != null){
+            this.inventario = producto.inventario;
+
+          }
+          else{
+            this.inventario = 0;
+
+          }
+          if  (producto.inventarioDisponible != null){
+            this.inventarioDisponible = producto.inventarioDisponible;
+
+          }
+          else{
+            this.inventarioDisponible = 0;
+
+          }
+        
   
         this.imagePreview = producto.imagen ? `data:image/png;base64,${producto.imagen}` : 'assets/images/default.jpg';
         this.isLoading = false;
@@ -86,6 +112,7 @@ export class MaestroProductoEditarPage implements OnInit {
       formData.append('descripcion', this.productoForm.get('descripcion')?.value);
       formData.append('precio', this.productoForm.get('precio')?.value.toString());
       formData.append('marca', this.productoForm.get('marca')?.value);
+      formData.append('reserva', this.productoForm.get('reserva')?.value);
 
       // Convertir el valor del toggle (booleano) a 1 o 0
       const statusValue = this.productoForm.get('status')?.value ? 1 : 0;
