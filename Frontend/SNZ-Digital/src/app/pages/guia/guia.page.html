@@ -1,40 +1,36 @@
 <ion-content [fullscreen]="true">
   <app-header></app-header>
-  <app-carrusel></app-carrusel>
 
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/guias"></ion-back-button>
       </ion-buttons>
-      <ion-title>Volver</ion-title>
+      <ion-title>Volver a Guías</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div class="info-producto">
-    <h2>{{ guia.detalle }}</h2>
-
-    <div *ngIf="guia; else loading">
-      <div class="producto-detalle">
-
-        <div class="producto-info">
-          <h3>{{ guia.detalle }}</h3>
-
-
-
-        </div>
+  <div class="info-guia">
+    <ng-container *ngIf="guia; else loading">
+      <!-- Título principal del detalle -->
+      <div class="detalle-header">
+        <h1 class="detalle-titulo">Detalles de la Guía</h1>
       </div>
-    </div>
+
+      <!-- Contenido del detalle en formato lista -->
+      <div class="detalle-contenido">
+        <ul>
+          <li *ngFor="let frase of frases">
+            {{ frase }}
+          </li>
+        </ul>
+      </div>
+    </ng-container>
 
     <ng-template #loading>
-      <p>Cargando detalles de ls guia...</p>
+      <p>Cargando detalles de la guía...</p>
     </ng-template>
   </div>
-
-
-
-
-
 
   <app-footer></app-footer>
 </ion-content>

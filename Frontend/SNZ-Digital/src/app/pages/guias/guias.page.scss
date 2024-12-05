@@ -1,0 +1,145 @@
+/* General styles */
+:host {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  /* Container for the card layout */
+  .container-card {
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  /* Title styles */
+  .main-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .sub-title {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+  }
+  
+  /* Guides container */
+  .guides-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Guide card */
+  .guide-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Guide info */
+/* Guide card */
+.guide-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column; /* Organiza el contenido verticalmente */
+    justify-content: space-between; /* Distribuye el contenido con espacio entre ellos */
+    height: 100%; /* Asegura que las tarjetas sean de altura uniforme */
+  }
+  
+  .guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Guide info */
+  .guide-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Organiza el contenido verticalmente */
+    justify-content: flex-start; /* Mantén el texto al principio */
+    flex-grow: 1; /* Permite que esta sección ocupe el espacio restante */
+  }
+  
+  .guide-info h2 {
+    font-size: 1.3rem;
+    margin-bottom: auto; /* Asegura que el espacio crezca antes del botón */
+  }
+  
+  .guide-info p {
+    font-size: 1rem;
+    color: #34495e;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+  
+  /* Button styles */
+  .custom-button {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Asegura que el botón esté alineado al contenido */
+    margin-top: 20px; /* Asegura separación del contenido superior */
+  }
+  
+  .custom-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .custom-button i {
+    margin-right: 8px;
+  }
+  
+  
+  /* No guides template */
+  ::ng-deep #noGuides {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  /* Footer styles */
+  app-footer {
+    margin-top: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container-card {
+      padding: 15px;
+    }
+  
+    .main-title {
+      font-size: 1.3rem;
+    }
+  
+    .sub-title {
+      font-size: 1rem;
+    }
+  }
+  

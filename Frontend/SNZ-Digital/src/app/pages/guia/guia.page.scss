@@ -1,369 +1,71 @@
-// Variables para los colores y estilos
-$primary-color: #4a90e2;
-$accent-color: #ff7f50; // Nuevo color de acento para botones y detalles
-$secondary-color: #f8f9fa; // Color de fondo más suave
-$text-color: #333;
-$border-radius: 12px; // Bordes más redondeados
-$shadow-color: rgba(0, 0, 0, 0.1);
-$hover-shadow-color: rgba(0, 0, 0, 0.2);
-
-.info-producto {
-  padding: 24px;
-  background-color: $secondary-color;
-  border-radius: $border-radius;
-  box-shadow: 0 8px 20px $shadow-color;
-  max-width: 800px;
-  margin: 24px auto;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 26px;
-    font-weight: bold;
-    background: linear-gradient(to right, #76378f, #8e44ad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  
-
-  .producto-detalle {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-
-    .producto-imagen {
-      margin-right: 20px;
-      width: 320px;
-      height: 320px;
-      overflow: hidden;
-      border-radius: $border-radius;
-      box-shadow: 0 4px 12px $shadow-color;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s;
-      }
-
-      &:hover img {
-        transform: scale(1.05); // Efecto de zoom al pasar el mouse
-      }
-    }
-
-    .producto-info {
-      text-align: left;
-      max-width: 400px;
-
-      h3 {
-        font-size: 28px; // Tamaño mayor para destacar el nombre
-        margin-bottom: 12px;
-        color: $text-color;
-        font-weight: bold;
-      }
-
-      p {
-        font-size: 18px;
-        margin: 8px 0;
-        line-height: 1.6;
-        color: darken($text-color, 10%);
-      }
-
-      label {
-        font-size: 16px;
-        margin-right: 8px;
-        font-weight: 500;
-      }
-
-      select {
-        padding: 6px 10px;
-        font-size: 16px;
-        margin-bottom: 16px;
-        border-radius: $border-radius;
-        background-color: #fff; // Fondo blanco
-        color: $text-color; // Color del texto
-        border: 1px solid lighten($primary-color, 20%);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        transition: border-color 0.3s, box-shadow 0.3s;
-      
-        &:focus {
-          border-color: $primary-color;
-          outline: none;
-          box-shadow: 0 0 8px rgba($primary-color, 0.3); // Sombra de enfoque
-        }
-      
-        option {
-          color: $text-color; // Color del texto en las opciones
-        }
-      }
-      
-
-      button {
-        margin: 8px 6px;
-        padding: 12px 24px;
-        border: none;
-        border-radius: $border-radius;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-        font-weight: bold;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        i {
-          margin-right: 8px;
-        }
-
-        &.custom-button12 {
-          background-color: $primary-color;
-          color: white;
-
-          &:hover {
-            background-color: darken($primary-color, 10%);
-            transform: translateY(-2px);
-          }
-        }
-
-        &.custom-button {
-          background-color: $accent-color;
-          color: white;
-
-          &:hover {
-            background-color: darken($accent-color, 10%);
-            transform: translateY(-2px);
-          }
-        }
-      }
-    }
-  }
-
-  // Estilo para el mensaje de carga
-  ng-template {
-    text-align: center;
-    font-size: 18px;
-    color: lighten($text-color, 20%);
-  }
+.info-guia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
 }
 
-.titulo-valoraciones {  
-  text-align: center;  
-  margin-bottom: 16px;  
-  font-size: 28px;  
-  background: linear-gradient(to right, #76378f, #8e44ad);  
-  -webkit-background-clip: text;  
-  -webkit-text-fill-color: transparent;  
-  font-weight: bold;  
-}  
-
-.valoraciones {
-  margin: 20px auto;
-  max-width: 800px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-
-  h4 {
-    font-size: 22px;
-    color: #555;
-    margin-bottom: 16px;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .reseñas-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .reseña {
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f9f9;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .reseña-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
-
-      .usuario-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        text-transform: uppercase;
-      
-        .avatar-placeholder {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-          font-weight: bold;
-          border-radius: 50%;
-          color: white;
-        }
-      
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      
-
-      .usuario-detalles {
-        display: flex;
-        flex-direction: column;
-
-        .usuario-nombre {
-          font-size: 16px;
-          font-weight: bold;
-          color: #333;
-        }
-
-        .estrellas {
-          display: flex;
-          margin-top: 4px;
-
-          ion-icon {
-            font-size: 18px;
-            color: #ffd700;
-            margin-right: 2px;
-          }
-        }
-      }
-
-      button {
-        background: none;
-        border: none;
-        color: #e74c3c;
-        cursor: pointer;
-        font-size: 20px;
-
-        &:hover {
-          color: #c0392b;
-        }
-
-        ion-icon {
-          font-size: 20px;
-        }
-      }
-    }
-
-    .reseña-detalle {
-      margin-top: 10px;
-      padding-left: 60px;
-
-      .resena-texto {
-        font-size: 14px;
-        color: #666;
-        line-height: 1.6;
-      }
-    }
-  }
+.detalle-header {
+  margin-bottom: 16px;
 }
 
+.detalle-titulo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333; /* Texto más oscuro para contraste */
+  text-transform: uppercase; /* Texto en mayúsculas para destacar */
+  margin-bottom: 16px;
+}
 
-.formulario-valoracion {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
-  max-width: 600px;
+.detalle-contenido {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 24px; /* Más espacio interno */
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.5); /* Sombra más suave */
+  width: 100%;
+  max-width: 600px; /* Ancho máximo para el cuadro */
+  text-align: left; /* Alinear texto a la izquierda */
+}
 
-  .titulo-formulario {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
-    background: linear-gradient(to right, #76378f, #8e44ad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.detalle-contenido ul {
+  list-style-type: disc; /* Puntos para lista */
+  padding-left: 20px; /* Espaciado de lista */
+}
+
+.detalle-contenido li {
+  font-size: 18px;
+  line-height: 1.8; /* Más espacio entre líneas */
+  color: #555; /* Texto en gris oscuro */
+  margin-bottom: 12px; /* Espacio entre elementos de la lista */
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.loading-container p {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .detalle-contenido {
+    padding: 16px; /* Reducir padding en pantallas pequeñas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más ligera */
   }
 
-  .valoracion-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .detalle-titulo {
+    font-size: 22px; /* Título más pequeño en pantallas pequeñas */
   }
 
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    .input-label {
-      font-size: 16px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    ion-select, ion-textarea {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 14px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      transition: border-color 0.3s;
-
-      &:focus {
-        border-color: #8e44ad;
-        outline: none;
-      }
-    }
-
-    .input-textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .select-estrellas {
-      font-size: 14px;
-    }
-  }
-
-  .boton-enviar {
-    background-color: #8e44ad;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: darken(#8e44ad, 10%);
-    }
-  }
-
-  .mensaje-informativo {
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    margin-top: 16px;
+  .detalle-contenido li {
+    font-size: 16px; /* Reducir tamaño de fuente en pantallas pequeñas */
   }
 }

@@ -9,12 +9,12 @@
 
     <!-- Contenedor de guías -->
     <div class="guides-container">
-      <div class="guide-card" *ngFor="let guia of filteredGuides">
-
-        
-        <div class="guide-info"  (click)="verGuia(guia.guiaId)"           >
-          <p>{{ guia?.detalle || 'Descripción no disponible' }}</p>
-          <button class="custom-button">
+      <div class="guide-card" *ngFor="let guia of guias">
+        <div class="guide-info">
+          <!-- Título dinámico -->
+          <h2>{{ guia.titulo }}...</h2>
+          <!-- Frases de la guía -->
+          <button class="custom-button" (click)="verGuia(guia.guiaId)">
             <i class="fas fa-book-open"></i> Leer más
           </button>
         </div>

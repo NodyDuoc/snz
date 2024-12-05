@@ -10,7 +10,7 @@ import { Guia } from 'src/models/guia';
   styleUrls: ['./guias.page.scss'],
 })
 export class GuiasPage implements OnInit {
-  guias: Guia[] = []; // Lista de guías
+  guias: (Guia & { titulo: string })[] = []; // Lista de guías con título dinámico
   searchQuery: string = ''; // Búsqueda
   errorMessage: string = ''; // Para errores
   toastMessage: string | null = null;
@@ -21,11 +21,11 @@ export class GuiasPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastController: ToastController
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.cargarGuias();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.searchQuery = params.get('detalle') || '';
       this.realizarBusqueda();
     });
@@ -34,7 +34,14 @@ export class GuiasPage implements OnInit {
   cargarGuias() {
     this.guideService.getAllGuides().subscribe(
       (data: Guia[]) => {
-        this.guias = data;
+        // Procesa cada guía para agregar el atributo `frases` y un título dinámico
+        this.guias = data.map((guia) => {
+          return {
+            ...guia,
+            frases: this.procesarFrases(guia.detalle || ''),
+            titulo: this.generarTitulo(guia.detalle || ''),
+          };
+        });
         console.log('Guías cargadas:', this.guias);
       },
       (error) => {
@@ -44,9 +51,23 @@ export class GuiasPage implements OnInit {
     );
   }
 
+  procesarFrases(detalle: string): string[] {
+    return detalle
+      .split(/(?<!\d)\. /) // Divide por puntos seguidos de un espacio, excepto números
+      .map((frase) => frase.trim()) // Limpia espacios innecesarios
+      .filter((frase) => frase !== '') // Filtra frases vacías
+      .map((frase) => (frase.endsWith('.') ? frase : `${frase}.`)); // Asegura puntos al final
+  }
+
+  generarTitulo(detalle: string): string {
+    // Usa la primera frase del detalle como título
+    const primeraFrase = detalle.split(/(?<!\d)\. /)[0]?.trim();
+    return primeraFrase || 'Título predeterminado'; // Si no hay frases, usa un valor predeterminado
+  }
+
   get filteredGuides() {
     const query = this.searchQuery.toLowerCase();
-    return this.guias.filter(guia =>
+    return this.guias.filter((guia) =>
       guia.detalle?.toLowerCase().includes(query)
     );
   }
