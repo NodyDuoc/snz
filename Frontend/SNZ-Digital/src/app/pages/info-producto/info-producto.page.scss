@@ -367,3 +367,31 @@ $hover-shadow-color: rgba(0, 0, 0, 0.2);
     margin-top: 16px;
   }
 }
+
+/* Estilo para el mensaje sin valoraciones */
+.mensaje-sin-valoraciones {
+  background-color: #f9f9f9; /* Fondo suave */
+  color: #555; /* Texto gris oscuro */
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 16px 20px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde ligero */
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: center;
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  max-width: 600px; /* Ancho máximo */
+  margin: 20px auto; /* Centrado automático */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  display: flex; /* Flexbox para alinear ícono y texto */
+  align-items: center; /* Alinear verticalmente */
+  justify-content: center; /* Alinear horizontalmente */
+  gap: 8px; /* Espacio entre el ícono y el texto */
+}
+
+.mensaje-sin-valoraciones ion-icon {
+  font-size: 1.4rem; /* Tamaño del ícono */
+  color: #555; /* Color del ícono */
+}
+
+
+
