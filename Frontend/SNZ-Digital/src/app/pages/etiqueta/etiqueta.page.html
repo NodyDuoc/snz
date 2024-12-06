@@ -37,7 +37,6 @@
           <div class="producto-info">
             <h3>{{ producto?.productName || 'Nombre no disponible' }}</h3>
             <p>Precio: {{ producto.precio | currency:'$':'symbol':'1.0-0' }}</p>
-            <p>Id: {{ producto?.productId || 'No disponible' }}</p>
             <button class="custom-button12" (click)="agregarAlCarrito(producto)">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
